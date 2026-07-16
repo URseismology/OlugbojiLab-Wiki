@@ -39,6 +39,8 @@ Our lab utilizes a highly secure, encrypted pipeline extending from the public i
 *   **Services Hosted:**
     *   **Ollama AI Microservice:** Runs an RTX 3090 GPU via the NVIDIA Container Toolkit.
     *   **Deployed Model:** `coding-assistant` (a custom Socratic compilation of `deepseek-coder-v2`).
+        > [!NOTE]
+        > **Alignment Tax & HCI Considerations:** Because this model is significantly smaller than frontier web models, applying a strict "Socratic" prompt (forcing it to act as a digital TA without giving direct answers) imposes an *Alignment Tax*. The model spends heavily on formatting and persona adherence, which can occasionally degrade its mathematical reasoning on complex multidimensional problems (e.g., struggling to conceptualize 4D space). Students are warned to use the AI as an advanced autocomplete and brainstorming peer rather than an infallible mathematical engine.
 *   **Networking Architecture:** The Ollama API is exposed natively on the internal subnet at `http://128.151.53.156:11434`. It accepts direct traffic from `terra4-classnode` without requiring an `autossh` tunnel.
 *   **Configuration Files:**
     *   *NVIDIA CDI Spec:* `/etc/cdi/nvidia.yaml` (Manages GPU passthrough to Docker)
