@@ -67,3 +67,20 @@ Because `urseismogate` is highly sensitive, we do not require passwordless `sudo
     sudo cp /etc/nginx/sites-available/synology-proxy.backup_YYYY-MM-DD_HH-MM-SS /etc/nginx/sites-available/synology-proxy
     sudo systemctl restart nginx
     ```
+
+---
+
+## 4. JupyterHub Swarm Integration & Stabilization
+
+We utilize Docker Swarm to schedule `jupyterhub-singleuser` containers across multiple physical nodes (CPU vs GPU). Two critical stabilization fixes have been permanently applied to ensure this architecture functions seamlessly:
+
+### Socratic Identity Override (Dynamic Patching)
+The `jupyter-ai` library ships with a hardcoded `Jupyternaut` system prompt that ignores the local `Modelfile` prompt logic. To enforce our custom "Socratic Coding Assistant for Dr. Olugboji's Planetary Imaging and Earth Hazards Lab" persona, a dynamic Python patch is baked directly into `Dockerfile.student` and `Dockerfile.student-gpu`.
+*   **The Mechanism:** The `Dockerfile` executes a python one-liner during the build process that uses `import jupyter_ai_magics.base_provider as bp; file_path=bp.__file__.replace('.pyc', '.py')` to dynamically locate the system prompt code, regardless of the base container's Python version (3.11, 3.13, etc.).
+*   **Deployment Note:** The GPU image must be built directly on `urseismoadmin-Super-Server` to ensure the local Swarm worker node caches the updated image without requiring a full private registry push.
+
+### Docker Swarm Networking & Spawner Timeouts
+Because the Swarm manager (`terra4-classnode`) must communicate with single-user containers distributed across external worker nodes over an overlay network (`jupyter-swarm-net`), three critical `jupyterhub_config.py` parameters are strictly enforced:
+*   `c.Spawner.start_timeout = 300`: Extended from the default 60s to 300s to allow massive multi-gigabyte GPU images sufficient time to unpack and mount on the remote nodes.
+*   `c.Spawner.port = 8888`: Ensures Docker Swarm explicitly maps the internal container port to `8888` rather than dynamically assigning an unreachable random port or defaulting to port 80.
+*   `c.Spawner.ip = '0.0.0.0'`: Crucial for overlay network routing. If missing, the Jupyter server binds natively to `127.0.0.1` (localhost) inside the container, completely refusing all traffic from the Swarm manager. Setting it to `0.0.0.0` ensures the socket listens across the entire `jupyter-swarm-net` interface.
