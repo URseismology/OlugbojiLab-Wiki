@@ -47,4 +47,4 @@ TAs can run the `ta_reporting_script.py` script directly on `terra4-classnode` o
 
 **Download/View the Script:** 
 You can find the latest version of the TA Reporting script in the main lab scripts repository here:
-[https://github.com/URseismology/wavenet-epicAI/blob/main/chrisScripts/jupyterhub/ta_reporting_script.py](https://github.com/URseismology/wavenet-epicAI/blob/main/chrisScripts/jupyterhub/ta_reporting_script.py)
+[https://github.com/URseismology/OlugbojiLab-Wiki/blob/main/scripts/ta_reporting_script.py](https://github.com/URseismology/OlugbojiLab-Wiki/blob/main/scripts/ta_reporting_script.py)
