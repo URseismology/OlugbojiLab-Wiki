@@ -47,15 +47,21 @@ Our lab utilizes a highly secure, encrypted pipeline extending from the public i
 
 ---
 
-## 3. Future Extensions (Public Exposure)
+## 3. Deployed Extensions (DMZ Reverse Proxy)
 
-Currently, the AI backend and JupyterHub are restricted to the internal network. We have planned extensions to securely expose both **Architecture A (Remote GPU Spawning)** and **Architecture B (API Tunneling)** to the outside world using the `urseismogate` DMZ:
+We have successfully mapped the internal JupyterHub environment (`terra4-classnode`) to the public internet via the DMZ gateway.
 
-1.  **Architecture B (Socratic Microservice Exposure):**
-    *   We will configure an `autossh` reverse tunnel from `terravibranium-gpu` to `urseismogate`, mapping port `11434` to `localhost:55003` on the DMZ.
-    *   An Nginx routing block will expose `https://urseismogate.earth.rochester.edu/ai-api` securely, allowing authenticated external clients to query the Socratic coding assistant from anywhere.
+### Architecture A (Swarm JupyterHub Exposure):
+*   **The Tunnel:** A persistent `systemd` user service (`jupyter-tunnel.service`) running on `terra4-classnode` uses `autossh` to forward local port `8001` to remote port `55008` on the gateway.
+*   **The Gateway:** `urseismogate` runs Nginx, intercepting traffic to `https://urseismogate.earth.rochester.edu/lab/` and routing it into the `55008` tunnel.
+*   **JupyterHub Config:** JupyterHub is configured with `c.JupyterHub.base_url = '/lab'` so internal routing seamlessly aligns with the Nginx proxy path.
 
-2.  **Architecture A (Full PyTorch GPU Remote Spawning):**
-    *   For mature students needing raw GPU access, we will configure JupyterHub (or a dedicated secondary hub) to spawn remote Docker Swarm instances directly onto `terravibranium-gpu` rather than `terra4`.
-    *   We will then map the JupyterHub UI itself from `terra4` to the DMZ using an `autossh` tunnel (mapping `8001` to `55002`).
-    *   Nginx will route `https://urseismogate.earth.rochester.edu/jupyter` to this tunnel, providing seamless external access to heavy PyTorch notebook environments.
+### Nginx Installation & Rollback Procedure
+Because `urseismogate` is highly sensitive, we do not require passwordless `sudo` access to deploy changes. Instead, we use an automated script:
+1.  **Installation Script:** `~/apply_nginx.sh` is uploaded to `urseismoadmin-m2@urseismogate`.
+2.  **Backup Mechanism:** When executed via `sudo bash ~/apply_nginx.sh`, the script automatically creates a timestamped backup of the live configuration (e.g., `/etc/nginx/sites-available/synology-proxy.backup_2026-07-16_09-04-37`) before injecting the new proxy settings and restarting the daemon.
+3.  **Emergency Rollback:** To restore a previous configuration, an administrator simply logs into the gateway and runs:
+    ```bash
+    sudo cp /etc/nginx/sites-available/synology-proxy.backup_YYYY-MM-DD_HH-MM-SS /etc/nginx/sites-available/synology-proxy
+    sudo systemctl restart nginx
+    ```
