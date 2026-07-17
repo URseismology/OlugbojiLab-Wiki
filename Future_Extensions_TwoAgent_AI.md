@@ -22,6 +22,14 @@ We utilized a dedicated staging frontend machine:
 *   **DMZ Gateway:** `urseismogate`
     *   **Role:** Nginx routes external traffic from `https://urseismogate.earth.rochester.edu/lab-beta/` securely into `terra5-classnode` via an autossh tunnel on port `55009`.
 
+### Important: Swarm Node Clashing
+Please note that we have **not** mounted or joined the external `terravibranium-gpu` node into the `terra5-classnode` Docker Swarm. 
+
+**Will it clash with terra4-classnode if we do?**
+**YES.** A Docker worker node can only be joined to a single Docker Swarm at any given time. If we execute `docker swarm join` on `terravibranium-gpu` to attach it to the `terra5-classnode` staging Swarm (to test GPU profiling in `/lab-beta`), it will be forced to leave the production `terra4-classnode` Swarm. This would immediately break the PyTorch GPU Lab environment for all students on the live `/lab` server. 
+
+For this reason, the `/lab-beta` Swarm on `terra5-classnode` remains strictly CPU-only. It only communicates with `terravibranium-gpu` over the local network (port 8000) for the API proxy.
+
 ## 3. Software Infrastructure & Templates
 
 ## 3. Software Infrastructure (Proxy Implementation)
