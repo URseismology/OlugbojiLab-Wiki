@@ -85,3 +85,19 @@ Because the Swarm manager (`terra4-classnode`) must communicate with single-user
 *   `c.Spawner.start_timeout = 300`: Extended from the default 60s to 300s to allow massive multi-gigabyte GPU images sufficient time to unpack and mount on the remote nodes.
 *   `c.Spawner.port = 8888`: Ensures Docker Swarm explicitly maps the internal container port to `8888` rather than dynamically assigning an unreachable random port or defaulting to port 80.
 *   `c.Spawner.ip = '0.0.0.0'`: Crucial for overlay network routing. If missing, the Jupyter server binds natively to `127.0.0.1` (localhost) inside the container, completely refusing all traffic from the Swarm manager. Setting it to `0.0.0.0` ensures the socket listens across the entire `jupyter-swarm-net` interface.
+
+---
+
+## 5. Student Onboarding & Authorization
+
+JupyterHub is configured with `nativeauthenticator` which includes a strict security mechanism to prevent unauthorized users from consuming hardware resources.
+
+When a student clicks "Sign Up" and creates an account, they are placed in a **Pending Authorization** state. They are completely hidden from the standard Admin Panel until approved.
+
+**To Authorize New Students:**
+1. Log into JupyterHub with an administrator account (`urseismoadmin`).
+2. Navigate directly to the Authorization Portal: **[https://urseismogate.earth.rochester.edu/lab/hub/authorize](https://urseismogate.earth.rochester.edu/lab/hub/authorize)**
+3. Locate the pending student in the table and click **Authorize**.
+
+> [!TIP]
+> **Admin Workflow:** It is highly recommended that you simply bookmark the `/lab/hub/authorize` URL in your web browser. This gives you a 1-click shortcut to approve new students at the start of the semester without having to memorize the Native Authenticator routing path!
