@@ -97,3 +97,27 @@ async def generate_chat(req: ChatRequest):
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ```
+
+## 4. Production Migration Plan (Scaling the Class Environment)
+
+While `terra5-classnode` currently acts as a completely isolated sandbox (`/lab-beta`), it can be integrated into the production environment in the future to massively scale the compute capacity for the classroom. 
+
+To merge the environments, an administrator must execute the following topology changes:
+
+### A. Combine the Swarms (Load Balancing)
+Instead of running two competing JupyterHub servers, `terra5-classnode` should be converted into a **Swarm Worker Node** for `terra4-classnode`.
+1. Shut down the staging JupyterHub service on `terra5-classnode`.
+2. Execute `docker swarm leave` on `terra5` to destroy the isolated staging network.
+3. Execute `docker swarm join` on `terra5` using the join-token provided by `terra4-classnode`.
+4. **The Result:** When students log into the class portal on `terra4`, Docker Swarm will automatically distribute the `jupyterhub-singleuser` CPU containers across *both* `terra4` and `terra5`, instantly doubling classroom compute capacity.
+
+### B. Synchronize the Storage (NFS Mounting)
+For Swarm load-balancing to function seamlessly, `terra5-classnode` must mount the exact same NAS directory as `terra4`.
+1. Configure an NFS `/etc/fstab` mount on `terra5` pointing to the Synology NAS (`/mnt/production_uploads`).
+2. **The Result:** If Docker randomly schedules a student's container on `terra5` on Monday, and on `terra4` on Tuesday, they will have seamless read/write access to their identical `/mnt/production_uploads/class_work/username` directory.
+
+### C. Promote the Two-Agent Proxy to Production
+Once the Two-Agent Socratic proxy is verified in `/lab-beta`:
+1. The FastAPI proxy running on `terravibranium-gpu` (port 8000) becomes permanent.
+2. Update the `OLLAMA_HOST` in the production `terra4` configuration (`jupyterhub_config.py`) to route all AI traffic to `http://128.151.53.156:8000` instead of `11434`.
+3. **The Result:** All students in the live class environment instantly receive the upgraded Two-Agent AI, regardless of which physical server their container is running on!
