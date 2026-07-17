@@ -27,9 +27,20 @@ To manage the logistics of distributing labs and datasets to an entire class sim
 To assist students with complex coding challenges, the lab features an integrated, strictly-guided AI assistant backed by raw GPU computing power.
 
 ### The Socratic Coding Assistant
+
+> [!WARNING]
+> **Limitations of the AI Teaching Assistant**
+> 
+> The integrated AI Coding Assistant is an **Advanced Autocomplete Engine, not a Mathematical Engine**. You must treat the AI as a peer, not a professor. It is prone to:
+> * **Math Hallucinations:** Confidently generating incorrect formulas or ignoring custom variables in your code.
+> * **Dimensionality Errors:** Struggling to conceptualize mathematical spaces higher than 3 Dimensions.
+> * **Blind Confidence:** Inventing answers that look correct at first glance rather than admitting confusion.
+> 
+> **Your Responsibility:** You are the engineer. You must manually trace, calculate, and verify every piece of logic the AI suggests before trusting it in your assignments.
+
 *   **The Interface:** The student Docker image comes pre-installed with the `jupyter-ai` extension. Students can open the chat panel directly inside their Jupyter notebook.
-*   **The Routing:** The environment is pre-configured with `OLLAMA_HOST=http://128.151.53.156:11434`. When a student asks a question, the request is tunneled out of their container and securely sent to the `terravibranium-gpu` inference node.
-*   **The Rules:** The backend runs a customized `coding-assistant` model. This model is bound by a strict system prompt preventing it from generating direct code solutions. Instead, it acts as a digital TA, asking leading questions and offering pseudo-code hints to guide the student's learning process.
+*   **The Routing:** In the `/lab-beta` staging environment, the setup is configured with `OLLAMA_HOST=http://128.151.53.156:8000`. When a student asks a question, the request is tunneled out of their container and securely sent to a custom FastAPI proxy on the `terravibranium-gpu` inference node.
+*   **The Two-Agent Pipeline:** The backend runs a dual-model pipeline to prevent mathematical hallucinations. A raw, unconstrained mathematical solver (`qwen2.5-coder`) finds the true answer in the background. Then, a highly-empathetic Pedagogue model (`llama3.1`) takes this true answer and the student's prompt, and acts as a digital TA. It uses a strict system prompt to ask leading questions and offer pseudo-code hints to guide the student's learning process based *only* on the true solution.
 
 ### Full PyTorch GPU Access (For Advanced Students)
 While standard workloads run on the CPU `terra4-classnode`, advanced projects requiring heavy PyTorch training can leverage dedicated hardware.

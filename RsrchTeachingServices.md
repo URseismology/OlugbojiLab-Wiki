@@ -22,14 +22,22 @@ Our lab utilizes a highly secure, encrypted pipeline extending from the public i
 
 ## 2. The Computational Nodes
 
-### The Student Node: `terra4-classnode`
+### The Student Node (Production): `terra4-classnode`
 *   **IP Address:** `128.151.53.100`
-*   **Role:** The primary CPU and UI hosting server for students.
+*   **Role:** The primary CPU and UI hosting server for students in the main `/lab` environment.
 *   **Services Hosted:** 
     *   **JupyterHub Server:** Runs on local port `8001`. Spawns isolated Docker containers for each student.
 *   **Configuration Files:**
     *   *Docker Compose:* `~/jupyterhub_server/docker-compose.yml` (Deploys the hub)
     *   *Hub Config:* `~/jupyterhub_server/jupyterhub_config.py` (Manages student spawning and NAS volume mounting)
+
+### The Beta Student Node (Staging): `terra5-classnode`
+*   **IP Address:** `128.151.53.161`
+*   **Role:** The staging environment hosting the `/lab-beta` isolated Swarm. Used for testing new Docker images and the Two-Agent AI pipeline without impacting production.
+*   **Services Hosted:** 
+    *   **Beta JupyterHub Server:** Runs on local port `8001`.
+*   **Configuration Files:**
+    *   *Hub Config:* `~/jupyterhub_server/jupyterhub_config.py` (Configured with `c.JupyterHub.base_url = '/lab-beta/'`)
 
 ### The Socratic AI Node: `terravibranium-gpu`
 *   **IP Address:** `128.151.53.156`
@@ -53,10 +61,15 @@ Our lab utilizes a highly secure, encrypted pipeline extending from the public i
 
 We have successfully mapped the internal JupyterHub environment (`terra4-classnode`) to the public internet via the DMZ gateway.
 
-### Architecture A (Swarm JupyterHub Exposure):
+### Architecture A (Production Swarm Exposure):
 *   **The Tunnel:** A persistent `systemd` user service (`jupyter-tunnel.service`) running on `terra4-classnode` uses `autossh` to forward local port `8001` to remote port `55008` on the gateway.
 *   **The Gateway:** `urseismogate` runs Nginx, intercepting traffic to `https://urseismogate.earth.rochester.edu/lab/` and routing it into the `55008` tunnel.
 *   **JupyterHub Config:** JupyterHub is configured with `c.JupyterHub.base_url = '/lab'` so internal routing seamlessly aligns with the Nginx proxy path.
+
+### Architecture B (Beta Swarm Exposure):
+*   **The Tunnel:** A secondary `autossh` tunnel runs on `terra5-classnode`, forwarding its local JupyterHub port `8001` to remote port `55009` on the gateway.
+*   **The Gateway:** `urseismogate` runs a secondary Nginx `location /lab-beta/` block that routes external traffic to the `55009` tunnel.
+*   **JupyterHub Config:** The staging JupyterHub is configured with `c.JupyterHub.base_url = '/lab-beta/'` to map cleanly to the experimental environment.
 
 ### Nginx Installation & Rollback Procedure
 Because `urseismogate` is highly sensitive, we do not require passwordless `sudo` access to deploy changes. Instead, we use an automated script:
