@@ -101,3 +101,33 @@ When a student clicks "Sign Up" and creates an account, they are placed in a **P
 
 > [!TIP]
 > **Admin Workflow:** It is highly recommended that you simply bookmark the `/lab/hub/authorize` URL in your web browser. This gives you a 1-click shortcut to approve new students at the start of the semester without having to memorize the Native Authenticator routing path!
+
+---
+
+## 6. Future Capabilities (Hardware Access Control)
+
+Currently, JupyterHub presents a dropdown menu allowing **any authorized user** to freely select either the CPU profile (`student-lab`) or the GPU profile (`student-lab-gpu`).
+
+If we need to restrict the PyTorch GPU strictly to specific researchers (preventing undergraduates from hogging the Swarm VRAM), the `c.ProfilesSpawner.profiles` variable in `jupyterhub_config.py` can be converted into a dynamic Python function acting as a gateway:
+
+```python
+def dynamic_profile_list(spawner):
+    username = spawner.user.name
+    
+    # 1. Base CPU Profile (Everyone gets this)
+    profiles = [
+        ("CPU Basic Lab", "cpu", "dockerspawner.SwarmSpawner", dict(image='urseismo/student-lab:latest', ...))
+    ]
+    
+    # 2. VIP GPU Profile (Restricted Access)
+    allowed_gpu_users = ['urseismoadmin', 'dr_olugboji', 'senior_grad_student']
+    if username in allowed_gpu_users:
+        profiles.append(
+            ("PyTorch GPU Lab", "gpu", "dockerspawner.SwarmSpawner", dict(image='urseismo/student-lab-gpu:latest', ...))
+        )
+        
+    return profiles
+
+c.ProfilesSpawner.profiles = dynamic_profile_list
+```
+This intercepts the spawner upon login. Regular students will completely bypass the GPU option (they won't even see the dropdown button), while authorized users will retain full access to both environments.
