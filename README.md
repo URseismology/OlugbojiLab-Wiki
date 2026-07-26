@@ -24,6 +24,7 @@
 - [Prj16_Afr_SW_Tomo_Eq](Prj16_Afr_SW_Tomo_Eq.md)
 - [Prj17_Global_Eq_Study](Prj17_Global_Eq_Study.md)
 - [Prj18_Mid_mantle](Prj18_Mid_mantle.md)
+- [Prj19_AfrPlateMantle](Prj19_AfrPlateMantle.md)
 - [Prj1_MLD_AnisoRF](Prj1_MLD_AnisoRF.md)
 - [Prj2_SEUS_RF](Prj2_SEUS_RF.md)
 - [Prj3_AfricaLithosphere](Prj3_AfricaLithosphere.md)
@@ -36,8 +37,12 @@
 - [Prj4f_Africa_RF](Prj4f_Africa_RF.md)
 - [Prj4g_SSDeconv](Prj4g_SSDeconv.md)
 - [Prj4h_RF_EARS](Prj4h_RF_EARS.md)
+- [Prj5_HarnomicRFTraces](Prj5_HarnomicRFTraces.md)
 - [Prj6_AfrTomography](Prj6_AfrTomography.md)
 - [Prj7_RadonT](Prj7_RadonT.md)
+- [Prj8_PINNBessel](Prj8_PINNBessel.md)
+- [PrjXX_SAmericaNoise](PrjXX_SAmericaNoise.md)
+- [PrjX_Template](PrjX_Template.md)
 - [Prj_CratonBWave](Prj_CratonBWave.md)
 - [Prj_DL_Tomo_NSF](Prj_DL_Tomo_NSF.md)
 - [Prj_Krish](Prj_Krish.md)
@@ -68,4 +73,4 @@
 - [tm_test](tm_test.md)
 - [tmp](tmp.md)
 
-*Last automatically updated: 2026-07-19 00:00:03*
+*Last automatically updated: 2026-07-26 00:00:03*
