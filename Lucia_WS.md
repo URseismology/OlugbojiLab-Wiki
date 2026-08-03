@@ -20,64 +20,111 @@ The system is designed to handle large datasets efficiently and ensure high-qual
 
 ## 2. Data Architecture
 
-### Directory Structure
-
-The root directory of the project contains the following sub-directories:
-
-- **STATIONS_METADATA**
-- **Rover**
-- **GraphNoise**
-- **polarisation-package**
-
-Each sub-module has its own data structure, but they share a common infrastructure for data handling and processing.
-
-### Data Patterns
-
-#### STATIONS_METADATA
-- **Raw Metadata**: Initial station metadata files.
-- **Processed Metadata**: Enriched metadata with availability information.
-- **Validation Reports**: Detailed reports on data quality and validation results.
-
-#### Rover
-- **Request Files**: Configuration files specifying the seismic data to be retrieved.
-- **Downloaded Data**: Raw seismic data downloaded from repositories.
-- **Processed Data**: Seismic data processed using `rover` and `instaseis`.
-- **SLURM Job Logs**: Logs generated during batch processing on high-performance clusters.
-
-#### GraphNoise
-- **GML Files**: Seismic data in GML format.
-- **Updated Metadata**: Station metadata updated with new information from GML files.
-- **Visualizations**: Plots and charts generated from the processed data.
-- **Monthly Summaries**: Summary reports of monthly seismic activity.
-
-#### polarisation-package
-- **Raw Seismic Data**: Input data for polarization analysis.
-- **Processed Data**: Results of polarization calculations, including spectral and eigen-decomposition analyses.
-- **Visualizations**: Interactive plots and visualizations of polarization properties.
-
-### Example Data Patterns
-
-- **STATIONS_METADATA**
-  - `stations_raw.csv`: Raw station metadata.
-  - `stations_processed.csv`: Processed station metadata with availability information.
-  - `validation_report.txt`: Detailed validation report.
-
-- **Rover**
-  - `requests/config.json`: Configuration file for data retrieval.
-  - `data/raw/2023_10_01.mseed`: Raw seismic data in MiniSEED format.
-  - `data/processed/2023_10_01_processed.mseed`: Processed seismic data.
-  - `logs/job_12345.log`: SLURM job log.
-
-- **GraphNoise**
-  - `data/gml/2023_10_01.gml`: Seismic data in GML format.
-  - `metadata/stations_updated.csv`: Updated station metadata.
-  - `visualizations/2023_10_01_seismic_activity.png`: Visualization of seismic activity.
-  - `summaries/monthly_summary_2023_10.pdf`: Monthly summary report.
-
-- **polarisation-package**
-  - `data/raw/2023_10_01.mseed`: Raw seismic data for polarization analysis.
-  - `data/processed/2023_10_01_polarization_results.json`: Results of polarization calculations.
-  - `visualizations/2023_10_01_polarization_plot.html`: Interactive plot of polarization properties.
+```text
+Lucia_WS/
+├── GraphNoise/
+│   ├── Create_request-Copy1.ipynb
+│   ├── Create_request-Copy2.ipynb
+│   ├── Create_request-Copy3.ipynb
+│   ├── Create_request.ipynb
+│   ├── GraphNoise-Copy1.ipynb
+│   ├── GraphNoise.ipynb
+│   ├── Merge_old/
+│   │   ├── Updated_merge_daily_to_monthly-Copy1.ipynb
+│   │   ├── Updated_merge_daily_to_monthly-Copy2.ipynb
+│   │   ├── Updated_merge_daily_to_monthly-Copy3.ipynb
+│   │   ├── merge_daily_to_monthly.ipynb
+│   │   └── merge_daily_to_monthly_cleaned.ipynb
+│   ├── MetaData_GraphNoise-Copy1.ipynb
+│   ├── MetaData_GraphNoise.ipynb
+│   ├── Rover_download_request_draft.ipynb
+│   ├── Updated_merge_daily_to_monthly.ipynb
+│   ├── check_daily_monthly/
+│   │   ├── Check Daily gml.ipynb
+│   │   ├── Check Monthly.ipynb
+│   │   ├── Check_daily gml 2.ipynb
+│   │   ├── check_daily_gml_v3.ipynb
+│   │   └── chek_daily_gml_v2.ipynb
+│   ├── create_request.py
+│   ├── create_rover_requests_multi.ipynb
+│   ├── job_month.sh
+│   ├── job_month2.sh
+│   ├── multi_gmls_test.ipynb
+│   ├── rover_download.sh
+│   ├── single_gml_test.ipynb
+│   └── test_dnldData.py
+├── LoadPythonEnv.sh
+├── LoadPythonEnv_forErin.sh
+├── Rover/
+│   ├── Untitled.ipynb
+│   ├── batch_processing_script.sh
+│   ├── batch_processing_script_LH_prioritized.sh
+│   ├── batch_processing_script_LH_prioritized_test10.slurm
+│   ├── check_download.ipynb
+│   ├── check_missing.ipynb
+│   ├── check_missing_updated.ipynb
+│   ├── generate_stations_list.ipynb
+│   ├── process_gml_script.py
+│   ├── process_gml_script_LH.py
+│   ├── process_gml_script_old2.py
+│   ├── rover_download.sh
+│   ├── rover_download_BH_backup.sh
+│   ├── rover_download_BH_backup2.sh
+│   ├── rover_download_FURI.sh
+│   ├── rover_download_test10.slurm
+│   ├── rover_download_withTracking.sh
+│   ├── rover_download_withTracking_new.sh
+│   └── test_10.sh
+├── STATIONS_METADATA/
+│   ├── codes/
+│   │   ├── getting_started.ipynb
+│   │   └── task_1.ipynb
+│   ├── final_version/
+│   │   ├── Stations_meta_and_availability.ipynb
+│   │   └── Stations_meta_and_availability_sample.ipynb
+│   ├── results/
+│   │   └── ViewResult.ipynb
+│   └── test_lab/
+│       └── test_files1.ipynb
+└── polarisation-package/
+    ├── polarisation_calculation.py
+    ├── polarisation_main.py
+    ├── polarisation_package/
+    │   ├── Data_download/
+    │   │   ├── Data_Download_Draft.ipynb
+    │   │   ├── Data_Download_RAYN.ipynb
+    │   │   ├── Data_Download_RAYN_1997-Copy1.ipynb
+    │   │   ├── Data_Download_RAYN_1997.ipynb
+    │   │   └── Data_Download_Yicheng.ipynb
+    │   ├── Original_Code/
+    │   │   ├── __init__.py
+    │   │   ├── polarisation_calculation.py
+    │   │   ├── polarisation_main.py
+    │   │   └── polarisation_plot.py
+    │   ├── Polarisation_Fig4_replicate.ipynb
+    │   ├── Polarisation_Fig4_replicate_1997RTZ_00.ipynb
+    │   ├── Polarisation_Fig4_replicate_1997RTZ_10.ipynb
+    │   ├── Polarisation_Fig7_replicate-Copy1.ipynb
+    │   ├── Polarisation_Fig7_replicate.ipynb
+    │   ├── Polarisation_Fig7_replicate_with_printData.ipynb
+    │   ├── Polarisation_analysis_combined.ipynb
+    │   ├── Polarisation_generalized_save_kde.ipynb
+    │   ├── Polarisation_with_printData_generalize.ipynb
+    │   ├── Polarization_Sayan/
+    │   │   ├── Polarization_analysis_main_sayan_copy.ipynb
+    │   │   ├── polarization_calculation_sayan_copy.ipynb
+    │   │   └── polarization_plot_sayan_copy.ipynb
+    │   ├── Untitled.ipynb
+    │   ├── Untitled1.ipynb
+    │   ├── plot_kde_files.ipynb
+    │   └── unmodified_combined.ipynb
+    ├── polarisation_plot.py
+    ├── sayans_ipynb/
+    │   ├── polarization_calculation.ipynb
+    │   ├── polarization_main.ipynb
+    │   └── polarization_plot.ipynb
+    └── setup.py
+```
 
 ## 3. Code Reference
 

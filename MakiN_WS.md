@@ -19,27 +19,11 @@ This setup is intended to support automated and controlled execution of notebook
 
 ## 2. Data Architecture
 
-### Data Patterns and Structure
-
-The data in this project is organized into CSV files, each representing different datasets. These files are stored in the `/scratch/tolugboj_lab/MakiN_WS` directory. The filenames follow a consistent pattern:
-
-- **Naming Conventions**: Each file name includes network code, station code, location code, and channel code (e.g., `CI.GPO..BHZ.M.csv`).
-- **Content**: The CSV files contain time-series data from seismic stations, typically including columns for timestamp, amplitude, and other relevant metadata.
-
-### Data Files
-
-The following are examples of the data files in the project:
-
-- `CI.GPO..BHZ.M.csv`: Contains BHZ channel data from the CI network at the GPO station.
-- `IU.KEV..BHZ.M.csv`: Contains BHZ channel data from the IU network at the KEV station.
-- `fail_to_download.txt`: A text file listing files that failed to download.
-
-### Data Patterns
-
-- **Network Codes**: Abbreviations for seismic networks (e.g., CI, IU).
-- **Station Codes**: Identifiers for individual stations within a network (e.g., GPO, KEV).
-- **Location Codes**: Typically empty or '00' to indicate the default location.
-- **Channel Codes**: Indicates the type of data channel (e.g., BHZ for vertical component).
+```text
+MakiN_WS/
+├── Helloworld.ipynb
+└── LoadPythonEnv.sh
+```
 
 ## 3. Code Reference
 

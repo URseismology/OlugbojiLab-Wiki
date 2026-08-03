@@ -25,33 +25,102 @@ DLOPy is a comprehensive system designed for the automated determination of seis
 
 ## 2. Data Architecture
 
-### Data Structure
-The project's data is organized into several directories, each serving a specific purpose:
-
-#### `3_Src`
-- **DLOPy_v1.0**: Core module for seismic analysis.
-  - **Orient_PF.py**: Script for designing parameter files.
-  - **readlocal.py**: Script for reading local seismic data.
-  - **run_orientations.ipynb**: Jupyter notebook for automated orientation with global dispersion maps.
-  - **geographiclib**: Sub-module for geodesic calculations.
-  - **finalangle.py**: Script for final angle calculations.
-
-#### `1_Doc`
-- **tmp.sh**: Bash script for HPC job management using SLURM scheduler.
-  - **Job Submission**: Automates the submission of jobs to the 'debug' partition with a 30-second execution limit.
-  - **Logging**: Logs job details for tracking and troubleshooting.
-
-#### `4_Bin/DLOPy_v1.0`
-- **Seismic Data Processing**:
-  - **IRIS Data Retrieval**: Scripts for retrieving seismic data from the IRIS database.
-  - **Orientation Calculations**: Detailed calculations for instrument orientation using Rayleigh waves.
-  - **Statistical Outputs**: Generates statistical reports and visualizations.
-
-### Data Patterns
-- **Seismic Data Files**: Stored in various formats (e.g., SAC, ASCII) depending on the source.
-- **Parameter Files**: Configuration files used by `Orient_PF.py` to define parameters for orientation calculations.
-- **Orientation Results**: Output files containing the determined orientations and associated metadata.
-- **Geodesic Calculations**: Intermediate results from geodetic computations.
+```text
+Prj14_MiningCGV/
+├── 1_Doc/
+│   └── tmp.sh
+├── 3_Src/
+│   ├── DLOPy_v1.0/
+│   │   ├── Orient.py
+│   │   ├── Orient_PF.py
+│   │   ├── compcalcs.py
+│   │   ├── geographiclib/
+│   │   │   ├── __init__.py
+│   │   │   ├── accumulator.py
+│   │   │   ├── constants.py
+│   │   │   ├── geodesic.py
+│   │   │   ├── geodesiccapability.py
+│   │   │   ├── geodesicline.py
+│   │   │   ├── geomath.py
+│   │   │   └── polygonarea.py
+│   │   ├── locfuns.py
+│   │   ├── readlocal.py
+│   │   ├── run_orientations.ipynb
+│   │   ├── run_orientations.py
+│   │   └── setup-DLOPy.sh
+│   └── newfile.py
+└── 4_Bin/
+    └── DLOPy_v1.0/
+        ├── ._blank.py
+        ├── ._download_cat.py
+        ├── ._download_cat.sh
+        ├── ._download_catalog.py
+        ├── ._readlocalAF.py
+        ├── ._readlocalAF2.py
+        ├── ._run_csv.py
+        ├── ._run_oc.sh
+        ├── ._run_oc2.sh
+        ├── ._run_oc3.sh
+        ├── ._run_orientations2.py
+        ├── ._run_orientations3.py
+        ├── ._run_orientations4.py
+        ├── ._run_orientations5.py
+        ├── ._run_orientations6.py
+        ├── ._run_orientations_git.py
+        ├── ._run_orr.py
+        ├── ._run_orr2.py
+        ├── ._run_orr3.py
+        ├── ._run_ortest.py
+        ├── ._testme.py
+        ├── Orient.py
+        ├── Orient_PF.py
+        ├── YS/
+        │   └── PL37/
+        │       └── run_orientation.py
+        ├── bar_data.py
+        ├── blank.py
+        ├── compcalcs.py
+        ├── csv_test.py
+        ├── download_cat.py
+        ├── download_cat.sh
+        ├── download_catalog.py
+        ├── geographiclib/
+        │   ├── __init__.py
+        │   ├── accumulator.py
+        │   ├── constants.py
+        │   ├── geodesic.py
+        │   ├── geodesiccapability.py
+        │   ├── geodesicline.py
+        │   ├── geomath.py
+        │   └── polygonarea.py
+        ├── locfuns.py
+        ├── readlocal.py
+        ├── readlocalAF.py
+        ├── readlocalAF2.py
+        ├── run_csv.py
+        ├── run_oc.sh
+        ├── run_oc_1C.sh
+        ├── run_oc_2.sh
+        ├── run_oc_2H.sh
+        ├── run_oc_6A.sh
+        ├── run_oc_8A.sh
+        ├── run_orien6A.sh
+        ├── run_orientations.ipynb
+        ├── run_orientations.py
+        ├── run_orientations1C.py
+        ├── run_orientations2.py
+        ├── run_orientations2H.py
+        ├── run_orientations2cp.py
+        ├── run_orientations3.py
+        ├── run_orientations4.py
+        ├── run_orientations6A.py
+        ├── run_orientations8.py
+        ├── run_orientations8A.py
+        ├── run_orientationsXC.py
+        ├── run_orientationsXI.py
+        ├── setup-DLOPy.sh
+        └── why.py
+```
 
 ## 3. Code Reference
 

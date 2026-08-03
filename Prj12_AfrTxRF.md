@@ -27,33 +27,226 @@ The **ROOT** project is a comprehensive, multi-language environment designed for
 
 ## 2. Data Architecture
 
-### Data Patterns
-The **ROOT** project follows a structured data architecture to ensure efficient data flow and management across different modules. The key components of the data architecture include:
-
-1. **Data Input**: Raw seismic data is ingested from various sources, including seismic stations and synthetic models.
-2. **Data Processing**: Intermediate data files are generated during preprocessing, wave propagation, and FFT transformations.
-3. **Data Output**: Final results and visualizations are stored for analysis and reporting.
-
-### Data Flow
-1. **Raw Seismic Data**:
-   - **Sources**: Seismic stations, synthetic models.
-   - **Format**: ASCII, binary, NetCDF.
-   - **Location**: `2_Data/`
-
-2. **Intermediate Data Files**:
-   - **Types**: Preprocessed data, wave propagation results, FFT outputs.
-   - **Format**: MATLAB .mat files, binary files.
-   - **Location**: `3_Src/`, `4_Bin/`
-
-3. **Final Results and Visualizations**:
-   - **Types**: Plots, reports, performance metrics.
-   - **Format**: PNG, PDF, HTML.
-   - **Location**: `5_Results/`
-
-### Data Management
-- **Version Control**: Use Git for version control to track changes in data and scripts.
-- **Data Backup**: Regularly back up important datasets and results.
-- **Data Validation**: Implement validation checks to ensure data integrity.
+```text
+Prj12_AfrTxRF/
+├── 2_Data/
+│   └── synTest/
+│       └── datFiles/
+│           ├── FlatFileSynth/
+│           │   ├── RFcodes/
+│           │   │   ├── jp2tab.c
+│           │   │   ├── mk_macro.c
+│           │   │   ├── recfunk.ascii.f
+│           │   │   ├── recfunk_average.ascii.f
+│           │   │   ├── refft.c
+│           │   │   └── rfsyn.f
+│           │   ├── bin/
+│           │   │   ├── Blurb.m
+│           │   │   ├── GenerateSyntheticRF.sh
+│           │   │   └── ViewSyntheticRF.sh
+│           │   ├── refft.c
+│           │   ├── rfsyn.f
+│           │   └── rfsyn_erin.f
+│           ├── anirec_synth_clean_erin.f
+│           ├── makeVelModel.m
+│           ├── refft.c
+│           └── rfsyn.f
+├── 3_Src/
+│   ├── AGU19/
+│   │   ├── ._RunTransects_Afr.m
+│   │   ├── ._TransectWiggle_Afr.m
+│   │   ├── Africa_Sum_Plot.m
+│   │   ├── Africa_Tran.m
+│   │   ├── DemonstrateGaussStack.m
+│   │   ├── Fig_Save.m
+│   │   ├── RF_ACE.m
+│   │   ├── RF_Quality_Orientation_Analysis.m
+│   │   ├── RF_SNR.m
+│   │   ├── RunTransects_Afr.m
+│   │   ├── TransectWiggle_Afr.m
+│   │   ├── combineCrustTxt_AGU.m
+│   │   ├── savFig.m
+│   │   └── saveFig.m
+│   ├── BH_connect_batch_ex.m
+│   ├── Single_Station_RF_Workflow/
+│   │   ├── ._errorAnalysisH.m
+│   │   ├── HStaStackLinear.m
+│   │   ├── HStaStackMLD.m
+│   │   ├── HStackAnalyzer.m
+│   │   ├── RFGridAndPColorPlot.m
+│   │   ├── RFLoad.m
+│   │   ├── RFLoadError.m
+│   │   ├── RFWigglePlot.m
+│   │   ├── RFWigglePlotNoCrust.m
+│   │   ├── RVpStaStackLinear.m
+│   │   ├── RVpStaStackMLD.m
+│   │   ├── RVpStackAnalyzer.m
+│   │   ├── calculateBAZcov.m
+│   │   ├── createRFWorkflow.m
+│   │   ├── crustFilterFunction.m
+│   │   ├── epiDistBinSelect.m
+│   │   ├── errorAnalysisH.m
+│   │   ├── errorAnalysisRVp.m
+│   │   ├── fetchSingleStaData.m
+│   │   ├── getEqData.m
+│   │   ├── getSnr.m
+│   │   ├── getsnrev.m
+│   │   ├── loadAndPrepRF.m
+│   │   ├── matchEvents.m
+│   │   ├── mldSelector.m
+│   │   ├── mohoReverbTimes.m
+│   │   ├── mohoSelector.m
+│   │   ├── no_mld_single_station_RF_workflow.m
+│   │   ├── raypToEpiDist.m
+│   │   ├── saveCrustParam.m
+│   │   ├── saveRFData.m
+│   │   ├── single_sta_RF_bh_calls.m
+│   │   ├── single_station_RF_workflow.m
+│   │   ├── single_station_RF_workflow_NoStack_func.m
+│   │   ├── single_station_RF_workflow_func.m
+│   │   ├── travelTimes4MohoDepth.m
+│   │   └── urstr2date.m
+│   ├── bl_bluehive_startup.m
+│   ├── call_bh.m
+│   ├── iris19_script_archive/
+│   │   ├── ._RVpStackError.m
+│   │   ├── HStaStackLoop.m
+│   │   ├── JACKKNIFEplotTesting.m
+│   │   ├── RFLoadAndPlot.m
+│   │   ├── RFLoad_Prj12_Old.m
+│   │   ├── RFWiggleNoColor.m
+│   │   ├── RVpStaStackLoop.m
+│   │   ├── RVpStackError.m
+│   │   ├── RVpStackNthRoot.m
+│   │   ├── RVpWeightedStack.m
+│   │   ├── arrivalTimeAmpStack.m
+│   │   ├── fetchStationData.m
+│   │   ├── fetchStationData2.m
+│   │   ├── getAllParameters.m
+│   │   ├── getAllRF.m
+│   │   ├── getAllRF_bl.m
+│   │   ├── jackknifeTest.m
+│   │   ├── qualityEqGet.m
+│   │   ├── qualityEqGetSAC.m
+│   │   ├── rayPBinSelect.m
+│   │   ├── runRFWorkflow.m
+│   │   ├── runRFWorkflow_bl.m
+│   │   ├── saveRFplots.m
+│   │   ├── single_station_RF_workflow_OLD.m
+│   │   ├── smoothWin.m
+│   │   ├── stackRFWorkflow.m
+│   │   ├── stackRFWorkflowWeighted.m
+│   │   ├── stackRFWorkflow_bh.m
+│   │   ├── stackRFWorkflow_bhOLD.m
+│   │   ├── travelTimeCalculator.m
+│   │   └── weightedStack.m
+│   ├── liam_bluehive_startup.m
+│   ├── liam_startup.m
+│   ├── misc_plot_scripts/
+│   │   ├── ParameterSensitivityAnalysis.m
+│   │   ├── SingleStaRayPHist.m
+│   │   ├── StationMap_Moser.m
+│   │   ├── crustParamModelCompareStats.m
+│   │   ├── crustParamStats.m
+│   │   ├── metaDataPlot.m
+│   │   └── plotBazAndDist.m
+│   ├── misc_script/
+│   │   ├── checkIfInEARS.m
+│   │   ├── combineCrustParamTxt.m
+│   │   ├── dateCmp.m
+│   │   ├── getEARSdata.m
+│   │   ├── landmask_bl.m
+│   │   ├── noSACCount.m
+│   │   ├── synRunRF.m
+│   │   └── urdate2str.m
+│   └── synRF/
+│       ├── eqGeometry.m
+│       ├── fixFileNames.m
+│       ├── makeSynRF.m
+│       ├── synLoadAndPrepRF.m
+│       ├── synRunRF.m
+│       └── velmod2txt.m
+├── 4_Bin/
+│   ├── CRUST1/
+│   │   ├── CRUST1/
+│   │   │   ├── findCrust1cell.m
+│   │   │   └── getCrust1.m
+│   │   └── queryCRUST1.m
+│   ├── altmany-export_fig-410f0ad/
+│   │   ├── append_pdfs.m
+│   │   ├── copyfig.m
+│   │   ├── crop_borders.m
+│   │   ├── eps2pdf.m
+│   │   ├── export_fig.m
+│   │   ├── fix_lines.m
+│   │   ├── ghostscript.m
+│   │   ├── im2gif.m
+│   │   ├── isolate_axes.m
+│   │   ├── pdf2eps.m
+│   │   ├── pdftops.m
+│   │   ├── print2array.m
+│   │   ├── read_write_entire_textfile.m
+│   │   ├── user_string.m
+│   │   └── using_hg2.m
+│   ├── cbrewer/
+│   │   └── cbrewer/
+│   │       └── cbrewer/
+│   │           ├── cbrewer.m
+│   │           ├── change_jet.m
+│   │           ├── interpolate_cbrewer.m
+│   │           └── plot_brewer_cmap.m
+│   ├── fmgaussfit.m
+│   ├── hline_vline/
+│   │   ├── hline.m
+│   │   └── vline.m
+│   ├── jbfill/
+│   │   └── jbfill.m
+│   ├── landmask_bl.m
+│   ├── mohoReverbTimes.m
+│   ├── plotCRUST1.m
+│   ├── plotDepth.m
+│   ├── polarPcolor.m
+│   └── testGaussFit.m
+├── 5_Results/
+│   └── Figures/
+│       └── AGU_19/
+│           └── Implication_Plot_AGU.m
+└── JobInfo2Delete/
+    ├── Job8849/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8850/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8851/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8852/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8853/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8854/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8855/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8856/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8857/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8858/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8859/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8860/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8861/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8863/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8867/
+    │   └── communicatingJobWrapper.sh
+    ├── Job8868/
+    │   └── communicatingJobWrapper.sh
+    └── Job8869/
+        └── communicatingJobWrapper.sh
+```
 
 ## 3. Code Reference
 

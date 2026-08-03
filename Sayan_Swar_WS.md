@@ -23,26 +23,3409 @@ The `ROOT` subsystem is a comprehensive environment designed for scientific comp
 
 ## 2. Data Architecture
 
-### Data Patterns
-The data architecture is designed to support various scientific projects with a focus on seismic and geophysical data. The key patterns include:
-
-#### File Types
-- **MAT Files**: Used for storing MATLAB data structures.
-- **MSEED Files**: Seismic waveform data in MiniSEED format.
-- **CSV Files**: Metadata and configuration files.
-
-#### Directory Structure
-The directory structure is organized to facilitate easy access and management of data. Key directories include:
-- `PythonEnv/Python_Notebooks`: Contains various projects with subdirectories for different experiments and datasets.
-- `bash_practice/scripts`: Scripts for file and directory management.
-- `data`: Central repository for all raw and processed data.
-
-#### Data Flow
-Data flows through the system in a structured manner:
-1. **Raw Data**: Collected from seismic stations or other sources.
-2. **Preprocessing**: Raw data is preprocessed using scripts in `bash_practice`.
-3. **Analysis**: Preprocessed data is analyzed using Jupyter Notebooks and MATLAB scripts in `PythonEnv/Python_Notebooks`.
-4. **Results**: Analysis results are stored and visualized.
+```text
+Sayan_Swar_WS/
+├── PythonEnv/
+│   ├── Python_Notebooks/
+│   │   ├── Africa_Taxonomy_Siyu/
+│   │   │   ├── Siyu_Data_V4_Africa_Regions.ipynb
+│   │   │   ├── figX_ADAMAVelBox.m
+│   │   │   └── figX_ADAMAVelBox_V2.m
+│   │   ├── Beam_Catalog_Prep/
+│   │   │   ├── Archive/
+│   │   │   │   ├── Analyzing_Issues_in_Beam_Database_Metadata.ipynb
+│   │   │   │   ├── EDA_DEC4_Beam_Database.ipynb
+│   │   │   │   └── Pull_LatLon_Data_Station_Beam.ipynb
+│   │   │   ├── Catalog_Network_Analysis.ipynb
+│   │   │   ├── Download_Data_Visualize_Sample_Code.ipynb
+│   │   │   ├── Event_Catalog_Beams_Mag5to6_Analysis.ipynb
+│   │   │   ├── OJP_trim_event.ipynb
+│   │   │   ├── OJP_trim_event_modified.ipynb
+│   │   │   └── catalog_generation_slurm/
+│   │   │       ├── Generate_Event_Catalog_For_Beams_Mag5to6_Slurm_Script.py
+│   │   │       ├── catalog_batch_prep_script_run.sh
+│   │   │       ├── catalog_environment_load_script_call.sh
+│   │   │       └── helper_scripts/
+│   │   │           ├── Generate_Event_Catalog_For_Beams_Mag5to6_Slurm_Script.ipynb
+│   │   │           └── Generate_Station_Metadata.ipynb
+│   │   ├── Data_Analysis/
+│   │   │   ├── GllobalData_Metadata_Extraction.ipynb
+│   │   │   ├── Numbered_Event_Count.ipynb
+│   │   │   ├── Radeon_FrequencyProfiling.ipynb
+│   │   │   ├── Radeon_Metadata_Extraction.ipynb
+│   │   │   ├── Results_Signal_Analysis/
+│   │   │   │   └── pilot_G_ss.py
+│   │   │   ├── Sayan_Radeon_DataClean_with_Visuals.ipynb
+│   │   │   ├── Sayan_Read_EQ_America_Files_Draft.ipynb
+│   │   │   ├── Sayan_Read_EQ_Files_Draft.ipynb
+│   │   │   ├── Testing_EmailSend_DataDownload_Python_Scripts.ipynb
+│   │   │   ├── testfile.ipynb
+│   │   │   └── testfile2.ipynb
+│   │   ├── DraftScripts/
+│   │   │   ├── Plot_BAZ.ipynb
+│   │   │   ├── ReadEqCTBTO.ipynb
+│   │   │   ├── Read_Adama_Station_Conn.ipynb
+│   │   │   ├── hello.sh
+│   │   │   ├── hello_draft.sh
+│   │   │   ├── hello_test_params.ipynb
+│   │   │   ├── hello_test_params.py
+│   │   │   ├── hello_test_params.sh
+│   │   │   ├── hello_test_script.ipynb
+│   │   │   ├── hello_test_script.py
+│   │   │   ├── hello_test_script_draft.py
+│   │   │   ├── looping_main.sh
+│   │   │   └── looping_test.sh
+│   │   ├── ECECourses/
+│   │   │   └── CS_MRI.m
+│   │   ├── GoGlobal/
+│   │   │   └── scripts/
+│   │   │       ├── 4d_Radon_Existing_Global_Dataset_Analysis_Draft.ipynb
+│   │   │       ├── 4d_Radon_Existing_Global_Dataset_Preprocessing_and_Analysis.ipynb
+│   │   │       ├── 4d_Radon_Existing_Global_Metadata_Extraction.ipynb
+│   │   │       ├── 4d_Radon_Existing_Global_Spatial_Map_of_Stations.ipynb
+│   │   │       ├── 4d_Radon_Global_Analyze_All_Global_Station_Spatial_Distribution_Step_6C_copy.ipynb
+│   │   │       ├── 4d_Radon_Global_Analyze_Station_Events_Asia_Step_5_Drafts.ipynb
+│   │   │       ├── 4d_Radon_Global_Count_Good_Network_Station_Comb_5.ipynb
+│   │   │       ├── 4d_Radon_Global_Data_Registry_Step_6B.ipynb
+│   │   │       ├── 4d_Radon_Global_Download_All_Global_Stations_Step_1A.ipynb
+│   │   │       ├── 4d_Radon_Global_Download_Missing_Events_Data.ipynb
+│   │   │       ├── 4d_Radon_Global_Download_Station_Inventory_Step_1B.ipynb
+│   │   │       ├── 4d_Radon_Global_Download_Station_Operational_Details.ipynb
+│   │   │       ├── 4d_Radon_Global_Error_Analysis_During_Download_Step_6A.ipynb
+│   │   │       ├── 4d_Radon_Global_Filter_All_Global_Station_Events_Step_4.ipynb
+│   │   │       ├── 4d_Radon_Global_SNR_Analysis.ipynb
+│   │   │       ├── 4d_Radon_Global_SNR_Download_Script_Step_3.ipynb
+│   │   │       ├── 4d_Radon_Global_Sequencing_full_Step_8.ipynb
+│   │   │       ├── download_waveforms_slurm_step_5/
+│   │   │       │   ├── 4d_Radon_Global_Download_Rotate_SAC_Step_5.py
+│   │   │       │   ├── batch_prep_waveform_download_script_run.sh
+│   │   │       │   ├── helper_scripts/
+│   │   │       │   │   ├── 4d_Radon_Global_Download_Rotate_SAC_Step_5.ipynb
+│   │   │       │   │   ├── 4d_Radon_Global_Download_Rotate_SAC_Step_5_Troubleshoot.ipynb
+│   │   │       │   │   ├── 4d_Radon_Global_Download_Step_5_Error_Solve_For_No_Match_Chan_Metadata.ipynb
+│   │   │       │   │   └── 4d_Radon_Global_Download_Step_5_Error_Solve_For_NonUniform_Time_Span.ipynb
+│   │   │       │   └── waveform_download_script_call.sh
+│   │   │       ├── global_age_metadata/
+│   │   │       │   └── Fig0_CratonsOverview.m
+│   │   │       ├── global_all_catalog_prep_slurm_step_2/
+│   │   │       │   ├── 4d_Radon_Global_Download_All_Stations_Events_Slurm_Script.py
+│   │   │       │   ├── catalog_batch_prep_script_run.sh
+│   │   │       │   ├── catalog_environment_load_script_call.sh
+│   │   │       │   └── helper_scripts/
+│   │   │       │       ├── 4d_Radon_Global_Download_All_Stations_Events_Slurm_Script.ipynb
+│   │   │       │       ├── archive/
+│   │   │       │       │   └── 4d_Radon_Global_Download_All_Stations_Events_Slurm_Script_V0.ipynb
+│   │   │       │       └── rename_north_am_files.sh
+│   │   │       ├── matlab_scripts/
+│   │   │       │   ├── Single_Station_RF_Workflow/
+│   │   │       │   │   ├── ._errorAnalysisH.m
+│   │   │       │   │   ├── 1_setup_dwnld.sh
+│   │   │       │   │   ├── 2_dwnld_stn.sh
+│   │   │       │   │   ├── Debug_RF/
+│   │   │       │   │   │   ├── createRFWorkflow_2020.m
+│   │   │       │   │   │   ├── createRFWorkflow_CCP.m
+│   │   │       │   │   │   ├── createRFWorkflow_new.m
+│   │   │       │   │   │   ├── epiDistBinSelect.m
+│   │   │       │   │   │   ├── evan_bluehive_startup.m
+│   │   │       │   │   │   ├── fetchSingleStaData.m
+│   │   │       │   │   │   ├── job.slurm
+│   │   │       │   │   │   ├── runRF.m
+│   │   │       │   │   │   ├── runRF_BL.m
+│   │   │       │   │   │   ├── single_sta_RF_bh_calls.m
+│   │   │       │   │   │   ├── single_station_RF_workflow_CCP_func.m
+│   │   │       │   │   │   ├── single_station_RF_workflow_NoStack_func.m
+│   │   │       │   │   │   ├── single_station_RF_workflow_NoStack_func_2020.m
+│   │   │       │   │   │   ├── test_RF_BL.m
+│   │   │       │   │   │   └── test_runRF_BL.m
+│   │   │       │   │   ├── HStaStackLinear.m
+│   │   │       │   │   ├── HStaStackMLD.m
+│   │   │       │   │   ├── HStackAnalyzer.m
+│   │   │       │   │   ├── PmSTimes.m
+│   │   │       │   │   ├── RFGridAndPColorPlot.m
+│   │   │       │   │   ├── RFLoad.m
+│   │   │       │   │   ├── RFLoadError.m
+│   │   │       │   │   ├── RFWigglePlotNoCrust.m
+│   │   │       │   │   ├── RVpStaStackLinear.m
+│   │   │       │   │   ├── RVpStaStackMLD.m
+│   │   │       │   │   ├── RVpStackAnalyzer.m
+│   │   │       │   │   ├── calculateBAZcov.m
+│   │   │       │   │   ├── createRFWorkflow.m
+│   │   │       │   │   ├── createRFWorkflow_CCP.m
+│   │   │       │   │   ├── crustFilterFunction.m
+│   │   │       │   │   ├── epiDistBinSelect.m
+│   │   │       │   │   ├── epiDistBinSelect_ccp.m
+│   │   │       │   │   ├── errorAnalysisH.m
+│   │   │       │   │   ├── errorAnalysisRVp.m
+│   │   │       │   │   ├── evan_bluehive_startup.m
+│   │   │       │   │   ├── fetchSingleStaData.m
+│   │   │       │   │   ├── getEqData.m
+│   │   │       │   │   ├── getSACv2.m
+│   │   │       │   │   ├── getSnr.m
+│   │   │       │   │   ├── getsnrev.m
+│   │   │       │   │   ├── loadAndPrepRF.m
+│   │   │       │   │   ├── matchEvents.m
+│   │   │       │   │   ├── mldSelector.m
+│   │   │       │   │   ├── mohoReverbTimes.m
+│   │   │       │   │   ├── mohoSelector.m
+│   │   │       │   │   ├── raypToEpiDist.m
+│   │   │       │   │   ├── runRF.m
+│   │   │       │   │   ├── saveCrustParam.m
+│   │   │       │   │   ├── saveRFData.m
+│   │   │       │   │   ├── single_sta_RF_bh_calls.m
+│   │   │       │   │   ├── single_station_RF_workflow.m
+│   │   │       │   │   ├── single_station_RF_workflow_CCP_func.m
+│   │   │       │   │   ├── single_station_RF_workflow_NoStack_func.m
+│   │   │       │   │   ├── single_station_RF_workflow_func.m
+│   │   │       │   │   ├── single_stn_bh_call_slurm.m
+│   │   │       │   │   ├── travelTimes4MohoDepth.m
+│   │   │       │   │   └── urstr2date.m
+│   │   │       │   ├── matlab_rf_scripts_evan/
+│   │   │       │   │   ├── 1_Functions/
+│   │   │       │   │   │   ├── KdiagMask.m
+│   │   │       │   │   │   ├── KdiagMohoMask.m
+│   │   │       │   │   │   ├── MTCRF.m
+│   │   │       │   │   │   ├── MTCRF_ET.m
+│   │   │       │   │   │   ├── MTCRF_ET_se.m
+│   │   │       │   │   │   ├── MTCRF_se.m
+│   │   │       │   │   │   ├── Matlab_TauP.m
+│   │   │       │   │   │   ├── RFWigglePlot.m
+│   │   │       │   │   │   ├── RFaddNoise.m
+│   │   │       │   │   │   ├── RadonPlot.m
+│   │   │       │   │   │   ├── TauP-2.0/
+│   │   │       │   │   │   │   ├── bin/
+│   │   │       │   │   │   │   │   ├── taup.bat
+│   │   │       │   │   │   │   │   ├── taup_console.bat
+│   │   │       │   │   │   │   │   ├── taup_create.bat
+│   │   │       │   │   │   │   │   ├── taup_curve.bat
+│   │   │       │   │   │   │   │   ├── taup_path.bat
+│   │   │       │   │   │   │   │   ├── taup_pierce.bat
+│   │   │       │   │   │   │   │   ├── taup_setsac.bat
+│   │   │       │   │   │   │   │   ├── taup_table.bat
+│   │   │       │   │   │   │   │   └── taup_time.bat
+│   │   │       │   │   │   │   ├── gradle/
+│   │   │       │   │   │   │   │   └── gradlew.bat
+│   │   │       │   │   │   │   ├── native/
+│   │   │       │   │   │   │   │   ├── gettimes.c
+│   │   │       │   │   │   │   │   ├── gettimesf.f
+│   │   │       │   │   │   │   │   ├── taupnative.c
+│   │   │       │   │   │   │   │   └── taupnative.h
+│   │   │       │   │   │   │   └── src/
+│   │   │       │   │   │   │       ├── main/
+│   │   │       │   │   │   │       │   ├── java/
+│   │   │       │   │   │   │       │   │   └── edu/
+│   │   │       │   │   │   │       │   │       └── sc/
+│   │   │       │   │   │   │       │   │           └── seis/
+│   │   │       │   │   │   │       │   │               └── TauP/
+│   │   │       │   │   │   │       │   │                   ├── Alert.java
+│   │   │       │   │   │   │       │   │                   ├── Arrival.java
+│   │   │       │   │   │   │       │   │                   ├── ArrivalPlot.java
+│   │   │       │   │   │   │       │   │                   ├── ArrivalTableModel.java
+│   │   │       │   │   │   │       │   │                   ├── Assert.java
+│   │   │       │   │   │   │       │   │                   ├── BuildVersion.java
+│   │   │       │   │   │   │       │   │                   ├── Complex.java
+│   │   │       │   │   │   │       │   │                   ├── CriticalDepth.java
+│   │   │       │   │   │   │       │   │                   ├── CurvePlot.java
+│   │   │       │   │   │   │       │   │                   ├── DepthRange.java
+│   │   │       │   │   │   │       │   │                   ├── DistPlot.java
+│   │   │       │   │   │   │       │   │                   ├── Format.java
+│   │   │       │   │   │   │       │   │                   ├── NoSuchLayerException.java
+│   │   │       │   │   │   │       │   │                   ├── NoSuchMatPropException.java
+│   │   │       │   │   │   │       │   │                   ├── Outputs.java
+│   │   │       │   │   │   │       │   │                   ├── PathPlot.java
+│   │   │       │   │   │   │       │   │                   ├── PhaseDialog.java
+│   │   │       │   │   │   │       │   │                   ├── PhaseName.java
+│   │   │       │   │   │   │       │   │                   ├── PierceTableModel.java
+│   │   │       │   │   │   │       │   │                   ├── PolarPlot.java
+│   │   │       │   │   │   │       │   │                   ├── PropertyLoader.java
+│   │   │       │   │   │   │       │   │                   ├── ReflTransCoefficient.java
+│   │   │       │   │   │   │       │   │                   ├── SeismicPhase.java
+│   │   │       │   │   │   │       │   │                   ├── Sfun.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessLayer.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessModel.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessModelException.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessPlot.java
+│   │   │       │   │   │   │       │   │                   ├── SphericalCoords.java
+│   │   │       │   │   │   │       │   │                   ├── SphericalSModel.java
+│   │   │       │   │   │   │       │   │                   ├── SplitLayerInfo.java
+│   │   │       │   │   │   │       │   │                   ├── TauBranch.java
+│   │   │       │   │   │   │       │   │                   ├── TauModel.java
+│   │   │       │   │   │   │       │   │                   ├── TauModelException.java
+│   │   │       │   │   │   │       │   │                   ├── TauModelLoader.java
+│   │   │       │   │   │   │       │   │                   ├── TauP.java
+│   │   │       │   │   │   │       │   │                   ├── TauPApplet.java
+│   │   │       │   │   │   │       │   │                   ├── TauPClient.java
+│   │   │       │   │   │   │       │   │                   ├── TauPDaemon.java
+│   │   │       │   │   │   │       │   │                   ├── TauPException.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Console.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Create.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Curve.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Path.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Peek.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Pierce.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_SetSac.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Table.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Time.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_WCreate.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_WKBJ.java
+│   │   │       │   │   │   │       │   │                   ├── TauPlot.java
+│   │   │       │   │   │   │       │   │                   ├── Theta.java
+│   │   │       │   │   │   │       │   │                   ├── TimeDist.java
+│   │   │       │   │   │   │       │   │                   ├── TimeDistPlot.java
+│   │   │       │   │   │   │       │   │                   ├── TimePlot.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityLayer.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityModel.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityModelException.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityPlot.java
+│   │   │       │   │   │   │       │   │                   └── XYPlot.java
+│   │   │       │   │   │   │       │   └── resources/
+│   │   │       │   │   │   │       │       └── edu/
+│   │   │       │   │   │   │       │           └── sc/
+│   │   │       │   │   │   │       │               └── seis/
+│   │   │       │   │   │   │       │                   └── TauP/
+│   │   │       │   │   │   │       │                       └── jython/
+│   │   │       │   │   │   │       │                           └── taup/
+│   │   │       │   │   │   │       │                               ├── __init__.py
+│   │   │       │   │   │   │       │                               └── distaz.py
+│   │   │       │   │   │   │       └── test/
+│   │   │       │   │   │   │           └── java/
+│   │   │       │   │   │   │               └── edu/
+│   │   │       │   │   │   │                   └── sc/
+│   │   │       │   │   │   │                       └── seis/
+│   │   │       │   │   │   │                           └── TauP/
+│   │   │       │   │   │   │                               ├── AK135Test.java
+│   │   │       │   │   │   │                               ├── ConstantModelTest.java
+│   │   │       │   │   │   │                               ├── Dist180Test.java
+│   │   │       │   │   │   │                               ├── MoonTest.java
+│   │   │       │   │   │   │                               ├── ParamDifferential.java
+│   │   │       │   │   │   │                               ├── ReflTransTest.java
+│   │   │       │   │   │   │                               ├── SphericalCoordsTest.java
+│   │   │       │   │   │   │                               └── SurfaceWaveTest.java
+│   │   │       │   │   │   ├── allall.m
+│   │   │       │   │   │   ├── anyany.m
+│   │   │       │   │   │   ├── aresame.m
+│   │   │       │   │   │   ├── axeshandles.m
+│   │   │       │   │   │   ├── boxon.m
+│   │   │       │   │   │   ├── cell2col.m
+│   │   │       │   │   │   ├── cellength.m
+│   │   │       │   │   │   ├── cellplot.m
+│   │   │       │   │   │   ├── cellsize.m
+│   │   │       │   │   │   ├── col2cell.m
+│   │   │       │   │   │   ├── corfreq.m
+│   │   │       │   │   │   ├── costaper.m
+│   │   │       │   │   │   ├── crop.m
+│   │   │       │   │   │   ├── dataresample.m
+│   │   │       │   │   │   ├── dataselect.m
+│   │   │       │   │   │   ├── deg180.m
+│   │   │       │   │   │   ├── deg360.m
+│   │   │       │   │   │   ├── f_pws.m
+│   │   │       │   │   │   ├── fetchSingleStaData.m
+│   │   │       │   │   │   ├── fftrl.m
+│   │   │       │   │   │   ├── filtspec.m
+│   │   │       │   │   │   ├── forward_radon_freq_umd.m
+│   │   │       │   │   │   ├── fourier.m
+│   │   │       │   │   │   ├── frac.m
+│   │   │       │   │   │   ├── gauss.m
+│   │   │       │   │   │   ├── getEqData.m
+│   │   │       │   │   │   ├── getSACv2.m
+│   │   │       │   │   │   ├── getSnr.m
+│   │   │       │   │   │   ├── getValue.m
+│   │   │       │   │   │   ├── get_q_t.m
+│   │   │       │   │   │   ├── getsnr.m
+│   │   │       │   │   │   ├── getsnrev.m
+│   │   │       │   │   │   ├── getsrate.m
+│   │   │       │   │   │   ├── hilbm.m
+│   │   │       │   │   │   ├── ifftrl.m
+│   │   │       │   │   │   ├── interpbl.m
+│   │   │       │   │   │   ├── irisFetch.m
+│   │   │       │   │   │   ├── iseven.m
+│   │   │       │   │   │   ├── isodd.m
+│   │   │       │   │   │   ├── jbfill.m
+│   │   │       │   │   │   ├── linehandles.m
+│   │   │       │   │   │   ├── linering.m
+│   │   │       │   │   │   ├── linestyle.m
+│   │   │       │   │   │   ├── linestyleparse.m
+│   │   │       │   │   │   ├── loadsac3cRotSave.m
+│   │   │       │   │   │   ├── lqtrotate.m
+│   │   │       │   │   │   ├── makefigs_mspec.m
+│   │   │       │   │   │   ├── mat2col.m
+│   │   │       │   │   │   ├── matchEvents.m
+│   │   │       │   │   │   ├── matmult.m
+│   │   │       │   │   │   ├── maxmax.m
+│   │   │       │   │   │   ├── migrateAndStackRF.m
+│   │   │       │   │   │   ├── minmin.m
+│   │   │       │   │   │   ├── mspec.m
+│   │   │       │   │   │   ├── mwindow.m
+│   │   │       │   │   │   ├── nonnan.m
+│   │   │       │   │   │   ├── padpow2.m
+│   │   │       │   │   │   ├── psvrotate.m
+│   │   │       │   │   │   ├── pws_stack.m
+│   │   │       │   │   │   ├── radon3d_forward.m
+│   │   │       │   │   │   ├── radon3d_forward_adjoint.m
+│   │   │       │   │   │   ├── radon3d_pinv.m
+│   │   │       │   │   │   ├── raypToEpiDist.m
+│   │   │       │   │   │   ├── readsac.m
+│   │   │       │   │   │   ├── reporttest.m
+│   │   │       │   │   │   ├── rot.m
+│   │   │       │   │   │   ├── rotSAC.m
+│   │   │       │   │   │   ├── rotateWaveforms.m
+│   │   │       │   │   │   ├── sac2matv3.m
+│   │   │       │   │   │   ├── saveFig.m
+│   │   │       │   │   │   ├── seismic.m
+│   │   │       │   │   │   ├── shftwndo.m
+│   │   │       │   │   │   ├── shrink_tdsrt.m
+│   │   │       │   │   │   ├── shrink_tdsrt_mask.m
+│   │   │       │   │   │   ├── sleptap.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_data.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_fista.m
+│   │   │       │   │   │   ├── squared.m
+│   │   │       │   │   │   ├── stackwithovlpRFs.m
+│   │   │       │   │   │   ├── stat.m
+│   │   │       │   │   │   ├── tidefreq.m
+│   │   │       │   │   │   ├── tmat.m
+│   │   │       │   │   │   ├── to_grab_from_caller.m
+│   │   │       │   │   │   ├── to_overwrite.m
+│   │   │       │   │   │   ├── travelTimesAppx.m
+│   │   │       │   │   │   ├── twospecplot.m
+│   │   │       │   │   │   ├── urstr2date.m
+│   │   │       │   │   │   ├── use.m
+│   │   │       │   │   │   ├── vfilt.m
+│   │   │       │   │   │   ├── vindex.m
+│   │   │       │   │   │   ├── vindexinto.m
+│   │   │       │   │   │   ├── vlines.m
+│   │   │       │   │   │   ├── vmean.m
+│   │   │       │   │   │   ├── vmedian.m
+│   │   │       │   │   │   ├── vmoment.m
+│   │   │       │   │   │   ├── vrep.m
+│   │   │       │   │   │   ├── vshift.m
+│   │   │       │   │   │   ├── vstd.m
+│   │   │       │   │   │   ├── vsum.m
+│   │   │       │   │   │   ├── vswap.m
+│   │   │       │   │   │   ├── vzeros.m
+│   │   │       │   │   │   ├── whichdir.m
+│   │   │       │   │   │   ├── writesac.m
+│   │   │       │   │   │   ├── xlog.m
+│   │   │       │   │   │   ├── xtick.m
+│   │   │       │   │   │   ├── yearfrac.m
+│   │   │       │   │   │   ├── ylog.m
+│   │   │       │   │   │   └── yoffset.m
+│   │   │       │   │   ├── 3_Workflw/
+│   │   │       │   │   │   ├── KMBL_tmp.m
+│   │   │       │   │   │   ├── TimeDomainRadon_tmp.m
+│   │   │       │   │   │   ├── a01_make_inwave_for_STACK.m
+│   │   │       │   │   │   ├── a0_download_event.m
+│   │   │       │   │   │   ├── a0_download_event_parallel.m
+│   │   │       │   │   │   ├── a0_setupparameters.m
+│   │   │       │   │   │   ├── a1_preprocess.m
+│   │   │       │   │   │   ├── a2_visualizeData.m
+│   │   │       │   │   │   ├── b1_runMTC.m
+│   │   │       │   │   │   ├── b2_plotMTC.m
+│   │   │       │   │   │   ├── b3_runCRISPRF.m
+│   │   │       │   │   │   ├── b3_runFISTA.m
+│   │   │       │   │   │   ├── b3_runFISTA_function.m
+│   │   │       │   │   │   ├── b3_runFISTA_updated.m
+│   │   │       │   │   │   ├── b4_fista_results.m
+│   │   │       │   │   │   ├── b4_fista_results_steve.m
+│   │   │       │   │   │   ├── b4_fista_results_steve_bkup.m
+│   │   │       │   │   │   ├── call_rf_workflow.m
+│   │   │       │   │   │   ├── call_rf_workflow_test.m
+│   │   │       │   │   │   ├── call_srt_fista.m
+│   │   │       │   │   │   ├── copy_dependencies.m
+│   │   │       │   │   │   ├── runEntireWrkflow.m
+│   │   │       │   │   │   ├── setup_rf_workflow.m
+│   │   │       │   │   │   ├── setup_srt_fista.m
+│   │   │       │   │   │   ├── setup_srt_fista_test.m
+│   │   │       │   │   │   └── test_script.m
+│   │   │       │   │   └── bkup/
+│   │   │       │   │       ├── 1_Functions/
+│   │   │       │   │       │   ├── KdiagMask.m
+│   │   │       │   │       │   ├── KdiagMohoMask.m
+│   │   │       │   │       │   ├── MTCRF.m
+│   │   │       │   │       │   ├── MTCRF_ET.m
+│   │   │       │   │       │   ├── MTCRF_ET_se.m
+│   │   │       │   │       │   ├── MTCRF_se.m
+│   │   │       │   │       │   ├── Matlab_TauP.m
+│   │   │       │   │       │   ├── RFWigglePlot.m
+│   │   │       │   │       │   ├── RFaddNoise.m
+│   │   │       │   │       │   ├── RadonPlot.m
+│   │   │       │   │       │   ├── TauP-2.0/
+│   │   │       │   │       │   │   ├── bin/
+│   │   │       │   │       │   │   │   ├── taup.bat
+│   │   │       │   │       │   │   │   ├── taup_console.bat
+│   │   │       │   │       │   │   │   ├── taup_create.bat
+│   │   │       │   │       │   │   │   ├── taup_curve.bat
+│   │   │       │   │       │   │   │   ├── taup_path.bat
+│   │   │       │   │       │   │   │   ├── taup_pierce.bat
+│   │   │       │   │       │   │   │   ├── taup_setsac.bat
+│   │   │       │   │       │   │   │   ├── taup_table.bat
+│   │   │       │   │       │   │   │   └── taup_time.bat
+│   │   │       │   │       │   │   ├── gradle/
+│   │   │       │   │       │   │   │   └── gradlew.bat
+│   │   │       │   │       │   │   ├── native/
+│   │   │       │   │       │   │   │   ├── gettimes.c
+│   │   │       │   │       │   │   │   ├── gettimesf.f
+│   │   │       │   │       │   │   │   ├── taupnative.c
+│   │   │       │   │       │   │   │   └── taupnative.h
+│   │   │       │   │       │   │   └── src/
+│   │   │       │   │       │   │       ├── main/
+│   │   │       │   │       │   │       │   ├── java/
+│   │   │       │   │       │   │       │   │   └── edu/
+│   │   │       │   │       │   │       │   │       └── sc/
+│   │   │       │   │       │   │       │   │           └── seis/
+│   │   │       │   │       │   │       │   │               └── TauP/
+│   │   │       │   │       │   │       │   │                   ├── Alert.java
+│   │   │       │   │       │   │       │   │                   ├── Arrival.java
+│   │   │       │   │       │   │       │   │                   ├── ArrivalPlot.java
+│   │   │       │   │       │   │       │   │                   ├── ArrivalTableModel.java
+│   │   │       │   │       │   │       │   │                   ├── Assert.java
+│   │   │       │   │       │   │       │   │                   ├── BuildVersion.java
+│   │   │       │   │       │   │       │   │                   ├── Complex.java
+│   │   │       │   │       │   │       │   │                   ├── CriticalDepth.java
+│   │   │       │   │       │   │       │   │                   ├── CurvePlot.java
+│   │   │       │   │       │   │       │   │                   ├── DepthRange.java
+│   │   │       │   │       │   │       │   │                   ├── DistPlot.java
+│   │   │       │   │       │   │       │   │                   ├── Format.java
+│   │   │       │   │       │   │       │   │                   ├── NoSuchLayerException.java
+│   │   │       │   │       │   │       │   │                   ├── NoSuchMatPropException.java
+│   │   │       │   │       │   │       │   │                   ├── Outputs.java
+│   │   │       │   │       │   │       │   │                   ├── PathPlot.java
+│   │   │       │   │       │   │       │   │                   ├── PhaseDialog.java
+│   │   │       │   │       │   │       │   │                   ├── PhaseName.java
+│   │   │       │   │       │   │       │   │                   ├── PierceTableModel.java
+│   │   │       │   │       │   │       │   │                   ├── PolarPlot.java
+│   │   │       │   │       │   │       │   │                   ├── PropertyLoader.java
+│   │   │       │   │       │   │       │   │                   ├── ReflTransCoefficient.java
+│   │   │       │   │       │   │       │   │                   ├── SeismicPhase.java
+│   │   │       │   │       │   │       │   │                   ├── Sfun.java
+│   │   │       │   │       │   │       │   │                   ├── SlownessLayer.java
+│   │   │       │   │       │   │       │   │                   ├── SlownessModel.java
+│   │   │       │   │       │   │       │   │                   ├── SlownessModelException.java
+│   │   │       │   │       │   │       │   │                   ├── SlownessPlot.java
+│   │   │       │   │       │   │       │   │                   ├── SphericalCoords.java
+│   │   │       │   │       │   │       │   │                   ├── SphericalSModel.java
+│   │   │       │   │       │   │       │   │                   ├── SplitLayerInfo.java
+│   │   │       │   │       │   │       │   │                   ├── TauBranch.java
+│   │   │       │   │       │   │       │   │                   ├── TauModel.java
+│   │   │       │   │       │   │       │   │                   ├── TauModelException.java
+│   │   │       │   │       │   │       │   │                   ├── TauModelLoader.java
+│   │   │       │   │       │   │       │   │                   ├── TauP.java
+│   │   │       │   │       │   │       │   │                   ├── TauPApplet.java
+│   │   │       │   │       │   │       │   │                   ├── TauPClient.java
+│   │   │       │   │       │   │       │   │                   ├── TauPDaemon.java
+│   │   │       │   │       │   │       │   │                   ├── TauPException.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Console.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Create.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Curve.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Path.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Peek.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Pierce.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_SetSac.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Table.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_Time.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_WCreate.java
+│   │   │       │   │       │   │       │   │                   ├── TauP_WKBJ.java
+│   │   │       │   │       │   │       │   │                   ├── TauPlot.java
+│   │   │       │   │       │   │       │   │                   ├── Theta.java
+│   │   │       │   │       │   │       │   │                   ├── TimeDist.java
+│   │   │       │   │       │   │       │   │                   ├── TimeDistPlot.java
+│   │   │       │   │       │   │       │   │                   ├── TimePlot.java
+│   │   │       │   │       │   │       │   │                   ├── VelocityLayer.java
+│   │   │       │   │       │   │       │   │                   ├── VelocityModel.java
+│   │   │       │   │       │   │       │   │                   ├── VelocityModelException.java
+│   │   │       │   │       │   │       │   │                   ├── VelocityPlot.java
+│   │   │       │   │       │   │       │   │                   └── XYPlot.java
+│   │   │       │   │       │   │       │   └── resources/
+│   │   │       │   │       │   │       │       └── edu/
+│   │   │       │   │       │   │       │           └── sc/
+│   │   │       │   │       │   │       │               └── seis/
+│   │   │       │   │       │   │       │                   └── TauP/
+│   │   │       │   │       │   │       │                       └── jython/
+│   │   │       │   │       │   │       │                           └── taup/
+│   │   │       │   │       │   │       │                               ├── __init__.py
+│   │   │       │   │       │   │       │                               └── distaz.py
+│   │   │       │   │       │   │       └── test/
+│   │   │       │   │       │   │           └── java/
+│   │   │       │   │       │   │               └── edu/
+│   │   │       │   │       │   │                   └── sc/
+│   │   │       │   │       │   │                       └── seis/
+│   │   │       │   │       │   │                           └── TauP/
+│   │   │       │   │       │   │                               ├── AK135Test.java
+│   │   │       │   │       │   │                               ├── ConstantModelTest.java
+│   │   │       │   │       │   │                               ├── Dist180Test.java
+│   │   │       │   │       │   │                               ├── MoonTest.java
+│   │   │       │   │       │   │                               ├── ParamDifferential.java
+│   │   │       │   │       │   │                               ├── ReflTransTest.java
+│   │   │       │   │       │   │                               ├── SphericalCoordsTest.java
+│   │   │       │   │       │   │                               └── SurfaceWaveTest.java
+│   │   │       │   │       │   ├── allall.m
+│   │   │       │   │       │   ├── anyany.m
+│   │   │       │   │       │   ├── aresame.m
+│   │   │       │   │       │   ├── axeshandles.m
+│   │   │       │   │       │   ├── boxon.m
+│   │   │       │   │       │   ├── cell2col.m
+│   │   │       │   │       │   ├── cellength.m
+│   │   │       │   │       │   ├── cellplot.m
+│   │   │       │   │       │   ├── cellsize.m
+│   │   │       │   │       │   ├── col2cell.m
+│   │   │       │   │       │   ├── corfreq.m
+│   │   │       │   │       │   ├── costaper.m
+│   │   │       │   │       │   ├── crop.m
+│   │   │       │   │       │   ├── dataresample.m
+│   │   │       │   │       │   ├── dataselect.m
+│   │   │       │   │       │   ├── deg180.m
+│   │   │       │   │       │   ├── deg360.m
+│   │   │       │   │       │   ├── f_pws.m
+│   │   │       │   │       │   ├── fetchSingleStaData.m
+│   │   │       │   │       │   ├── fftrl.m
+│   │   │       │   │       │   ├── filtspec.m
+│   │   │       │   │       │   ├── forward_radon_freq_umd.m
+│   │   │       │   │       │   ├── fourier.m
+│   │   │       │   │       │   ├── frac.m
+│   │   │       │   │       │   ├── gauss.m
+│   │   │       │   │       │   ├── getEqData.m
+│   │   │       │   │       │   ├── getSACv2.m
+│   │   │       │   │       │   ├── getSnr.m
+│   │   │       │   │       │   ├── getValue.m
+│   │   │       │   │       │   ├── get_q_t.m
+│   │   │       │   │       │   ├── getsnr.m
+│   │   │       │   │       │   ├── getsnrev.m
+│   │   │       │   │       │   ├── getsrate.m
+│   │   │       │   │       │   ├── hilbm.m
+│   │   │       │   │       │   ├── ifftrl.m
+│   │   │       │   │       │   ├── interpbl.m
+│   │   │       │   │       │   ├── irisFetch.m
+│   │   │       │   │       │   ├── iseven.m
+│   │   │       │   │       │   ├── isodd.m
+│   │   │       │   │       │   ├── jbfill.m
+│   │   │       │   │       │   ├── linehandles.m
+│   │   │       │   │       │   ├── linering.m
+│   │   │       │   │       │   ├── linestyle.m
+│   │   │       │   │       │   ├── linestyleparse.m
+│   │   │       │   │       │   ├── loadsac3cRotSave.m
+│   │   │       │   │       │   ├── lqtrotate.m
+│   │   │       │   │       │   ├── makefigs_mspec.m
+│   │   │       │   │       │   ├── mat2col.m
+│   │   │       │   │       │   ├── matchEvents.m
+│   │   │       │   │       │   ├── matmult.m
+│   │   │       │   │       │   ├── maxmax.m
+│   │   │       │   │       │   ├── migrateAndStackRF.m
+│   │   │       │   │       │   ├── minmin.m
+│   │   │       │   │       │   ├── mspec.m
+│   │   │       │   │       │   ├── mwindow.m
+│   │   │       │   │       │   ├── nonnan.m
+│   │   │       │   │       │   ├── padpow2.m
+│   │   │       │   │       │   ├── psvrotate.m
+│   │   │       │   │       │   ├── pws_stack.m
+│   │   │       │   │       │   ├── radon3d_forward.m
+│   │   │       │   │       │   ├── radon3d_forward_adjoint.m
+│   │   │       │   │       │   ├── radon3d_pinv.m
+│   │   │       │   │       │   ├── raypToEpiDist.m
+│   │   │       │   │       │   ├── readsac.m
+│   │   │       │   │       │   ├── reporttest.m
+│   │   │       │   │       │   ├── rot.m
+│   │   │       │   │       │   ├── rotSAC.m
+│   │   │       │   │       │   ├── rotateWaveforms.m
+│   │   │       │   │       │   ├── sac2matv3.m
+│   │   │       │   │       │   ├── saveFig.m
+│   │   │       │   │       │   ├── seismic.m
+│   │   │       │   │       │   ├── shftwndo.m
+│   │   │       │   │       │   ├── shrink_tdsrt.m
+│   │   │       │   │       │   ├── shrink_tdsrt_mask.m
+│   │   │       │   │       │   ├── sleptap.m
+│   │   │       │   │       │   ├── sparse_inverse_radon_data.m
+│   │   │       │   │       │   ├── sparse_inverse_radon_fista.m
+│   │   │       │   │       │   ├── squared.m
+│   │   │       │   │       │   ├── stackwithovlpRFs.m
+│   │   │       │   │       │   ├── stat.m
+│   │   │       │   │       │   ├── tidefreq.m
+│   │   │       │   │       │   ├── tmat.m
+│   │   │       │   │       │   ├── to_grab_from_caller.m
+│   │   │       │   │       │   ├── to_overwrite.m
+│   │   │       │   │       │   ├── travelTimesAppx.m
+│   │   │       │   │       │   ├── twospecplot.m
+│   │   │       │   │       │   ├── urstr2date.m
+│   │   │       │   │       │   ├── use.m
+│   │   │       │   │       │   ├── vfilt.m
+│   │   │       │   │       │   ├── vindex.m
+│   │   │       │   │       │   ├── vindexinto.m
+│   │   │       │   │       │   ├── vlines.m
+│   │   │       │   │       │   ├── vmean.m
+│   │   │       │   │       │   ├── vmedian.m
+│   │   │       │   │       │   ├── vmoment.m
+│   │   │       │   │       │   ├── vrep.m
+│   │   │       │   │       │   ├── vshift.m
+│   │   │       │   │       │   ├── vstd.m
+│   │   │       │   │       │   ├── vsum.m
+│   │   │       │   │       │   ├── vswap.m
+│   │   │       │   │       │   ├── vzeros.m
+│   │   │       │   │       │   ├── whichdir.m
+│   │   │       │   │       │   ├── writesac.m
+│   │   │       │   │       │   ├── xlog.m
+│   │   │       │   │       │   ├── xtick.m
+│   │   │       │   │       │   ├── yearfrac.m
+│   │   │       │   │       │   ├── ylog.m
+│   │   │       │   │       │   └── yoffset.m
+│   │   │       │   │       └── 3_Workflw/
+│   │   │       │   │           ├── KMBL_tmp.m
+│   │   │       │   │           ├── TimeDomainRadon_tmp.m
+│   │   │       │   │           ├── a01_make_inwave_for_STACK.m
+│   │   │       │   │           ├── a0_download_event.m
+│   │   │       │   │           ├── a0_download_event_parallel.m
+│   │   │       │   │           ├── a0_setupparameters.m
+│   │   │       │   │           ├── a1_preprocess.m
+│   │   │       │   │           ├── a2_visualizeData.m
+│   │   │       │   │           ├── b1_runMTC.m
+│   │   │       │   │           ├── b2_plotMTC.m
+│   │   │       │   │           ├── b3_runCRISPRF.m
+│   │   │       │   │           ├── b3_runFISTA.m
+│   │   │       │   │           ├── b4_fista_results.m
+│   │   │       │   │           ├── copy_dependencies.m
+│   │   │       │   │           └── runEntireWrkflow.m
+│   │   │       │   └── saved_backup_code/
+│   │   │       │       ├── matchEvents.m
+│   │   │       │       └── single_station_RF_workflow_NoStack_func.m
+│   │   │       ├── reference_script_from_terra_beams/
+│   │   │       │   ├── Analyzing_Issues_in_Beam_Database_Metadata.ipynb
+│   │   │       │   ├── Beam_Database_Descriptive_Stats.ipynb
+│   │   │       │   ├── Pull_LatLon_Data_Station_Beam.ipynb
+│   │   │       │   ├── Terra_SacFileGeneration_Draft.ipynb
+│   │   │       │   ├── Terra_SacFileGeneration_Draft_EdgeAnalysis.ipynb
+│   │   │       │   └── Terra_SacFileGeneration_Script.ipynb
+│   │   │       ├── rf_prep_slurm_step_7/
+│   │   │       │   ├── call_rf_workflow.sh
+│   │   │       │   ├── call_rf_workflow_by_stn.sh
+│   │   │       │   ├── call_rf_workflow_sngl_stn.sh
+│   │   │       │   ├── call_srtfista_workflow.sh
+│   │   │       │   ├── call_srtfista_workflow_by_stn.sh
+│   │   │       │   ├── matlab_rf_scripts_steve/
+│   │   │       │   │   ├── 1_Functions/
+│   │   │       │   │   │   ├── KdiagMask.m
+│   │   │       │   │   │   ├── KdiagMask2.m
+│   │   │       │   │   │   ├── MTCRF.m
+│   │   │       │   │   │   ├── MTCRF_ET.m
+│   │   │       │   │   │   ├── MTCRF_ET_se.m
+│   │   │       │   │   │   ├── MTCRF_se.m
+│   │   │       │   │   │   ├── Matlab_TauP.m
+│   │   │       │   │   │   ├── RFWigglePlot.m
+│   │   │       │   │   │   ├── RFaddNoise.m
+│   │   │       │   │   │   ├── RadonPlot.m
+│   │   │       │   │   │   ├── allall.m
+│   │   │       │   │   │   ├── anyany.m
+│   │   │       │   │   │   ├── aresame.m
+│   │   │       │   │   │   ├── axeshandles.m
+│   │   │       │   │   │   ├── boxon.m
+│   │   │       │   │   │   ├── calculateArrivalTimes.m
+│   │   │       │   │   │   ├── cell2col.m
+│   │   │       │   │   │   ├── cellength.m
+│   │   │       │   │   │   ├── cellplot.m
+│   │   │       │   │   │   ├── cellsize.m
+│   │   │       │   │   │   ├── col2cell.m
+│   │   │       │   │   │   ├── compute_semblance.m
+│   │   │       │   │   │   ├── corfreq.m
+│   │   │       │   │   │   ├── costaper.m
+│   │   │       │   │   │   ├── crop.m
+│   │   │       │   │   │   ├── dataresample.m
+│   │   │       │   │   │   ├── dataselect.m
+│   │   │       │   │   │   ├── deg180.m
+│   │   │       │   │   │   ├── deg360.m
+│   │   │       │   │   │   ├── f_pws.m
+│   │   │       │   │   │   ├── f_pws2.m
+│   │   │       │   │   │   ├── fetchSingleStaData.m
+│   │   │       │   │   │   ├── fftrl.m
+│   │   │       │   │   │   ├── filtspec.m
+│   │   │       │   │   │   ├── forward_radon_freq_umd.m
+│   │   │       │   │   │   ├── fourier.m
+│   │   │       │   │   │   ├── frac.m
+│   │   │       │   │   │   ├── gauss.m
+│   │   │       │   │   │   ├── getEqData.m
+│   │   │       │   │   │   ├── getSACv2.m
+│   │   │       │   │   │   ├── getSnr.m
+│   │   │       │   │   │   ├── getValue.m
+│   │   │       │   │   │   ├── get_q_t.m
+│   │   │       │   │   │   ├── getmoho_multiples.m
+│   │   │       │   │   │   ├── getsnr.m
+│   │   │       │   │   │   ├── getsnrev.m
+│   │   │       │   │   │   ├── getsrate.m
+│   │   │       │   │   │   ├── hilbm.m
+│   │   │       │   │   │   ├── ifftrl.m
+│   │   │       │   │   │   ├── interpbl.m
+│   │   │       │   │   │   ├── irisFetch.m
+│   │   │       │   │   │   ├── iseven.m
+│   │   │       │   │   │   ├── isodd.m
+│   │   │       │   │   │   ├── jbfill.m
+│   │   │       │   │   │   ├── linehandles.m
+│   │   │       │   │   │   ├── linering.m
+│   │   │       │   │   │   ├── linestyle.m
+│   │   │       │   │   │   ├── linestyleparse.m
+│   │   │       │   │   │   ├── loadsac3cRotSave.m
+│   │   │       │   │   │   ├── lqtrotate.m
+│   │   │       │   │   │   ├── makefigs_mspec.m
+│   │   │       │   │   │   ├── mat2col.m
+│   │   │       │   │   │   ├── matchEvents.m
+│   │   │       │   │   │   ├── matmult.m
+│   │   │       │   │   │   ├── maxmax.m
+│   │   │       │   │   │   ├── migrateAndStackRF.m
+│   │   │       │   │   │   ├── minmin.m
+│   │   │       │   │   │   ├── mspec.m
+│   │   │       │   │   │   ├── mwindow.m
+│   │   │       │   │   │   ├── nonnan.m
+│   │   │       │   │   │   ├── padpow2.m
+│   │   │       │   │   │   ├── padpow2_V2.m
+│   │   │       │   │   │   ├── psvrotate.m
+│   │   │       │   │   │   ├── pws2.m
+│   │   │       │   │   │   ├── pws_stack.m
+│   │   │       │   │   │   ├── radon3d_forward.m
+│   │   │       │   │   │   ├── radon3d_pinv.m
+│   │   │       │   │   │   ├── raypToEpiDist.m
+│   │   │       │   │   │   ├── readsac.m
+│   │   │       │   │   │   ├── reporttest.m
+│   │   │       │   │   │   ├── rot.m
+│   │   │       │   │   │   ├── rotSAC.m
+│   │   │       │   │   │   ├── rotateWaveforms.m
+│   │   │       │   │   │   ├── sac2matv3.m
+│   │   │       │   │   │   ├── seismic.m
+│   │   │       │   │   │   ├── select_best_image.m
+│   │   │       │   │   │   ├── shftwndo.m
+│   │   │       │   │   │   ├── shrink_tdsrt.m
+│   │   │       │   │   │   ├── shrink_tdsrt_mask.m
+│   │   │       │   │   │   ├── sleptap.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_data.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_fista.m
+│   │   │       │   │   │   ├── squared.m
+│   │   │       │   │   │   ├── stackwithovlpRFs.m
+│   │   │       │   │   │   ├── stat.m
+│   │   │       │   │   │   ├── tidefreq.m
+│   │   │       │   │   │   ├── tmat.m
+│   │   │       │   │   │   ├── to_grab_from_caller.m
+│   │   │       │   │   │   ├── to_overwrite.m
+│   │   │       │   │   │   ├── travelTimesAppx.m
+│   │   │       │   │   │   ├── twospecplot.m
+│   │   │       │   │   │   ├── urstr2date.m
+│   │   │       │   │   │   ├── use.m
+│   │   │       │   │   │   ├── vfilt.m
+│   │   │       │   │   │   ├── vindex.m
+│   │   │       │   │   │   ├── vindexinto.m
+│   │   │       │   │   │   ├── vlines.m
+│   │   │       │   │   │   ├── vmean.m
+│   │   │       │   │   │   ├── vmedian.m
+│   │   │       │   │   │   ├── vmoment.m
+│   │   │       │   │   │   ├── vrep.m
+│   │   │       │   │   │   ├── vshift.m
+│   │   │       │   │   │   ├── vstd.m
+│   │   │       │   │   │   ├── vsum.m
+│   │   │       │   │   │   ├── vswap.m
+│   │   │       │   │   │   ├── vzeros.m
+│   │   │       │   │   │   ├── whichdir.m
+│   │   │       │   │   │   ├── writesac.m
+│   │   │       │   │   │   ├── xlog.m
+│   │   │       │   │   │   ├── xtick.m
+│   │   │       │   │   │   ├── yearfrac.m
+│   │   │       │   │   │   ├── ylog.m
+│   │   │       │   │   │   └── yoffset.m
+│   │   │       │   │   ├── 2_Functions/
+│   │   │       │   │   │   ├── KdiagMask.m
+│   │   │       │   │   │   ├── KdiagMask2.m
+│   │   │       │   │   │   ├── MTCRF.m
+│   │   │       │   │   │   ├── MTCRF_se.m
+│   │   │       │   │   │   ├── Matlab_TauP.m
+│   │   │       │   │   │   ├── RFWigglePlot.m
+│   │   │       │   │   │   ├── RadonPlot.m
+│   │   │       │   │   │   ├── TauP-2.0/
+│   │   │       │   │   │   │   ├── bin/
+│   │   │       │   │   │   │   │   ├── taup.bat
+│   │   │       │   │   │   │   │   ├── taup_console.bat
+│   │   │       │   │   │   │   │   ├── taup_create.bat
+│   │   │       │   │   │   │   │   ├── taup_curve.bat
+│   │   │       │   │   │   │   │   ├── taup_path.bat
+│   │   │       │   │   │   │   │   ├── taup_pierce.bat
+│   │   │       │   │   │   │   │   ├── taup_setsac.bat
+│   │   │       │   │   │   │   │   ├── taup_table.bat
+│   │   │       │   │   │   │   │   └── taup_time.bat
+│   │   │       │   │   │   │   ├── gradle/
+│   │   │       │   │   │   │   │   └── gradlew.bat
+│   │   │       │   │   │   │   ├── native/
+│   │   │       │   │   │   │   │   ├── gettimes.c
+│   │   │       │   │   │   │   │   ├── gettimesf.f
+│   │   │       │   │   │   │   │   ├── taupnative.c
+│   │   │       │   │   │   │   │   └── taupnative.h
+│   │   │       │   │   │   │   └── src/
+│   │   │       │   │   │   │       ├── main/
+│   │   │       │   │   │   │       │   ├── java/
+│   │   │       │   │   │   │       │   │   └── edu/
+│   │   │       │   │   │   │       │   │       └── sc/
+│   │   │       │   │   │   │       │   │           └── seis/
+│   │   │       │   │   │   │       │   │               └── TauP/
+│   │   │       │   │   │   │       │   │                   ├── Alert.java
+│   │   │       │   │   │   │       │   │                   ├── Arrival.java
+│   │   │       │   │   │   │       │   │                   ├── ArrivalPlot.java
+│   │   │       │   │   │   │       │   │                   ├── ArrivalTableModel.java
+│   │   │       │   │   │   │       │   │                   ├── Assert.java
+│   │   │       │   │   │   │       │   │                   ├── BuildVersion.java
+│   │   │       │   │   │   │       │   │                   ├── Complex.java
+│   │   │       │   │   │   │       │   │                   ├── CriticalDepth.java
+│   │   │       │   │   │   │       │   │                   ├── CurvePlot.java
+│   │   │       │   │   │   │       │   │                   ├── DepthRange.java
+│   │   │       │   │   │   │       │   │                   ├── DistPlot.java
+│   │   │       │   │   │   │       │   │                   ├── Format.java
+│   │   │       │   │   │   │       │   │                   ├── NoSuchLayerException.java
+│   │   │       │   │   │   │       │   │                   ├── NoSuchMatPropException.java
+│   │   │       │   │   │   │       │   │                   ├── Outputs.java
+│   │   │       │   │   │   │       │   │                   ├── PathPlot.java
+│   │   │       │   │   │   │       │   │                   ├── PhaseDialog.java
+│   │   │       │   │   │   │       │   │                   ├── PhaseName.java
+│   │   │       │   │   │   │       │   │                   ├── PierceTableModel.java
+│   │   │       │   │   │   │       │   │                   ├── PolarPlot.java
+│   │   │       │   │   │   │       │   │                   ├── PropertyLoader.java
+│   │   │       │   │   │   │       │   │                   ├── ReflTransCoefficient.java
+│   │   │       │   │   │   │       │   │                   ├── SeismicPhase.java
+│   │   │       │   │   │   │       │   │                   ├── Sfun.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessLayer.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessModel.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessModelException.java
+│   │   │       │   │   │   │       │   │                   ├── SlownessPlot.java
+│   │   │       │   │   │   │       │   │                   ├── SphericalCoords.java
+│   │   │       │   │   │   │       │   │                   ├── SphericalSModel.java
+│   │   │       │   │   │   │       │   │                   ├── SplitLayerInfo.java
+│   │   │       │   │   │   │       │   │                   ├── TauBranch.java
+│   │   │       │   │   │   │       │   │                   ├── TauModel.java
+│   │   │       │   │   │   │       │   │                   ├── TauModelException.java
+│   │   │       │   │   │   │       │   │                   ├── TauModelLoader.java
+│   │   │       │   │   │   │       │   │                   ├── TauP.java
+│   │   │       │   │   │   │       │   │                   ├── TauPApplet.java
+│   │   │       │   │   │   │       │   │                   ├── TauPClient.java
+│   │   │       │   │   │   │       │   │                   ├── TauPDaemon.java
+│   │   │       │   │   │   │       │   │                   ├── TauPException.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Console.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Create.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Curve.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Path.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Peek.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Pierce.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_SetSac.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Table.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_Time.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_WCreate.java
+│   │   │       │   │   │   │       │   │                   ├── TauP_WKBJ.java
+│   │   │       │   │   │   │       │   │                   ├── TauPlot.java
+│   │   │       │   │   │   │       │   │                   ├── Theta.java
+│   │   │       │   │   │   │       │   │                   ├── TimeDist.java
+│   │   │       │   │   │   │       │   │                   ├── TimeDistPlot.java
+│   │   │       │   │   │   │       │   │                   ├── TimePlot.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityLayer.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityModel.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityModelException.java
+│   │   │       │   │   │   │       │   │                   ├── VelocityPlot.java
+│   │   │       │   │   │   │       │   │                   └── XYPlot.java
+│   │   │       │   │   │   │       │   └── resources/
+│   │   │       │   │   │   │       │       └── edu/
+│   │   │       │   │   │   │       │           └── sc/
+│   │   │       │   │   │   │       │               └── seis/
+│   │   │       │   │   │   │       │                   └── TauP/
+│   │   │       │   │   │   │       │                       └── jython/
+│   │   │       │   │   │   │       │                           └── taup/
+│   │   │       │   │   │   │       │                               ├── __init__.py
+│   │   │       │   │   │   │       │                               └── distaz.py
+│   │   │       │   │   │   │       └── test/
+│   │   │       │   │   │   │           └── java/
+│   │   │       │   │   │   │               └── edu/
+│   │   │       │   │   │   │                   └── sc/
+│   │   │       │   │   │   │                       └── seis/
+│   │   │       │   │   │   │                           └── TauP/
+│   │   │       │   │   │   │                               ├── AK135Test.java
+│   │   │       │   │   │   │                               ├── ConstantModelTest.java
+│   │   │       │   │   │   │                               ├── Dist180Test.java
+│   │   │       │   │   │   │                               ├── MoonTest.java
+│   │   │       │   │   │   │                               ├── ParamDifferential.java
+│   │   │       │   │   │   │                               ├── ReflTransTest.java
+│   │   │       │   │   │   │                               ├── SphericalCoordsTest.java
+│   │   │       │   │   │   │                               └── SurfaceWaveTest.java
+│   │   │       │   │   │   ├── allall.m
+│   │   │       │   │   │   ├── anyany.m
+│   │   │       │   │   │   ├── aresame.m
+│   │   │       │   │   │   ├── axeshandles.m
+│   │   │       │   │   │   ├── boxon.m
+│   │   │       │   │   │   ├── calculateArrivalTimes.m
+│   │   │       │   │   │   ├── cell2col.m
+│   │   │       │   │   │   ├── cellength.m
+│   │   │       │   │   │   ├── cellplot.m
+│   │   │       │   │   │   ├── cellsize.m
+│   │   │       │   │   │   ├── col2cell.m
+│   │   │       │   │   │   ├── compute_semblance.m
+│   │   │       │   │   │   ├── corfreq.m
+│   │   │       │   │   │   ├── costaper.m
+│   │   │       │   │   │   ├── cptcmap.m
+│   │   │       │   │   │   ├── crop.m
+│   │   │       │   │   │   ├── dataresample.m
+│   │   │       │   │   │   ├── dataselect.m
+│   │   │       │   │   │   ├── deg180.m
+│   │   │       │   │   │   ├── deg360.m
+│   │   │       │   │   │   ├── f_pws.m
+│   │   │       │   │   │   ├── fetchSingleStaData.m
+│   │   │       │   │   │   ├── fftrl.m
+│   │   │       │   │   │   ├── filtspec.m
+│   │   │       │   │   │   ├── forward_radon_freq_umd.m
+│   │   │       │   │   │   ├── fourier.m
+│   │   │       │   │   │   ├── frac.m
+│   │   │       │   │   │   ├── gauss.m
+│   │   │       │   │   │   ├── getEqData.m
+│   │   │       │   │   │   ├── getSACv2.m
+│   │   │       │   │   │   ├── getSnr.m
+│   │   │       │   │   │   ├── getValue.m
+│   │   │       │   │   │   ├── get_q_t.m
+│   │   │       │   │   │   ├── getsnrev.m
+│   │   │       │   │   │   ├── getsrate.m
+│   │   │       │   │   │   ├── hilbm.m
+│   │   │       │   │   │   ├── ifftrl.m
+│   │   │       │   │   │   ├── interpbl.m
+│   │   │       │   │   │   ├── irisFetch.m
+│   │   │       │   │   │   ├── iseven.m
+│   │   │       │   │   │   ├── isodd.m
+│   │   │       │   │   │   ├── jbfill.m
+│   │   │       │   │   │   ├── landmask.m
+│   │   │       │   │   │   ├── linehandles.m
+│   │   │       │   │   │   ├── linering.m
+│   │   │       │   │   │   ├── linestyle.m
+│   │   │       │   │   │   ├── linestyleparse.m
+│   │   │       │   │   │   ├── loadsac3cRotSave.m
+│   │   │       │   │   │   ├── lqtrotate.m
+│   │   │       │   │   │   ├── m_map/
+│   │   │       │   │   │   │   ├── Contents.m
+│   │   │       │   │   │   │   ├── arrow.m
+│   │   │       │   │   │   │   ├── m_annotation.m
+│   │   │       │   │   │   │   ├── m_arrow.m
+│   │   │       │   │   │   │   ├── m_coast.m
+│   │   │       │   │   │   │   ├── m_colmap.m
+│   │   │       │   │   │   │   ├── m_contfbar.m
+│   │   │       │   │   │   │   ├── m_contour.m
+│   │   │       │   │   │   │   ├── m_contourf.m
+│   │   │       │   │   │   │   ├── m_coord.m
+│   │   │       │   │   │   │   ├── m_demo.m
+│   │   │       │   │   │   │   ├── m_elev.m
+│   │   │       │   │   │   │   ├── m_ellipse.m
+│   │   │       │   │   │   │   ├── m_etopo2.m
+│   │   │       │   │   │   │   ├── m_fdist.m
+│   │   │       │   │   │   │   ├── m_geo2mag.m
+│   │   │       │   │   │   │   ├── m_geodesic.m
+│   │   │       │   │   │   │   ├── m_ginput.m
+│   │   │       │   │   │   │   ├── m_grid.m
+│   │   │       │   │   │   │   ├── m_grid_old.m
+│   │   │       │   │   │   │   ├── m_gshhs.m
+│   │   │       │   │   │   │   ├── m_gshhs_c.m
+│   │   │       │   │   │   │   ├── m_gshhs_f.m
+│   │   │       │   │   │   │   ├── m_gshhs_h.m
+│   │   │       │   │   │   │   ├── m_gshhs_i.m
+│   │   │       │   │   │   │   ├── m_gshhs_l.m
+│   │   │       │   │   │   │   ├── m_hatch.m
+│   │   │       │   │   │   │   ├── m_idist.m
+│   │   │       │   │   │   │   ├── m_image.m
+│   │   │       │   │   │   │   ├── m_legend.m
+│   │   │       │   │   │   │   ├── m_line.m
+│   │   │       │   │   │   │   ├── m_ll2xy.m
+│   │   │       │   │   │   │   ├── m_lldist.m
+│   │   │       │   │   │   │   ├── m_mag2geo.m
+│   │   │       │   │   │   │   ├── m_northarrow.m
+│   │   │       │   │   │   │   ├── m_patch.m
+│   │   │       │   │   │   │   ├── m_pcolor.m
+│   │   │       │   │   │   │   ├── m_plot.m
+│   │   │       │   │   │   │   ├── m_plotbndry.m
+│   │   │       │   │   │   │   ├── m_proj.m
+│   │   │       │   │   │   │   ├── m_quiver.m
+│   │   │       │   │   │   │   ├── m_range_ring.m
+│   │   │       │   │   │   │   ├── m_rectangle.m
+│   │   │       │   │   │   │   ├── m_ruler.m
+│   │   │       │   │   │   │   ├── m_scale.m
+│   │   │       │   │   │   │   ├── m_scatter.m
+│   │   │       │   │   │   │   ├── m_shadedrelief.m
+│   │   │       │   │   │   │   ├── m_shaperead.m
+│   │   │       │   │   │   │   ├── m_streamline.m
+│   │   │       │   │   │   │   ├── m_tba2b.m
+│   │   │       │   │   │   │   ├── m_tbase.m
+│   │   │       │   │   │   │   ├── m_text.m
+│   │   │       │   │   │   │   ├── m_track.m
+│   │   │       │   │   │   │   ├── m_ungrid.m
+│   │   │       │   │   │   │   ├── m_usercoast.m
+│   │   │       │   │   │   │   ├── m_utmgrid.m
+│   │   │       │   │   │   │   ├── m_vec.m
+│   │   │       │   │   │   │   ├── m_windbarb.m
+│   │   │       │   │   │   │   ├── m_windrose.m
+│   │   │       │   │   │   │   ├── m_xy2ll.m
+│   │   │       │   │   │   │   ├── m_xydist.m
+│   │   │       │   │   │   │   ├── mygrid_sand2.m
+│   │   │       │   │   │   │   ├── private/
+│   │   │       │   │   │   │   │   ├── mc_coords.m
+│   │   │       │   │   │   │   │   ├── mc_ellips.m
+│   │   │       │   │   │   │   │   ├── mc_igrf.m
+│   │   │       │   │   │   │   │   ├── mp_azim.m
+│   │   │       │   │   │   │   │   ├── mp_conic.m
+│   │   │       │   │   │   │   │   ├── mp_cyl.m
+│   │   │       │   │   │   │   │   ├── mp_omerc.m
+│   │   │       │   │   │   │   │   ├── mp_utm.m
+│   │   │       │   │   │   │   │   ├── mu_coast.m
+│   │   │       │   │   │   │   │   └── mu_util.m
+│   │   │       │   │   │   │   └── wysiwyg.m
+│   │   │       │   │   │   ├── makefigs_mspec.m
+│   │   │       │   │   │   ├── mat2col.m
+│   │   │       │   │   │   ├── matchEvents.m
+│   │   │       │   │   │   ├── matmult.m
+│   │   │       │   │   │   ├── maxmax.m
+│   │   │       │   │   │   ├── migrateAndStackRF.m
+│   │   │       │   │   │   ├── minmin.m
+│   │   │       │   │   │   ├── mspec.m
+│   │   │       │   │   │   ├── mwindow.m
+│   │   │       │   │   │   ├── nonnan.m
+│   │   │       │   │   │   ├── padpow2.m
+│   │   │       │   │   │   ├── psvrotate.m
+│   │   │       │   │   │   ├── pws_stack.m
+│   │   │       │   │   │   ├── radon3d_forward.m
+│   │   │       │   │   │   ├── radon3d_forward_adjoint.m
+│   │   │       │   │   │   ├── radon3d_pinv.m
+│   │   │       │   │   │   ├── radon3d_pinv_2.m
+│   │   │       │   │   │   ├── raypToEpiDist.m
+│   │   │       │   │   │   ├── readsac.m
+│   │   │       │   │   │   ├── reporttest.m
+│   │   │       │   │   │   ├── rot.m
+│   │   │       │   │   │   ├── rotSAC.m
+│   │   │       │   │   │   ├── rotateWaveforms.m
+│   │   │       │   │   │   ├── sac2matv3.m
+│   │   │       │   │   │   ├── saveFig.m
+│   │   │       │   │   │   ├── saveResults.m
+│   │   │       │   │   │   ├── saveResults2.m
+│   │   │       │   │   │   ├── seismic.m
+│   │   │       │   │   │   ├── select_best_image.m
+│   │   │       │   │   │   ├── shftwndo.m
+│   │   │       │   │   │   ├── shrink_tdsrt.m
+│   │   │       │   │   │   ├── shrink_tdsrt_mask.m
+│   │   │       │   │   │   ├── sleptap.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_data.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_data_synthetic.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_fista.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_fista_synthetic.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_l1_l2.m
+│   │   │       │   │   │   ├── sparse_inverse_radon_l1_l2_synthetic.m
+│   │   │       │   │   │   ├── squared.m
+│   │   │       │   │   │   ├── stackwithovlpRFs.m
+│   │   │       │   │   │   ├── stat.m
+│   │   │       │   │   │   ├── tidefreq.m
+│   │   │       │   │   │   ├── tmat.m
+│   │   │       │   │   │   ├── to_grab_from_caller.m
+│   │   │       │   │   │   ├── to_overwrite.m
+│   │   │       │   │   │   ├── traditional_inverse_radon_data_synthetic.m
+│   │   │       │   │   │   ├── travelTimesAppx.m
+│   │   │       │   │   │   ├── twospecplot.m
+│   │   │       │   │   │   ├── urstr2date.m
+│   │   │       │   │   │   ├── use.m
+│   │   │       │   │   │   ├── vfilt.m
+│   │   │       │   │   │   ├── vindex.m
+│   │   │       │   │   │   ├── vindexinto.m
+│   │   │       │   │   │   ├── vlines.m
+│   │   │       │   │   │   ├── vmean.m
+│   │   │       │   │   │   ├── vmedian.m
+│   │   │       │   │   │   ├── vmoment.m
+│   │   │       │   │   │   ├── vrep.m
+│   │   │       │   │   │   ├── vshift.m
+│   │   │       │   │   │   ├── vstd.m
+│   │   │       │   │   │   ├── vsum.m
+│   │   │       │   │   │   ├── vswap.m
+│   │   │       │   │   │   ├── vzeros.m
+│   │   │       │   │   │   ├── whichdir.m
+│   │   │       │   │   │   ├── writesac.m
+│   │   │       │   │   │   ├── xlog.m
+│   │   │       │   │   │   ├── xtick.m
+│   │   │       │   │   │   ├── yearfrac.m
+│   │   │       │   │   │   ├── ylog.m
+│   │   │       │   │   │   └── yoffset.m
+│   │   │       │   │   ├── 3_Workflw/
+│   │   │       │   │   │   ├── Generate_data_chunks.m
+│   │   │       │   │   │   ├── a0_a1_transects.m
+│   │   │       │   │   │   ├── a0_download_event.m
+│   │   │       │   │   │   ├── a0_setupparameters.m
+│   │   │       │   │   │   ├── a1_preprocess.m
+│   │   │       │   │   │   ├── a2_visualizeData.m
+│   │   │       │   │   │   ├── b1_runMTC.m
+│   │   │       │   │   │   ├── b2_plotMTC.m
+│   │   │       │   │   │   ├── b2_plotMTC_sayan.m
+│   │   │       │   │   │   ├── b3_runCRISPRF.m
+│   │   │       │   │   │   ├── b3_runFISTA.m
+│   │   │       │   │   │   ├── b3_runFISTA2.m
+│   │   │       │   │   │   ├── b4_fista_results.m
+│   │   │       │   │   │   ├── b4_fista_results2.m
+│   │   │       │   │   │   ├── b4_fista_results_allsave.m
+│   │   │       │   │   │   ├── b4_fista_results_loop.m
+│   │   │       │   │   │   ├── b4_fista_results_raw_rf_save.m
+│   │   │       │   │   │   ├── b4_test.m
+│   │   │       │   │   │   ├── b4_v3.m
+│   │   │       │   │   │   ├── c1_ccp_setup.m
+│   │   │       │   │   │   ├── call_rf_workflow.m
+│   │   │       │   │   │   ├── call_rf_workflow_test.m
+│   │   │       │   │   │   ├── call_srt_fista.m
+│   │   │       │   │   │   ├── copy_dependencies.m
+│   │   │       │   │   │   ├── hirarchial_clustering_neg.m
+│   │   │       │   │   │   ├── hirarchial_clustering_pos.m
+│   │   │       │   │   │   ├── plot_available_moho_and_all_stations.m
+│   │   │       │   │   │   ├── plot_predicted_moho.m
+│   │   │       │   │   │   ├── predicted_moho_preproc.m
+│   │   │       │   │   │   ├── runEntireWrkflow.m
+│   │   │       │   │   │   ├── runFISTA_allccp.m
+│   │   │       │   │   │   ├── runFISTA_samples.m
+│   │   │       │   │   │   ├── run_a0_a1_transects.m
+│   │   │       │   │   │   ├── run_a1_b1_allccp.m
+│   │   │       │   │   │   ├── run_a1_b1_allsta.m
+│   │   │       │   │   │   ├── run_a1_specific_stations.m
+│   │   │       │   │   │   ├── run_b1_transects.m
+│   │   │       │   │   │   ├── setup_rf_workflow.m
+│   │   │       │   │   │   ├── setup_srt_fista.m
+│   │   │       │   │   │   ├── setup_srt_fista_test.m
+│   │   │       │   │   │   └── stack_all_station_rf_for_continent.m
+│   │   │       │   │   └── 4_plotting_scripts/
+│   │   │       │   │       ├── basic_stacked_filt_rf.m
+│   │   │       │   │       ├── cratonsoverview_global_ages_refernece.m
+│   │   │       │   │       ├── oceania_cluster_per_age_class.m
+│   │   │       │   │       ├── plot_N_ocenia_geologic_clus_V1.m
+│   │   │       │   │       ├── plot_N_sa_tectonic_magmatic_region_clusters.m
+│   │   │       │   │       ├── plot_N_sa_tectonic_region_5_clusters.m
+│   │   │       │   │       ├── plot_N_sa_tectonic_region_clusters.m
+│   │   │       │   │       ├── plot_P_ocenia_geologic_clus_V1.m
+│   │   │       │   │       ├── plot_P_sa_tectonic_region_clusters.m
+│   │   │       │   │       ├── plot_P_sa_with_moho_depths.m
+│   │   │       │   │       ├── plot_global_all_stations_by_cratonage.m
+│   │   │       │   │       ├── plot_global_stations_by_cratonage_ovierview.m
+│   │   │       │   │       ├── plot_oceania_geographic_data_analysis.m
+│   │   │       │   │       ├── plot_oceania_stations_with_names.m
+│   │   │       │   │       ├── plot_oceania_topo.m
+│   │   │       │   │       ├── plot_ocenia_geologic_clus_V0.m
+│   │   │       │   │       ├── plot_sa_moho_depths.m
+│   │   │       │   │       ├── plot_sa_topo.m
+│   │   │       │   │       ├── plot_sequenced_rf_asia_v1.m
+│   │   │       │   │       ├── plot_sequenced_rf_europe_v1.m
+│   │   │       │   │       ├── plot_sequenced_rf_oceania_v1.m
+│   │   │       │   │       ├── plot_sequenced_rf_sa_v1.m
+│   │   │       │   │       ├── plot_sequenced_rf_v0.m
+│   │   │       │   │       ├── plot_stations_by_continent_cratonage_ovierview.m
+│   │   │       │   │       ├── temp.m
+│   │   │       │   │       ├── temp_oceania.m
+│   │   │       │   │       └── temp_sa.m
+│   │   │       │   ├── setup_batch_rf_workflow.sh
+│   │   │       │   ├── setup_batch_srtfista_workflow.sh
+│   │   │       │   ├── setup_rf_workflow_by_stn.sh
+│   │   │       │   └── setup_srtfista_workflow_by_stn.sh
+│   │   │       ├── sngl_stn_dwnld_full_workflow/
+│   │   │       │   ├── Single_Station_Data_Download_Workflow.py
+│   │   │       │   ├── archive/
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow_V0.ipynb
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow_V1.ipynb
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow_V1.py
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow_V2.ipynb
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow_V3.ipynb
+│   │   │       │   │   └── Single_Station_Data_Download_Workflow_V3.py
+│   │   │       │   ├── call_dwnld_sngl_stn_slurm.sh
+│   │   │       │   ├── dwnld_sngl_stn_slurm.sh
+│   │   │       │   ├── ipynb_script/
+│   │   │       │   │   ├── Donwload_Station_Metadata.ipynb
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow.ipynb
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow_Draft.ipynb
+│   │   │       │   │   ├── Single_Station_Data_Download_Workflow_Draft_Helen.ipynb
+│   │   │       │   │   └── rotation_fix_script.ipynb
+│   │   │       │   └── test/
+│   │   │       │       └── draft_code.ipynb
+│   │   │       └── station_metadata/
+│   │   │           └── geological_data/
+│   │   │               └── coordinates_preproc.ipynb
+│   │   ├── Helens_WS/
+│   │   │   ├── 3d.m
+│   │   │   ├── LoadPythonEnv.sh
+│   │   │   ├── Mapping/
+│   │   │   │   ├── data download/
+│   │   │   │   │   ├── India.ipynb
+│   │   │   │   │   ├── UNIFIED FILE- ALL CONTINENTS.ipynb
+│   │   │   │   │   └── europe mapping.ipynb
+│   │   │   │   └── india_ data_ information/
+│   │   │   │       └── India.ipynb
+│   │   │   ├── Misc/
+│   │   │   │   └── Sequencer Practice/
+│   │   │   │       └── Untitled.ipynb
+│   │   │   ├── Scripts/
+│   │   │   │   ├── 455 asia?.ipynb
+│   │   │   │   ├── 4d_Radon_Global_Analyze_All_Global_Station_Spatial_Distribution_Step_6C_copy.ipynb
+│   │   │   │   ├── Donwload_Station_Metadata-Copy2.ipynb
+│   │   │   │   ├── PLOTTING MAP.ipynb
+│   │   │   │   ├── Single_Station_Data_Download_Workflow_Draft-Copy1-Helen.ipynb
+│   │   │   │   ├── cordinate finder.ipynb
+│   │   │   │   ├── downloading data.ipynb
+│   │   │   │   ├── mapping.m
+│   │   │   │   ├── matlab_rf_scripts_steve/
+│   │   │   │   │   ├── 1_Functions/
+│   │   │   │   │   │   ├── KdiagMask.m
+│   │   │   │   │   │   ├── KdiagMask2.m
+│   │   │   │   │   │   ├── MTCRF.m
+│   │   │   │   │   │   ├── MTCRF_ET.m
+│   │   │   │   │   │   ├── MTCRF_ET_se.m
+│   │   │   │   │   │   ├── MTCRF_se.m
+│   │   │   │   │   │   ├── Matlab_TauP.m
+│   │   │   │   │   │   ├── RFWigglePlot.m
+│   │   │   │   │   │   ├── RFaddNoise.m
+│   │   │   │   │   │   ├── RadonPlot.m
+│   │   │   │   │   │   ├── allall.m
+│   │   │   │   │   │   ├── anyany.m
+│   │   │   │   │   │   ├── aresame.m
+│   │   │   │   │   │   ├── axeshandles.m
+│   │   │   │   │   │   ├── boxon.m
+│   │   │   │   │   │   ├── calculateArrivalTimes.m
+│   │   │   │   │   │   ├── cell2col.m
+│   │   │   │   │   │   ├── cellength.m
+│   │   │   │   │   │   ├── cellplot.m
+│   │   │   │   │   │   ├── cellsize.m
+│   │   │   │   │   │   ├── col2cell.m
+│   │   │   │   │   │   ├── compute_semblance.m
+│   │   │   │   │   │   ├── corfreq.m
+│   │   │   │   │   │   ├── costaper.m
+│   │   │   │   │   │   ├── crop.m
+│   │   │   │   │   │   ├── dataresample.m
+│   │   │   │   │   │   ├── dataselect.m
+│   │   │   │   │   │   ├── deg180.m
+│   │   │   │   │   │   ├── deg360.m
+│   │   │   │   │   │   ├── f_pws.m
+│   │   │   │   │   │   ├── f_pws2.m
+│   │   │   │   │   │   ├── fetchSingleStaData.m
+│   │   │   │   │   │   ├── fftrl.m
+│   │   │   │   │   │   ├── filtspec.m
+│   │   │   │   │   │   ├── forward_radon_freq_umd.m
+│   │   │   │   │   │   ├── fourier.m
+│   │   │   │   │   │   ├── frac.m
+│   │   │   │   │   │   ├── gauss.m
+│   │   │   │   │   │   ├── getEqData.m
+│   │   │   │   │   │   ├── getSACv2.m
+│   │   │   │   │   │   ├── getSnr.m
+│   │   │   │   │   │   ├── getValue.m
+│   │   │   │   │   │   ├── get_q_t.m
+│   │   │   │   │   │   ├── getmoho_multiples.m
+│   │   │   │   │   │   ├── getsnr.m
+│   │   │   │   │   │   ├── getsnrev.m
+│   │   │   │   │   │   ├── getsrate.m
+│   │   │   │   │   │   ├── hilbm.m
+│   │   │   │   │   │   ├── ifftrl.m
+│   │   │   │   │   │   ├── interpbl.m
+│   │   │   │   │   │   ├── irisFetch.m
+│   │   │   │   │   │   ├── iseven.m
+│   │   │   │   │   │   ├── isodd.m
+│   │   │   │   │   │   ├── jbfill.m
+│   │   │   │   │   │   ├── linehandles.m
+│   │   │   │   │   │   ├── linering.m
+│   │   │   │   │   │   ├── linestyle.m
+│   │   │   │   │   │   ├── linestyleparse.m
+│   │   │   │   │   │   ├── loadsac3cRotSave.m
+│   │   │   │   │   │   ├── lqtrotate.m
+│   │   │   │   │   │   ├── makefigs_mspec.m
+│   │   │   │   │   │   ├── mat2col.m
+│   │   │   │   │   │   ├── matchEvents.m
+│   │   │   │   │   │   ├── matmult.m
+│   │   │   │   │   │   ├── maxmax.m
+│   │   │   │   │   │   ├── migrateAndStackRF.m
+│   │   │   │   │   │   ├── minmin.m
+│   │   │   │   │   │   ├── mspec.m
+│   │   │   │   │   │   ├── mwindow.m
+│   │   │   │   │   │   ├── nonnan.m
+│   │   │   │   │   │   ├── padpow2.m
+│   │   │   │   │   │   ├── padpow2_V2.m
+│   │   │   │   │   │   ├── psvrotate.m
+│   │   │   │   │   │   ├── pws2.m
+│   │   │   │   │   │   ├── pws_stack.m
+│   │   │   │   │   │   ├── radon3d_forward.m
+│   │   │   │   │   │   ├── radon3d_pinv.m
+│   │   │   │   │   │   ├── raypToEpiDist.m
+│   │   │   │   │   │   ├── readsac.m
+│   │   │   │   │   │   ├── reporttest.m
+│   │   │   │   │   │   ├── rot.m
+│   │   │   │   │   │   ├── rotSAC.m
+│   │   │   │   │   │   ├── rotateWaveforms.m
+│   │   │   │   │   │   ├── sac2matv3.m
+│   │   │   │   │   │   ├── seismic.m
+│   │   │   │   │   │   ├── select_best_image.m
+│   │   │   │   │   │   ├── shftwndo.m
+│   │   │   │   │   │   ├── shrink_tdsrt.m
+│   │   │   │   │   │   ├── shrink_tdsrt_mask.m
+│   │   │   │   │   │   ├── sleptap.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_data.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_fista.m
+│   │   │   │   │   │   ├── squared.m
+│   │   │   │   │   │   ├── stackwithovlpRFs.m
+│   │   │   │   │   │   ├── stat.m
+│   │   │   │   │   │   ├── tidefreq.m
+│   │   │   │   │   │   ├── tmat.m
+│   │   │   │   │   │   ├── to_grab_from_caller.m
+│   │   │   │   │   │   ├── to_overwrite.m
+│   │   │   │   │   │   ├── travelTimesAppx.m
+│   │   │   │   │   │   ├── twospecplot.m
+│   │   │   │   │   │   ├── urstr2date.m
+│   │   │   │   │   │   ├── use.m
+│   │   │   │   │   │   ├── vfilt.m
+│   │   │   │   │   │   ├── vindex.m
+│   │   │   │   │   │   ├── vindexinto.m
+│   │   │   │   │   │   ├── vlines.m
+│   │   │   │   │   │   ├── vmean.m
+│   │   │   │   │   │   ├── vmedian.m
+│   │   │   │   │   │   ├── vmoment.m
+│   │   │   │   │   │   ├── vrep.m
+│   │   │   │   │   │   ├── vshift.m
+│   │   │   │   │   │   ├── vstd.m
+│   │   │   │   │   │   ├── vsum.m
+│   │   │   │   │   │   ├── vswap.m
+│   │   │   │   │   │   ├── vzeros.m
+│   │   │   │   │   │   ├── whichdir.m
+│   │   │   │   │   │   ├── writesac.m
+│   │   │   │   │   │   ├── xlog.m
+│   │   │   │   │   │   ├── xtick.m
+│   │   │   │   │   │   ├── yearfrac.m
+│   │   │   │   │   │   ├── ylog.m
+│   │   │   │   │   │   └── yoffset.m
+│   │   │   │   │   ├── 2_Functions/
+│   │   │   │   │   │   ├── KdiagMask.m
+│   │   │   │   │   │   ├── KdiagMask2.m
+│   │   │   │   │   │   ├── MTCRF.m
+│   │   │   │   │   │   ├── MTCRF_se.m
+│   │   │   │   │   │   ├── Matlab_TauP.m
+│   │   │   │   │   │   ├── RFWigglePlot.m
+│   │   │   │   │   │   ├── RadonPlot.m
+│   │   │   │   │   │   ├── TauP-2.0/
+│   │   │   │   │   │   │   ├── bin/
+│   │   │   │   │   │   │   │   ├── taup.bat
+│   │   │   │   │   │   │   │   ├── taup_console.bat
+│   │   │   │   │   │   │   │   ├── taup_create.bat
+│   │   │   │   │   │   │   │   ├── taup_curve.bat
+│   │   │   │   │   │   │   │   ├── taup_path.bat
+│   │   │   │   │   │   │   │   ├── taup_pierce.bat
+│   │   │   │   │   │   │   │   ├── taup_setsac.bat
+│   │   │   │   │   │   │   │   ├── taup_table.bat
+│   │   │   │   │   │   │   │   └── taup_time.bat
+│   │   │   │   │   │   │   ├── gradle/
+│   │   │   │   │   │   │   │   └── gradlew.bat
+│   │   │   │   │   │   │   ├── native/
+│   │   │   │   │   │   │   │   ├── gettimes.c
+│   │   │   │   │   │   │   │   ├── gettimesf.f
+│   │   │   │   │   │   │   │   ├── taupnative.c
+│   │   │   │   │   │   │   │   └── taupnative.h
+│   │   │   │   │   │   │   └── src/
+│   │   │   │   │   │   │       ├── main/
+│   │   │   │   │   │   │       │   ├── java/
+│   │   │   │   │   │   │       │   │   └── edu/
+│   │   │   │   │   │   │       │   │       └── sc/
+│   │   │   │   │   │   │       │   │           └── seis/
+│   │   │   │   │   │   │       │   │               └── TauP/
+│   │   │   │   │   │   │       │   │                   ├── Alert.java
+│   │   │   │   │   │   │       │   │                   ├── Arrival.java
+│   │   │   │   │   │   │       │   │                   ├── ArrivalPlot.java
+│   │   │   │   │   │   │       │   │                   ├── ArrivalTableModel.java
+│   │   │   │   │   │   │       │   │                   ├── Assert.java
+│   │   │   │   │   │   │       │   │                   ├── BuildVersion.java
+│   │   │   │   │   │   │       │   │                   ├── Complex.java
+│   │   │   │   │   │   │       │   │                   ├── CriticalDepth.java
+│   │   │   │   │   │   │       │   │                   ├── CurvePlot.java
+│   │   │   │   │   │   │       │   │                   ├── DepthRange.java
+│   │   │   │   │   │   │       │   │                   ├── DistPlot.java
+│   │   │   │   │   │   │       │   │                   ├── Format.java
+│   │   │   │   │   │   │       │   │                   ├── NoSuchLayerException.java
+│   │   │   │   │   │   │       │   │                   ├── NoSuchMatPropException.java
+│   │   │   │   │   │   │       │   │                   ├── Outputs.java
+│   │   │   │   │   │   │       │   │                   ├── PathPlot.java
+│   │   │   │   │   │   │       │   │                   ├── PhaseDialog.java
+│   │   │   │   │   │   │       │   │                   ├── PhaseName.java
+│   │   │   │   │   │   │       │   │                   ├── PierceTableModel.java
+│   │   │   │   │   │   │       │   │                   ├── PolarPlot.java
+│   │   │   │   │   │   │       │   │                   ├── PropertyLoader.java
+│   │   │   │   │   │   │       │   │                   ├── ReflTransCoefficient.java
+│   │   │   │   │   │   │       │   │                   ├── SeismicPhase.java
+│   │   │   │   │   │   │       │   │                   ├── Sfun.java
+│   │   │   │   │   │   │       │   │                   ├── SlownessLayer.java
+│   │   │   │   │   │   │       │   │                   ├── SlownessModel.java
+│   │   │   │   │   │   │       │   │                   ├── SlownessModelException.java
+│   │   │   │   │   │   │       │   │                   ├── SlownessPlot.java
+│   │   │   │   │   │   │       │   │                   ├── SphericalCoords.java
+│   │   │   │   │   │   │       │   │                   ├── SphericalSModel.java
+│   │   │   │   │   │   │       │   │                   ├── SplitLayerInfo.java
+│   │   │   │   │   │   │       │   │                   ├── TauBranch.java
+│   │   │   │   │   │   │       │   │                   ├── TauModel.java
+│   │   │   │   │   │   │       │   │                   ├── TauModelException.java
+│   │   │   │   │   │   │       │   │                   ├── TauModelLoader.java
+│   │   │   │   │   │   │       │   │                   ├── TauP.java
+│   │   │   │   │   │   │       │   │                   ├── TauPApplet.java
+│   │   │   │   │   │   │       │   │                   ├── TauPClient.java
+│   │   │   │   │   │   │       │   │                   ├── TauPDaemon.java
+│   │   │   │   │   │   │       │   │                   ├── TauPException.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Console.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Create.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Curve.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Path.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Peek.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Pierce.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_SetSac.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Table.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_Time.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_WCreate.java
+│   │   │   │   │   │   │       │   │                   ├── TauP_WKBJ.java
+│   │   │   │   │   │   │       │   │                   ├── TauPlot.java
+│   │   │   │   │   │   │       │   │                   ├── Theta.java
+│   │   │   │   │   │   │       │   │                   ├── TimeDist.java
+│   │   │   │   │   │   │       │   │                   ├── TimeDistPlot.java
+│   │   │   │   │   │   │       │   │                   ├── TimePlot.java
+│   │   │   │   │   │   │       │   │                   ├── VelocityLayer.java
+│   │   │   │   │   │   │       │   │                   ├── VelocityModel.java
+│   │   │   │   │   │   │       │   │                   ├── VelocityModelException.java
+│   │   │   │   │   │   │       │   │                   ├── VelocityPlot.java
+│   │   │   │   │   │   │       │   │                   └── XYPlot.java
+│   │   │   │   │   │   │       │   └── resources/
+│   │   │   │   │   │   │       │       └── edu/
+│   │   │   │   │   │   │       │           └── sc/
+│   │   │   │   │   │   │       │               └── seis/
+│   │   │   │   │   │   │       │                   └── TauP/
+│   │   │   │   │   │   │       │                       └── jython/
+│   │   │   │   │   │   │       │                           └── taup/
+│   │   │   │   │   │   │       │                               ├── __init__.py
+│   │   │   │   │   │   │       │                               └── distaz.py
+│   │   │   │   │   │   │       └── test/
+│   │   │   │   │   │   │           └── java/
+│   │   │   │   │   │   │               └── edu/
+│   │   │   │   │   │   │                   └── sc/
+│   │   │   │   │   │   │                       └── seis/
+│   │   │   │   │   │   │                           └── TauP/
+│   │   │   │   │   │   │                               ├── AK135Test.java
+│   │   │   │   │   │   │                               ├── ConstantModelTest.java
+│   │   │   │   │   │   │                               ├── Dist180Test.java
+│   │   │   │   │   │   │                               ├── MoonTest.java
+│   │   │   │   │   │   │                               ├── ParamDifferential.java
+│   │   │   │   │   │   │                               ├── ReflTransTest.java
+│   │   │   │   │   │   │                               ├── SphericalCoordsTest.java
+│   │   │   │   │   │   │                               └── SurfaceWaveTest.java
+│   │   │   │   │   │   ├── allall.m
+│   │   │   │   │   │   ├── anyany.m
+│   │   │   │   │   │   ├── aresame.m
+│   │   │   │   │   │   ├── axeshandles.m
+│   │   │   │   │   │   ├── boxon.m
+│   │   │   │   │   │   ├── calculateArrivalTimes.m
+│   │   │   │   │   │   ├── cell2col.m
+│   │   │   │   │   │   ├── cellength.m
+│   │   │   │   │   │   ├── cellplot.m
+│   │   │   │   │   │   ├── cellsize.m
+│   │   │   │   │   │   ├── col2cell.m
+│   │   │   │   │   │   ├── compute_semblance.m
+│   │   │   │   │   │   ├── corfreq.m
+│   │   │   │   │   │   ├── costaper.m
+│   │   │   │   │   │   ├── cptcmap.m
+│   │   │   │   │   │   ├── crop.m
+│   │   │   │   │   │   ├── dataresample.m
+│   │   │   │   │   │   ├── dataselect.m
+│   │   │   │   │   │   ├── deg180.m
+│   │   │   │   │   │   ├── deg360.m
+│   │   │   │   │   │   ├── f_pws.m
+│   │   │   │   │   │   ├── fetchSingleStaData.m
+│   │   │   │   │   │   ├── fftrl.m
+│   │   │   │   │   │   ├── filtspec.m
+│   │   │   │   │   │   ├── forward_radon_freq_umd.m
+│   │   │   │   │   │   ├── fourier.m
+│   │   │   │   │   │   ├── frac.m
+│   │   │   │   │   │   ├── gauss.m
+│   │   │   │   │   │   ├── getEqData.m
+│   │   │   │   │   │   ├── getSACv2.m
+│   │   │   │   │   │   ├── getSnr.m
+│   │   │   │   │   │   ├── getValue.m
+│   │   │   │   │   │   ├── get_q_t.m
+│   │   │   │   │   │   ├── getsnrev.m
+│   │   │   │   │   │   ├── getsrate.m
+│   │   │   │   │   │   ├── hilbm.m
+│   │   │   │   │   │   ├── ifftrl.m
+│   │   │   │   │   │   ├── interpbl.m
+│   │   │   │   │   │   ├── irisFetch.m
+│   │   │   │   │   │   ├── iseven.m
+│   │   │   │   │   │   ├── isodd.m
+│   │   │   │   │   │   ├── jbfill.m
+│   │   │   │   │   │   ├── landmask.m
+│   │   │   │   │   │   ├── linehandles.m
+│   │   │   │   │   │   ├── linering.m
+│   │   │   │   │   │   ├── linestyle.m
+│   │   │   │   │   │   ├── linestyleparse.m
+│   │   │   │   │   │   ├── loadsac3cRotSave.m
+│   │   │   │   │   │   ├── lqtrotate.m
+│   │   │   │   │   │   ├── m_map/
+│   │   │   │   │   │   │   ├── Contents.m
+│   │   │   │   │   │   │   ├── arrow.m
+│   │   │   │   │   │   │   ├── m_annotation.m
+│   │   │   │   │   │   │   ├── m_arrow.m
+│   │   │   │   │   │   │   ├── m_coast.m
+│   │   │   │   │   │   │   ├── m_colmap.m
+│   │   │   │   │   │   │   ├── m_contfbar.m
+│   │   │   │   │   │   │   ├── m_contour.m
+│   │   │   │   │   │   │   ├── m_contourf.m
+│   │   │   │   │   │   │   ├── m_coord.m
+│   │   │   │   │   │   │   ├── m_demo.m
+│   │   │   │   │   │   │   ├── m_elev.m
+│   │   │   │   │   │   │   ├── m_ellipse.m
+│   │   │   │   │   │   │   ├── m_etopo2.m
+│   │   │   │   │   │   │   ├── m_fdist.m
+│   │   │   │   │   │   │   ├── m_geo2mag.m
+│   │   │   │   │   │   │   ├── m_geodesic.m
+│   │   │   │   │   │   │   ├── m_ginput.m
+│   │   │   │   │   │   │   ├── m_grid.m
+│   │   │   │   │   │   │   ├── m_grid_old.m
+│   │   │   │   │   │   │   ├── m_gshhs.m
+│   │   │   │   │   │   │   ├── m_gshhs_c.m
+│   │   │   │   │   │   │   ├── m_gshhs_f.m
+│   │   │   │   │   │   │   ├── m_gshhs_h.m
+│   │   │   │   │   │   │   ├── m_gshhs_i.m
+│   │   │   │   │   │   │   ├── m_gshhs_l.m
+│   │   │   │   │   │   │   ├── m_hatch.m
+│   │   │   │   │   │   │   ├── m_idist.m
+│   │   │   │   │   │   │   ├── m_image.m
+│   │   │   │   │   │   │   ├── m_legend.m
+│   │   │   │   │   │   │   ├── m_line.m
+│   │   │   │   │   │   │   ├── m_ll2xy.m
+│   │   │   │   │   │   │   ├── m_lldist.m
+│   │   │   │   │   │   │   ├── m_mag2geo.m
+│   │   │   │   │   │   │   ├── m_northarrow.m
+│   │   │   │   │   │   │   ├── m_patch.m
+│   │   │   │   │   │   │   ├── m_pcolor.m
+│   │   │   │   │   │   │   ├── m_plot.m
+│   │   │   │   │   │   │   ├── m_plotbndry.m
+│   │   │   │   │   │   │   ├── m_proj.m
+│   │   │   │   │   │   │   ├── m_quiver.m
+│   │   │   │   │   │   │   ├── m_range_ring.m
+│   │   │   │   │   │   │   ├── m_rectangle.m
+│   │   │   │   │   │   │   ├── m_ruler.m
+│   │   │   │   │   │   │   ├── m_scale.m
+│   │   │   │   │   │   │   ├── m_scatter.m
+│   │   │   │   │   │   │   ├── m_shadedrelief.m
+│   │   │   │   │   │   │   ├── m_shaperead.m
+│   │   │   │   │   │   │   ├── m_streamline.m
+│   │   │   │   │   │   │   ├── m_tba2b.m
+│   │   │   │   │   │   │   ├── m_tbase.m
+│   │   │   │   │   │   │   ├── m_text.m
+│   │   │   │   │   │   │   ├── m_track.m
+│   │   │   │   │   │   │   ├── m_ungrid.m
+│   │   │   │   │   │   │   ├── m_usercoast.m
+│   │   │   │   │   │   │   ├── m_utmgrid.m
+│   │   │   │   │   │   │   ├── m_vec.m
+│   │   │   │   │   │   │   ├── m_windbarb.m
+│   │   │   │   │   │   │   ├── m_windrose.m
+│   │   │   │   │   │   │   ├── m_xy2ll.m
+│   │   │   │   │   │   │   ├── m_xydist.m
+│   │   │   │   │   │   │   ├── mygrid_sand2.m
+│   │   │   │   │   │   │   ├── private/
+│   │   │   │   │   │   │   │   ├── mc_coords.m
+│   │   │   │   │   │   │   │   ├── mc_ellips.m
+│   │   │   │   │   │   │   │   ├── mc_igrf.m
+│   │   │   │   │   │   │   │   ├── mp_azim.m
+│   │   │   │   │   │   │   │   ├── mp_conic.m
+│   │   │   │   │   │   │   │   ├── mp_cyl.m
+│   │   │   │   │   │   │   │   ├── mp_omerc.m
+│   │   │   │   │   │   │   │   ├── mp_utm.m
+│   │   │   │   │   │   │   │   ├── mu_coast.m
+│   │   │   │   │   │   │   │   └── mu_util.m
+│   │   │   │   │   │   │   └── wysiwyg.m
+│   │   │   │   │   │   ├── makefigs_mspec.m
+│   │   │   │   │   │   ├── mat2col.m
+│   │   │   │   │   │   ├── matchEvents.m
+│   │   │   │   │   │   ├── matmult.m
+│   │   │   │   │   │   ├── maxmax.m
+│   │   │   │   │   │   ├── migrateAndStackRF.m
+│   │   │   │   │   │   ├── minmin.m
+│   │   │   │   │   │   ├── mspec.m
+│   │   │   │   │   │   ├── mwindow.m
+│   │   │   │   │   │   ├── nonnan.m
+│   │   │   │   │   │   ├── padpow2.m
+│   │   │   │   │   │   ├── psvrotate.m
+│   │   │   │   │   │   ├── pws_stack.m
+│   │   │   │   │   │   ├── radon3d_forward.m
+│   │   │   │   │   │   ├── radon3d_forward_adjoint.m
+│   │   │   │   │   │   ├── radon3d_pinv.m
+│   │   │   │   │   │   ├── radon3d_pinv_2.m
+│   │   │   │   │   │   ├── raypToEpiDist.m
+│   │   │   │   │   │   ├── readsac.m
+│   │   │   │   │   │   ├── reporttest.m
+│   │   │   │   │   │   ├── rot.m
+│   │   │   │   │   │   ├── rotSAC.m
+│   │   │   │   │   │   ├── rotateWaveforms.m
+│   │   │   │   │   │   ├── sac2matv3.m
+│   │   │   │   │   │   ├── saveFig.m
+│   │   │   │   │   │   ├── saveResults.m
+│   │   │   │   │   │   ├── saveResults2.m
+│   │   │   │   │   │   ├── seismic.m
+│   │   │   │   │   │   ├── select_best_image.m
+│   │   │   │   │   │   ├── shftwndo.m
+│   │   │   │   │   │   ├── shrink_tdsrt.m
+│   │   │   │   │   │   ├── shrink_tdsrt_mask.m
+│   │   │   │   │   │   ├── sleptap.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_data.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_data_synthetic.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_fista.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_fista_synthetic.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_l1_l2.m
+│   │   │   │   │   │   ├── sparse_inverse_radon_l1_l2_synthetic.m
+│   │   │   │   │   │   ├── squared.m
+│   │   │   │   │   │   ├── stackwithovlpRFs.m
+│   │   │   │   │   │   ├── stat.m
+│   │   │   │   │   │   ├── tidefreq.m
+│   │   │   │   │   │   ├── tmat.m
+│   │   │   │   │   │   ├── to_grab_from_caller.m
+│   │   │   │   │   │   ├── to_overwrite.m
+│   │   │   │   │   │   ├── traditional_inverse_radon_data_synthetic.m
+│   │   │   │   │   │   ├── travelTimesAppx.m
+│   │   │   │   │   │   ├── twospecplot.m
+│   │   │   │   │   │   ├── urstr2date.m
+│   │   │   │   │   │   ├── use.m
+│   │   │   │   │   │   ├── vfilt.m
+│   │   │   │   │   │   ├── vindex.m
+│   │   │   │   │   │   ├── vindexinto.m
+│   │   │   │   │   │   ├── vlines.m
+│   │   │   │   │   │   ├── vmean.m
+│   │   │   │   │   │   ├── vmedian.m
+│   │   │   │   │   │   ├── vmoment.m
+│   │   │   │   │   │   ├── vrep.m
+│   │   │   │   │   │   ├── vshift.m
+│   │   │   │   │   │   ├── vstd.m
+│   │   │   │   │   │   ├── vsum.m
+│   │   │   │   │   │   ├── vswap.m
+│   │   │   │   │   │   ├── vzeros.m
+│   │   │   │   │   │   ├── whichdir.m
+│   │   │   │   │   │   ├── writesac.m
+│   │   │   │   │   │   ├── xlog.m
+│   │   │   │   │   │   ├── xtick.m
+│   │   │   │   │   │   ├── yearfrac.m
+│   │   │   │   │   │   ├── ylog.m
+│   │   │   │   │   │   └── yoffset.m
+│   │   │   │   │   ├── 3_Workflw/
+│   │   │   │   │   │   ├── Generate_data_chunks.m
+│   │   │   │   │   │   ├── a0_a1_transects.m
+│   │   │   │   │   │   ├── a0_download_event.m
+│   │   │   │   │   │   ├── a0_setupparameters.m
+│   │   │   │   │   │   ├── a1_preprocess.m
+│   │   │   │   │   │   ├── a2_visualizeData.m
+│   │   │   │   │   │   ├── b1_runMTC.m
+│   │   │   │   │   │   ├── b2_plotMTC.m
+│   │   │   │   │   │   ├── b2_plotMTC_sayan.m
+│   │   │   │   │   │   ├── b3_runCRISPRF.m
+│   │   │   │   │   │   ├── b3_runFISTA.m
+│   │   │   │   │   │   ├── b3_runFISTA2.m
+│   │   │   │   │   │   ├── b4_fista_results.m
+│   │   │   │   │   │   ├── b4_fista_results2.m
+│   │   │   │   │   │   ├── b4_fista_results_sayan.m
+│   │   │   │   │   │   ├── b4_test.m
+│   │   │   │   │   │   ├── b4_v3.m
+│   │   │   │   │   │   ├── c1_ccp_setup.m
+│   │   │   │   │   │   ├── call_rf_workflow.m
+│   │   │   │   │   │   ├── call_srt_fista.m
+│   │   │   │   │   │   ├── copy_dependencies.m
+│   │   │   │   │   │   ├── hirarchial_clustering_neg.m
+│   │   │   │   │   │   ├── hirarchial_clustering_pos.m
+│   │   │   │   │   │   ├── plot_available_moho_and_all_stations.m
+│   │   │   │   │   │   ├── plot_predicted_moho.m
+│   │   │   │   │   │   ├── plot_predicted_moho_helen_copy.m
+│   │   │   │   │   │   ├── predicted_moho_preproc.m
+│   │   │   │   │   │   ├── runEntireWrkflow.m
+│   │   │   │   │   │   ├── runFISTA_allccp.m
+│   │   │   │   │   │   ├── runFISTA_samples.m
+│   │   │   │   │   │   ├── run_a0_a1_transects.m
+│   │   │   │   │   │   ├── run_a1_b1_allccp.m
+│   │   │   │   │   │   ├── run_a1_b1_allsta.m
+│   │   │   │   │   │   ├── run_a1_specific_stations.m
+│   │   │   │   │   │   ├── run_b1_transects.m
+│   │   │   │   │   │   ├── setup_rf_workflow.m
+│   │   │   │   │   │   ├── setup_srt_fista.m
+│   │   │   │   │   │   └── setup_srt_fista_test.m
+│   │   │   │   │   └── 4_plotting_scripts/
+│   │   │   │   │       ├── basic_stacked_filt_rf.m
+│   │   │   │   │       ├── cratonsoverview_global_ages_refernece.m
+│   │   │   │   │       ├── oceania_cluster_per_age_class.m
+│   │   │   │   │       ├── plot_N_ocenia_geologic_clus_V1.m
+│   │   │   │   │       ├── plot_N_sa_tectonic_magmatic_region_clusters.m
+│   │   │   │   │       ├── plot_N_sa_tectonic_region_5_clusters.m
+│   │   │   │   │       ├── plot_N_sa_tectonic_region_clusters.m
+│   │   │   │   │       ├── plot_P_ocenia_geologic_clus_V1.m
+│   │   │   │   │       ├── plot_global_stations_by_cratonage_ovierview.m
+│   │   │   │   │       ├── plot_oceania_geographic_data_analysis.m
+│   │   │   │   │       ├── plot_oceania_stations_with_names.m
+│   │   │   │   │       ├── plot_oceania_topo.m
+│   │   │   │   │       ├── plot_ocenia_geologic_clus_V0.m
+│   │   │   │   │       ├── plot_sa_moho_structure_from_ref_file.m
+│   │   │   │   │       ├── plot_sa_topo.m
+│   │   │   │   │       ├── plot_sequenced_rf_asia_v1.m
+│   │   │   │   │       ├── plot_sequenced_rf_oceania_v1.m
+│   │   │   │   │       ├── plot_sequenced_rf_sa_v1.m
+│   │   │   │   │       ├── plot_sequenced_rf_v0.m
+│   │   │   │   │       ├── temp.m
+│   │   │   │   │       ├── temp_oceania.m
+│   │   │   │   │       ├── temp_sa.m
+│   │   │   │   │       └── untitled2.m
+│   │   │   │   ├── number of versions.ipynb
+│   │   │   │   └── return count of files.ipynb
+│   │   │   ├── threed.m
+│   │   │   └── untitled.m
+│   │   ├── Joes_Reference_Code/
+│   │   │   └── Joes_Codes/
+│   │   │       ├── 00_Eqs_Download Data_Joe.ipynb
+│   │   │       ├── 01_WaveformObservation.ipynb
+│   │   │       ├── 02_Waveform_Test_Processing.ipynb
+│   │   │       ├── 03_Single_Station_Inversion.ipynb
+│   │   │       ├── 1-2-Z_File_Identification.ipynb
+│   │   │       ├── 4_Plot_SS_Bounce_Points.ipynb
+│   │   │       ├── TORD_Eq_Detection.ipynb
+│   │   │       └── Untitled.ipynb
+│   │   ├── LunarSeismo/
+│   │   │   ├── Download_Moonquakes.ipynb
+│   │   │   └── Monnquakes_Download_Details.ipynb
+│   │   ├── NoiseGlobal/
+│   │   │   └── codes/
+│   │   │       ├── Download_Station_MetaData.ipynb
+│   │   │       ├── Untitled.ipynb
+│   │   │       ├── Untitled1.ipynb
+│   │   │       ├── average_interpolated_data_vs_gan_justin_shi.ipynb
+│   │   │       ├── count_ensemble_Justin.ipynb
+│   │   │       ├── first10,20,30,40batch_Justin.ipynb
+│   │   │       ├── src/
+│   │   │       │   ├── generative_model.py
+│   │   │       │   └── util/
+│   │   │       │       └── bridging.py
+│   │   │       ├── station_list_cleanup.ipynb
+│   │   │       ├── test.ipynb
+│   │   │       └── test_justin_shi.ipynb
+│   │   ├── Noise_Parameterization/
+│   │   │   ├── CODES/
+│   │   │   │   └── MCMC_Example.ipynb
+│   │   │   ├── NoiseParam_V0.ipynb
+│   │   │   ├── NoiseParam_V1.ipynb
+│   │   │   ├── NoiseParam_V2.ipynb
+│   │   │   └── NoiseParam_V2_T.ipynb
+│   │   ├── PRJ_SPAC/
+│   │   │   ├── archive/
+│   │   │   │   └── SPAC_DrO_Copy/
+│   │   │   │       ├── codes/
+│   │   │   │       │   └── test/
+│   │   │   │       │       └── matlab/
+│   │   │   │       │           ├── functions/
+│   │   │   │       │           │   ├── Calc_Ray_dispersion.m
+│   │   │   │       │           │   ├── FTN.m
+│   │   │   │       │           │   ├── FiltFiltM.m
+│   │   │   │       │           │   ├── FilterM.m
+│   │   │   │       │           │   ├── FilterX.c
+│   │   │   │       │           │   ├── FindArrayZero.m
+│   │   │   │       │           │   ├── MakeFinvMtx.m
+│   │   │   │       │           │   ├── PropMtxRay.m
+│   │   │   │       │           │   ├── SmoothAnalyticEnv.m
+│   │   │   │       │           │   ├── besselerr.m
+│   │   │   │       │           │   ├── besselerr_J1.m
+│   │   │   │       │           │   ├── besselerr_alpha.m
+│   │   │   │       │           │   ├── besselerr_dist.m
+│   │   │   │       │           │   ├── besselzero.m
+│   │   │   │       │           │   ├── build_gaus_filter.m
+│   │   │   │       │           │   ├── calc_Rayleigh_disp/
+│   │   │   │       │           │   │   ├── genrt.m
+│   │   │   │       │           │   │   ├── homogeneous.m
+│   │   │   │       │           │   │   ├── mat_disperse.m
+│   │   │   │       │           │   │   ├── modal.m
+│   │   │   │       │           │   │   ├── modrt.m
+│   │   │   │       │           │   │   ├── psv.m
+│   │   │   │       │           │   │   └── secular.m
+│   │   │   │       │           │   ├── calc_SNR.m
+│   │   │   │       │           │   ├── calc_SNR_onesided.m
+│   │   │   │       │           │   ├── ccf_FTN_3dim.m
+│   │   │   │       │           │   ├── ccf_OBN_3dim.m
+│   │   │   │       │           │   ├── ccf_butterfilt_3dim.m
+│   │   │   │       │           │   ├── ccf_cos_taper_3dim.m
+│   │   │   │       │           │   ├── ccf_detrend_3dim.m
+│   │   │   │       │           │   ├── ccf_remove_instrument_response_Z.m
+│   │   │   │       │           │   ├── ccf_slepian_multitap_3dim.m
+│   │   │   │       │           │   ├── ccf_spectrumwhiten_smooth_3dim.m
+│   │   │   │       │           │   ├── cos_taper.m
+│   │   │   │       │           │   ├── find_ilay.m
+│   │   │   │       │           │   ├── find_zeros.m
+│   │   │   │       │           │   ├── fit_azi_anisotropy2theta.m
+│   │   │   │       │           │   ├── fit_azi_anisotropy2theta4theta_2.m
+│   │   │   │       │           │   ├── fit_azi_anisotropy2theta_OLD.m
+│   │   │   │       │           │   ├── fit_azi_anisotropy2theta_resid.m
+│   │   │   │       │           │   ├── ftan_win.m
+│   │   │   │       │           │   ├── gaus_filt_nbands.m
+│   │   │   │       │           │   ├── get_filter_TFcoeffs.m
+│   │   │   │       │           │   ├── jCommon/
+│   │   │   │       │           │   │   ├── Contents.m
+│   │   │   │       │           │   │   ├── allall.m
+│   │   │   │       │           │   │   ├── anyany.m
+│   │   │   │       │           │   │   ├── aresame.m
+│   │   │   │       │           │   │   ├── arrayify.m
+│   │   │   │       │           │   │   ├── bellpoly.m
+│   │   │   │       │           │   │   ├── blocklen.m
+│   │   │   │       │           │   │   ├── blocknum.m
+│   │   │   │       │           │   │   ├── catstruct.m
+│   │   │   │       │           │   │   ├── chisquared.m
+│   │   │   │       │           │   │   ├── choose.m
+│   │   │   │       │           │   │   ├── cms2kmd.m
+│   │   │   │       │           │   │   ├── commentlines.m
+│   │   │   │       │           │   │   ├── cum2mom.m
+│   │   │   │       │           │   │   ├── fillbad.m
+│   │   │   │       │           │   │   ├── findfiles.m
+│   │   │   │       │           │   │   ├── findpath.m
+│   │   │   │       │           │   │   ├── frac.m
+│   │   │   │       │           │   │   ├── imlog.m
+│   │   │   │       │           │   │   ├── iseven.m
+│   │   │   │       │           │   │   ├── isodd.m
+│   │   │   │       │           │   │   ├── jhelp.m
+│   │   │   │       │           │   │   ├── jhermfun.m
+│   │   │   │       │           │   │   ├── jhermpoly.m
+│   │   │   │       │           │   │   ├── jmat2.m
+│   │   │   │       │           │   │   ├── jmat3.m
+│   │   │   │       │           │   │   ├── lnsd.m
+│   │   │   │       │           │   │   ├── make.m
+│   │   │   │       │           │   │   ├── matsave.m
+│   │   │   │       │           │   │   ├── maxmax.m
+│   │   │   │       │           │   │   ├── minmin.m
+│   │   │   │       │           │   │   ├── mom2cum.m
+│   │   │   │       │           │   │   ├── ncload.m
+│   │   │   │       │           │   │   ├── nonnan.m
+│   │   │   │       │           │   │   ├── oprod.m
+│   │   │   │       │           │   │   ├── pdfprops.m
+│   │   │   │       │           │   │   ├── reporttest.m
+│   │   │   │       │           │   │   ├── res.m
+│   │   │   │       │           │   │   ├── rot.m
+│   │   │   │       │           │   │   ├── simplepdf.m
+│   │   │   │       │           │   │   ├── squared.m
+│   │   │   │       │           │   │   ├── standalone.m
+│   │   │   │       │           │   │   ├── structindex.m
+│   │   │   │       │           │   │   ├── tmat.m
+│   │   │   │       │           │   │   ├── to_grab_from_caller.m
+│   │   │   │       │           │   │   ├── to_overwrite.m
+│   │   │   │       │           │   │   ├── use.m
+│   │   │   │       │           │   │   ├── vectmult.m
+│   │   │   │       │           │   │   ├── whichdir.m
+│   │   │   │       │           │   │   └── yearfrac.m
+│   │   │   │       │           │   ├── jSpectral/
+│   │   │   │       │           │   │   ├── Contents.m
+│   │   │   │       │           │   │   ├── anatrans.m
+│   │   │   │       │           │   │   ├── doublen.m
+│   │   │   │       │           │   │   ├── fourier.m
+│   │   │   │       │           │   │   ├── mconf.m
+│   │   │   │       │           │   │   ├── mspec.m
+│   │   │   │       │           │   │   ├── msvd.m
+│   │   │   │       │           │   │   ├── polparams.m
+│   │   │   │       │           │   │   ├── sampletimes.m
+│   │   │   │       │           │   │   ├── sleptap.m
+│   │   │   │       │           │   │   ├── timeseries_boundary.m
+│   │   │   │       │           │   │   ├── twospecplot.m
+│   │   │   │       │           │   │   └── wigdist.m
+│   │   │   │       │           │   ├── jVarfun/
+│   │   │   │       │           │   │   ├── Contents.m
+│   │   │   │       │           │   │   ├── col2mat.m
+│   │   │   │       │           │   │   ├── colbreaks.m
+│   │   │   │       │           │   │   ├── jhanning.m
+│   │   │   │       │           │   │   ├── mat2col.m
+│   │   │   │       │           │   │   ├── vcolon.m
+│   │   │   │       │           │   │   ├── vdiff.m
+│   │   │   │       │           │   │   ├── vempty.m
+│   │   │   │       │           │   │   ├── vfilt.m
+│   │   │   │       │           │   │   ├── vindex.m
+│   │   │   │       │           │   │   ├── vindexinto.m
+│   │   │   │       │           │   │   ├── vmean.m
+│   │   │   │       │           │   │   ├── vmedian.m
+│   │   │   │       │           │   │   ├── vmoment.m
+│   │   │   │       │           │   │   ├── vrep.m
+│   │   │   │       │           │   │   ├── vrms.m
+│   │   │   │       │           │   │   ├── vshift.m
+│   │   │   │       │           │   │   ├── vsize.m
+│   │   │   │       │           │   │   ├── vsqueeze.m
+│   │   │   │       │           │   │   ├── vstd.m
+│   │   │   │       │           │   │   ├── vsum.m
+│   │   │   │       │           │   │   ├── vswap.m
+│   │   │   │       │           │   │   ├── vtranspose.m
+│   │   │   │       │           │   │   └── vzeros.m
+│   │   │   │       │           │   ├── labinterp.m
+│   │   │   │       │           │   ├── linterp.m
+│   │   │   │       │           │   ├── load_sac.m
+│   │   │   │       │           │   ├── plot_SNR.m
+│   │   │   │       │           │   ├── readMINEOS_qfile2.m
+│   │   │   │       │           │   ├── readMINEOS_qfile_allper.m
+│   │   │   │       │           │   ├── read_ADAMA_ncfs.m
+│   │   │   │       │           │   ├── read_ADAMA_raw.m
+│   │   │   │       │           │   ├── read_sac_RESP.m
+│   │   │   │       │           │   ├── readsac.m
+│   │   │   │       │           │   ├── rm_resp.m
+│   │   │   │       │           │   ├── rotate_vector.m
+│   │   │   │       │           │   ├── runwin_norm.m
+│   │   │   │       │           │   ├── save2pdf.m
+│   │   │   │       │           │   ├── spectrumwhiten_smooth.m
+│   │   │   │       │           │   ├── tukey_filt.m
+│   │   │   │       │           │   ├── uTest_FiltFiltM.m
+│   │   │   │       │           │   ├── uTest_FilterM.m
+│   │   │   │       │           │   ├── uimage.m
+│   │   │   │       │           │   └── uimagesc.m
+│   │   │   │       │           ├── lib/
+│   │   │   │       │           │   ├── ccf_basic_plot_time_freq.m
+│   │   │   │       │           │   ├── ccf_compute_crosscorr_T.m
+│   │   │   │       │           │   ├── ccf_compute_crosscorr_Z.m
+│   │   │   │       │           │   ├── ccf_prepare_data_T.m
+│   │   │   │       │           │   ├── ccf_prepare_data_Z.m
+│   │   │   │       │           │   ├── ccf_preprocess_filter_data.m
+│   │   │   │       │           │   ├── ccf_save_computed_ccf_T.m
+│   │   │   │       │           │   ├── ccf_save_computed_ccf_Z.m
+│   │   │   │       │           │   ├── ccf_save_paramdetails.m
+│   │   │   │       │           │   ├── ccf_setup_params_T.m
+│   │   │   │       │           │   ├── ccf_setup_params_Z.m
+│   │   │   │       │           │   └── ccf_setup_results_directory.m
+│   │   │   │       │           ├── plots/
+│   │   │   │       │           │   ├── plot_cross_spectra_Tccfs_main.m
+│   │   │   │       │           │   ├── plot_cross_spectra_Zccfs_main.m
+│   │   │   │       │           │   ├── plot_cross_time_Tccfs.m
+│   │   │   │       │           │   └── plot_cross_time_Zccfs.m
+│   │   │   │       │           └── vectorized/
+│   │   │   │       │               ├── love/
+│   │   │   │       │               │   └── ccf_main_setup_expmnt_T.m
+│   │   │   │       │               └── raleigh/
+│   │   │   │       │                   └── ccf_main_setup_expmnt_Z.m
+│   │   │   │       └── reference/
+│   │   │   │           ├── a1_ccf_ambnoise_RTZ_NE_ADAMA.m
+│   │   │   │           └── bessel_funcs/
+│   │   │   │               ├── ADAMA_bldDLTraining.m
+│   │   │   │               ├── ADAMA_predclean.m
+│   │   │   │               ├── read_ADAMA_ncfs.m
+│   │   │   │               └── read_ADAMA_raw.m
+│   │   │   ├── bkup/
+│   │   │   │   ├── codes_01202025/
+│   │   │   │   │   └── test/
+│   │   │   │   │       ├── matlab/
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_RTZ_NE_ADAMA.m
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_T.m
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_Z.m
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_preproc_Z.m
+│   │   │   │   │       │   ├── a6_fitbessel.m
+│   │   │   │   │       │   ├── functions/
+│   │   │   │   │       │   │   ├── Calc_Ray_dispersion.m
+│   │   │   │   │       │   │   ├── FTN.m
+│   │   │   │   │       │   │   ├── FiltFiltM.m
+│   │   │   │   │       │   │   ├── FilterM.m
+│   │   │   │   │       │   │   ├── FilterX.c
+│   │   │   │   │       │   │   ├── FindArrayZero.m
+│   │   │   │   │       │   │   ├── MakeFinvMtx.m
+│   │   │   │   │       │   │   ├── PropMtxRay.m
+│   │   │   │   │       │   │   ├── SmoothAnalyticEnv.m
+│   │   │   │   │       │   │   ├── besselerr.m
+│   │   │   │   │       │   │   ├── besselerr_J1.m
+│   │   │   │   │       │   │   ├── besselerr_alpha.m
+│   │   │   │   │       │   │   ├── besselerr_dist.m
+│   │   │   │   │       │   │   ├── besselzero.m
+│   │   │   │   │       │   │   ├── build_gaus_filter.m
+│   │   │   │   │       │   │   ├── calc_Rayleigh_disp/
+│   │   │   │   │       │   │   │   ├── genrt.m
+│   │   │   │   │       │   │   │   ├── homogeneous.m
+│   │   │   │   │       │   │   │   ├── mat_disperse.m
+│   │   │   │   │       │   │   │   ├── modal.m
+│   │   │   │   │       │   │   │   ├── modrt.m
+│   │   │   │   │       │   │   │   ├── psv.m
+│   │   │   │   │       │   │   │   └── secular.m
+│   │   │   │   │       │   │   ├── calc_SNR.m
+│   │   │   │   │       │   │   ├── calc_SNR_onesided.m
+│   │   │   │   │       │   │   ├── ccf_FTN_3dim.m
+│   │   │   │   │       │   │   ├── ccf_OBN_3dim.m
+│   │   │   │   │       │   │   ├── ccf_butterfilt_3dim.m
+│   │   │   │   │       │   │   ├── ccf_cos_taper_3dim.m
+│   │   │   │   │       │   │   ├── ccf_detrend_3dim.m
+│   │   │   │   │       │   │   ├── ccf_remove_instrument_response_Z.m
+│   │   │   │   │       │   │   ├── ccf_slepian_multitap_3dim.m
+│   │   │   │   │       │   │   ├── ccf_spectrumwhiten_smooth_3dim.m
+│   │   │   │   │       │   │   ├── cos_taper.m
+│   │   │   │   │       │   │   ├── find_ilay.m
+│   │   │   │   │       │   │   ├── find_zeros.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta4theta_2.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta_OLD.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta_resid.m
+│   │   │   │   │       │   │   ├── ftan_win.m
+│   │   │   │   │       │   │   ├── gaus_filt_nbands.m
+│   │   │   │   │       │   │   ├── get_filter_TFcoeffs.m
+│   │   │   │   │       │   │   ├── jCommon/
+│   │   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │   │       │   │   │   ├── allall.m
+│   │   │   │   │       │   │   │   ├── anyany.m
+│   │   │   │   │       │   │   │   ├── aresame.m
+│   │   │   │   │       │   │   │   ├── arrayify.m
+│   │   │   │   │       │   │   │   ├── bellpoly.m
+│   │   │   │   │       │   │   │   ├── blocklen.m
+│   │   │   │   │       │   │   │   ├── blocknum.m
+│   │   │   │   │       │   │   │   ├── catstruct.m
+│   │   │   │   │       │   │   │   ├── chisquared.m
+│   │   │   │   │       │   │   │   ├── choose.m
+│   │   │   │   │       │   │   │   ├── cms2kmd.m
+│   │   │   │   │       │   │   │   ├── commentlines.m
+│   │   │   │   │       │   │   │   ├── cum2mom.m
+│   │   │   │   │       │   │   │   ├── fillbad.m
+│   │   │   │   │       │   │   │   ├── findfiles.m
+│   │   │   │   │       │   │   │   ├── findpath.m
+│   │   │   │   │       │   │   │   ├── frac.m
+│   │   │   │   │       │   │   │   ├── imlog.m
+│   │   │   │   │       │   │   │   ├── iseven.m
+│   │   │   │   │       │   │   │   ├── isodd.m
+│   │   │   │   │       │   │   │   ├── jhelp.m
+│   │   │   │   │       │   │   │   ├── jhermfun.m
+│   │   │   │   │       │   │   │   ├── jhermpoly.m
+│   │   │   │   │       │   │   │   ├── jmat2.m
+│   │   │   │   │       │   │   │   ├── jmat3.m
+│   │   │   │   │       │   │   │   ├── lnsd.m
+│   │   │   │   │       │   │   │   ├── make.m
+│   │   │   │   │       │   │   │   ├── matsave.m
+│   │   │   │   │       │   │   │   ├── maxmax.m
+│   │   │   │   │       │   │   │   ├── minmin.m
+│   │   │   │   │       │   │   │   ├── mom2cum.m
+│   │   │   │   │       │   │   │   ├── ncload.m
+│   │   │   │   │       │   │   │   ├── nonnan.m
+│   │   │   │   │       │   │   │   ├── oprod.m
+│   │   │   │   │       │   │   │   ├── pdfprops.m
+│   │   │   │   │       │   │   │   ├── reporttest.m
+│   │   │   │   │       │   │   │   ├── res.m
+│   │   │   │   │       │   │   │   ├── rot.m
+│   │   │   │   │       │   │   │   ├── simplepdf.m
+│   │   │   │   │       │   │   │   ├── squared.m
+│   │   │   │   │       │   │   │   ├── standalone.m
+│   │   │   │   │       │   │   │   ├── structindex.m
+│   │   │   │   │       │   │   │   ├── tmat.m
+│   │   │   │   │       │   │   │   ├── to_grab_from_caller.m
+│   │   │   │   │       │   │   │   ├── to_overwrite.m
+│   │   │   │   │       │   │   │   ├── use.m
+│   │   │   │   │       │   │   │   ├── vectmult.m
+│   │   │   │   │       │   │   │   ├── whichdir.m
+│   │   │   │   │       │   │   │   └── yearfrac.m
+│   │   │   │   │       │   │   ├── jSpectral/
+│   │   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │   │       │   │   │   ├── anatrans.m
+│   │   │   │   │       │   │   │   ├── doublen.m
+│   │   │   │   │       │   │   │   ├── fourier.m
+│   │   │   │   │       │   │   │   ├── mconf.m
+│   │   │   │   │       │   │   │   ├── mspec.m
+│   │   │   │   │       │   │   │   ├── msvd.m
+│   │   │   │   │       │   │   │   ├── polparams.m
+│   │   │   │   │       │   │   │   ├── sampletimes.m
+│   │   │   │   │       │   │   │   ├── sleptap.m
+│   │   │   │   │       │   │   │   ├── timeseries_boundary.m
+│   │   │   │   │       │   │   │   ├── twospecplot.m
+│   │   │   │   │       │   │   │   └── wigdist.m
+│   │   │   │   │       │   │   ├── jVarfun/
+│   │   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │   │       │   │   │   ├── col2mat.m
+│   │   │   │   │       │   │   │   ├── colbreaks.m
+│   │   │   │   │       │   │   │   ├── jhanning.m
+│   │   │   │   │       │   │   │   ├── mat2col.m
+│   │   │   │   │       │   │   │   ├── vcolon.m
+│   │   │   │   │       │   │   │   ├── vdiff.m
+│   │   │   │   │       │   │   │   ├── vempty.m
+│   │   │   │   │       │   │   │   ├── vfilt.m
+│   │   │   │   │       │   │   │   ├── vindex.m
+│   │   │   │   │       │   │   │   ├── vindexinto.m
+│   │   │   │   │       │   │   │   ├── vmean.m
+│   │   │   │   │       │   │   │   ├── vmedian.m
+│   │   │   │   │       │   │   │   ├── vmoment.m
+│   │   │   │   │       │   │   │   ├── vrep.m
+│   │   │   │   │       │   │   │   ├── vrms.m
+│   │   │   │   │       │   │   │   ├── vshift.m
+│   │   │   │   │       │   │   │   ├── vsize.m
+│   │   │   │   │       │   │   │   ├── vsqueeze.m
+│   │   │   │   │       │   │   │   ├── vstd.m
+│   │   │   │   │       │   │   │   ├── vsum.m
+│   │   │   │   │       │   │   │   ├── vswap.m
+│   │   │   │   │       │   │   │   ├── vtranspose.m
+│   │   │   │   │       │   │   │   └── vzeros.m
+│   │   │   │   │       │   │   ├── labinterp.m
+│   │   │   │   │       │   │   ├── linterp.m
+│   │   │   │   │       │   │   ├── load_sac.m
+│   │   │   │   │       │   │   ├── mapobs2Grid.m
+│   │   │   │   │       │   │   ├── plot_SNR.m
+│   │   │   │   │       │   │   ├── readMINEOS_qfile2.m
+│   │   │   │   │       │   │   ├── readMINEOS_qfile_allper.m
+│   │   │   │   │       │   │   ├── read_ADAMA_ncfs.m
+│   │   │   │   │       │   │   ├── read_ADAMA_raw.m
+│   │   │   │   │       │   │   ├── read_sac_RESP.m
+│   │   │   │   │       │   │   ├── readsac.m
+│   │   │   │   │       │   │   ├── rm_resp.m
+│   │   │   │   │       │   │   ├── rotate_vector.m
+│   │   │   │   │       │   │   ├── runwin_norm.m
+│   │   │   │   │       │   │   ├── save2pdf.m
+│   │   │   │   │       │   │   ├── spectrumwhiten_smooth.m
+│   │   │   │   │       │   │   ├── tukey_filt.m
+│   │   │   │   │       │   │   ├── uTest_FiltFiltM.m
+│   │   │   │   │       │   │   ├── uTest_FilterM.m
+│   │   │   │   │       │   │   ├── uimage.m
+│   │   │   │   │       │   │   └── uimagesc.m
+│   │   │   │   │       │   ├── lib/
+│   │   │   │   │       │   │   ├── ccf_basic_plot_time_freq.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_T.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_Z.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_mtc_T.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_mtc_Z.m
+│   │   │   │   │       │   │   ├── ccf_goodness_of_fit.m
+│   │   │   │   │       │   │   ├── ccf_prepare_data_T.m
+│   │   │   │   │       │   │   ├── ccf_prepare_data_Z.m
+│   │   │   │   │       │   │   ├── ccf_preprocess_filter_data.m
+│   │   │   │   │       │   │   ├── ccf_save_computed_ccf_T.m
+│   │   │   │   │       │   │   ├── ccf_save_computed_ccf_Z.m
+│   │   │   │   │       │   │   ├── ccf_save_paramdetails.m
+│   │   │   │   │       │   │   ├── ccf_setup_params_T.m
+│   │   │   │   │       │   │   ├── ccf_setup_params_Z.m
+│   │   │   │   │       │   │   └── ccf_setup_results_directory.m
+│   │   │   │   │       │   ├── non_vectorized/
+│   │   │   │   │       │   │   ├── S3_ccf_plot_cross_spectra.m
+│   │   │   │   │       │   │   ├── S3_ccf_plot_crosscorr.m
+│   │   │   │   │       │   │   ├── S4_ccf_snr_calculations.m
+│   │   │   │   │       │   │   ├── love/
+│   │   │   │   │       │   │   │   ├── S0_ccf_setup_expmnt_T.m
+│   │   │   │   │       │   │   │   ├── S1_ccf_setup_params_T.m
+│   │   │   │   │       │   │   │   └── S2_ccf_calculations_T.m
+│   │   │   │   │       │   │   └── raleigh/
+│   │   │   │   │       │   │       ├── S0_ccf_setup_expmnt_Z.m
+│   │   │   │   │       │   │       ├── S1_ccf_setup_params_Z.m
+│   │   │   │   │       │   │       └── S2_ccf_calculations_Z.m
+│   │   │   │   │       │   ├── plot_cross_spectra_ccfs_draft.m
+│   │   │   │   │       │   ├── plots/
+│   │   │   │   │       │   │   ├── plot_adama_ref_fig.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_Tccfs_compare.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_Tccfs_main.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_Zccfs_main.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_freqshft_T.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_magdiff_T.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_overlay.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_overlay_T.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_overlay_Z.m
+│   │   │   │   │       │   │   ├── plot_cross_time_Tccfs.m
+│   │   │   │   │       │   │   ├── plot_cross_time_Zccfs.m
+│   │   │   │   │       │   │   └── plot_single_ccf_crosscorr.m
+│   │   │   │   │       │   ├── setup_parameters_T.m
+│   │   │   │   │       │   ├── setup_parameters_Z.m
+│   │   │   │   │       │   ├── setup_parameters_preproc_Z.m
+│   │   │   │   │       │   ├── stack_analysis.m
+│   │   │   │   │       │   ├── synthetics/
+│   │   │   │   │       │   │   └── raleigh/
+│   │   │   │   │       │   │       ├── ccf_cal_decay_rate.m
+│   │   │   │   │       │   │       ├── ccf_power_test_synth.m
+│   │   │   │   │       │   │       ├── ccf_prepare_data_synth_Z.m
+│   │   │   │   │       │   │       ├── ccf_prepare_data_synth_Z_bkup.m
+│   │   │   │   │       │   │       ├── ccf_setup_params_synth_Z.m
+│   │   │   │   │       │   │       ├── ccf_setup_results_directory_synth.m
+│   │   │   │   │       │   │       ├── ccf_synth_allplots.m
+│   │   │   │   │       │   │       ├── ccf_synth_bessel_plot.m
+│   │   │   │   │       │   │       ├── ccf_synth_filter_TFcoeffs_Pwr.m
+│   │   │   │   │       │   │       ├── ccf_synth_freq_pwr_perturb.m
+│   │   │   │   │       │   │       ├── ccf_synth_plot_figure1.m
+│   │   │   │   │       │   │       ├── ccf_synth_setup_Z.m
+│   │   │   │   │       │   │       ├── ccf_synth_signal_plot.m
+│   │   │   │   │       │   │       └── load_stack_synth_sac.m
+│   │   │   │   │       │   ├── tests.m
+│   │   │   │   │       │   └── vectorized/
+│   │   │   │   │       │       ├── love/
+│   │   │   │   │       │       │   └── ccf_main_setup_expmnt_T.m
+│   │   │   │   │       │       └── raleigh/
+│   │   │   │   │       │           └── ccf_main_setup_expmnt_Z.m
+│   │   │   │   │       └── python/
+│   │   │   │   │           ├── MetadataCheck.ipynb
+│   │   │   │   │           └── test_data.ipynb
+│   │   │   │   ├── codes_020212025/
+│   │   │   │   │   └── test/
+│   │   │   │   │       ├── matlab/
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_RTZ_NE_ADAMA.m
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_T.m
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_Z.m
+│   │   │   │   │       │   ├── a1_ccf_ambnoise_preproc_Z.m
+│   │   │   │   │       │   ├── a6_fitbessel.m
+│   │   │   │   │       │   ├── functions/
+│   │   │   │   │       │   │   ├── Calc_Ray_dispersion.m
+│   │   │   │   │       │   │   ├── FTN.m
+│   │   │   │   │       │   │   ├── FiltFiltM.m
+│   │   │   │   │       │   │   ├── FilterM.m
+│   │   │   │   │       │   │   ├── FilterX.c
+│   │   │   │   │       │   │   ├── FindArrayZero.m
+│   │   │   │   │       │   │   ├── MakeFinvMtx.m
+│   │   │   │   │       │   │   ├── PropMtxRay.m
+│   │   │   │   │       │   │   ├── SmoothAnalyticEnv.m
+│   │   │   │   │       │   │   ├── ThomsonsMethodRevisitedExperiments/
+│   │   │   │   │       │   │   │   ├── FastMultitaper.m
+│   │   │   │   │       │   │   │   ├── FastMultitaper_SpeedTest.m
+│   │   │   │   │       │   │   │   ├── FastMultitaper_SpeedTest_makefigs.m
+│   │   │   │   │       │   │   │   ├── Multitaper.m
+│   │   │   │   │       │   │   │   ├── MultitaperAdaptive.m
+│   │   │   │   │       │   │   │   ├── transitionDPSS.m
+│   │   │   │   │       │   │   │   ├── tridieig.m
+│   │   │   │   │       │   │   │   └── tridisolve.m
+│   │   │   │   │       │   │   ├── besselerr.m
+│   │   │   │   │       │   │   ├── besselerr_J1.m
+│   │   │   │   │       │   │   ├── besselerr_alpha.m
+│   │   │   │   │       │   │   ├── besselerr_dist.m
+│   │   │   │   │       │   │   ├── besselzero.m
+│   │   │   │   │       │   │   ├── build_gaus_filter.m
+│   │   │   │   │       │   │   ├── calc_Rayleigh_disp/
+│   │   │   │   │       │   │   │   ├── genrt.m
+│   │   │   │   │       │   │   │   ├── homogeneous.m
+│   │   │   │   │       │   │   │   ├── mat_disperse.m
+│   │   │   │   │       │   │   │   ├── modal.m
+│   │   │   │   │       │   │   │   ├── modrt.m
+│   │   │   │   │       │   │   │   ├── psv.m
+│   │   │   │   │       │   │   │   └── secular.m
+│   │   │   │   │       │   │   ├── calc_SNR.m
+│   │   │   │   │       │   │   ├── calc_SNR_onesided.m
+│   │   │   │   │       │   │   ├── ccf_FTN_3dim.m
+│   │   │   │   │       │   │   ├── ccf_OBN_3dim.m
+│   │   │   │   │       │   │   ├── ccf_butterfilt_3dim.m
+│   │   │   │   │       │   │   ├── ccf_cos_taper_3dim.m
+│   │   │   │   │       │   │   ├── ccf_detrend_3dim.m
+│   │   │   │   │       │   │   ├── ccf_remove_instrument_response_Z.m
+│   │   │   │   │       │   │   ├── ccf_slepian_multitap_3dim.m
+│   │   │   │   │       │   │   ├── ccf_spectrumwhiten_smooth_3dim.m
+│   │   │   │   │       │   │   ├── cos_taper.m
+│   │   │   │   │       │   │   ├── cos_taper_10.m
+│   │   │   │   │       │   │   ├── find_ilay.m
+│   │   │   │   │       │   │   ├── find_zeros.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta4theta_2.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta_OLD.m
+│   │   │   │   │       │   │   ├── fit_azi_anisotropy2theta_resid.m
+│   │   │   │   │       │   │   ├── ftan_win.m
+│   │   │   │   │       │   │   ├── gaus_filt_nbands.m
+│   │   │   │   │       │   │   ├── get_filter_TFcoeffs.m
+│   │   │   │   │       │   │   ├── jCommon/
+│   │   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │   │       │   │   │   ├── allall.m
+│   │   │   │   │       │   │   │   ├── anyany.m
+│   │   │   │   │       │   │   │   ├── aresame.m
+│   │   │   │   │       │   │   │   ├── arrayify.m
+│   │   │   │   │       │   │   │   ├── bellpoly.m
+│   │   │   │   │       │   │   │   ├── blocklen.m
+│   │   │   │   │       │   │   │   ├── blocknum.m
+│   │   │   │   │       │   │   │   ├── catstruct.m
+│   │   │   │   │       │   │   │   ├── chisquared.m
+│   │   │   │   │       │   │   │   ├── choose.m
+│   │   │   │   │       │   │   │   ├── cms2kmd.m
+│   │   │   │   │       │   │   │   ├── commentlines.m
+│   │   │   │   │       │   │   │   ├── cum2mom.m
+│   │   │   │   │       │   │   │   ├── fillbad.m
+│   │   │   │   │       │   │   │   ├── findfiles.m
+│   │   │   │   │       │   │   │   ├── findpath.m
+│   │   │   │   │       │   │   │   ├── frac.m
+│   │   │   │   │       │   │   │   ├── imlog.m
+│   │   │   │   │       │   │   │   ├── iseven.m
+│   │   │   │   │       │   │   │   ├── isodd.m
+│   │   │   │   │       │   │   │   ├── jhelp.m
+│   │   │   │   │       │   │   │   ├── jhermfun.m
+│   │   │   │   │       │   │   │   ├── jhermpoly.m
+│   │   │   │   │       │   │   │   ├── jmat2.m
+│   │   │   │   │       │   │   │   ├── jmat3.m
+│   │   │   │   │       │   │   │   ├── lnsd.m
+│   │   │   │   │       │   │   │   ├── make.m
+│   │   │   │   │       │   │   │   ├── matsave.m
+│   │   │   │   │       │   │   │   ├── maxmax.m
+│   │   │   │   │       │   │   │   ├── minmin.m
+│   │   │   │   │       │   │   │   ├── mom2cum.m
+│   │   │   │   │       │   │   │   ├── ncload.m
+│   │   │   │   │       │   │   │   ├── nonnan.m
+│   │   │   │   │       │   │   │   ├── oprod.m
+│   │   │   │   │       │   │   │   ├── pdfprops.m
+│   │   │   │   │       │   │   │   ├── reporttest.m
+│   │   │   │   │       │   │   │   ├── res.m
+│   │   │   │   │       │   │   │   ├── rot.m
+│   │   │   │   │       │   │   │   ├── simplepdf.m
+│   │   │   │   │       │   │   │   ├── squared.m
+│   │   │   │   │       │   │   │   ├── standalone.m
+│   │   │   │   │       │   │   │   ├── structindex.m
+│   │   │   │   │       │   │   │   ├── tmat.m
+│   │   │   │   │       │   │   │   ├── to_grab_from_caller.m
+│   │   │   │   │       │   │   │   ├── to_overwrite.m
+│   │   │   │   │       │   │   │   ├── use.m
+│   │   │   │   │       │   │   │   ├── vectmult.m
+│   │   │   │   │       │   │   │   ├── whichdir.m
+│   │   │   │   │       │   │   │   └── yearfrac.m
+│   │   │   │   │       │   │   ├── jSpectral/
+│   │   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │   │       │   │   │   ├── anatrans.m
+│   │   │   │   │       │   │   │   ├── doublen.m
+│   │   │   │   │       │   │   │   ├── fourier.m
+│   │   │   │   │       │   │   │   ├── mconf.m
+│   │   │   │   │       │   │   │   ├── mspec.m
+│   │   │   │   │       │   │   │   ├── mspec_bkup.m
+│   │   │   │   │       │   │   │   ├── msvd.m
+│   │   │   │   │       │   │   │   ├── polparams.m
+│   │   │   │   │       │   │   │   ├── sampletimes.m
+│   │   │   │   │       │   │   │   ├── sleptap.m
+│   │   │   │   │       │   │   │   ├── timeseries_boundary.m
+│   │   │   │   │       │   │   │   ├── twospecplot.m
+│   │   │   │   │       │   │   │   └── wigdist.m
+│   │   │   │   │       │   │   ├── jVarfun/
+│   │   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │   │       │   │   │   ├── col2mat.m
+│   │   │   │   │       │   │   │   ├── colbreaks.m
+│   │   │   │   │       │   │   │   ├── jhanning.m
+│   │   │   │   │       │   │   │   ├── mat2col.m
+│   │   │   │   │       │   │   │   ├── vcolon.m
+│   │   │   │   │       │   │   │   ├── vdiff.m
+│   │   │   │   │       │   │   │   ├── vempty.m
+│   │   │   │   │       │   │   │   ├── vfilt.m
+│   │   │   │   │       │   │   │   ├── vindex.m
+│   │   │   │   │       │   │   │   ├── vindexinto.m
+│   │   │   │   │       │   │   │   ├── vmean.m
+│   │   │   │   │       │   │   │   ├── vmedian.m
+│   │   │   │   │       │   │   │   ├── vmoment.m
+│   │   │   │   │       │   │   │   ├── vrep.m
+│   │   │   │   │       │   │   │   ├── vrms.m
+│   │   │   │   │       │   │   │   ├── vshift.m
+│   │   │   │   │       │   │   │   ├── vsize.m
+│   │   │   │   │       │   │   │   ├── vsqueeze.m
+│   │   │   │   │       │   │   │   ├── vstd.m
+│   │   │   │   │       │   │   │   ├── vsum.m
+│   │   │   │   │       │   │   │   ├── vswap.m
+│   │   │   │   │       │   │   │   ├── vtranspose.m
+│   │   │   │   │       │   │   │   └── vzeros.m
+│   │   │   │   │       │   │   ├── labinterp.m
+│   │   │   │   │       │   │   ├── linterp.m
+│   │   │   │   │       │   │   ├── load_sac.m
+│   │   │   │   │       │   │   ├── mapobs2Grid.m
+│   │   │   │   │       │   │   ├── plot_SNR.m
+│   │   │   │   │       │   │   ├── readMINEOS_qfile2.m
+│   │   │   │   │       │   │   ├── readMINEOS_qfile_allper.m
+│   │   │   │   │       │   │   ├── read_ADAMA_ncfs.m
+│   │   │   │   │       │   │   ├── read_ADAMA_raw.m
+│   │   │   │   │       │   │   ├── read_sac_RESP.m
+│   │   │   │   │       │   │   ├── readsac.m
+│   │   │   │   │       │   │   ├── rm_resp.m
+│   │   │   │   │       │   │   ├── rotate_vector.m
+│   │   │   │   │       │   │   ├── runwin_norm.m
+│   │   │   │   │       │   │   ├── save2pdf.m
+│   │   │   │   │       │   │   ├── spectrumwhiten_smooth.m
+│   │   │   │   │       │   │   ├── tukey_filt.m
+│   │   │   │   │       │   │   ├── uTest_FiltFiltM.m
+│   │   │   │   │       │   │   ├── uTest_FilterM.m
+│   │   │   │   │       │   │   ├── uimage.m
+│   │   │   │   │       │   │   └── uimagesc.m
+│   │   │   │   │       │   ├── lib/
+│   │   │   │   │       │   │   ├── ccf_basic_plot_time_freq.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_T.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_Z.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_Z_bkup.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_mtc_T.m
+│   │   │   │   │       │   │   ├── ccf_compute_crosscorr_mtc_Z.m
+│   │   │   │   │       │   │   ├── ccf_goodness_of_fit.m
+│   │   │   │   │       │   │   ├── ccf_prepare_data_T.m
+│   │   │   │   │       │   │   ├── ccf_prepare_data_Z.m
+│   │   │   │   │       │   │   ├── ccf_preprocess_filter_data.m
+│   │   │   │   │       │   │   ├── ccf_save_computed_ccf_T.m
+│   │   │   │   │       │   │   ├── ccf_save_computed_ccf_Z.m
+│   │   │   │   │       │   │   ├── ccf_save_paramdetails.m
+│   │   │   │   │       │   │   ├── ccf_setup_params_T.m
+│   │   │   │   │       │   │   ├── ccf_setup_params_Z.m
+│   │   │   │   │       │   │   ├── ccf_setup_results_directory.m
+│   │   │   │   │       │   │   └── psd_ambient_noise_computation.m
+│   │   │   │   │       │   ├── non_vectorized/
+│   │   │   │   │       │   │   ├── S3_ccf_plot_cross_spectra.m
+│   │   │   │   │       │   │   ├── S3_ccf_plot_crosscorr.m
+│   │   │   │   │       │   │   ├── S4_ccf_snr_calculations.m
+│   │   │   │   │       │   │   ├── love/
+│   │   │   │   │       │   │   │   ├── S0_ccf_setup_expmnt_T.m
+│   │   │   │   │       │   │   │   ├── S1_ccf_setup_params_T.m
+│   │   │   │   │       │   │   │   └── S2_ccf_calculations_T.m
+│   │   │   │   │       │   │   └── raleigh/
+│   │   │   │   │       │   │       ├── S0_ccf_setup_expmnt_Z.m
+│   │   │   │   │       │   │       ├── S1_ccf_setup_params_Z.m
+│   │   │   │   │       │   │       └── S2_ccf_calculations_Z.m
+│   │   │   │   │       │   ├── plot_cross_spectra_ccfs_draft.m
+│   │   │   │   │       │   ├── plots/
+│   │   │   │   │       │   │   ├── plot_adama_ref_fig.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_Tccfs_compare.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_Tccfs_main.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_Zccfs_main.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_freqshft_T.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_magdiff_T.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_overlay.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_overlay_T.m
+│   │   │   │   │       │   │   ├── plot_cross_spectra_overlay_Z.m
+│   │   │   │   │       │   │   ├── plot_cross_time_Tccfs.m
+│   │   │   │   │       │   │   ├── plot_cross_time_Zccfs.m
+│   │   │   │   │       │   │   └── plot_single_ccf_crosscorr.m
+│   │   │   │   │       │   ├── setup_parameters_T.m
+│   │   │   │   │       │   ├── setup_parameters_Z.m
+│   │   │   │   │       │   ├── setup_parameters_preproc_Z.m
+│   │   │   │   │       │   ├── stack_analysis.m
+│   │   │   │   │       │   ├── synthetics/
+│   │   │   │   │       │   │   └── raleigh/
+│   │   │   │   │       │   │       ├── NoiseModels_Txt.m
+│   │   │   │   │       │   │       ├── ccf_cal_decay_rate.m
+│   │   │   │   │       │   │       ├── ccf_design_arbmag_filt.m
+│   │   │   │   │       │   │       ├── ccf_manual_freq_modification.m
+│   │   │   │   │       │   │       ├── ccf_power_test_synth.m
+│   │   │   │   │       │   │       ├── ccf_prepare_data_synth_Z.m
+│   │   │   │   │       │   │       ├── ccf_prepare_data_synth_Z_bkup.m
+│   │   │   │   │       │   │       ├── ccf_setup_params_synth_Z.m
+│   │   │   │   │       │   │       ├── ccf_setup_results_directory_synth.m
+│   │   │   │   │       │   │       ├── ccf_synth_allplots.m
+│   │   │   │   │       │   │       ├── ccf_synth_bessel_plot.m
+│   │   │   │   │       │   │       ├── ccf_synth_filter_TFcoeffs_Pwr.m
+│   │   │   │   │       │   │       ├── ccf_synth_freq_pwr_perturb.m
+│   │   │   │   │       │   │       ├── ccf_synth_plot_figure1.m
+│   │   │   │   │       │   │       ├── ccf_synth_setup_Z.m
+│   │   │   │   │       │   │       ├── designfilt_test.m
+│   │   │   │   │       │   │       ├── load_stack_synth_sac.m
+│   │   │   │   │       │   │       ├── slepian_psd_test_sayan.m
+│   │   │   │   │       │   │       └── synthetic_psd_test_sayan.m
+│   │   │   │   │       │   ├── tests.m
+│   │   │   │   │       │   ├── untitled.m
+│   │   │   │   │       │   └── vectorized/
+│   │   │   │   │       │       ├── love/
+│   │   │   │   │       │       │   └── ccf_main_setup_expmnt_T.m
+│   │   │   │   │       │       └── raleigh/
+│   │   │   │   │       │           └── ccf_main_setup_expmnt_Z.m
+│   │   │   │   │       └── python/
+│   │   │   │   │           ├── MetadataCheck.ipynb
+│   │   │   │   │           └── test_data.ipynb
+│   │   │   │   └── codes_02202025/
+│   │   │   │       └── test/
+│   │   │   │           ├── matlab/
+│   │   │   │           │   ├── a1_ccf_ambnoise_RTZ_NE_ADAMA.m
+│   │   │   │           │   ├── a1_ccf_ambnoise_T.m
+│   │   │   │           │   ├── a1_ccf_ambnoise_Z.m
+│   │   │   │           │   ├── a1_ccf_ambnoise_preproc_Z.m
+│   │   │   │           │   ├── a6_fitbessel.m
+│   │   │   │           │   ├── functions/
+│   │   │   │           │   │   ├── Calc_Ray_dispersion.m
+│   │   │   │           │   │   ├── FTN.m
+│   │   │   │           │   │   ├── FiltFiltM.m
+│   │   │   │           │   │   ├── FilterM.m
+│   │   │   │           │   │   ├── FilterX.c
+│   │   │   │           │   │   ├── FindArrayZero.m
+│   │   │   │           │   │   ├── MakeFinvMtx.m
+│   │   │   │           │   │   ├── PropMtxRay.m
+│   │   │   │           │   │   ├── SmoothAnalyticEnv.m
+│   │   │   │           │   │   ├── ThomsonsMethodRevisitedExperiments/
+│   │   │   │           │   │   │   ├── FastMultitaper.m
+│   │   │   │           │   │   │   ├── FastMultitaper_SpeedTest.m
+│   │   │   │           │   │   │   ├── FastMultitaper_SpeedTest_makefigs.m
+│   │   │   │           │   │   │   ├── Multitaper.m
+│   │   │   │           │   │   │   ├── MultitaperAdaptive.m
+│   │   │   │           │   │   │   ├── transitionDPSS.m
+│   │   │   │           │   │   │   ├── tridieig.m
+│   │   │   │           │   │   │   └── tridisolve.m
+│   │   │   │           │   │   ├── besselerr.m
+│   │   │   │           │   │   ├── besselerr_J1.m
+│   │   │   │           │   │   ├── besselerr_alpha.m
+│   │   │   │           │   │   ├── besselerr_dist.m
+│   │   │   │           │   │   ├── besselzero.m
+│   │   │   │           │   │   ├── build_gaus_filter.m
+│   │   │   │           │   │   ├── calc_Rayleigh_disp/
+│   │   │   │           │   │   │   ├── genrt.m
+│   │   │   │           │   │   │   ├── homogeneous.m
+│   │   │   │           │   │   │   ├── mat_disperse.m
+│   │   │   │           │   │   │   ├── modal.m
+│   │   │   │           │   │   │   ├── modrt.m
+│   │   │   │           │   │   │   ├── psv.m
+│   │   │   │           │   │   │   └── secular.m
+│   │   │   │           │   │   ├── calc_SNR.m
+│   │   │   │           │   │   ├── calc_SNR_onesided.m
+│   │   │   │           │   │   ├── ccf_FTN_3dim.m
+│   │   │   │           │   │   ├── ccf_OBN_3dim.m
+│   │   │   │           │   │   ├── ccf_butterfilt_3dim.m
+│   │   │   │           │   │   ├── ccf_cos_taper_3dim.m
+│   │   │   │           │   │   ├── ccf_detrend_3dim.m
+│   │   │   │           │   │   ├── ccf_remove_instrument_response_Z.m
+│   │   │   │           │   │   ├── ccf_slepian_multitap_3dim.m
+│   │   │   │           │   │   ├── ccf_spectrumwhiten_smooth_3dim.m
+│   │   │   │           │   │   ├── cos_taper.m
+│   │   │   │           │   │   ├── cos_taper_10.m
+│   │   │   │           │   │   ├── find_ilay.m
+│   │   │   │           │   │   ├── find_zeros.m
+│   │   │   │           │   │   ├── fit_azi_anisotropy2theta.m
+│   │   │   │           │   │   ├── fit_azi_anisotropy2theta4theta_2.m
+│   │   │   │           │   │   ├── fit_azi_anisotropy2theta_OLD.m
+│   │   │   │           │   │   ├── fit_azi_anisotropy2theta_resid.m
+│   │   │   │           │   │   ├── ftan_win.m
+│   │   │   │           │   │   ├── gaus_filt_nbands.m
+│   │   │   │           │   │   ├── get_filter_TFcoeffs.m
+│   │   │   │           │   │   ├── jCommon/
+│   │   │   │           │   │   │   ├── Contents.m
+│   │   │   │           │   │   │   ├── allall.m
+│   │   │   │           │   │   │   ├── anyany.m
+│   │   │   │           │   │   │   ├── aresame.m
+│   │   │   │           │   │   │   ├── arrayify.m
+│   │   │   │           │   │   │   ├── bellpoly.m
+│   │   │   │           │   │   │   ├── blocklen.m
+│   │   │   │           │   │   │   ├── blocknum.m
+│   │   │   │           │   │   │   ├── catstruct.m
+│   │   │   │           │   │   │   ├── chisquared.m
+│   │   │   │           │   │   │   ├── choose.m
+│   │   │   │           │   │   │   ├── cms2kmd.m
+│   │   │   │           │   │   │   ├── commentlines.m
+│   │   │   │           │   │   │   ├── cum2mom.m
+│   │   │   │           │   │   │   ├── fillbad.m
+│   │   │   │           │   │   │   ├── findfiles.m
+│   │   │   │           │   │   │   ├── findpath.m
+│   │   │   │           │   │   │   ├── frac.m
+│   │   │   │           │   │   │   ├── imlog.m
+│   │   │   │           │   │   │   ├── iseven.m
+│   │   │   │           │   │   │   ├── isodd.m
+│   │   │   │           │   │   │   ├── jhelp.m
+│   │   │   │           │   │   │   ├── jhermfun.m
+│   │   │   │           │   │   │   ├── jhermpoly.m
+│   │   │   │           │   │   │   ├── jmat2.m
+│   │   │   │           │   │   │   ├── jmat3.m
+│   │   │   │           │   │   │   ├── lnsd.m
+│   │   │   │           │   │   │   ├── make.m
+│   │   │   │           │   │   │   ├── matsave.m
+│   │   │   │           │   │   │   ├── maxmax.m
+│   │   │   │           │   │   │   ├── minmin.m
+│   │   │   │           │   │   │   ├── mom2cum.m
+│   │   │   │           │   │   │   ├── ncload.m
+│   │   │   │           │   │   │   ├── nonnan.m
+│   │   │   │           │   │   │   ├── oprod.m
+│   │   │   │           │   │   │   ├── pdfprops.m
+│   │   │   │           │   │   │   ├── reporttest.m
+│   │   │   │           │   │   │   ├── res.m
+│   │   │   │           │   │   │   ├── rot.m
+│   │   │   │           │   │   │   ├── simplepdf.m
+│   │   │   │           │   │   │   ├── squared.m
+│   │   │   │           │   │   │   ├── standalone.m
+│   │   │   │           │   │   │   ├── structindex.m
+│   │   │   │           │   │   │   ├── tmat.m
+│   │   │   │           │   │   │   ├── to_grab_from_caller.m
+│   │   │   │           │   │   │   ├── to_overwrite.m
+│   │   │   │           │   │   │   ├── use.m
+│   │   │   │           │   │   │   ├── vectmult.m
+│   │   │   │           │   │   │   ├── whichdir.m
+│   │   │   │           │   │   │   └── yearfrac.m
+│   │   │   │           │   │   ├── jSpectral/
+│   │   │   │           │   │   │   ├── Contents.m
+│   │   │   │           │   │   │   ├── anatrans.m
+│   │   │   │           │   │   │   ├── doublen.m
+│   │   │   │           │   │   │   ├── fourier.m
+│   │   │   │           │   │   │   ├── mconf.m
+│   │   │   │           │   │   │   ├── mspec.m
+│   │   │   │           │   │   │   ├── mspec_bkup.m
+│   │   │   │           │   │   │   ├── msvd.m
+│   │   │   │           │   │   │   ├── polparams.m
+│   │   │   │           │   │   │   ├── sampletimes.m
+│   │   │   │           │   │   │   ├── sleptap.m
+│   │   │   │           │   │   │   ├── timeseries_boundary.m
+│   │   │   │           │   │   │   ├── twospecplot.m
+│   │   │   │           │   │   │   └── wigdist.m
+│   │   │   │           │   │   ├── jVarfun/
+│   │   │   │           │   │   │   ├── Contents.m
+│   │   │   │           │   │   │   ├── col2mat.m
+│   │   │   │           │   │   │   ├── colbreaks.m
+│   │   │   │           │   │   │   ├── jhanning.m
+│   │   │   │           │   │   │   ├── mat2col.m
+│   │   │   │           │   │   │   ├── vcolon.m
+│   │   │   │           │   │   │   ├── vdiff.m
+│   │   │   │           │   │   │   ├── vempty.m
+│   │   │   │           │   │   │   ├── vfilt.m
+│   │   │   │           │   │   │   ├── vindex.m
+│   │   │   │           │   │   │   ├── vindexinto.m
+│   │   │   │           │   │   │   ├── vmean.m
+│   │   │   │           │   │   │   ├── vmedian.m
+│   │   │   │           │   │   │   ├── vmoment.m
+│   │   │   │           │   │   │   ├── vrep.m
+│   │   │   │           │   │   │   ├── vrms.m
+│   │   │   │           │   │   │   ├── vshift.m
+│   │   │   │           │   │   │   ├── vsize.m
+│   │   │   │           │   │   │   ├── vsqueeze.m
+│   │   │   │           │   │   │   ├── vstd.m
+│   │   │   │           │   │   │   ├── vsum.m
+│   │   │   │           │   │   │   ├── vswap.m
+│   │   │   │           │   │   │   ├── vtranspose.m
+│   │   │   │           │   │   │   └── vzeros.m
+│   │   │   │           │   │   ├── labinterp.m
+│   │   │   │           │   │   ├── linterp.m
+│   │   │   │           │   │   ├── load_sac.m
+│   │   │   │           │   │   ├── mapobs2Grid.m
+│   │   │   │           │   │   ├── plot_SNR.m
+│   │   │   │           │   │   ├── readMINEOS_qfile2.m
+│   │   │   │           │   │   ├── readMINEOS_qfile_allper.m
+│   │   │   │           │   │   ├── read_ADAMA_ncfs.m
+│   │   │   │           │   │   ├── read_ADAMA_raw.m
+│   │   │   │           │   │   ├── read_sac_RESP.m
+│   │   │   │           │   │   ├── readsac.m
+│   │   │   │           │   │   ├── rm_resp.m
+│   │   │   │           │   │   ├── rotate_vector.m
+│   │   │   │           │   │   ├── runwin_norm.m
+│   │   │   │           │   │   ├── save2pdf.m
+│   │   │   │           │   │   ├── spectrumwhiten_smooth.m
+│   │   │   │           │   │   ├── tukey_filt.m
+│   │   │   │           │   │   ├── uTest_FiltFiltM.m
+│   │   │   │           │   │   ├── uTest_FilterM.m
+│   │   │   │           │   │   ├── uimage.m
+│   │   │   │           │   │   └── uimagesc.m
+│   │   │   │           │   ├── lib/
+│   │   │   │           │   │   ├── ccf_basic_plot_time_freq.m
+│   │   │   │           │   │   ├── ccf_compute_crosscorr_T.m
+│   │   │   │           │   │   ├── ccf_compute_crosscorr_Z.m
+│   │   │   │           │   │   ├── ccf_compute_crosscorr_Z_bkup.m
+│   │   │   │           │   │   ├── ccf_compute_crosscorr_mtc_T.m
+│   │   │   │           │   │   ├── ccf_compute_crosscorr_mtc_Z.m
+│   │   │   │           │   │   ├── ccf_goodness_of_fit.m
+│   │   │   │           │   │   ├── ccf_prepare_data_T.m
+│   │   │   │           │   │   ├── ccf_prepare_data_Z.m
+│   │   │   │           │   │   ├── ccf_preprocess_filter_data.m
+│   │   │   │           │   │   ├── ccf_save_computed_ccf_T.m
+│   │   │   │           │   │   ├── ccf_save_computed_ccf_Z.m
+│   │   │   │           │   │   ├── ccf_save_paramdetails.m
+│   │   │   │           │   │   ├── ccf_setup_params_T.m
+│   │   │   │           │   │   ├── ccf_setup_params_Z.m
+│   │   │   │           │   │   ├── ccf_setup_results_directory.m
+│   │   │   │           │   │   └── psd_ambient_noise_computation.m
+│   │   │   │           │   ├── non_vectorized/
+│   │   │   │           │   │   ├── S3_ccf_plot_cross_spectra.m
+│   │   │   │           │   │   ├── S3_ccf_plot_crosscorr.m
+│   │   │   │           │   │   ├── S4_ccf_snr_calculations.m
+│   │   │   │           │   │   ├── love/
+│   │   │   │           │   │   │   ├── S0_ccf_setup_expmnt_T.m
+│   │   │   │           │   │   │   ├── S1_ccf_setup_params_T.m
+│   │   │   │           │   │   │   └── S2_ccf_calculations_T.m
+│   │   │   │           │   │   └── raleigh/
+│   │   │   │           │   │       ├── S0_ccf_setup_expmnt_Z.m
+│   │   │   │           │   │       ├── S1_ccf_setup_params_Z.m
+│   │   │   │           │   │       └── S2_ccf_calculations_Z.m
+│   │   │   │           │   ├── plot_cross_spectra_ccfs_draft.m
+│   │   │   │           │   ├── plots/
+│   │   │   │           │   │   ├── plot_adama_ref_fig.m
+│   │   │   │           │   │   ├── plot_cross_spectra_Tccfs_compare.m
+│   │   │   │           │   │   ├── plot_cross_spectra_Tccfs_main.m
+│   │   │   │           │   │   ├── plot_cross_spectra_Zccfs_main.m
+│   │   │   │           │   │   ├── plot_cross_spectra_freqshft_T.m
+│   │   │   │           │   │   ├── plot_cross_spectra_magdiff_T.m
+│   │   │   │           │   │   ├── plot_cross_spectra_overlay.m
+│   │   │   │           │   │   ├── plot_cross_spectra_overlay_T.m
+│   │   │   │           │   │   ├── plot_cross_spectra_overlay_Z.m
+│   │   │   │           │   │   ├── plot_cross_time_Tccfs.m
+│   │   │   │           │   │   ├── plot_cross_time_Zccfs.m
+│   │   │   │           │   │   └── plot_single_ccf_crosscorr.m
+│   │   │   │           │   ├── setup_parameters_T.m
+│   │   │   │           │   ├── setup_parameters_Z.m
+│   │   │   │           │   ├── setup_parameters_preproc_Z.m
+│   │   │   │           │   ├── stack_analysis.m
+│   │   │   │           │   ├── synthetics/
+│   │   │   │           │   │   └── raleigh/
+│   │   │   │           │   │       ├── NoiseModels_Txt.m
+│   │   │   │           │   │       ├── ccf_cal_decay_rate.m
+│   │   │   │           │   │       ├── ccf_design_arbmag_filt.m
+│   │   │   │           │   │       ├── ccf_manual_freq_modification.m
+│   │   │   │           │   │       ├── ccf_power_test_synth.m
+│   │   │   │           │   │       ├── ccf_prepare_data_synth_Z.m
+│   │   │   │           │   │       ├── ccf_prepare_data_synth_Z_bkup.m
+│   │   │   │           │   │       ├── ccf_setup_params_synth_Z.m
+│   │   │   │           │   │       ├── ccf_setup_results_directory_synth.m
+│   │   │   │           │   │       ├── ccf_synth_allplots.m
+│   │   │   │           │   │       ├── ccf_synth_bessel_plot.m
+│   │   │   │           │   │       ├── ccf_synth_filter_TFcoeffs_Pwr.m
+│   │   │   │           │   │       ├── ccf_synth_freq_pwr_perturb.m
+│   │   │   │           │   │       ├── ccf_synth_plot_figure1.m
+│   │   │   │           │   │       ├── ccf_synth_setup_Z.m
+│   │   │   │           │   │       ├── designfilt_test.m
+│   │   │   │           │   │       ├── load_stack_synth_sac.m
+│   │   │   │           │   │       ├── slepian_psd_test_sayan.m
+│   │   │   │           │   │       └── synthetic_psd_test_sayan.m
+│   │   │   │           │   ├── tests.m
+│   │   │   │           │   ├── untitled.m
+│   │   │   │           │   └── vectorized/
+│   │   │   │           │       ├── love/
+│   │   │   │           │       │   └── ccf_main_setup_expmnt_T.m
+│   │   │   │           │       └── raleigh/
+│   │   │   │           │           └── ccf_main_setup_expmnt_Z.m
+│   │   │   │           └── python/
+│   │   │   │               ├── MetadataCheck.ipynb
+│   │   │   │               └── test_data.ipynb
+│   │   │   ├── codes/
+│   │   │   │   └── test/
+│   │   │   │       ├── matlab/
+│   │   │   │       │   ├── a1_ccf_ambnoise_RTZ_NE_ADAMA.m
+│   │   │   │       │   ├── a1_ccf_ambnoise_T.m
+│   │   │   │       │   ├── a1_ccf_ambnoise_Z.m
+│   │   │   │       │   ├── a1_ccf_ambnoise_preproc_Z.m
+│   │   │   │       │   ├── a6_fitbessel.m
+│   │   │   │       │   ├── functions/
+│   │   │   │       │   │   ├── Calc_Ray_dispersion.m
+│   │   │   │       │   │   ├── FTN.m
+│   │   │   │       │   │   ├── FiltFiltM.m
+│   │   │   │       │   │   ├── FilterM.m
+│   │   │   │       │   │   ├── FilterX.c
+│   │   │   │       │   │   ├── FindArrayZero.m
+│   │   │   │       │   │   ├── MakeFinvMtx.m
+│   │   │   │       │   │   ├── PropMtxRay.m
+│   │   │   │       │   │   ├── SmoothAnalyticEnv.m
+│   │   │   │       │   │   ├── ThomsonsMethodRevisitedExperiments/
+│   │   │   │       │   │   │   ├── FastMultitaper.m
+│   │   │   │       │   │   │   ├── Multitaper.m
+│   │   │   │       │   │   │   ├── MultitaperAdaptive.m
+│   │   │   │       │   │   │   ├── firstNlambdaDPSS.m
+│   │   │   │       │   │   │   ├── transitionDPSS.m
+│   │   │   │       │   │   │   ├── transitionDPSS_modif.m
+│   │   │   │       │   │   │   ├── tridieig.m
+│   │   │   │       │   │   │   └── tridisolve.m
+│   │   │   │       │   │   ├── besselerr.m
+│   │   │   │       │   │   ├── besselerr_J1.m
+│   │   │   │       │   │   ├── besselerr_alpha.m
+│   │   │   │       │   │   ├── besselerr_dist.m
+│   │   │   │       │   │   ├── besselzero.m
+│   │   │   │       │   │   ├── build_gaus_filter.m
+│   │   │   │       │   │   ├── calc_Rayleigh_disp/
+│   │   │   │       │   │   │   ├── genrt.m
+│   │   │   │       │   │   │   ├── homogeneous.m
+│   │   │   │       │   │   │   ├── mat_disperse.m
+│   │   │   │       │   │   │   ├── modal.m
+│   │   │   │       │   │   │   ├── modrt.m
+│   │   │   │       │   │   │   ├── psv.m
+│   │   │   │       │   │   │   └── secular.m
+│   │   │   │       │   │   ├── calc_SNR.m
+│   │   │   │       │   │   ├── calc_SNR_onesided.m
+│   │   │   │       │   │   ├── ccf_FTN_3dim.m
+│   │   │   │       │   │   ├── ccf_OBN_3dim.m
+│   │   │   │       │   │   ├── ccf_butterfilt_3dim.m
+│   │   │   │       │   │   ├── ccf_cos_taper_3dim.m
+│   │   │   │       │   │   ├── ccf_detrend_3dim.m
+│   │   │   │       │   │   ├── ccf_remove_instrument_response_Z.m
+│   │   │   │       │   │   ├── ccf_slepian_multitap_3dim.m
+│   │   │   │       │   │   ├── ccf_spectrumwhiten_smooth_3dim.m
+│   │   │   │       │   │   ├── cos_taper.m
+│   │   │   │       │   │   ├── cos_taper_10.m
+│   │   │   │       │   │   ├── find_ilay.m
+│   │   │   │       │   │   ├── find_zeros.m
+│   │   │   │       │   │   ├── fit_azi_anisotropy2theta.m
+│   │   │   │       │   │   ├── fit_azi_anisotropy2theta4theta_2.m
+│   │   │   │       │   │   ├── fit_azi_anisotropy2theta_OLD.m
+│   │   │   │       │   │   ├── fit_azi_anisotropy2theta_resid.m
+│   │   │   │       │   │   ├── ftan_win.m
+│   │   │   │       │   │   ├── gaus_filt_nbands.m
+│   │   │   │       │   │   ├── get_filter_TFcoeffs.m
+│   │   │   │       │   │   ├── jCommon/
+│   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │       │   │   │   ├── allall.m
+│   │   │   │       │   │   │   ├── anyany.m
+│   │   │   │       │   │   │   ├── aresame.m
+│   │   │   │       │   │   │   ├── arrayify.m
+│   │   │   │       │   │   │   ├── bellpoly.m
+│   │   │   │       │   │   │   ├── blocklen.m
+│   │   │   │       │   │   │   ├── blocknum.m
+│   │   │   │       │   │   │   ├── catstruct.m
+│   │   │   │       │   │   │   ├── chisquared.m
+│   │   │   │       │   │   │   ├── choose.m
+│   │   │   │       │   │   │   ├── cms2kmd.m
+│   │   │   │       │   │   │   ├── commentlines.m
+│   │   │   │       │   │   │   ├── cum2mom.m
+│   │   │   │       │   │   │   ├── fillbad.m
+│   │   │   │       │   │   │   ├── findfiles.m
+│   │   │   │       │   │   │   ├── findpath.m
+│   │   │   │       │   │   │   ├── frac.m
+│   │   │   │       │   │   │   ├── imlog.m
+│   │   │   │       │   │   │   ├── iseven.m
+│   │   │   │       │   │   │   ├── isodd.m
+│   │   │   │       │   │   │   ├── jhelp.m
+│   │   │   │       │   │   │   ├── jhermfun.m
+│   │   │   │       │   │   │   ├── jhermpoly.m
+│   │   │   │       │   │   │   ├── jmat2.m
+│   │   │   │       │   │   │   ├── jmat3.m
+│   │   │   │       │   │   │   ├── lnsd.m
+│   │   │   │       │   │   │   ├── make.m
+│   │   │   │       │   │   │   ├── matsave.m
+│   │   │   │       │   │   │   ├── maxmax.m
+│   │   │   │       │   │   │   ├── minmin.m
+│   │   │   │       │   │   │   ├── mom2cum.m
+│   │   │   │       │   │   │   ├── ncload.m
+│   │   │   │       │   │   │   ├── nonnan.m
+│   │   │   │       │   │   │   ├── oprod.m
+│   │   │   │       │   │   │   ├── pdfprops.m
+│   │   │   │       │   │   │   ├── reporttest.m
+│   │   │   │       │   │   │   ├── res.m
+│   │   │   │       │   │   │   ├── rot.m
+│   │   │   │       │   │   │   ├── simplepdf.m
+│   │   │   │       │   │   │   ├── squared.m
+│   │   │   │       │   │   │   ├── standalone.m
+│   │   │   │       │   │   │   ├── structindex.m
+│   │   │   │       │   │   │   ├── tmat.m
+│   │   │   │       │   │   │   ├── to_grab_from_caller.m
+│   │   │   │       │   │   │   ├── to_overwrite.m
+│   │   │   │       │   │   │   ├── use.m
+│   │   │   │       │   │   │   ├── vectmult.m
+│   │   │   │       │   │   │   ├── whichdir.m
+│   │   │   │       │   │   │   └── yearfrac.m
+│   │   │   │       │   │   ├── jSpectral/
+│   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │       │   │   │   ├── anatrans.m
+│   │   │   │       │   │   │   ├── doublen.m
+│   │   │   │       │   │   │   ├── fourier.m
+│   │   │   │       │   │   │   ├── mconf.m
+│   │   │   │       │   │   │   ├── mspec_fast.m
+│   │   │   │       │   │   │   ├── mspec_fast_bkup.m
+│   │   │   │       │   │   │   ├── mspec_fast_bkup2.m
+│   │   │   │       │   │   │   ├── mspec_legacy_bkup.m
+│   │   │   │       │   │   │   ├── mspec_loop.m
+│   │   │   │       │   │   │   ├── msvd.m
+│   │   │   │       │   │   │   ├── polparams.m
+│   │   │   │       │   │   │   ├── sampletimes.m
+│   │   │   │       │   │   │   ├── sleptap.m
+│   │   │   │       │   │   │   ├── sleptap_modif.m
+│   │   │   │       │   │   │   ├── sleptap_modif2.m
+│   │   │   │       │   │   │   ├── sleptap_modif3.m
+│   │   │   │       │   │   │   ├── timeseries_boundary.m
+│   │   │   │       │   │   │   ├── twospecplot.m
+│   │   │   │       │   │   │   └── wigdist.m
+│   │   │   │       │   │   ├── jVarfun/
+│   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │       │   │   │   ├── col2mat.m
+│   │   │   │       │   │   │   ├── colbreaks.m
+│   │   │   │       │   │   │   ├── jhanning.m
+│   │   │   │       │   │   │   ├── mat2col.m
+│   │   │   │       │   │   │   ├── vcolon.m
+│   │   │   │       │   │   │   ├── vdiff.m
+│   │   │   │       │   │   │   ├── vempty.m
+│   │   │   │       │   │   │   ├── vfilt.m
+│   │   │   │       │   │   │   ├── vindex.m
+│   │   │   │       │   │   │   ├── vindexinto.m
+│   │   │   │       │   │   │   ├── vmean.m
+│   │   │   │       │   │   │   ├── vmedian.m
+│   │   │   │       │   │   │   ├── vmoment.m
+│   │   │   │       │   │   │   ├── vrep.m
+│   │   │   │       │   │   │   ├── vrms.m
+│   │   │   │       │   │   │   ├── vshift.m
+│   │   │   │       │   │   │   ├── vsize.m
+│   │   │   │       │   │   │   ├── vsqueeze.m
+│   │   │   │       │   │   │   ├── vstd.m
+│   │   │   │       │   │   │   ├── vsum.m
+│   │   │   │       │   │   │   ├── vswap.m
+│   │   │   │       │   │   │   ├── vtranspose.m
+│   │   │   │       │   │   │   └── vzeros.m
+│   │   │   │       │   │   ├── labinterp.m
+│   │   │   │       │   │   ├── linterp.m
+│   │   │   │       │   │   ├── load_sac.m
+│   │   │   │       │   │   ├── m_map/
+│   │   │   │       │   │   │   ├── Contents.m
+│   │   │   │       │   │   │   ├── arrow.m
+│   │   │   │       │   │   │   ├── m_annotation.m
+│   │   │   │       │   │   │   ├── m_arrow.m
+│   │   │   │       │   │   │   ├── m_coast.m
+│   │   │   │       │   │   │   ├── m_colmap.m
+│   │   │   │       │   │   │   ├── m_contfbar.m
+│   │   │   │       │   │   │   ├── m_contour.m
+│   │   │   │       │   │   │   ├── m_contourf.m
+│   │   │   │       │   │   │   ├── m_coord.m
+│   │   │   │       │   │   │   ├── m_demo.m
+│   │   │   │       │   │   │   ├── m_elev.m
+│   │   │   │       │   │   │   ├── m_ellipse.m
+│   │   │   │       │   │   │   ├── m_etopo2.m
+│   │   │   │       │   │   │   ├── m_fdist.m
+│   │   │   │       │   │   │   ├── m_geo2mag.m
+│   │   │   │       │   │   │   ├── m_geodesic.m
+│   │   │   │       │   │   │   ├── m_ginput.m
+│   │   │   │       │   │   │   ├── m_grid.m
+│   │   │   │       │   │   │   ├── m_grid_old.m
+│   │   │   │       │   │   │   ├── m_gshhs.m
+│   │   │   │       │   │   │   ├── m_gshhs_c.m
+│   │   │   │       │   │   │   ├── m_gshhs_f.m
+│   │   │   │       │   │   │   ├── m_gshhs_h.m
+│   │   │   │       │   │   │   ├── m_gshhs_i.m
+│   │   │   │       │   │   │   ├── m_gshhs_l.m
+│   │   │   │       │   │   │   ├── m_hatch.m
+│   │   │   │       │   │   │   ├── m_idist.m
+│   │   │   │       │   │   │   ├── m_image.m
+│   │   │   │       │   │   │   ├── m_legend.m
+│   │   │   │       │   │   │   ├── m_line.m
+│   │   │   │       │   │   │   ├── m_ll2xy.m
+│   │   │   │       │   │   │   ├── m_lldist.m
+│   │   │   │       │   │   │   ├── m_mag2geo.m
+│   │   │   │       │   │   │   ├── m_northarrow.m
+│   │   │   │       │   │   │   ├── m_patch.m
+│   │   │   │       │   │   │   ├── m_pcolor.m
+│   │   │   │       │   │   │   ├── m_plot.m
+│   │   │   │       │   │   │   ├── m_plotbndry.m
+│   │   │   │       │   │   │   ├── m_proj.m
+│   │   │   │       │   │   │   ├── m_quiver.m
+│   │   │   │       │   │   │   ├── m_range_ring.m
+│   │   │   │       │   │   │   ├── m_rectangle.m
+│   │   │   │       │   │   │   ├── m_ruler.m
+│   │   │   │       │   │   │   ├── m_scale.m
+│   │   │   │       │   │   │   ├── m_scatter.m
+│   │   │   │       │   │   │   ├── m_shadedrelief.m
+│   │   │   │       │   │   │   ├── m_shaperead.m
+│   │   │   │       │   │   │   ├── m_streamline.m
+│   │   │   │       │   │   │   ├── m_tba2b.m
+│   │   │   │       │   │   │   ├── m_tbase.m
+│   │   │   │       │   │   │   ├── m_text.m
+│   │   │   │       │   │   │   ├── m_track.m
+│   │   │   │       │   │   │   ├── m_ungrid.m
+│   │   │   │       │   │   │   ├── m_usercoast.m
+│   │   │   │       │   │   │   ├── m_utmgrid.m
+│   │   │   │       │   │   │   ├── m_vec.m
+│   │   │   │       │   │   │   ├── m_windbarb.m
+│   │   │   │       │   │   │   ├── m_windrose.m
+│   │   │   │       │   │   │   ├── m_xy2ll.m
+│   │   │   │       │   │   │   ├── m_xydist.m
+│   │   │   │       │   │   │   ├── mygrid_sand2.m
+│   │   │   │       │   │   │   ├── private/
+│   │   │   │       │   │   │   │   ├── mc_coords.m
+│   │   │   │       │   │   │   │   ├── mc_ellips.m
+│   │   │   │       │   │   │   │   ├── mc_igrf.m
+│   │   │   │       │   │   │   │   ├── mp_azim.m
+│   │   │   │       │   │   │   │   ├── mp_conic.m
+│   │   │   │       │   │   │   │   ├── mp_cyl.m
+│   │   │   │       │   │   │   │   ├── mp_omerc.m
+│   │   │   │       │   │   │   │   ├── mp_utm.m
+│   │   │   │       │   │   │   │   ├── mu_coast.m
+│   │   │   │       │   │   │   │   └── mu_util.m
+│   │   │   │       │   │   │   └── wysiwyg.m
+│   │   │   │       │   │   ├── mapobs2Grid.m
+│   │   │   │       │   │   ├── plot_SNR.m
+│   │   │   │       │   │   ├── readMINEOS_qfile2.m
+│   │   │   │       │   │   ├── readMINEOS_qfile_allper.m
+│   │   │   │       │   │   ├── read_ADAMA_ncfs.m
+│   │   │   │       │   │   ├── read_ADAMA_raw.m
+│   │   │   │       │   │   ├── read_sac_RESP.m
+│   │   │   │       │   │   ├── readsac.m
+│   │   │   │       │   │   ├── rm_resp.m
+│   │   │   │       │   │   ├── rotate_vector.m
+│   │   │   │       │   │   ├── runwin_norm.m
+│   │   │   │       │   │   ├── save2pdf.m
+│   │   │   │       │   │   ├── spectrumwhiten_smooth.m
+│   │   │   │       │   │   ├── tukey_filt.m
+│   │   │   │       │   │   ├── uTest_FiltFiltM.m
+│   │   │   │       │   │   ├── uTest_FilterM.m
+│   │   │   │       │   │   ├── uimage.m
+│   │   │   │       │   │   └── uimagesc.m
+│   │   │   │       │   ├── lib/
+│   │   │   │       │   │   ├── ccf_basic_plot_time_freq.m
+│   │   │   │       │   │   ├── ccf_compute_crosscorr_T.m
+│   │   │   │       │   │   ├── ccf_compute_crosscorr_Z.m
+│   │   │   │       │   │   ├── ccf_compute_crosscorr_mtc_T.m
+│   │   │   │       │   │   ├── ccf_compute_crosscorr_mtc_Z.m
+│   │   │   │       │   │   ├── ccf_goodness_of_fit.m
+│   │   │   │       │   │   ├── ccf_prepare_data_T.m
+│   │   │   │       │   │   ├── ccf_prepare_data_T_mdg.m
+│   │   │   │       │   │   ├── ccf_prepare_data_Z.m
+│   │   │   │       │   │   ├── ccf_preprocess_filter_data.m
+│   │   │   │       │   │   ├── ccf_save_computed_ccf_T.m
+│   │   │   │       │   │   ├── ccf_save_computed_ccf_Z.m
+│   │   │   │       │   │   ├── ccf_save_paramdetails.m
+│   │   │   │       │   │   ├── ccf_setup_params_T.m
+│   │   │   │       │   │   ├── ccf_setup_params_T_mdg.m
+│   │   │   │       │   │   ├── ccf_setup_params_Z.m
+│   │   │   │       │   │   ├── ccf_setup_results_directory.m
+│   │   │   │       │   │   ├── ccf_setup_results_directory_mdg.m
+│   │   │   │       │   │   ├── ccf_time_spec_normalization_codacorr.m
+│   │   │   │       │   │   ├── memory_watch.m
+│   │   │   │       │   │   └── psd_ambient_noise_computation.m
+│   │   │   │       │   ├── loading_adama.m
+│   │   │   │       │   ├── madagascar/
+│   │   │   │       │   │   ├── a1_ccf_dataprep_T_mdg.m
+│   │   │   │       │   │   ├── a2_ccf_run_crosscorr_T_mdg.m
+│   │   │   │       │   │   ├── a3_ccf_plot_freq_wvfld_T_mdg.m
+│   │   │   │       │   │   ├── a3_ccf_plot_time_wvfld_T_mdg.m
+│   │   │   │       │   │   └── ap_ccf_compute_snr.m
+│   │   │   │       │   ├── non_vectorized/
+│   │   │   │       │   │   ├── S3_ccf_plot_cross_spectra.m
+│   │   │   │       │   │   ├── S3_ccf_plot_crosscorr.m
+│   │   │   │       │   │   ├── S4_ccf_snr_calculations.m
+│   │   │   │       │   │   ├── love/
+│   │   │   │       │   │   │   ├── S0_ccf_setup_expmnt_T.m
+│   │   │   │       │   │   │   ├── S1_ccf_setup_params_T.m
+│   │   │   │       │   │   │   └── S2_ccf_calculations_T.m
+│   │   │   │       │   │   └── raleigh/
+│   │   │   │       │   │       ├── S0_ccf_setup_expmnt_Z.m
+│   │   │   │       │   │       ├── S1_ccf_setup_params_Z.m
+│   │   │   │       │   │       └── S2_ccf_calculations_Z.m
+│   │   │   │       │   ├── plot_cross_spectra_ccfs_draft.m
+│   │   │   │       │   ├── plots/
+│   │   │   │       │   │   ├── plot_adama_ref_fig.m
+│   │   │   │       │   │   ├── plot_cross_spectra_Tccfs_compare.m
+│   │   │   │       │   │   ├── plot_cross_spectra_Tccfs_main.m
+│   │   │   │       │   │   ├── plot_cross_spectra_Zccfs_main.m
+│   │   │   │       │   │   ├── plot_cross_spectra_freqshft_T.m
+│   │   │   │       │   │   ├── plot_cross_spectra_magdiff_T.m
+│   │   │   │       │   │   ├── plot_cross_spectra_overlay.m
+│   │   │   │       │   │   ├── plot_cross_spectra_overlay_T.m
+│   │   │   │       │   │   ├── plot_cross_spectra_overlay_Z.m
+│   │   │   │       │   │   ├── plot_cross_time_Tccfs.m
+│   │   │   │       │   │   ├── plot_cross_time_Zccfs.m
+│   │   │   │       │   │   ├── plot_eigvals_mtap.m
+│   │   │   │       │   │   ├── plot_phase_vel_adama.m
+│   │   │   │       │   │   └── plot_single_ccf_crosscorr.m
+│   │   │   │       │   ├── setup_parameters_T.m
+│   │   │   │       │   ├── setup_parameters_Z.m
+│   │   │   │       │   ├── setup_parameters_preproc_Z.m
+│   │   │   │       │   ├── stack_analysis.m
+│   │   │   │       │   ├── synthetics/
+│   │   │   │       │   │   ├── plots/
+│   │   │   │       │   │   │   ├── ccf_plot_taper_eigs_draft.m
+│   │   │   │       │   │   │   ├── ccf_plot_taper_eigs_figure4a.m
+│   │   │   │       │   │   │   ├── ccf_raleighfreq_compre_suppl.m
+│   │   │   │       │   │   │   ├── ccf_spectra_recons_plot_figure1.m
+│   │   │   │       │   │   │   ├── ccf_synthetics_plot_figure2.m
+│   │   │   │       │   │   │   ├── plot_multitap_theory_poc.m
+│   │   │   │       │   │   │   ├── plot_performance_evaluataion_draft.m
+│   │   │   │       │   │   │   ├── plot_performance_evaluataion_figure7.m
+│   │   │   │       │   │   │   ├── plot_sleptap_vs_dpss_fig_suppl.m
+│   │   │   │       │   │   │   └── zerocross_analysis_of_bessel.m
+│   │   │   │       │   │   └── raleigh/
+│   │   │   │       │   │       ├── NoiseModels_Txt.m
+│   │   │   │       │   │       ├── ccf_cal_decay_rate.m
+│   │   │   │       │   │       ├── ccf_design_arbmag_filt.m
+│   │   │   │       │   │       ├── ccf_manual_freq_modification.m
+│   │   │   │       │   │       ├── ccf_pfr_distribution.m
+│   │   │   │       │   │       ├── ccf_power_test_synth.m
+│   │   │   │       │   │       ├── ccf_prepare_data_synth_Z.m
+│   │   │   │       │   │       ├── ccf_prepare_data_synth_Z_bkup.m
+│   │   │   │       │   │       ├── ccf_setup_params_synth_Z.m
+│   │   │   │       │   │       ├── ccf_setup_results_directory_synth.m
+│   │   │   │       │   │       ├── ccf_synth_allplots.m
+│   │   │   │       │   │       ├── ccf_synth_bessel_plot.m
+│   │   │   │       │   │       ├── ccf_synth_filter_TFcoeffs_Pwr.m
+│   │   │   │       │   │       ├── ccf_synth_freq_pwr_perturb.m
+│   │   │   │       │   │       ├── ccf_synth_setup_Z.m
+│   │   │   │       │   │       ├── ccf_synth_setup_perfrm_evl.m
+│   │   │   │       │   │       ├── filter_designs.m
+│   │   │   │       │   │       ├── karnik_fig4_psd_estim.m
+│   │   │   │       │   │       ├── load_stack_synth_sac.m
+│   │   │   │       │   │       ├── synthetic_NLNM_psd_estim.m
+│   │   │   │       │   │       └── synthetic_squarewv_psd_estim.m
+│   │   │   │       │   ├── temp_plot.m
+│   │   │   │       │   ├── tests.m
+│   │   │   │       │   ├── untitled.m
+│   │   │   │       │   └── vectorized/
+│   │   │   │       │       ├── love/
+│   │   │   │       │       │   └── ccf_main_setup_expmnt_T.m
+│   │   │   │       │       └── raleigh/
+│   │   │   │       │           └── ccf_main_setup_expmnt_Z.m
+│   │   │   │       └── python/
+│   │   │   │           ├── MetadataCheck.ipynb
+│   │   │   │           ├── copying_madagascar_stn_data.ipynb
+│   │   │   │           ├── extract_available_data_madagascar.ipynb
+│   │   │   │           ├── madagascar_data_analysis.ipynb
+│   │   │   │           └── test_data.ipynb
+│   │   │   ├── data/
+│   │   │   │   └── test/
+│   │   │   │       └── synthetics/
+│   │   │   │           ├── mgmt/
+│   │   │   │           │   ├── set12/
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set13/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set16/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── find_empty_folder.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set17/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set18/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set19/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set20/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set21/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   ├── set22/
+│   │   │   │           │   │   ├── archive/
+│   │   │   │           │   │   │   └── test.sh
+│   │   │   │           │   │   ├── generate_regions.sh
+│   │   │   │           │   │   └── mgr.sh
+│   │   │   │           │   └── set23/
+│   │   │   │           │       ├── archive/
+│   │   │   │           │       │   └── test.sh
+│   │   │   │           │       ├── generate_regions.sh
+│   │   │   │           │       └── mgr.sh
+│   │   │   │           ├── set2/
+│   │   │   │           │   └── test2.sh
+│   │   │   │           └── test_dev/
+│   │   │   │               ├── annular_source_test.sh
+│   │   │   │               └── test2.sh
+│   │   │   ├── reference/
+│   │   │   │   ├── bessel_funcs/
+│   │   │   │   │   ├── ADAMA_bldDLTraining.m
+│   │   │   │   │   ├── ADAMA_predclean.m
+│   │   │   │   │   ├── a6_fitbessel.m
+│   │   │   │   │   ├── read_ADAMA_ncfs.m
+│   │   │   │   │   └── read_ADAMA_raw.m
+│   │   │   │   ├── ccf_codes/
+│   │   │   │   │   ├── a1_ccf_ambnoise_RTZ_NE_ADAMA.m
+│   │   │   │   │   └── a1_ccf_ambnoise_Z.m
+│   │   │   │   ├── functions/
+│   │   │   │   │   ├── Calc_Ray_dispersion.m
+│   │   │   │   │   ├── FTN.m
+│   │   │   │   │   ├── FiltFiltM.m
+│   │   │   │   │   ├── FilterM.m
+│   │   │   │   │   ├── FilterX.c
+│   │   │   │   │   ├── FindArrayZero.m
+│   │   │   │   │   ├── MakeFinvMtx.m
+│   │   │   │   │   ├── PropMtxRay.m
+│   │   │   │   │   ├── SmoothAnalyticEnv.m
+│   │   │   │   │   ├── besselerr.m
+│   │   │   │   │   ├── besselerr_J1.m
+│   │   │   │   │   ├── besselerr_alpha.m
+│   │   │   │   │   ├── besselerr_dist.m
+│   │   │   │   │   ├── besselzero.m
+│   │   │   │   │   ├── build_gaus_filter.m
+│   │   │   │   │   ├── calc_Rayleigh_disp/
+│   │   │   │   │   │   ├── genrt.m
+│   │   │   │   │   │   ├── homogeneous.m
+│   │   │   │   │   │   ├── mat_disperse.m
+│   │   │   │   │   │   ├── modal.m
+│   │   │   │   │   │   ├── modrt.m
+│   │   │   │   │   │   ├── psv.m
+│   │   │   │   │   │   └── secular.m
+│   │   │   │   │   ├── calc_SNR.m
+│   │   │   │   │   ├── cos_taper.m
+│   │   │   │   │   ├── find_ilay.m
+│   │   │   │   │   ├── find_zeros.m
+│   │   │   │   │   ├── fit_azi_anisotropy2theta.m
+│   │   │   │   │   ├── fit_azi_anisotropy2theta4theta_2.m
+│   │   │   │   │   ├── fit_azi_anisotropy2theta_OLD.m
+│   │   │   │   │   ├── fit_azi_anisotropy2theta_resid.m
+│   │   │   │   │   ├── ftan_win.m
+│   │   │   │   │   ├── gaus_filt_nbands.m
+│   │   │   │   │   ├── get_filter_TFcoeffs.m
+│   │   │   │   │   ├── labinterp.m
+│   │   │   │   │   ├── linterp.m
+│   │   │   │   │   ├── load_sac.m
+│   │   │   │   │   ├── plot_SNR.m
+│   │   │   │   │   ├── readMINEOS_qfile2.m
+│   │   │   │   │   ├── readMINEOS_qfile_allper.m
+│   │   │   │   │   ├── read_sac_RESP.m
+│   │   │   │   │   ├── readsac.m
+│   │   │   │   │   ├── rm_resp.m
+│   │   │   │   │   ├── rotate_vector.m
+│   │   │   │   │   ├── runwin_norm.m
+│   │   │   │   │   ├── save2pdf.m
+│   │   │   │   │   ├── spectrumwhiten_smooth.m
+│   │   │   │   │   ├── tukey_filt.m
+│   │   │   │   │   ├── uTest_FiltFiltM.m
+│   │   │   │   │   ├── uTest_FilterM.m
+│   │   │   │   │   ├── uimage.m
+│   │   │   │   │   └── uimagesc.m
+│   │   │   │   └── thompson_revisit_karnik/
+│   │   │   │       └── ThomsonsMethodRevisitedExperiments/
+│   │   │   │           ├── Comparison_ARMA_largescale_1000trials.m
+│   │   │   │           ├── Comparison_ARMA_largescale_1000trials_maxld_makefigs.m
+│   │   │   │           ├── Comparison_ARMA_largescale_1000trials_meanld_makefigs.m
+│   │   │   │           ├── Comparison_ARMA_largescale_1trial.m
+│   │   │   │           ├── Comparison_ARMA_largescale_1trial_makefigs.m
+│   │   │   │           ├── FastMultitaper.m
+│   │   │   │           ├── FastMultitaper_SpeedTest.m
+│   │   │   │           ├── FastMultitaper_SpeedTest_makefigs.m
+│   │   │   │           ├── Multitaper.m
+│   │   │   │           ├── MultitaperAdaptive.m
+│   │   │   │           ├── syntheic_psd_exp_sayan.m
+│   │   │   │           ├── transitionDPSS.m
+│   │   │   │           ├── tridieig.m
+│   │   │   │           └── tridisolve.m
+│   │   │   └── transfer/
+│   │   │       └── forchris/
+│   │   │           └── temp_plot.m
+│   │   ├── PRJ_Wavenet/
+│   │   │   └── epic_related/
+│   │   │       ├── analyze_spulse_output.py
+│   │   │       ├── save_spulse_output.sh
+│   │   │       ├── simul_worker_with_force_randomization.py
+│   │   │       ├── simul_worker_with_force_randomization_v2.py
+│   │   │       ├── simulation_worker.py
+│   │   │       ├── submit_test.sh
+│   │   │       ├── tmp.ipynb
+│   │   │       └── tmp.sh
+│   │   ├── Polarization_SWave/
+│   │   │   ├── git_version/
+│   │   │   │   ├── polarisation_package/
+│   │   │   │   │   ├── __init__.py
+│   │   │   │   │   ├── polarisation_calculation.py
+│   │   │   │   │   ├── polarisation_main.py
+│   │   │   │   │   └── polarisation_plot.py
+│   │   │   │   └── setup.py
+│   │   │   └── personal/
+│   │   │       ├── polarisation_package/
+│   │   │       │   ├── __init__.py
+│   │   │       │   ├── polarisation_calculation.py
+│   │   │       │   ├── polarisation_main.py
+│   │   │       │   ├── polarisation_plot.py
+│   │   │       │   ├── polarization_calculation.ipynb
+│   │   │       │   ├── polarization_main.ipynb
+│   │   │       │   └── polarization_plot.ipynb
+│   │   │       └── setup.py
+│   │   ├── Prj_DL_Tomo_NSF/
+│   │   │   └── shared/
+│   │   │       ├── DrOh/
+│   │   │       │   ├── makeToyModel_SA.m
+│   │   │       │   ├── maketoymodel.m
+│   │   │       │   ├── maketoymodel_V1.m
+│   │   │       │   └── test.m
+│   │   │       ├── job.slurm
+│   │   │       ├── job_dependency/
+│   │   │       │   ├── chkTomoDat.m
+│   │   │       │   ├── job.slurm
+│   │   │       │   ├── modelstruct2txt.m
+│   │   │       │   ├── modeltxt2struct.m
+│   │   │       │   └── prepare_n_submit.sh
+│   │   │       ├── rjMCMC2D_Afr/
+│   │   │       │   ├── AcceptOrNot.m
+│   │   │       │   ├── CreateNewModel.m
+│   │   │       │   ├── CreateNewModel_Afr.m
+│   │   │       │   ├── ForwardStep.m
+│   │   │       │   ├── MCMC_2D_cycle.m
+│   │   │       │   ├── MCMC_2D_cycle_Afr.m
+│   │   │       │   ├── PickAction.m
+│   │   │       │   ├── generate_syn_data.m
+│   │   │       │   ├── plot_results.m
+│   │   │       │   ├── plot_simulation.m
+│   │   │       │   ├── prepare_chains.sh
+│   │   │       │   ├── rj2DMCMC_Afr.m
+│   │   │       │   ├── rj2DMCMC_para.m
+│   │   │       │   ├── run_MCMC2D.sh
+│   │   │       │   ├── run_MCMC2D.slurm
+│   │   │       │   ├── run_rj2DMCMC.slurm
+│   │   │       │   ├── submit_chain_bh.slurm
+│   │   │       │   ├── submit_chain_br.slurm
+│   │   │       │   └── submit_chain_ex.slurm
+│   │   │       ├── rjMCMC2D_Afr_bl/
+│   │   │       │   ├── AcceptOrNot.m
+│   │   │       │   ├── CreateNewModel.m
+│   │   │       │   ├── CreateNewModel_Afr.m
+│   │   │       │   ├── ForwardStep.m
+│   │   │       │   ├── MCMC_2D_cycle.m
+│   │   │       │   ├── MCMC_2D_cycle_Afr.m
+│   │   │       │   ├── PickAction.m
+│   │   │       │   ├── generate_syn_data.m
+│   │   │       │   ├── plot_results.m
+│   │   │       │   ├── plot_simulation.m
+│   │   │       │   ├── prepare_chains.sh
+│   │   │       │   ├── rj2DMCMC_Afr.m
+│   │   │       │   ├── rj2DMCMC_para.m
+│   │   │       │   ├── run_MCMC2D.sh
+│   │   │       │   ├── run_MCMC2D.slurm
+│   │   │       │   ├── run_rj2DMCMC.slurm
+│   │   │       │   ├── submit_chain_bh.slurm
+│   │   │       │   ├── submit_chain_br.slurm
+│   │   │       │   └── submit_chain_ex.slurm
+│   │   │       ├── rjMCMC2D_test/
+│   │   │       │   ├── AcceptOrNot.m
+│   │   │       │   ├── CreateNewModel.m
+│   │   │       │   ├── ForwardStep.m
+│   │   │       │   ├── MCMC_2D_cycle.m
+│   │   │       │   ├── PickAction.m
+│   │   │       │   ├── chk/
+│   │   │       │   │   ├── MCMC_2D_cycle.m
+│   │   │       │   │   └── rj2DMCMC_para.m
+│   │   │       │   ├── generate_syn_data.m
+│   │   │       │   ├── plot_results.m
+│   │   │       │   ├── plot_simulation.m
+│   │   │       │   ├── rj2DMCMC_para.m
+│   │   │       │   ├── run_MCMC2D.sh
+│   │   │       │   ├── submit_chain_bh.slurm
+│   │   │       │   ├── submit_chain_br.slurm
+│   │   │       │   └── submit_chain_ex.slurm
+│   │   │       ├── sxue3/
+│   │   │       │   └── rjMCMC2D_Afr/
+│   │   │       │       ├── AcceptOrNot.m
+│   │   │       │       ├── CreateNewModel.m
+│   │   │       │       ├── CreateNewModel_Afr.m
+│   │   │       │       ├── ForwardStep.m
+│   │   │       │       ├── MCMC_2D_cycle.m
+│   │   │       │       ├── MCMC_2D_cycle_Afr.m
+│   │   │       │       ├── PickAction.m
+│   │   │       │       ├── generate_syn_data.m
+│   │   │       │       ├── plot_results.m
+│   │   │       │       ├── plot_simulation.m
+│   │   │       │       ├── rj2DMCMC_Afr.m
+│   │   │       │       ├── rj2DMCMC_para.m
+│   │   │       │       ├── run_MCMC2D.sh
+│   │   │       │       ├── submit_chain_bh.slurm
+│   │   │       │       ├── submit_chain_br.slurm
+│   │   │       │       └── submit_chain_ex.slurm
+│   │   │       └── test/
+│   │   │           ├── job.slurm
+│   │   │           └── prepare_n_submit.sh
+│   │   ├── Prj_Subm_Volc/
+│   │   │   ├── data/
+│   │   │   │   ├── Single_Station_Data_Download_Workflow.py
+│   │   │   │   ├── dwnld_sngl_stn_slurm.sh
+│   │   │   │   └── run_me.sh
+│   │   │   └── sequencer_test.ipynb
+│   │   ├── Sequencer_Algo/
+│   │   │   ├── Draft.ipynb
+│   │   │   ├── Draft2_with_gender_data.ipynb
+│   │   │   ├── Draft3_beyond1D.ipynb
+│   │   │   ├── Draft4_Radeon_Dataset.ipynb
+│   │   │   ├── Draft4_Radeon_Dataset_V2.ipynb
+│   │   │   ├── Draft4_Radeon_Dataset_V3.ipynb
+│   │   │   ├── RD_DynamicTimeWarp_Test.ipynb
+│   │   │   ├── RFDataMat_V1.ipynb
+│   │   │   ├── RFDataMat_V2.ipynb
+│   │   │   ├── RFDataMat_V3.ipynb
+│   │   │   ├── RFDataMat_V4_X&Yaxis_Approach.ipynb
+│   │   │   ├── RFDataMat_WithCoords_NoCrust_V0.ipynb
+│   │   │   ├── RFDataMat_WithCoords_V0.ipynb
+│   │   │   ├── RFDataWithCoords_nocrust_negatives_full_V0_folium_map.ipynb
+│   │   │   ├── Siyu_Data_Carton_V0.ipynb
+│   │   │   ├── Siyu_Data_V0.ipynb
+│   │   │   ├── Siyu_Data_V1.ipynb
+│   │   │   ├── Siyu_Data_V3.ipynb
+│   │   │   ├── Siyu_Data_V4_Africa_Regions.ipynb
+│   │   │   ├── basic_sequencer_functionalities.ipynb
+│   │   │   ├── basic_sequencer_functionalities_main.ipynb
+│   │   │   ├── beyond_1D_sequence.ipynb
+│   │   │   ├── two_dimensional_objects.ipynb
+│   │   │   └── us-states.json
+│   │   ├── TemplateMatching/
+│   │   │   ├── EDA_On_GTAM_GMBO_Signal.ipynb
+│   │   │   ├── Joes_Codes/
+│   │   │   │   ├── 01_WaveformObservation.ipynb
+│   │   │   │   ├── 02_Waveform_Test_Processing.ipynb
+│   │   │   │   ├── 03_Single_Station_Inversion.ipynb
+│   │   │   │   ├── TORD_Eq_Detection.ipynb
+│   │   │   │   └── Untitled.ipynb
+│   │   │   ├── PreProcess_Signals_Main.ipynb
+│   │   │   ├── PreProcess_Signals_Slurm_Script.ipynb
+│   │   │   ├── PreProcess_Signals_Slurm_Script.py
+│   │   │   ├── SanityTest.ipynb
+│   │   │   ├── TemplateMatching_TORD/
+│   │   │   │   ├── TemplateMatching_Script_Build_Draft.ipynb
+│   │   │   │   ├── TemplateMatching_Script_Functional_Draft.ipynb
+│   │   │   │   └── bckup/
+│   │   │   │       └── TemplateMatching_Script_Functional_Draft_V0.ipynb
+│   │   │   ├── Upsampling_SampleCode.ipynb
+│   │   │   ├── achived_code/
+│   │   │   │   └── error_re_process_test.sh
+│   │   │   ├── batch_preprocess_tam_mbo.sh
+│   │   │   ├── batch_process_loop.sh
+│   │   │   ├── disaster_recovery_session_242.py
+│   │   │   ├── disaster_recovery_session_243.py
+│   │   │   ├── error_file_analysis.ipynb
+│   │   │   ├── error_re_process_main.sh
+│   │   │   ├── myoutput2.py
+│   │   │   ├── myoutput3.py
+│   │   │   └── recovery_draft.ipynb
+│   │   └── Terra_Docs/
+│   │       ├── Analyzing_Issues_in_Beam_Database_Metadata.ipynb
+│   │       ├── EDA_DEC4_Beam_Database.ipynb
+│   │       └── Pull_LatLon_Data_Station_Beam.ipynb
+│   ├── matlab_practice/
+│   │   ├── functions/
+│   │   │   └── jbfill.m
+│   │   ├── jbfill_exp.m
+│   │   └── jbfill_expmnt.m
+│   ├── reproduceenvrionment_readme.ipynb
+│   ├── startmatlab.sh
+│   ├── startpython.sh
+│   └── test.ipynb
+└── bash_practice/
+    ├── check_file_copy.sh
+    ├── chgrp_on_files.sh
+    ├── find_and_change_group.sh
+    ├── loop_practice.sh
+    ├── match_files.sh
+    ├── read_file.sh
+    └── test.sh
+```
 
 ## 3. Code Reference
 

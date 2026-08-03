@@ -28,38 +28,425 @@ The `ROOT` subsystem is a comprehensive suite designed to support advanced seism
 
 ## 2. Data Architecture
 
-### Directory Structure
-The `ROOT` subsystem is organized into a hierarchical directory structure to manage different types of data and configurations efficiently. The main directories are:
-
-- **Data Directories**:
-  - `multitaper_code/data/`: Contains input data for spectral analysis.
-  - `EP_bliu/data/`: Stores large-scale simulation inputs and outputs.
-  - `epic_related/data/`: Houses randomized force simulation data.
-  - `epic_production/experiments/`: Manages experiment configurations, outputs, and results.
-
-- **Output Directories**:
-  - `multitaper_code/output/`: Results of spectral analysis.
-  - `EP_bliu/output/`: Simulation results and FTAN processing outputs.
-  - `epic_related/output/`: Signal analysis and force simulation results.
-  - `epic_production/experiments/experiment_*/outputs/`: Experiment-specific outputs.
-
-- **Configuration Directories**:
-  - `multitaper_code/configs/`: Configuration files for spectral analysis.
-  - `EP_bliu/configs/`: Simulation parameters and settings.
-  - `epic_related/configs/`: Force simulation configurations.
-  - `epic_production/experiments/experiment_*/configs/`: Experiment-specific configurations.
-
-### Data Patterns
-The data in the `ROOT` subsystem follows specific patterns to ensure consistency and ease of processing:
-
-- **Simulation Outputs**: Files are named using a consistent pattern, e.g., `WAVE_SIM_*_dist_*_rad_*-*_ang_*_*.txt`.
-  - Example: `WAVE_SIM_100_dist_500_rad_600-700_ang_30_40.txt`
-
-- **Spectral Analysis Results**: Output files are organized by analysis type and parameters.
-  - Example: `multitaper_output_spectral_analysis_20231001.csv`
-
-- **Configuration Files**: Configuration files use a clear naming convention to indicate their purpose and experiment.
-  - Example: `CIA_10000_config.txt`
+```text
+Prj_Wavenet/
+├── EP_bliu/
+│   ├── FTANos.py
+│   ├── FTANos_helper.py
+│   ├── bessel_test_prod.ipynb
+│   ├── compare_dispersion.py
+│   ├── compute_FTAN.py
+│   ├── compute_ccf_final.py
+│   ├── experiments/
+│   │   └── experiment_4/
+│   │       └── outputs/
+│   │           ├── final_dist_150_rad_150_1000/
+│   │           │   ├── FTAN.py
+│   │           │   ├── FTANos.py
+│   │           │   └── toSAC.py
+│   │           └── final_dist_50_rad_150_1000/
+│   │               ├── FTANos.py
+│   │               └── generate_ftan_50km.py
+│   ├── ftan_cwt.py
+│   ├── generate_configs.sh
+│   ├── generate_configs_10wedges.sh
+│   ├── generate_configs_180wedges.sh
+│   ├── submit_all.sh
+│   ├── submit_all_preempt.sh
+│   ├── submit_experiment.sh
+│   ├── submit_experiment5.sh
+│   ├── tmp.ipynb
+│   ├── worker_explosion.py
+│   └── worker_point_forces.py
+├── epic_legacy/
+│   └── mgmt/
+│       ├── generate_regions.sh
+│       └── mgr.sh
+├── epic_production/
+│   ├── Baowei_test/
+│   │   ├── build_legacy_status.py
+│   │   ├── build_ml_dataset.py
+│   │   ├── generate_configs_exp18.sh
+│   │   ├── generate_jobmap_diff.py
+│   │   ├── h5_wavenet_tools.py
+│   │   ├── job_BH3.sh
+│   │   ├── job_bl.sh
+│   │   ├── launch_wavesim_auto.sh
+│   │   ├── map_topology.json
+│   │   ├── run_launcher_bl.sh
+│   │   ├── run_launcher_combined.sh
+│   │   ├── submit.sh
+│   │   ├── submit_BH3_bl.sh
+│   │   ├── submit_BH3_combined.sh
+│   │   ├── submit_bl.sh
+│   │   ├── submit_dataset_builder.sh
+│   │   ├── submit_exp18.sh
+│   │   ├── submit_wavesim_batch.sh
+│   │   └── worker_point_forces_bl.py
+│   ├── FTAN_ML.py
+│   ├── FTAN_ML_Curves.py
+│   ├── FTAN_ML_MODELS/
+│   │   ├── run_2026-02-02-143710/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-02-144235/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-02-145015/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-11-141318/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-12-134743/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-12-134929/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-12-135016/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-12-135324/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-12-135431/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-18-125610/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-18-131105/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-18-132105/
+│   │   │   └── config.json
+│   │   └── run_2026-02-18-141705/
+│   │       └── config.json
+│   ├── FTAN_ML_MODELS_4CH_SHARP/
+│   │   └── run_2026-02-23-121506/
+│   │       └── config.json
+│   ├── FTAN_ML_MODELS_DUAL_INPUT/
+│   │   ├── run_2026-02-23-122910/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-23-123035/
+│   │   │   └── config.json
+│   │   └── run_2026-02-23-125704/
+│   │       └── config.json
+│   ├── FTAN_ML_array.py
+│   ├── FTAN_Noisepy.py
+│   ├── FTAN_SEG_MODELS/
+│   │   ├── run_2026-02-26-104418/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-105351/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-105516/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-105605/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-131841/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-132658/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-132821/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-132902/
+│   │   │   └── config.json
+│   │   ├── run_2026-02-26-134100/
+│   │   │   └── config.json
+│   │   └── run_2026-02-26-135422/
+│   │       └── config.json
+│   ├── U_NET.py
+│   ├── U_NET_array.py
+│   ├── U_NET_curves.py
+│   ├── U_NETv2.py
+│   ├── U_NETv3.py
+│   ├── analyze.py
+│   ├── analyze_ccf_exp17.py
+│   ├── analyze_ccf_exp18.py
+│   ├── bessel_test_prod.ipynb
+│   ├── compare_FTANs.py
+│   ├── compare_dispersion.py
+│   ├── compute_ccf.py
+│   ├── coverage_analysis.py
+│   ├── experiments/
+│   │   └── experiment_4/
+│   │       └── outputs/
+│   │           ├── final_dist_150_rad_150_1000/
+│   │           │   ├── FTAN.py
+│   │           │   ├── FTANos.py
+│   │           │   └── toSAC.py
+│   │           └── final_dist_50_rad_150_1000/
+│   │               ├── FTANos.py
+│   │               └── generate_ftan_50km.py
+│   ├── forGit/
+│   │   └── wavenet/
+│   │       ├── job_BH3.sh
+│   │       ├── run_launcher_bl.sh
+│   │       ├── run_launcher_combined.sh
+│   │       ├── submit_BH3_bl.sh
+│   │       ├── submit_BH3_combined.sh
+│   │       └── worker_point_forces_bl.py
+│   ├── gen_configs_extended.sh
+│   ├── generate_configs.sh
+│   ├── generate_configs_Baowei.sh
+│   ├── generate_configs_perturbed.sh
+│   ├── generate_jobmap_round.py
+│   ├── generate_models.py
+│   ├── job_map_perturbed.sh
+│   ├── make_ftan_video.py
+│   ├── model_creation.py
+│   ├── plot_coverage.py
+│   ├── plot_exp716.py
+│   ├── plot_pertrubed_model.py
+│   ├── plot_sregn.py
+│   ├── plot_theoretical_2d.py
+│   ├── resubmit_missing.sh
+│   ├── run_exp18.sh
+│   ├── run_launcher.sh
+│   ├── run_sregn_launcher.sh
+│   ├── sregn_joblist.sh
+│   ├── submit_baowei.sh
+│   ├── submit_exp17.sh
+│   ├── submit_exp17_bl.sh
+│   ├── submit_exp17_debug.sh
+│   ├── submit_exp18.sh
+│   ├── submit_experiment.sh
+│   ├── submit_experiment_debug.sh
+│   ├── tmp.ipynb
+│   ├── visual.ipynb
+│   ├── worker_explosion.py
+│   ├── worker_point_forces.py
+│   ├── worker_point_forces_bl.py
+│   └── worker_point_forces_exp18.py
+├── epic_related/
+│   ├── analyze_spulse_output.py
+│   ├── bessel_test_prod.ipynb
+│   ├── bessel_test_related.ipynb
+│   ├── save_spulse_output.sh
+│   ├── simul_worker_with_force_randomization_v1.py
+│   ├── simul_worker_with_force_randomization_v2.py
+│   ├── simul_worker_with_force_randomization_v3.py
+│   ├── simulation_worker.py
+│   ├── submit_test.sh
+│   ├── tmp.ipynb
+│   ├── tmp.sh
+│   └── tmpmpi.py
+├── for_Chris/
+│   ├── BH3/
+│   │   ├── generate_configs_exp18.sh
+│   │   ├── generate_jobmap_unfinished.py
+│   │   ├── job_BH3.sh
+│   │   ├── job_bl.sh
+│   │   ├── run_launcher_bl.sh
+│   │   ├── run_launcher_combined.sh
+│   │   ├── submit.sh
+│   │   ├── submit_BH3_bl.sh
+│   │   ├── submit_BH3_combined.sh
+│   │   ├── submit_bl.sh
+│   │   ├── submit_exp18.sh
+│   │   └── worker_point_forces_bl.py
+│   ├── FTANos.py
+│   ├── FTANos_helper.py
+│   ├── bessel_test_prod.ipynb
+│   ├── chris_test/
+│   │   ├── check_progress.py
+│   │   ├── patch_worker.py
+│   │   ├── patch_worker2.py
+│   │   ├── profile_test.py
+│   │   ├── run_launcher_combined_christest.sh
+│   │   ├── submit_BH3_combined_christest.sh
+│   │   ├── verification.py
+│   │   └── worker_point_forces_bl_christest.py
+│   ├── compare_dispersion.py
+│   ├── compute_FTAN.py
+│   ├── compute_ccf_final.py
+│   ├── experiments/
+│   │   └── experiment_4/
+│   │       └── outputs/
+│   │           ├── final_dist_150_rad_150_1000/
+│   │           │   ├── FTAN.py
+│   │           │   ├── FTANos.py
+│   │           │   └── toSAC.py
+│   │           └── final_dist_50_rad_150_1000/
+│   │               ├── FTANos.py
+│   │               └── generate_ftan_50km.py
+│   ├── ftan_cwt.py
+│   ├── generate_configs.sh
+│   ├── generate_configs_10wedges.sh
+│   ├── generate_configs_180wedges.sh
+│   ├── jobmap_analyzer.py
+│   ├── submit_all.sh
+│   ├── submit_all_preempt.sh
+│   ├── submit_experiment.sh
+│   ├── submit_experiment5.sh
+│   ├── tmp.ipynb
+│   ├── worker_explosion.py
+│   └── worker_point_forces.py
+└── multitaper_code/
+    ├── ccf_spectra_recons_plot_figure1.m
+    └── functions/
+        ├── Calc_Ray_dispersion.m
+        ├── FTN.m
+        ├── FiltFiltM.m
+        ├── FilterM.m
+        ├── FilterX.c
+        ├── FindArrayZero.m
+        ├── MakeFinvMtx.m
+        ├── PropMtxRay.m
+        ├── SmoothAnalyticEnv.m
+        ├── ThomsonsMethodRevisitedExperiments/
+        │   ├── FastMultitaper.m
+        │   ├── Multitaper.m
+        │   ├── MultitaperAdaptive.m
+        │   ├── firstNlambdaDPSS.m
+        │   ├── transitionDPSS.m
+        │   ├── transitionDPSS_modif.m
+        │   ├── tridieig.m
+        │   └── tridisolve.m
+        ├── besselerr.m
+        ├── besselerr_J1.m
+        ├── besselerr_alpha.m
+        ├── besselerr_dist.m
+        ├── besselzero.m
+        ├── build_gaus_filter.m
+        ├── calc_Rayleigh_disp/
+        │   ├── genrt.m
+        │   ├── homogeneous.m
+        │   ├── mat_disperse.m
+        │   ├── modal.m
+        │   ├── modrt.m
+        │   ├── psv.m
+        │   └── secular.m
+        ├── calc_SNR.m
+        ├── calc_SNR_onesided.m
+        ├── ccf_FTN_3dim.m
+        ├── ccf_OBN_3dim.m
+        ├── ccf_butterfilt_3dim.m
+        ├── ccf_cos_taper_3dim.m
+        ├── ccf_detrend_3dim.m
+        ├── ccf_remove_instrument_response_Z.m
+        ├── ccf_slepian_multitap_3dim.m
+        ├── ccf_spectrumwhiten_smooth_3dim.m
+        ├── cos_taper.m
+        ├── cos_taper_10.m
+        ├── find_ilay.m
+        ├── find_zeros.m
+        ├── fit_azi_anisotropy2theta.m
+        ├── fit_azi_anisotropy2theta4theta_2.m
+        ├── fit_azi_anisotropy2theta_OLD.m
+        ├── fit_azi_anisotropy2theta_resid.m
+        ├── ftan_win.m
+        ├── gaus_filt_nbands.m
+        ├── get_filter_TFcoeffs.m
+        ├── jCommon/
+        │   ├── Contents.m
+        │   ├── allall.m
+        │   ├── anyany.m
+        │   ├── aresame.m
+        │   ├── arrayify.m
+        │   ├── bellpoly.m
+        │   ├── blocklen.m
+        │   ├── blocknum.m
+        │   ├── catstruct.m
+        │   ├── chisquared.m
+        │   ├── choose.m
+        │   ├── cms2kmd.m
+        │   ├── commentlines.m
+        │   ├── cum2mom.m
+        │   ├── fillbad.m
+        │   ├── findfiles.m
+        │   ├── findpath.m
+        │   ├── frac.m
+        │   ├── imlog.m
+        │   ├── iseven.m
+        │   ├── isodd.m
+        │   ├── jhelp.m
+        │   ├── jhermfun.m
+        │   ├── jhermpoly.m
+        │   ├── jmat2.m
+        │   ├── jmat3.m
+        │   ├── lnsd.m
+        │   ├── make.m
+        │   ├── matsave.m
+        │   ├── maxmax.m
+        │   ├── minmin.m
+        │   ├── mom2cum.m
+        │   ├── ncload.m
+        │   ├── nonnan.m
+        │   ├── oprod.m
+        │   ├── pdfprops.m
+        │   ├── reporttest.m
+        │   ├── res.m
+        │   ├── rot.m
+        │   ├── simplepdf.m
+        │   ├── squared.m
+        │   ├── standalone.m
+        │   ├── structindex.m
+        │   ├── tmat.m
+        │   ├── to_grab_from_caller.m
+        │   ├── to_overwrite.m
+        │   ├── use.m
+        │   ├── vectmult.m
+        │   ├── whichdir.m
+        │   └── yearfrac.m
+        ├── jSpectral/
+        │   ├── Contents.m
+        │   ├── anatrans.m
+        │   ├── doublen.m
+        │   ├── fourier.m
+        │   ├── mconf.m
+        │   ├── mspec_fast.m
+        │   ├── mspec_fast_bkup.m
+        │   ├── mspec_fast_bkup2.m
+        │   ├── mspec_legacy_bkup.m
+        │   ├── mspec_loop.m
+        │   ├── msvd.m
+        │   ├── polparams.m
+        │   ├── sampletimes.m
+        │   ├── sleptap.m
+        │   ├── sleptap_modif.m
+        │   ├── sleptap_modif2.m
+        │   ├── sleptap_modif3.m
+        │   ├── timeseries_boundary.m
+        │   ├── twospecplot.m
+        │   └── wigdist.m
+        ├── jVarfun/
+        │   ├── Contents.m
+        │   ├── col2mat.m
+        │   ├── colbreaks.m
+        │   ├── jhanning.m
+        │   ├── mat2col.m
+        │   ├── vcolon.m
+        │   ├── vdiff.m
+        │   ├── vempty.m
+        │   ├── vfilt.m
+        │   ├── vindex.m
+        │   ├── vindexinto.m
+        │   ├── vmean.m
+        │   ├── vmedian.m
+        │   ├── vmoment.m
+        │   ├── vrep.m
+        │   ├── vrms.m
+        │   ├── vshift.m
+        │   ├── vsize.m
+        │   ├── vsqueeze.m
+        │   ├── vstd.m
+        │   ├── vsum.m
+        │   ├── vswap.m
+        │   ├── vtranspose.m
+        │   └── vzeros.m
+        ├── labinterp.m
+        ├── linterp.m
+        ├── load_sac.m
+        ├── mapobs2Grid.m
+        ├── plot_SNR.m
+        ├── readMINEOS_qfile2.m
+        ├── readMINEOS_qfile_allper.m
+        ├── read_ADAMA_ncfs.m
+        ├── read_ADAMA_raw.m
+        ├── read_sac_RESP.m
+        ├── readsac.m
+        ├── rm_resp.m
+        ├── rotate_vector.m
+        ├── runwin_norm.m
+        ├── save2pdf.m
+        ├── spectrumwhiten_smooth.m
+        ├── tukey_filt.m
+        ├── uTest_FiltFiltM.m
+        ├── uTest_FilterM.m
+        ├── uimage.m
+        └── uimagesc.m
+```
 
 ## 3. Code Reference
 

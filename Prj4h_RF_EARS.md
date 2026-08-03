@@ -21,23 +21,711 @@ The East Africa Seismic Data Processing System is a comprehensive MATLAB-based f
 
 ## 2. Data Architecture
 
-### Data Structure
-The project's data is organized into a hierarchical structure, ensuring that each type of data is easily accessible and manageable. The main folders include:
-
-- **`Ps_RF/2_Data/SAC/Stations/`**: Contains SAC (Seismic Analysis Code) files for various seismic stations.
-  - Example: `XB/KGCAE/*.*.*.SAC`
-- **`Ps_RF/2_Data/Old/Fista/fista_results/`**: Stores results from FISTA (Fast Iterative Shrinkage-Thresholding Algorithm) processing.
-  - Example: `fista_on_AF_DODT.mat`
-- **`Ps_RF/2_Data/Tables/CCP/CCP_tables_with_velocities/`**: Holds CCP (Common Conversion Point) tables with velocity information.
-  - Example: `Pierce*_QC_wave_kept.txt`
-
-### Data Patterns
-- **SAC Files**: These files contain seismic data and are named according to the station, network, location, and channel. Each file is processed for specific events and time periods.
-  - Format: `<Network>.<Station>.<Location>.<Channel>.SAC`
-- **FISTA Results**: MATLAB files storing the results of FISTA processing, including best lambda values and visualizations.
-  - Format: `fista_on_<Station>.mat`
-- **CCP Tables**: Text files containing pierce points and velocity information for each cell in the study area.
-  - Format: `Pierce*_QC_wave_kept.txt`
+```text
+Prj4h_RF_EARS/
+├── East_Africa_Data_Molly.m
+├── East_Africa_Figure2S1_Verification_RF_Africa_plots.m
+├── Old/
+│   ├── MM_kitchen_sink.m
+│   ├── New_Data/
+│   │   └── defineAreaPoly.m
+│   ├── a0_download_event.m
+│   ├── a0_setupparameters.m
+│   ├── a1_preprocess.m
+│   ├── b1_runMTC.m
+│   ├── b2_plotMTC.m
+│   ├── b3_runFISTA.m
+│   ├── b3_runFISTA_parallel.m
+│   ├── b4_fista_results.m
+│   ├── comp0a_Download_all_stations.m
+│   ├── comp2a_RunMTC_allsta.m
+│   ├── comp2a_RunMTC_allsta_Molly.m
+│   ├── comp2b_RunFISTA_allsta.m
+│   ├── comp2c_Run_hkstack.m
+│   └── startup.m
+└── Ps_RF/
+    ├── 1_Codes/
+    │   └── 1_Processing/
+    │       ├── b0_Sort_Station_Inventory.m
+    │       ├── b1_CCP_Event_Raytrace_2.m
+    │       ├── b1_CCP_RaytrIntcpt_GridAssign.m
+    │       ├── b2_CCP_Grid_Data.m
+    │       ├── b3_CCP_GridVelStruct.m
+    │       ├── b4_0_Gridlist4bash.m
+    │       ├── b4_PreProcess_allsta.m
+    │       ├── b4_bashcall.sh
+    │       ├── b4_bashscript.sh
+    │       ├── b5_Plot_MTCRF_all.m
+    │       └── startup.m
+    ├── 2_Data/
+    │   └── Geology/
+    │       └── tectonicplates/
+    │           └── GeoJSON/
+    │               ├── PB2002_boundaries.json
+    │               ├── PB2002_orogens.json
+    │               ├── PB2002_plates.json
+    │               └── PB2002_steps.json
+    ├── 3_Src/
+    │   ├── Functions_Cluster_Analysis/
+    │   │   ├── Contents.m
+    │   │   ├── adjustedRandIndex.m
+    │   │   ├── calculateAverageGridCellArea.m
+    │   │   ├── calculateGridCellArea.m
+    │   │   ├── cbfit.m
+    │   │   ├── cbfreeze.m
+    │   │   ├── cbhandle.m
+    │   │   ├── check_contour_zone.m
+    │   │   ├── cmapping.m
+    │   │   ├── cmfit.m
+    │   │   ├── cmjoin.m
+    │   │   ├── cmlines.m
+    │   │   ├── compute_semblance.m
+    │   │   ├── daviesbouldin.m
+    │   │   ├── determineColor.m
+    │   │   ├── determineMarker.m
+    │   │   ├── determineNextCluster.m
+    │   │   ├── find_closest_vp_vs.m
+    │   │   ├── find_matching_moho_depths.m
+    │   │   ├── freezeColors.m
+    │   │   ├── getStationDataByCluster.m
+    │   │   ├── getStationNamesByCluster.m
+    │   │   ├── get_color.m
+    │   │   ├── get_contour_data.m
+    │   │   ├── get_marker.m
+    │   │   ├── get_marker_size.m
+    │   │   ├── get_publication_year.m
+    │   │   ├── isContaminated.m
+    │   │   ├── jbfill.m
+    │   │   ├── jicolorbar.m
+    │   │   ├── plotStationLocationByName.m
+    │   │   ├── plot_indexes_on_map.m
+    │   │   ├── plot_station_location.m
+    │   │   ├── pws2.m
+    │   │   ├── travelTimesAppx.m
+    │   │   ├── unfreezeColors.m
+    │   │   └── xyz2grid.m
+    │   ├── HK_stacking/
+    │   │   ├── HkStacking.m
+    │   │   └── travelTimes.m
+    │   ├── RFImager/
+    │   │   ├── 1_Functions/
+    │   │   │   ├── KdiagMask.m
+    │   │   │   ├── KdiagMask2.m
+    │   │   │   ├── MTCRF.m
+    │   │   │   ├── MTCRF_ET.m
+    │   │   │   ├── MTCRF_ET_se.m
+    │   │   │   ├── MTCRF_se.m
+    │   │   │   ├── Matlab_TauP.m
+    │   │   │   ├── RFWigglePlot.m
+    │   │   │   ├── RadonPlot.m
+    │   │   │   ├── RadonPlot2.m
+    │   │   │   ├── RadonPlot_1.m
+    │   │   │   ├── RadonPlot_3.m
+    │   │   │   ├── TauP-2.0/
+    │   │   │   │   ├── bin/
+    │   │   │   │   │   ├── taup.bat
+    │   │   │   │   │   ├── taup_console.bat
+    │   │   │   │   │   ├── taup_create.bat
+    │   │   │   │   │   ├── taup_curve.bat
+    │   │   │   │   │   ├── taup_path.bat
+    │   │   │   │   │   ├── taup_pierce.bat
+    │   │   │   │   │   ├── taup_setsac.bat
+    │   │   │   │   │   ├── taup_table.bat
+    │   │   │   │   │   └── taup_time.bat
+    │   │   │   │   ├── gradle/
+    │   │   │   │   │   └── gradlew.bat
+    │   │   │   │   ├── native/
+    │   │   │   │   │   ├── gettimes.c
+    │   │   │   │   │   ├── gettimesf.f
+    │   │   │   │   │   ├── taupnative.c
+    │   │   │   │   │   └── taupnative.h
+    │   │   │   │   └── src/
+    │   │   │   │       ├── main/
+    │   │   │   │       │   ├── java/
+    │   │   │   │       │   │   └── edu/
+    │   │   │   │       │   │       └── sc/
+    │   │   │   │       │   │           └── seis/
+    │   │   │   │       │   │               └── TauP/
+    │   │   │   │       │   │                   ├── Alert.java
+    │   │   │   │       │   │                   ├── Arrival.java
+    │   │   │   │       │   │                   ├── ArrivalPlot.java
+    │   │   │   │       │   │                   ├── ArrivalTableModel.java
+    │   │   │   │       │   │                   ├── Assert.java
+    │   │   │   │       │   │                   ├── BuildVersion.java
+    │   │   │   │       │   │                   ├── Complex.java
+    │   │   │   │       │   │                   ├── CriticalDepth.java
+    │   │   │   │       │   │                   ├── CurvePlot.java
+    │   │   │   │       │   │                   ├── DepthRange.java
+    │   │   │   │       │   │                   ├── DistPlot.java
+    │   │   │   │       │   │                   ├── Format.java
+    │   │   │   │       │   │                   ├── NoSuchLayerException.java
+    │   │   │   │       │   │                   ├── NoSuchMatPropException.java
+    │   │   │   │       │   │                   ├── Outputs.java
+    │   │   │   │       │   │                   ├── PathPlot.java
+    │   │   │   │       │   │                   ├── PhaseDialog.java
+    │   │   │   │       │   │                   ├── PhaseName.java
+    │   │   │   │       │   │                   ├── PierceTableModel.java
+    │   │   │   │       │   │                   ├── PolarPlot.java
+    │   │   │   │       │   │                   ├── PropertyLoader.java
+    │   │   │   │       │   │                   ├── ReflTransCoefficient.java
+    │   │   │   │       │   │                   ├── SeismicPhase.java
+    │   │   │   │       │   │                   ├── Sfun.java
+    │   │   │   │       │   │                   ├── SlownessLayer.java
+    │   │   │   │       │   │                   ├── SlownessModel.java
+    │   │   │   │       │   │                   ├── SlownessModelException.java
+    │   │   │   │       │   │                   ├── SlownessPlot.java
+    │   │   │   │       │   │                   ├── SphericalCoords.java
+    │   │   │   │       │   │                   ├── SphericalSModel.java
+    │   │   │   │       │   │                   ├── SplitLayerInfo.java
+    │   │   │   │       │   │                   ├── TauBranch.java
+    │   │   │   │       │   │                   ├── TauModel.java
+    │   │   │   │       │   │                   ├── TauModelException.java
+    │   │   │   │       │   │                   ├── TauModelLoader.java
+    │   │   │   │       │   │                   ├── TauP.java
+    │   │   │   │       │   │                   ├── TauPApplet.java
+    │   │   │   │       │   │                   ├── TauPClient.java
+    │   │   │   │       │   │                   ├── TauPDaemon.java
+    │   │   │   │       │   │                   ├── TauPException.java
+    │   │   │   │       │   │                   ├── TauP_Console.java
+    │   │   │   │       │   │                   ├── TauP_Create.java
+    │   │   │   │       │   │                   ├── TauP_Curve.java
+    │   │   │   │       │   │                   ├── TauP_Path.java
+    │   │   │   │       │   │                   ├── TauP_Peek.java
+    │   │   │   │       │   │                   ├── TauP_Pierce.java
+    │   │   │   │       │   │                   ├── TauP_SetSac.java
+    │   │   │   │       │   │                   ├── TauP_Table.java
+    │   │   │   │       │   │                   ├── TauP_Time.java
+    │   │   │   │       │   │                   ├── TauP_WCreate.java
+    │   │   │   │       │   │                   ├── TauP_WKBJ.java
+    │   │   │   │       │   │                   ├── TauPlot.java
+    │   │   │   │       │   │                   ├── Theta.java
+    │   │   │   │       │   │                   ├── TimeDist.java
+    │   │   │   │       │   │                   ├── TimeDistPlot.java
+    │   │   │   │       │   │                   ├── TimePlot.java
+    │   │   │   │       │   │                   ├── VelocityLayer.java
+    │   │   │   │       │   │                   ├── VelocityModel.java
+    │   │   │   │       │   │                   ├── VelocityModelException.java
+    │   │   │   │       │   │                   ├── VelocityPlot.java
+    │   │   │   │       │   │                   └── XYPlot.java
+    │   │   │   │       │   └── resources/
+    │   │   │   │       │       └── edu/
+    │   │   │   │       │           └── sc/
+    │   │   │   │       │               └── seis/
+    │   │   │   │       │                   └── TauP/
+    │   │   │   │       │                       └── jython/
+    │   │   │   │       │                           └── taup/
+    │   │   │   │       │                               ├── __init__.py
+    │   │   │   │       │                               └── distaz.py
+    │   │   │   │       └── test/
+    │   │   │   │           └── java/
+    │   │   │   │               └── edu/
+    │   │   │   │                   └── sc/
+    │   │   │   │                       └── seis/
+    │   │   │   │                           └── TauP/
+    │   │   │   │                               ├── AK135Test.java
+    │   │   │   │                               ├── ConstantModelTest.java
+    │   │   │   │                               ├── Dist180Test.java
+    │   │   │   │                               ├── MoonTest.java
+    │   │   │   │                               ├── ParamDifferential.java
+    │   │   │   │                               ├── ReflTransTest.java
+    │   │   │   │                               ├── SphericalCoordsTest.java
+    │   │   │   │                               └── SurfaceWaveTest.java
+    │   │   │   ├── allall.m
+    │   │   │   ├── anyany.m
+    │   │   │   ├── aresame.m
+    │   │   │   ├── axeshandles.m
+    │   │   │   ├── backAzimuthToAzimuth.m
+    │   │   │   ├── boxon.m
+    │   │   │   ├── calculate_moveout_times.m
+    │   │   │   ├── calculate_moveout_times2.m
+    │   │   │   ├── cell2col.m
+    │   │   │   ├── cellength.m
+    │   │   │   ├── cellplot.m
+    │   │   │   ├── cellsize.m
+    │   │   │   ├── col2cell.m
+    │   │   │   ├── corfreq.m
+    │   │   │   ├── costaper.m
+    │   │   │   ├── crop.m
+    │   │   │   ├── dataresample.m
+    │   │   │   ├── dataselect.m
+    │   │   │   ├── deg180.m
+    │   │   │   ├── deg360.m
+    │   │   │   ├── f_pws.m
+    │   │   │   ├── fetchSingleStaData.m
+    │   │   │   ├── fftrl.m
+    │   │   │   ├── filtspec.m
+    │   │   │   ├── forward_radon_freq_umd.m
+    │   │   │   ├── fourier.m
+    │   │   │   ├── frac.m
+    │   │   │   ├── gauss.m
+    │   │   │   ├── getEqData.m
+    │   │   │   ├── getSACv2.m
+    │   │   │   ├── getSACv3.m
+    │   │   │   ├── getSnr.m
+    │   │   │   ├── getValue.m
+    │   │   │   ├── get_q_t.m
+    │   │   │   ├── getsnr.m
+    │   │   │   ├── getsnrev.m
+    │   │   │   ├── getsrate.m
+    │   │   │   ├── hilbm.m
+    │   │   │   ├── ifftrl.m
+    │   │   │   ├── interpbl.m
+    │   │   │   ├── irisFetch.m
+    │   │   │   ├── irisFetch3.m
+    │   │   │   ├── irisFetch4.m
+    │   │   │   ├── iseven.m
+    │   │   │   ├── isodd.m
+    │   │   │   ├── jbfill.m
+    │   │   │   ├── linehandles.m
+    │   │   │   ├── linering.m
+    │   │   │   ├── linestyle.m
+    │   │   │   ├── linestyleparse.m
+    │   │   │   ├── loadsac3cRotSave.m
+    │   │   │   ├── lqtrotate.m
+    │   │   │   ├── makefigs_mspec.m
+    │   │   │   ├── mat2col.m
+    │   │   │   ├── matchEvents.m
+    │   │   │   ├── matmult.m
+    │   │   │   ├── maxmax.m
+    │   │   │   ├── migrateAndStackRF.m
+    │   │   │   ├── minmin.m
+    │   │   │   ├── mspec.m
+    │   │   │   ├── mwindow.m
+    │   │   │   ├── nonnan.m
+    │   │   │   ├── padpow2.m
+    │   │   │   ├── predict_umd_trvltime.m
+    │   │   │   ├── psvrotate.m
+    │   │   │   ├── pws_stack.m
+    │   │   │   ├── radon3d_forward.m
+    │   │   │   ├── radon3d_forward_adjoint.m
+    │   │   │   ├── radon3d_pinv.m
+    │   │   │   ├── readsac.m
+    │   │   │   ├── reporttest.m
+    │   │   │   ├── rot.m
+    │   │   │   ├── rotSAC.m
+    │   │   │   ├── rotateWaveforms.m
+    │   │   │   ├── sac2matv3.m
+    │   │   │   ├── saveFig.m
+    │   │   │   ├── saveResults.m
+    │   │   │   ├── seismic.m
+    │   │   │   ├── shftwndo.m
+    │   │   │   ├── shrink_tdsrt.m
+    │   │   │   ├── shrink_tdsrt_mask.m
+    │   │   │   ├── sleptap.m
+    │   │   │   ├── sparse_inverse_radon_data.m
+    │   │   │   ├── sparse_inverse_radon_fista.m
+    │   │   │   ├── squared.m
+    │   │   │   ├── stackwithovlpRFs.m
+    │   │   │   ├── stat.m
+    │   │   │   ├── tidefreq.m
+    │   │   │   ├── tmat.m
+    │   │   │   ├── to_grab_from_caller.m
+    │   │   │   ├── to_overwrite.m
+    │   │   │   ├── travelTimesAppx.m
+    │   │   │   ├── travelTimesAppx2.m
+    │   │   │   ├── twospecplot.m
+    │   │   │   ├── urstr2date.m
+    │   │   │   ├── use.m
+    │   │   │   ├── vfilt.m
+    │   │   │   ├── vindex.m
+    │   │   │   ├── vindexinto.m
+    │   │   │   ├── vlines.m
+    │   │   │   ├── vmean.m
+    │   │   │   ├── vmedian.m
+    │   │   │   ├── vmoment.m
+    │   │   │   ├── vrep.m
+    │   │   │   ├── vshift.m
+    │   │   │   ├── vstd.m
+    │   │   │   ├── vsum.m
+    │   │   │   ├── vswap.m
+    │   │   │   ├── vzeros.m
+    │   │   │   ├── whichdir.m
+    │   │   │   ├── writesac.m
+    │   │   │   ├── writesac_header.m
+    │   │   │   ├── xlog.m
+    │   │   │   ├── xtick.m
+    │   │   │   ├── yearfrac.m
+    │   │   │   ├── ylog.m
+    │   │   │   └── yoffset.m
+    │   │   ├── 2_Workflw_src/
+    │   │   │   ├── a0_download_event.m
+    │   │   │   ├── a0_download_event_parallel.m
+    │   │   │   ├── a0_setupparameters.m
+    │   │   │   ├── a1_preprocess.m
+    │   │   │   ├── b1_runMTC.m
+    │   │   │   ├── b2_plotMTC.m
+    │   │   │   ├── b3_runFISTA.m
+    │   │   │   ├── b3_runFISTA2.m
+    │   │   │   ├── b4_fista_results.m
+    │   │   │   ├── c1_ccp_setup.m
+    │   │   │   ├── old/
+    │   │   │   │   ├── Figure2S1_Verification_RF_Africa_Interpret.m
+    │   │   │   │   ├── Figure2S1_Verification_RF_Africa_plots.m
+    │   │   │   │   ├── Figure2S1_Verification_RF_Africa_values.m
+    │   │   │   │   ├── Figure2S2_SingleSta_Verification_RF_Africa.m
+    │   │   │   │   ├── b2_plotMTC.m
+    │   │   │   │   ├── plot1_Raw_and_CRISPRF.m
+    │   │   │   │   └── plot1_Raw_and_CRISPRF2.m
+    │   │   │   └── steve_bluehive_startup.m
+    │   │   ├── Old/
+    │   │   │   ├── 1_Functions/
+    │   │   │   │   ├── KdiagMask.m
+    │   │   │   │   ├── KdiagMask2.m
+    │   │   │   │   ├── MTCRF.m
+    │   │   │   │   ├── MTCRF_ET.m
+    │   │   │   │   ├── MTCRF_ET_se.m
+    │   │   │   │   ├── MTCRF_se.m
+    │   │   │   │   ├── Matlab_TauP.m
+    │   │   │   │   ├── RFWigglePlot.m
+    │   │   │   │   ├── RadonPlot.m
+    │   │   │   │   ├── RadonPlot2.m
+    │   │   │   │   ├── RadonPlot_1.m
+    │   │   │   │   ├── RadonPlot_3.m
+    │   │   │   │   ├── TauP-2.0/
+    │   │   │   │   │   ├── bin/
+    │   │   │   │   │   │   ├── taup.bat
+    │   │   │   │   │   │   ├── taup_console.bat
+    │   │   │   │   │   │   ├── taup_create.bat
+    │   │   │   │   │   │   ├── taup_curve.bat
+    │   │   │   │   │   │   ├── taup_path.bat
+    │   │   │   │   │   │   ├── taup_pierce.bat
+    │   │   │   │   │   │   ├── taup_setsac.bat
+    │   │   │   │   │   │   ├── taup_table.bat
+    │   │   │   │   │   │   └── taup_time.bat
+    │   │   │   │   │   ├── gradle/
+    │   │   │   │   │   │   └── gradlew.bat
+    │   │   │   │   │   ├── native/
+    │   │   │   │   │   │   ├── gettimes.c
+    │   │   │   │   │   │   ├── gettimesf.f
+    │   │   │   │   │   │   ├── taupnative.c
+    │   │   │   │   │   │   └── taupnative.h
+    │   │   │   │   │   └── src/
+    │   │   │   │   │       ├── main/
+    │   │   │   │   │       │   ├── java/
+    │   │   │   │   │       │   │   └── edu/
+    │   │   │   │   │       │   │       └── sc/
+    │   │   │   │   │       │   │           └── seis/
+    │   │   │   │   │       │   │               └── TauP/
+    │   │   │   │   │       │   │                   ├── Alert.java
+    │   │   │   │   │       │   │                   ├── Arrival.java
+    │   │   │   │   │       │   │                   ├── ArrivalPlot.java
+    │   │   │   │   │       │   │                   ├── ArrivalTableModel.java
+    │   │   │   │   │       │   │                   ├── Assert.java
+    │   │   │   │   │       │   │                   ├── BuildVersion.java
+    │   │   │   │   │       │   │                   ├── Complex.java
+    │   │   │   │   │       │   │                   ├── CriticalDepth.java
+    │   │   │   │   │       │   │                   ├── CurvePlot.java
+    │   │   │   │   │       │   │                   ├── DepthRange.java
+    │   │   │   │   │       │   │                   ├── DistPlot.java
+    │   │   │   │   │       │   │                   ├── Format.java
+    │   │   │   │   │       │   │                   ├── NoSuchLayerException.java
+    │   │   │   │   │       │   │                   ├── NoSuchMatPropException.java
+    │   │   │   │   │       │   │                   ├── Outputs.java
+    │   │   │   │   │       │   │                   ├── PathPlot.java
+    │   │   │   │   │       │   │                   ├── PhaseDialog.java
+    │   │   │   │   │       │   │                   ├── PhaseName.java
+    │   │   │   │   │       │   │                   ├── PierceTableModel.java
+    │   │   │   │   │       │   │                   ├── PolarPlot.java
+    │   │   │   │   │       │   │                   ├── PropertyLoader.java
+    │   │   │   │   │       │   │                   ├── ReflTransCoefficient.java
+    │   │   │   │   │       │   │                   ├── SeismicPhase.java
+    │   │   │   │   │       │   │                   ├── Sfun.java
+    │   │   │   │   │       │   │                   ├── SlownessLayer.java
+    │   │   │   │   │       │   │                   ├── SlownessModel.java
+    │   │   │   │   │       │   │                   ├── SlownessModelException.java
+    │   │   │   │   │       │   │                   ├── SlownessPlot.java
+    │   │   │   │   │       │   │                   ├── SphericalCoords.java
+    │   │   │   │   │       │   │                   ├── SphericalSModel.java
+    │   │   │   │   │       │   │                   ├── SplitLayerInfo.java
+    │   │   │   │   │       │   │                   ├── TauBranch.java
+    │   │   │   │   │       │   │                   ├── TauModel.java
+    │   │   │   │   │       │   │                   ├── TauModelException.java
+    │   │   │   │   │       │   │                   ├── TauModelLoader.java
+    │   │   │   │   │       │   │                   ├── TauP.java
+    │   │   │   │   │       │   │                   ├── TauPApplet.java
+    │   │   │   │   │       │   │                   ├── TauPClient.java
+    │   │   │   │   │       │   │                   ├── TauPDaemon.java
+    │   │   │   │   │       │   │                   ├── TauPException.java
+    │   │   │   │   │       │   │                   ├── TauP_Console.java
+    │   │   │   │   │       │   │                   ├── TauP_Create.java
+    │   │   │   │   │       │   │                   ├── TauP_Curve.java
+    │   │   │   │   │       │   │                   ├── TauP_Path.java
+    │   │   │   │   │       │   │                   ├── TauP_Peek.java
+    │   │   │   │   │       │   │                   ├── TauP_Pierce.java
+    │   │   │   │   │       │   │                   ├── TauP_SetSac.java
+    │   │   │   │   │       │   │                   ├── TauP_Table.java
+    │   │   │   │   │       │   │                   ├── TauP_Time.java
+    │   │   │   │   │       │   │                   ├── TauP_WCreate.java
+    │   │   │   │   │       │   │                   ├── TauP_WKBJ.java
+    │   │   │   │   │       │   │                   ├── TauPlot.java
+    │   │   │   │   │       │   │                   ├── Theta.java
+    │   │   │   │   │       │   │                   ├── TimeDist.java
+    │   │   │   │   │       │   │                   ├── TimeDistPlot.java
+    │   │   │   │   │       │   │                   ├── TimePlot.java
+    │   │   │   │   │       │   │                   ├── VelocityLayer.java
+    │   │   │   │   │       │   │                   ├── VelocityModel.java
+    │   │   │   │   │       │   │                   ├── VelocityModelException.java
+    │   │   │   │   │       │   │                   ├── VelocityPlot.java
+    │   │   │   │   │       │   │                   └── XYPlot.java
+    │   │   │   │   │       │   └── resources/
+    │   │   │   │   │       │       └── edu/
+    │   │   │   │   │       │           └── sc/
+    │   │   │   │   │       │               └── seis/
+    │   │   │   │   │       │                   └── TauP/
+    │   │   │   │   │       │                       └── jython/
+    │   │   │   │   │       │                           └── taup/
+    │   │   │   │   │       │                               ├── __init__.py
+    │   │   │   │   │       │                               └── distaz.py
+    │   │   │   │   │       └── test/
+    │   │   │   │   │           └── java/
+    │   │   │   │   │               └── edu/
+    │   │   │   │   │                   └── sc/
+    │   │   │   │   │                       └── seis/
+    │   │   │   │   │                           └── TauP/
+    │   │   │   │   │                               ├── AK135Test.java
+    │   │   │   │   │                               ├── ConstantModelTest.java
+    │   │   │   │   │                               ├── Dist180Test.java
+    │   │   │   │   │                               ├── MoonTest.java
+    │   │   │   │   │                               ├── ParamDifferential.java
+    │   │   │   │   │                               ├── ReflTransTest.java
+    │   │   │   │   │                               ├── SphericalCoordsTest.java
+    │   │   │   │   │                               └── SurfaceWaveTest.java
+    │   │   │   │   ├── allall.m
+    │   │   │   │   ├── anyany.m
+    │   │   │   │   ├── aresame.m
+    │   │   │   │   ├── axeshandles.m
+    │   │   │   │   ├── boxon.m
+    │   │   │   │   ├── calculate_moveout_times.m
+    │   │   │   │   ├── calculate_moveout_times2.m
+    │   │   │   │   ├── cell2col.m
+    │   │   │   │   ├── cellength.m
+    │   │   │   │   ├── cellplot.m
+    │   │   │   │   ├── cellsize.m
+    │   │   │   │   ├── col2cell.m
+    │   │   │   │   ├── corfreq.m
+    │   │   │   │   ├── costaper.m
+    │   │   │   │   ├── crop.m
+    │   │   │   │   ├── dataresample.m
+    │   │   │   │   ├── dataselect.m
+    │   │   │   │   ├── deg180.m
+    │   │   │   │   ├── deg360.m
+    │   │   │   │   ├── f_pws.m
+    │   │   │   │   ├── fetchSingleStaData.m
+    │   │   │   │   ├── fftrl.m
+    │   │   │   │   ├── filtspec.m
+    │   │   │   │   ├── forward_radon_freq_umd.m
+    │   │   │   │   ├── fourier.m
+    │   │   │   │   ├── frac.m
+    │   │   │   │   ├── gauss.m
+    │   │   │   │   ├── getEqData.m
+    │   │   │   │   ├── getSACv2.m
+    │   │   │   │   ├── getSnr.m
+    │   │   │   │   ├── getValue.m
+    │   │   │   │   ├── get_q_t.m
+    │   │   │   │   ├── getsnr.m
+    │   │   │   │   ├── getsnrev.m
+    │   │   │   │   ├── getsrate.m
+    │   │   │   │   ├── hilbm.m
+    │   │   │   │   ├── ifftrl.m
+    │   │   │   │   ├── interpbl.m
+    │   │   │   │   ├── irisFetch.m
+    │   │   │   │   ├── irisFetch3.m
+    │   │   │   │   ├── irisFetch4.m
+    │   │   │   │   ├── iseven.m
+    │   │   │   │   ├── isodd.m
+    │   │   │   │   ├── jbfill.m
+    │   │   │   │   ├── linehandles.m
+    │   │   │   │   ├── linering.m
+    │   │   │   │   ├── linestyle.m
+    │   │   │   │   ├── linestyleparse.m
+    │   │   │   │   ├── loadsac3cRotSave.m
+    │   │   │   │   ├── lqtrotate.m
+    │   │   │   │   ├── makefigs_mspec.m
+    │   │   │   │   ├── mat2col.m
+    │   │   │   │   ├── matchEvents.m
+    │   │   │   │   ├── matmult.m
+    │   │   │   │   ├── maxmax.m
+    │   │   │   │   ├── migrateAndStackRF.m
+    │   │   │   │   ├── minmin.m
+    │   │   │   │   ├── mspec.m
+    │   │   │   │   ├── mwindow.m
+    │   │   │   │   ├── nonnan.m
+    │   │   │   │   ├── padpow2.m
+    │   │   │   │   ├── predict_umd_trvltime.m
+    │   │   │   │   ├── psvrotate.m
+    │   │   │   │   ├── pws_stack.m
+    │   │   │   │   ├── radon3d_forward.m
+    │   │   │   │   ├── radon3d_forward_adjoint.m
+    │   │   │   │   ├── radon3d_pinv.m
+    │   │   │   │   ├── readsac.m
+    │   │   │   │   ├── reporttest.m
+    │   │   │   │   ├── rot.m
+    │   │   │   │   ├── rotSAC.m
+    │   │   │   │   ├── rotateWaveforms.m
+    │   │   │   │   ├── sac2matv3.m
+    │   │   │   │   ├── saveFig.m
+    │   │   │   │   ├── saveResults.m
+    │   │   │   │   ├── seismic.m
+    │   │   │   │   ├── shftwndo.m
+    │   │   │   │   ├── shrink_tdsrt.m
+    │   │   │   │   ├── shrink_tdsrt_mask.m
+    │   │   │   │   ├── sleptap.m
+    │   │   │   │   ├── sparse_inverse_radon_data.m
+    │   │   │   │   ├── sparse_inverse_radon_fista.m
+    │   │   │   │   ├── squared.m
+    │   │   │   │   ├── stackwithovlpRFs.m
+    │   │   │   │   ├── stat.m
+    │   │   │   │   ├── tidefreq.m
+    │   │   │   │   ├── tmat.m
+    │   │   │   │   ├── to_grab_from_caller.m
+    │   │   │   │   ├── to_overwrite.m
+    │   │   │   │   ├── travelTimesAppx.m
+    │   │   │   │   ├── twospecplot.m
+    │   │   │   │   ├── urstr2date.m
+    │   │   │   │   ├── use.m
+    │   │   │   │   ├── vfilt.m
+    │   │   │   │   ├── vindex.m
+    │   │   │   │   ├── vindexinto.m
+    │   │   │   │   ├── vlines.m
+    │   │   │   │   ├── vmean.m
+    │   │   │   │   ├── vmedian.m
+    │   │   │   │   ├── vmoment.m
+    │   │   │   │   ├── vrep.m
+    │   │   │   │   ├── vshift.m
+    │   │   │   │   ├── vstd.m
+    │   │   │   │   ├── vsum.m
+    │   │   │   │   ├── vswap.m
+    │   │   │   │   ├── vzeros.m
+    │   │   │   │   ├── whichdir.m
+    │   │   │   │   ├── writesac.m
+    │   │   │   │   ├── xlog.m
+    │   │   │   │   ├── xtick.m
+    │   │   │   │   ├── yearfrac.m
+    │   │   │   │   ├── ylog.m
+    │   │   │   │   └── yoffset.m
+    │   │   │   └── 3_Workflw/
+    │   │   │       ├── TimeDomainRadon_tmp.m
+    │   │   │       ├── a01_make_inwave_for_STACK.m
+    │   │   │       ├── a0_download_event.m
+    │   │   │       ├── a0_download_event_parallel.m
+    │   │   │       ├── a0_setupparameters.m
+    │   │   │       ├── a1_preprocess.m
+    │   │   │       ├── a2_visualizeData.m
+    │   │   │       ├── b1_runMTC.m
+    │   │   │       ├── b2_plotMTC.m
+    │   │   │       ├── b3_runCRISPRF.m
+    │   │   │       ├── copy_dependencies.m
+    │   │   │       └── runEntireWrkflow.m
+    │   │   └── test_folder/
+    │   │       ├── MTCRF_ET.m
+    │   │       ├── MTCRF_ET_SynTest.m
+    │   │       ├── MTCRF_ET_se.m
+    │   │       └── RFaddNoise.m
+    │   ├── TriangleTesselation/
+    │   │   ├── ccp_assign.m
+    │   │   ├── ccp_assign_2.m
+    │   │   ├── ccp_assign_3.m
+    │   │   ├── ccp_mkgrid.m
+    │   │   └── ccp_mkgrid_triangles.m
+    │   ├── Violin.m
+    │   ├── daviolinplot.m
+    │   ├── densityScatterChart.m
+    │   ├── drawbrace.m
+    │   ├── landmask/
+    │   │   ├── landmask.m
+    │   │   └── landmask_documentation.m
+    │   ├── m_map/
+    │   │   ├── Contents.m
+    │   │   ├── arrow.m
+    │   │   ├── m_annotation.m
+    │   │   ├── m_arrow.m
+    │   │   ├── m_coast.m
+    │   │   ├── m_colmap.m
+    │   │   ├── m_contfbar.m
+    │   │   ├── m_contour.m
+    │   │   ├── m_contourf.m
+    │   │   ├── m_coord.m
+    │   │   ├── m_demo.m
+    │   │   ├── m_elev.m
+    │   │   ├── m_ellipse.m
+    │   │   ├── m_etopo2.m
+    │   │   ├── m_fdist.m
+    │   │   ├── m_geo2mag.m
+    │   │   ├── m_geodesic.m
+    │   │   ├── m_ginput.m
+    │   │   ├── m_grid.m
+    │   │   ├── m_grid_old.m
+    │   │   ├── m_gshhs.m
+    │   │   ├── m_gshhs_c.m
+    │   │   ├── m_gshhs_f.m
+    │   │   ├── m_gshhs_h.m
+    │   │   ├── m_gshhs_i.m
+    │   │   ├── m_gshhs_l.m
+    │   │   ├── m_hatch.m
+    │   │   ├── m_idist.m
+    │   │   ├── m_image.m
+    │   │   ├── m_legend.m
+    │   │   ├── m_line.m
+    │   │   ├── m_ll2xy.m
+    │   │   ├── m_lldist.m
+    │   │   ├── m_mag2geo.m
+    │   │   ├── m_northarrow.m
+    │   │   ├── m_patch.m
+    │   │   ├── m_pcolor.m
+    │   │   ├── m_plot.m
+    │   │   ├── m_plotbndry.m
+    │   │   ├── m_proj.m
+    │   │   ├── m_quiver.m
+    │   │   ├── m_range_ring.m
+    │   │   ├── m_rectangle.m
+    │   │   ├── m_ruler.m
+    │   │   ├── m_scale.m
+    │   │   ├── m_scatter.m
+    │   │   ├── m_shadedrelief.m
+    │   │   ├── m_shaperead.m
+    │   │   ├── m_streamline.m
+    │   │   ├── m_tba2b.m
+    │   │   ├── m_tbase.m
+    │   │   ├── m_text.m
+    │   │   ├── m_track.m
+    │   │   ├── m_ungrid.m
+    │   │   ├── m_usercoast.m
+    │   │   ├── m_utmgrid.m
+    │   │   ├── m_vec.m
+    │   │   ├── m_windbarb.m
+    │   │   ├── m_windrose.m
+    │   │   ├── m_xy2ll.m
+    │   │   ├── m_xydist.m
+    │   │   ├── mygrid_sand2.m
+    │   │   ├── private/
+    │   │   │   ├── mc_coords.m
+    │   │   │   ├── mc_ellips.m
+    │   │   │   ├── mc_igrf.m
+    │   │   │   ├── mp_azim.m
+    │   │   │   ├── mp_conic.m
+    │   │   │   ├── mp_cyl.m
+    │   │   │   ├── mp_omerc.m
+    │   │   │   ├── mp_utm.m
+    │   │   │   ├── mu_coast.m
+    │   │   │   └── mu_util.m
+    │   │   ├── slanCM.m
+    │   │   └── wysiwyg.m
+    │   ├── projection.m
+    │   ├── stalta.m
+    │   ├── violin.m
+    │   └── violinplot.m
+    └── Single-Station_SSA2026/
+        ├── 0_HOMEBASE.m
+        ├── HkStacking_function.m
+        ├── HkStacking_obselete.m
+        ├── a0_setupparameters.m
+        ├── a1_preprocess.m
+        ├── b1_runMTC.m
+        ├── b2_plotMTC.m
+        ├── b3_runCRISPRF.m
+        ├── b3_runFISTA.m
+        └── b4_fista_results.m
+```
 
 ## 3. Code Reference
 

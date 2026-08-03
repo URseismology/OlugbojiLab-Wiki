@@ -26,41 +26,1316 @@ The `BayesImagesGenAI_2D` project is a comprehensive MATLAB-based ecosystem desi
 
 ## 2. Data Architecture
 
-### Data Patterns
-The project's data architecture is designed to support the efficient storage, retrieval, and processing of large geospatial datasets. The main types of data include:
-
-1. **Geophysical Data**:
-   - **Seismic Data**: Raw seismic data collected from various sources.
-   - **Synthetic Data**: Simulated data generated using MCMC methods and GANs.
-
-2. **Model Files**:
-   - **System Models**: MATLAB files defining the parameters and structure of dynamic systems.
-   - **Simulation Results**: Output files from MCMC simulations, including parameter estimates and model predictions.
-
-3. **Visualization Data**:
-   - **Colormaps**: Custom colormaps generated using `slanCM` for improved data clarity.
-   - **Geospatial Maps**: Maps and visualizations created using the `m_map` subsystem.
-
-### Directory Structure
-The project's directory structure is organized to ensure clear separation of concerns:
-
-- **Root Directory**:
-  - `BayesImagesGenAI_2D/`: Main project directory.
-    - `Codes/`: Contains MATLAB scripts and functions for data processing, modeling, and visualization.
-      - `Data/`: Raw and processed geophysical data.
-      - `csvfiles/`: CSV files used in various analyses.
-    - `krishs_lab/`: Submodule containing specific experiments and results.
-    - `mengs_lab/`: Another submodule with additional experiments and results.
-    - `geoGenAI_2D/`: Directory for GAN-based image synthesis.
-    - `archive/`: Archived data and models.
-    - `temp_mcmc_ACCESS/`: Temporary MCMC simulation results.
-
-### Data Flow
-1. **Data Ingestion**: Raw geophysical data is ingested from various sources and stored in the `Data/` directory.
-2. **Data Preprocessing**: Scripts in the `Codes/` directory preprocess the raw data, including normalization, filtering, and feature extraction.
-3. **Model Creation**: The `CreateNewModel.m` script defines and generates system models based on the preprocessed data.
-4. **Simulation**: MCMC simulations are run using the generated models, producing simulation results stored in the `temp_mcmc_ACCESS/` directory.
-5. **Visualization**: Custom colormaps and geospatial maps are created using the `slanCM` and `m_map` subsystems to visualize the simulation results.
+```text
+Prj15_Afrtomo_onNSF/
+├── BayesImagesGenAI_2D/
+│   ├── ExperimentDir/
+│   │   ├── Expanse_scripts_bl/
+│   │   │   ├── bldExpt_Afr.m
+│   │   │   ├── bldExpt_Afr_bl.m
+│   │   │   ├── functions/
+│   │   │   │   ├── archive/
+│   │   │   │   │   ├── maketoymodel_V0.m
+│   │   │   │   │   └── maketoymodel_V1.m
+│   │   │   │   ├── bldExpt_Afr.m
+│   │   │   │   ├── buildToyExpt.m
+│   │   │   │   ├── initializemodel.m
+│   │   │   │   ├── loadinputObs.m
+│   │   │   │   ├── maketoymodel.m
+│   │   │   │   ├── mapobs2Grid.m
+│   │   │   │   ├── reloadMcMC.m
+│   │   │   │   ├── runBayesTomo.m
+│   │   │   │   ├── showmodel.m
+│   │   │   │   ├── simulatetoydata.m
+│   │   │   │   └── utils/
+│   │   │   │       ├── FastMarching_version3b/
+│   │   │   │       │   ├── compile_c_files.m
+│   │   │   │       │   ├── functions/
+│   │   │   │       │   │   ├── common.c
+│   │   │   │       │   │   ├── msfm2d.c
+│   │   │   │       │   │   ├── msfm2d.m
+│   │   │   │       │   │   ├── msfm3d.c
+│   │   │   │       │   │   ├── msfm3d.m
+│   │   │   │       │   │   └── pointmin.m
+│   │   │   │       │   ├── msfm.m
+│   │   │   │       │   ├── shortestpath/
+│   │   │   │       │   │   ├── e1.m
+│   │   │   │       │   │   ├── rk4.c
+│   │   │   │       │   │   ├── rk4.m
+│   │   │   │       │   │   └── s1.m
+│   │   │   │       │   ├── shortestpath.m
+│   │   │   │       │   └── skeleton.m
+│   │   │   │       ├── m_map/
+│   │   │   │       │   ├── Contents.m
+│   │   │   │       │   ├── arrow.m
+│   │   │   │       │   ├── m_annotation.m
+│   │   │   │       │   ├── m_arrow.m
+│   │   │   │       │   ├── m_coast.m
+│   │   │   │       │   ├── m_colmap.m
+│   │   │   │       │   ├── m_contfbar.m
+│   │   │   │       │   ├── m_contour.m
+│   │   │   │       │   ├── m_contourf.m
+│   │   │   │       │   ├── m_coord.m
+│   │   │   │       │   ├── m_demo.m
+│   │   │   │       │   ├── m_elev.m
+│   │   │   │       │   ├── m_ellipse.m
+│   │   │   │       │   ├── m_etopo2.m
+│   │   │   │       │   ├── m_fdist.m
+│   │   │   │       │   ├── m_geo2mag.m
+│   │   │   │       │   ├── m_geodesic.m
+│   │   │   │       │   ├── m_ginput.m
+│   │   │   │       │   ├── m_grid.m
+│   │   │   │       │   ├── m_grid_old.m
+│   │   │   │       │   ├── m_gshhs.m
+│   │   │   │       │   ├── m_gshhs_c.m
+│   │   │   │       │   ├── m_gshhs_f.m
+│   │   │   │       │   ├── m_gshhs_h.m
+│   │   │   │       │   ├── m_gshhs_i.m
+│   │   │   │       │   ├── m_gshhs_l.m
+│   │   │   │       │   ├── m_hatch.m
+│   │   │   │       │   ├── m_idist.m
+│   │   │   │       │   ├── m_image.m
+│   │   │   │       │   ├── m_legend.m
+│   │   │   │       │   ├── m_line.m
+│   │   │   │       │   ├── m_ll2xy.m
+│   │   │   │       │   ├── m_lldist.m
+│   │   │   │       │   ├── m_mag2geo.m
+│   │   │   │       │   ├── m_northarrow.m
+│   │   │   │       │   ├── m_patch.m
+│   │   │   │       │   ├── m_pcolor.m
+│   │   │   │       │   ├── m_plot.m
+│   │   │   │       │   ├── m_plotbndry.m
+│   │   │   │       │   ├── m_proj.m
+│   │   │   │       │   ├── m_quiver.m
+│   │   │   │       │   ├── m_range_ring.m
+│   │   │   │       │   ├── m_rectangle.m
+│   │   │   │       │   ├── m_ruler.m
+│   │   │   │       │   ├── m_scale.m
+│   │   │   │       │   ├── m_scatter.m
+│   │   │   │       │   ├── m_shadedrelief.m
+│   │   │   │       │   ├── m_shaperead.m
+│   │   │   │       │   ├── m_streamline.m
+│   │   │   │       │   ├── m_tba2b.m
+│   │   │   │       │   ├── m_tbase.m
+│   │   │   │       │   ├── m_text.m
+│   │   │   │       │   ├── m_track.m
+│   │   │   │       │   ├── m_ungrid.m
+│   │   │   │       │   ├── m_usercoast.m
+│   │   │   │       │   ├── m_utmgrid.m
+│   │   │   │       │   ├── m_vec.m
+│   │   │   │       │   ├── m_windbarb.m
+│   │   │   │       │   ├── m_windrose.m
+│   │   │   │       │   ├── m_xy2ll.m
+│   │   │   │       │   ├── m_xydist.m
+│   │   │   │       │   ├── mygrid_sand2.m
+│   │   │   │       │   ├── private/
+│   │   │   │       │   │   ├── mc_coords.m
+│   │   │   │       │   │   ├── mc_ellips.m
+│   │   │   │       │   │   ├── mc_igrf.m
+│   │   │   │       │   │   ├── mp_azim.m
+│   │   │   │       │   │   ├── mp_conic.m
+│   │   │   │       │   │   ├── mp_cyl.m
+│   │   │   │       │   │   ├── mp_omerc.m
+│   │   │   │       │   │   ├── mp_utm.m
+│   │   │   │       │   │   ├── mu_coast.m
+│   │   │   │       │   │   └── mu_util.m
+│   │   │   │       │   └── wysiwyg.m
+│   │   │   │       └── slanCM/
+│   │   │   │           └── slanCM/
+│   │   │   │               ├── demo1_SCM.m
+│   │   │   │               ├── demo2_SCM.m
+│   │   │   │               ├── demo3_SCM.m
+│   │   │   │               ├── demo4_SCM.m
+│   │   │   │               ├── demo5_SCM.m
+│   │   │   │               ├── demo6_SCM.m
+│   │   │   │               ├── demo7_SCM.m
+│   │   │   │               ├── demo8_SCM.m
+│   │   │   │               ├── demo9_SCM.m
+│   │   │   │               └── slanCM.m
+│   │   │   ├── init_params_step1.m
+│   │   │   ├── jobArray_EX_Exp1.slurm
+│   │   │   └── rjmcmcLib/
+│   │   │       ├── AcceptOrNot.m
+│   │   │       ├── CreateNewModel.m
+│   │   │       ├── ForwardStep_Fst.m
+│   │   │       ├── MCMC_2D_cycle.m
+│   │   │       ├── PickAction.m
+│   │   │       ├── archive/
+│   │   │       │   └── ForwardStep_v2.m
+│   │   │       └── rj2DMCMC_old.m
+│   │   ├── bldExpt_Afr.m
+│   │   ├── functions/
+│   │   │   ├── archive/
+│   │   │   │   ├── maketoymodel_V0.m
+│   │   │   │   └── maketoymodel_V1.m
+│   │   │   ├── bldExpt_Afr.m
+│   │   │   ├── buildToyExpt.m
+│   │   │   ├── initializemodel.m
+│   │   │   ├── loadinputObs.m
+│   │   │   ├── maketoymodel.m
+│   │   │   ├── mapobs2Grid.m
+│   │   │   ├── reloadMcMC.m
+│   │   │   ├── runBayesTomo.m
+│   │   │   ├── showmodel.m
+│   │   │   ├── simulatetoydata.m
+│   │   │   └── utils/
+│   │   │       ├── FastMarching_version3b/
+│   │   │       │   ├── compile_c_files.m
+│   │   │       │   ├── functions/
+│   │   │       │   │   ├── common.c
+│   │   │       │   │   ├── msfm2d.c
+│   │   │       │   │   ├── msfm2d.m
+│   │   │       │   │   ├── msfm3d.c
+│   │   │       │   │   ├── msfm3d.m
+│   │   │       │   │   └── pointmin.m
+│   │   │       │   ├── msfm.m
+│   │   │       │   ├── shortestpath/
+│   │   │       │   │   ├── e1.m
+│   │   │       │   │   ├── rk4.c
+│   │   │       │   │   ├── rk4.m
+│   │   │       │   │   └── s1.m
+│   │   │       │   ├── shortestpath.m
+│   │   │       │   └── skeleton.m
+│   │   │       ├── m_map/
+│   │   │       │   ├── Contents.m
+│   │   │       │   ├── arrow.m
+│   │   │       │   ├── m_annotation.m
+│   │   │       │   ├── m_arrow.m
+│   │   │       │   ├── m_coast.m
+│   │   │       │   ├── m_colmap.m
+│   │   │       │   ├── m_contfbar.m
+│   │   │       │   ├── m_contour.m
+│   │   │       │   ├── m_contourf.m
+│   │   │       │   ├── m_coord.m
+│   │   │       │   ├── m_demo.m
+│   │   │       │   ├── m_elev.m
+│   │   │       │   ├── m_ellipse.m
+│   │   │       │   ├── m_etopo2.m
+│   │   │       │   ├── m_fdist.m
+│   │   │       │   ├── m_geo2mag.m
+│   │   │       │   ├── m_geodesic.m
+│   │   │       │   ├── m_ginput.m
+│   │   │       │   ├── m_grid.m
+│   │   │       │   ├── m_grid_old.m
+│   │   │       │   ├── m_gshhs.m
+│   │   │       │   ├── m_gshhs_c.m
+│   │   │       │   ├── m_gshhs_f.m
+│   │   │       │   ├── m_gshhs_h.m
+│   │   │       │   ├── m_gshhs_i.m
+│   │   │       │   ├── m_gshhs_l.m
+│   │   │       │   ├── m_hatch.m
+│   │   │       │   ├── m_idist.m
+│   │   │       │   ├── m_image.m
+│   │   │       │   ├── m_legend.m
+│   │   │       │   ├── m_line.m
+│   │   │       │   ├── m_ll2xy.m
+│   │   │       │   ├── m_lldist.m
+│   │   │       │   ├── m_mag2geo.m
+│   │   │       │   ├── m_northarrow.m
+│   │   │       │   ├── m_patch.m
+│   │   │       │   ├── m_pcolor.m
+│   │   │       │   ├── m_plot.m
+│   │   │       │   ├── m_plotbndry.m
+│   │   │       │   ├── m_proj.m
+│   │   │       │   ├── m_quiver.m
+│   │   │       │   ├── m_range_ring.m
+│   │   │       │   ├── m_rectangle.m
+│   │   │       │   ├── m_ruler.m
+│   │   │       │   ├── m_scale.m
+│   │   │       │   ├── m_scatter.m
+│   │   │       │   ├── m_shadedrelief.m
+│   │   │       │   ├── m_shaperead.m
+│   │   │       │   ├── m_streamline.m
+│   │   │       │   ├── m_tba2b.m
+│   │   │       │   ├── m_tbase.m
+│   │   │       │   ├── m_text.m
+│   │   │       │   ├── m_track.m
+│   │   │       │   ├── m_ungrid.m
+│   │   │       │   ├── m_usercoast.m
+│   │   │       │   ├── m_utmgrid.m
+│   │   │       │   ├── m_vec.m
+│   │   │       │   ├── m_windbarb.m
+│   │   │       │   ├── m_windrose.m
+│   │   │       │   ├── m_xy2ll.m
+│   │   │       │   ├── m_xydist.m
+│   │   │       │   ├── mygrid_sand2.m
+│   │   │       │   ├── private/
+│   │   │       │   │   ├── mc_coords.m
+│   │   │       │   │   ├── mc_ellips.m
+│   │   │       │   │   ├── mc_igrf.m
+│   │   │       │   │   ├── mp_azim.m
+│   │   │       │   │   ├── mp_conic.m
+│   │   │       │   │   ├── mp_cyl.m
+│   │   │       │   │   ├── mp_omerc.m
+│   │   │       │   │   ├── mp_utm.m
+│   │   │       │   │   ├── mu_coast.m
+│   │   │       │   │   └── mu_util.m
+│   │   │       │   └── wysiwyg.m
+│   │   │       └── slanCM/
+│   │   │           └── slanCM/
+│   │   │               ├── demo1_SCM.m
+│   │   │               ├── demo2_SCM.m
+│   │   │               ├── demo3_SCM.m
+│   │   │               ├── demo4_SCM.m
+│   │   │               ├── demo5_SCM.m
+│   │   │               ├── demo6_SCM.m
+│   │   │               ├── demo7_SCM.m
+│   │   │               ├── demo8_SCM.m
+│   │   │               ├── demo9_SCM.m
+│   │   │               └── slanCM.m
+│   │   ├── init_params_step1.m
+│   │   ├── plot_average_across_all_chains.m
+│   │   └── rjmcmcLib/
+│   │       ├── AcceptOrNot.m
+│   │       ├── CreateNewModel.m
+│   │       ├── ForwardStep_Fst.m
+│   │       ├── MCMC_2D_cycle.m
+│   │       ├── PickAction.m
+│   │       ├── archive/
+│   │       │   └── ForwardStep_v2.m
+│   │       └── rj2DMCMC_old.m
+│   ├── ExperimentDir_DrO_Sayan/
+│   │   ├── bldExpt_Afr.m
+│   │   ├── buildToyExpt_Func.m
+│   │   ├── functions/
+│   │   │   ├── archive/
+│   │   │   │   ├── maketoymodel_V0.m
+│   │   │   │   └── maketoymodel_V1.m
+│   │   │   ├── bldExpt_Afr.m
+│   │   │   ├── buildToyExpt.m
+│   │   │   ├── initializemodel.m
+│   │   │   ├── loadinputObs.m
+│   │   │   ├── maketoymodel.m
+│   │   │   ├── mapobs2Grid.m
+│   │   │   ├── reloadMcMC.m
+│   │   │   ├── runBayesTomo.m
+│   │   │   ├── showmodel.m
+│   │   │   ├── simulatetoydata.m
+│   │   │   └── utils/
+│   │   │       ├── FastMarching_version3b/
+│   │   │       │   ├── compile_c_files.m
+│   │   │       │   ├── functions/
+│   │   │       │   │   ├── common.c
+│   │   │       │   │   ├── msfm2d.c
+│   │   │       │   │   ├── msfm2d.m
+│   │   │       │   │   ├── msfm3d.c
+│   │   │       │   │   ├── msfm3d.m
+│   │   │       │   │   └── pointmin.m
+│   │   │       │   ├── msfm.m
+│   │   │       │   ├── shortestpath/
+│   │   │       │   │   ├── e1.m
+│   │   │       │   │   ├── rk4.c
+│   │   │       │   │   ├── rk4.m
+│   │   │       │   │   └── s1.m
+│   │   │       │   ├── shortestpath.m
+│   │   │       │   └── skeleton.m
+│   │   │       ├── m_map/
+│   │   │       │   ├── Contents.m
+│   │   │       │   ├── arrow.m
+│   │   │       │   ├── m_annotation.m
+│   │   │       │   ├── m_arrow.m
+│   │   │       │   ├── m_coast.m
+│   │   │       │   ├── m_colmap.m
+│   │   │       │   ├── m_contfbar.m
+│   │   │       │   ├── m_contour.m
+│   │   │       │   ├── m_contourf.m
+│   │   │       │   ├── m_coord.m
+│   │   │       │   ├── m_demo.m
+│   │   │       │   ├── m_elev.m
+│   │   │       │   ├── m_ellipse.m
+│   │   │       │   ├── m_etopo2.m
+│   │   │       │   ├── m_fdist.m
+│   │   │       │   ├── m_geo2mag.m
+│   │   │       │   ├── m_geodesic.m
+│   │   │       │   ├── m_ginput.m
+│   │   │       │   ├── m_grid.m
+│   │   │       │   ├── m_grid_old.m
+│   │   │       │   ├── m_gshhs.m
+│   │   │       │   ├── m_gshhs_c.m
+│   │   │       │   ├── m_gshhs_f.m
+│   │   │       │   ├── m_gshhs_h.m
+│   │   │       │   ├── m_gshhs_i.m
+│   │   │       │   ├── m_gshhs_l.m
+│   │   │       │   ├── m_hatch.m
+│   │   │       │   ├── m_idist.m
+│   │   │       │   ├── m_image.m
+│   │   │       │   ├── m_legend.m
+│   │   │       │   ├── m_line.m
+│   │   │       │   ├── m_ll2xy.m
+│   │   │       │   ├── m_lldist.m
+│   │   │       │   ├── m_mag2geo.m
+│   │   │       │   ├── m_northarrow.m
+│   │   │       │   ├── m_patch.m
+│   │   │       │   ├── m_pcolor.m
+│   │   │       │   ├── m_plot.m
+│   │   │       │   ├── m_plotbndry.m
+│   │   │       │   ├── m_proj.m
+│   │   │       │   ├── m_quiver.m
+│   │   │       │   ├── m_range_ring.m
+│   │   │       │   ├── m_rectangle.m
+│   │   │       │   ├── m_ruler.m
+│   │   │       │   ├── m_scale.m
+│   │   │       │   ├── m_scatter.m
+│   │   │       │   ├── m_shadedrelief.m
+│   │   │       │   ├── m_shaperead.m
+│   │   │       │   ├── m_streamline.m
+│   │   │       │   ├── m_tba2b.m
+│   │   │       │   ├── m_tbase.m
+│   │   │       │   ├── m_text.m
+│   │   │       │   ├── m_track.m
+│   │   │       │   ├── m_ungrid.m
+│   │   │       │   ├── m_usercoast.m
+│   │   │       │   ├── m_utmgrid.m
+│   │   │       │   ├── m_vec.m
+│   │   │       │   ├── m_windbarb.m
+│   │   │       │   ├── m_windrose.m
+│   │   │       │   ├── m_xy2ll.m
+│   │   │       │   ├── m_xydist.m
+│   │   │       │   ├── mygrid_sand2.m
+│   │   │       │   ├── private/
+│   │   │       │   │   ├── mc_coords.m
+│   │   │       │   │   ├── mc_ellips.m
+│   │   │       │   │   ├── mc_igrf.m
+│   │   │       │   │   ├── mp_azim.m
+│   │   │       │   │   ├── mp_conic.m
+│   │   │       │   │   ├── mp_cyl.m
+│   │   │       │   │   ├── mp_omerc.m
+│   │   │       │   │   ├── mp_utm.m
+│   │   │       │   │   ├── mu_coast.m
+│   │   │       │   │   └── mu_util.m
+│   │   │       │   └── wysiwyg.m
+│   │   │       └── slanCM/
+│   │   │           └── slanCM/
+│   │   │               ├── demo1_SCM.m
+│   │   │               ├── demo2_SCM.m
+│   │   │               ├── demo3_SCM.m
+│   │   │               ├── demo4_SCM.m
+│   │   │               ├── demo5_SCM.m
+│   │   │               ├── demo6_SCM.m
+│   │   │               ├── demo7_SCM.m
+│   │   │               ├── demo8_SCM.m
+│   │   │               ├── demo9_SCM.m
+│   │   │               └── slanCM.m
+│   │   ├── init_params_step1.m
+│   │   ├── plot_average_across_all_chains.m
+│   │   ├── plot_results.m
+│   │   ├── plot_simulation.m
+│   │   ├── rjmcmcLib/
+│   │   │   ├── AcceptOrNot.m
+│   │   │   ├── CreateNewModel.m
+│   │   │   ├── ForwardStep_Fst.m
+│   │   │   ├── MCMC_2D_cycle.m
+│   │   │   ├── PickAction.m
+│   │   │   ├── archive/
+│   │   │   │   └── ForwardStep_v2.m
+│   │   │   └── rj2DMCMC_old.m
+│   │   ├── stp1a_setup_toy_exp.sh
+│   │   ├── stp1b_restart_exp.sh
+│   │   └── stp2_call_toy_exp.sh
+│   ├── ExperimentDir_Toy/
+│   │   ├── buildToyExpt.m
+│   │   ├── buildToyExpt_Func.m
+│   │   ├── functions/
+│   │   │   ├── addnoisetodata.m
+│   │   │   ├── archive/
+│   │   │   │   ├── maketoymodel_V0.m
+│   │   │   │   └── maketoymodel_V1.m
+│   │   │   ├── bldExpt_Afr.m
+│   │   │   ├── buildToyExpt.m
+│   │   │   ├── initializemodel.m
+│   │   │   ├── loadinputObs.m
+│   │   │   ├── maketoymodel.m
+│   │   │   ├── mapobs2Grid.m
+│   │   │   ├── reloadMcMC.m
+│   │   │   ├── runBayesTomo.m
+│   │   │   ├── showmodel.m
+│   │   │   ├── simulatetoydata.m
+│   │   │   ├── simulatetoydata_disconn.m
+│   │   │   └── utils/
+│   │   │       ├── FastMarching_version3b/
+│   │   │       │   ├── compile_c_files.m
+│   │   │       │   ├── functions/
+│   │   │       │   │   ├── common.c
+│   │   │       │   │   ├── msfm2d.c
+│   │   │       │   │   ├── msfm2d.m
+│   │   │       │   │   ├── msfm3d.c
+│   │   │       │   │   ├── msfm3d.m
+│   │   │       │   │   └── pointmin.m
+│   │   │       │   ├── msfm.m
+│   │   │       │   ├── shortestpath/
+│   │   │       │   │   ├── e1.m
+│   │   │       │   │   ├── rk4.c
+│   │   │       │   │   ├── rk4.m
+│   │   │       │   │   └── s1.m
+│   │   │       │   ├── shortestpath.m
+│   │   │       │   └── skeleton.m
+│   │   │       ├── m_map/
+│   │   │       │   ├── Contents.m
+│   │   │       │   ├── arrow.m
+│   │   │       │   ├── m_annotation.m
+│   │   │       │   ├── m_arrow.m
+│   │   │       │   ├── m_coast.m
+│   │   │       │   ├── m_colmap.m
+│   │   │       │   ├── m_contfbar.m
+│   │   │       │   ├── m_contour.m
+│   │   │       │   ├── m_contourf.m
+│   │   │       │   ├── m_coord.m
+│   │   │       │   ├── m_demo.m
+│   │   │       │   ├── m_elev.m
+│   │   │       │   ├── m_ellipse.m
+│   │   │       │   ├── m_etopo2.m
+│   │   │       │   ├── m_fdist.m
+│   │   │       │   ├── m_geo2mag.m
+│   │   │       │   ├── m_geodesic.m
+│   │   │       │   ├── m_ginput.m
+│   │   │       │   ├── m_grid.m
+│   │   │       │   ├── m_grid_old.m
+│   │   │       │   ├── m_gshhs.m
+│   │   │       │   ├── m_gshhs_c.m
+│   │   │       │   ├── m_gshhs_f.m
+│   │   │       │   ├── m_gshhs_h.m
+│   │   │       │   ├── m_gshhs_i.m
+│   │   │       │   ├── m_gshhs_l.m
+│   │   │       │   ├── m_hatch.m
+│   │   │       │   ├── m_idist.m
+│   │   │       │   ├── m_image.m
+│   │   │       │   ├── m_legend.m
+│   │   │       │   ├── m_line.m
+│   │   │       │   ├── m_ll2xy.m
+│   │   │       │   ├── m_lldist.m
+│   │   │       │   ├── m_mag2geo.m
+│   │   │       │   ├── m_northarrow.m
+│   │   │       │   ├── m_patch.m
+│   │   │       │   ├── m_pcolor.m
+│   │   │       │   ├── m_plot.m
+│   │   │       │   ├── m_plotbndry.m
+│   │   │       │   ├── m_proj.m
+│   │   │       │   ├── m_quiver.m
+│   │   │       │   ├── m_range_ring.m
+│   │   │       │   ├── m_rectangle.m
+│   │   │       │   ├── m_ruler.m
+│   │   │       │   ├── m_scale.m
+│   │   │       │   ├── m_scatter.m
+│   │   │       │   ├── m_shadedrelief.m
+│   │   │       │   ├── m_shaperead.m
+│   │   │       │   ├── m_streamline.m
+│   │   │       │   ├── m_tba2b.m
+│   │   │       │   ├── m_tbase.m
+│   │   │       │   ├── m_text.m
+│   │   │       │   ├── m_track.m
+│   │   │       │   ├── m_ungrid.m
+│   │   │       │   ├── m_usercoast.m
+│   │   │       │   ├── m_utmgrid.m
+│   │   │       │   ├── m_vec.m
+│   │   │       │   ├── m_windbarb.m
+│   │   │       │   ├── m_windrose.m
+│   │   │       │   ├── m_xy2ll.m
+│   │   │       │   ├── m_xydist.m
+│   │   │       │   ├── mygrid_sand2.m
+│   │   │       │   ├── private/
+│   │   │       │   │   ├── mc_coords.m
+│   │   │       │   │   ├── mc_ellips.m
+│   │   │       │   │   ├── mc_igrf.m
+│   │   │       │   │   ├── mp_azim.m
+│   │   │       │   │   ├── mp_conic.m
+│   │   │       │   │   ├── mp_cyl.m
+│   │   │       │   │   ├── mp_omerc.m
+│   │   │       │   │   ├── mp_utm.m
+│   │   │       │   │   ├── mu_coast.m
+│   │   │       │   │   └── mu_util.m
+│   │   │       │   └── wysiwyg.m
+│   │   │       └── slanCM/
+│   │   │           └── slanCM/
+│   │   │               ├── demo1_SCM.m
+│   │   │               ├── demo2_SCM.m
+│   │   │               ├── demo3_SCM.m
+│   │   │               ├── demo4_SCM.m
+│   │   │               ├── demo5_SCM.m
+│   │   │               ├── demo6_SCM.m
+│   │   │               ├── demo7_SCM.m
+│   │   │               ├── demo8_SCM.m
+│   │   │               ├── demo9_SCM.m
+│   │   │               └── slanCM.m
+│   │   ├── init_params_step1.m
+│   │   ├── plot_average_across_all_chains.m
+│   │   ├── plot_average_of_one_chain.m
+│   │   ├── plot_results.m
+│   │   ├── plot_simulation.m
+│   │   ├── plot_traveltime.m
+│   │   ├── prepare_datasets.m
+│   │   ├── rjmcmcLib/
+│   │   │   ├── AcceptOrNot.m
+│   │   │   ├── CreateNewModel.m
+│   │   │   ├── ForwardStep_Fst.m
+│   │   │   ├── ForwardStep_Fst_SubDmn.m
+│   │   │   ├── MCMC_2D_cycle.m
+│   │   │   ├── PickAction.m
+│   │   │   ├── archive/
+│   │   │   │   └── ForwardStep_v2.m
+│   │   │   └── rj2DMCMC_old.m
+│   │   ├── stp1_setup_toy_exp.sh
+│   │   ├── stp2_call_toy_exp.sh
+│   │   └── tempSayan.m
+│   ├── ExperimentDir_bl/
+│   │   ├── bldExpt_Afr.m
+│   │   ├── bldExpt_Afr_bl.m
+│   │   ├── functions/
+│   │   │   ├── archive/
+│   │   │   │   ├── maketoymodel_V0.m
+│   │   │   │   └── maketoymodel_V1.m
+│   │   │   ├── bldExpt_Afr.m
+│   │   │   ├── buildToyExpt.m
+│   │   │   ├── initializemodel.m
+│   │   │   ├── loadinputObs.m
+│   │   │   ├── maketoymodel.m
+│   │   │   ├── mapobs2Grid.m
+│   │   │   ├── reloadMcMC.m
+│   │   │   ├── runBayesTomo.m
+│   │   │   ├── showmodel.m
+│   │   │   ├── simulatetoydata.m
+│   │   │   └── utils/
+│   │   │       ├── FastMarching_version3b/
+│   │   │       │   ├── compile_c_files.m
+│   │   │       │   ├── functions/
+│   │   │       │   │   ├── common.c
+│   │   │       │   │   ├── msfm2d.c
+│   │   │       │   │   ├── msfm2d.m
+│   │   │       │   │   ├── msfm3d.c
+│   │   │       │   │   ├── msfm3d.m
+│   │   │       │   │   └── pointmin.m
+│   │   │       │   ├── msfm.m
+│   │   │       │   ├── shortestpath/
+│   │   │       │   │   ├── e1.m
+│   │   │       │   │   ├── rk4.c
+│   │   │       │   │   ├── rk4.m
+│   │   │       │   │   └── s1.m
+│   │   │       │   ├── shortestpath.m
+│   │   │       │   └── skeleton.m
+│   │   │       ├── m_map/
+│   │   │       │   ├── Contents.m
+│   │   │       │   ├── arrow.m
+│   │   │       │   ├── m_annotation.m
+│   │   │       │   ├── m_arrow.m
+│   │   │       │   ├── m_coast.m
+│   │   │       │   ├── m_colmap.m
+│   │   │       │   ├── m_contfbar.m
+│   │   │       │   ├── m_contour.m
+│   │   │       │   ├── m_contourf.m
+│   │   │       │   ├── m_coord.m
+│   │   │       │   ├── m_demo.m
+│   │   │       │   ├── m_elev.m
+│   │   │       │   ├── m_ellipse.m
+│   │   │       │   ├── m_etopo2.m
+│   │   │       │   ├── m_fdist.m
+│   │   │       │   ├── m_geo2mag.m
+│   │   │       │   ├── m_geodesic.m
+│   │   │       │   ├── m_ginput.m
+│   │   │       │   ├── m_grid.m
+│   │   │       │   ├── m_grid_old.m
+│   │   │       │   ├── m_gshhs.m
+│   │   │       │   ├── m_gshhs_c.m
+│   │   │       │   ├── m_gshhs_f.m
+│   │   │       │   ├── m_gshhs_h.m
+│   │   │       │   ├── m_gshhs_i.m
+│   │   │       │   ├── m_gshhs_l.m
+│   │   │       │   ├── m_hatch.m
+│   │   │       │   ├── m_idist.m
+│   │   │       │   ├── m_image.m
+│   │   │       │   ├── m_legend.m
+│   │   │       │   ├── m_line.m
+│   │   │       │   ├── m_ll2xy.m
+│   │   │       │   ├── m_lldist.m
+│   │   │       │   ├── m_mag2geo.m
+│   │   │       │   ├── m_northarrow.m
+│   │   │       │   ├── m_patch.m
+│   │   │       │   ├── m_pcolor.m
+│   │   │       │   ├── m_plot.m
+│   │   │       │   ├── m_plotbndry.m
+│   │   │       │   ├── m_proj.m
+│   │   │       │   ├── m_quiver.m
+│   │   │       │   ├── m_range_ring.m
+│   │   │       │   ├── m_rectangle.m
+│   │   │       │   ├── m_ruler.m
+│   │   │       │   ├── m_scale.m
+│   │   │       │   ├── m_scatter.m
+│   │   │       │   ├── m_shadedrelief.m
+│   │   │       │   ├── m_shaperead.m
+│   │   │       │   ├── m_streamline.m
+│   │   │       │   ├── m_tba2b.m
+│   │   │       │   ├── m_tbase.m
+│   │   │       │   ├── m_text.m
+│   │   │       │   ├── m_track.m
+│   │   │       │   ├── m_ungrid.m
+│   │   │       │   ├── m_usercoast.m
+│   │   │       │   ├── m_utmgrid.m
+│   │   │       │   ├── m_vec.m
+│   │   │       │   ├── m_windbarb.m
+│   │   │       │   ├── m_windrose.m
+│   │   │       │   ├── m_xy2ll.m
+│   │   │       │   ├── m_xydist.m
+│   │   │       │   ├── mygrid_sand2.m
+│   │   │       │   ├── private/
+│   │   │       │   │   ├── mc_coords.m
+│   │   │       │   │   ├── mc_ellips.m
+│   │   │       │   │   ├── mc_igrf.m
+│   │   │       │   │   ├── mp_azim.m
+│   │   │       │   │   ├── mp_conic.m
+│   │   │       │   │   ├── mp_cyl.m
+│   │   │       │   │   ├── mp_omerc.m
+│   │   │       │   │   ├── mp_utm.m
+│   │   │       │   │   ├── mu_coast.m
+│   │   │       │   │   └── mu_util.m
+│   │   │       │   └── wysiwyg.m
+│   │   │       └── slanCM/
+│   │   │           └── slanCM/
+│   │   │               ├── demo1_SCM.m
+│   │   │               ├── demo2_SCM.m
+│   │   │               ├── demo3_SCM.m
+│   │   │               ├── demo4_SCM.m
+│   │   │               ├── demo5_SCM.m
+│   │   │               ├── demo6_SCM.m
+│   │   │               ├── demo7_SCM.m
+│   │   │               ├── demo8_SCM.m
+│   │   │               ├── demo9_SCM.m
+│   │   │               └── slanCM.m
+│   │   ├── init_params_step1.m
+│   │   └── rjmcmcLib/
+│   │       ├── AcceptOrNot.m
+│   │       ├── CreateNewModel.m
+│   │       ├── ForwardStep_Fst.m
+│   │       ├── MCMC_2D_cycle.m
+│   │       ├── PickAction.m
+│   │       ├── archive/
+│   │       │   └── ForwardStep_v2.m
+│   │       └── rj2DMCMC_old.m
+│   ├── archive/
+│   │   ├── AcceptOrNot.m
+│   │   ├── CreateNewModel.m
+│   │   ├── FastMarching_version3b/
+│   │   │   ├── compile_c_files.m
+│   │   │   ├── functions/
+│   │   │   │   ├── common.c
+│   │   │   │   ├── msfm2d.c
+│   │   │   │   ├── msfm2d.m
+│   │   │   │   ├── msfm3d.c
+│   │   │   │   ├── msfm3d.m
+│   │   │   │   └── pointmin.m
+│   │   │   ├── msfm.m
+│   │   │   ├── shortestpath/
+│   │   │   │   ├── e1.m
+│   │   │   │   ├── rk4.c
+│   │   │   │   ├── rk4.m
+│   │   │   │   └── s1.m
+│   │   │   ├── shortestpath.m
+│   │   │   └── skeleton.m
+│   │   ├── ForwardStep_Fst.m
+│   │   ├── ForwardStep_v2.m
+│   │   ├── MCMC_2D_cycle.m
+│   │   ├── PickAction.m
+│   │   ├── archive/
+│   │   │   └── ForwardStep_v2.m
+│   │   ├── bldExpt_Afr.m
+│   │   ├── functions/
+│   │   │   ├── archive/
+│   │   │   │   ├── maketoymodel_V0.m
+│   │   │   │   └── maketoymodel_V1.m
+│   │   │   ├── bldExpt_Afr.m
+│   │   │   ├── buildToyExpt.m
+│   │   │   ├── initializemodel.m
+│   │   │   ├── loadinputObs.m
+│   │   │   ├── maketoymodel.m
+│   │   │   ├── mapobs2Grid.m
+│   │   │   ├── reloadMcMC.m
+│   │   │   ├── runBayesTomo.m
+│   │   │   ├── showmodel.m
+│   │   │   ├── simulatetoydata.m
+│   │   │   └── utils/
+│   │   │       ├── FastMarching_version3b/
+│   │   │       │   ├── compile_c_files.m
+│   │   │       │   ├── functions/
+│   │   │       │   │   ├── common.c
+│   │   │       │   │   ├── msfm2d.c
+│   │   │       │   │   ├── msfm2d.m
+│   │   │       │   │   ├── msfm3d.c
+│   │   │       │   │   ├── msfm3d.m
+│   │   │       │   │   └── pointmin.m
+│   │   │       │   ├── msfm.m
+│   │   │       │   ├── shortestpath/
+│   │   │       │   │   ├── e1.m
+│   │   │       │   │   ├── rk4.c
+│   │   │       │   │   ├── rk4.m
+│   │   │       │   │   └── s1.m
+│   │   │       │   ├── shortestpath.m
+│   │   │       │   └── skeleton.m
+│   │   │       ├── m_map/
+│   │   │       │   ├── Contents.m
+│   │   │       │   ├── arrow.m
+│   │   │       │   ├── m_annotation.m
+│   │   │       │   ├── m_arrow.m
+│   │   │       │   ├── m_coast.m
+│   │   │       │   ├── m_colmap.m
+│   │   │       │   ├── m_contfbar.m
+│   │   │       │   ├── m_contour.m
+│   │   │       │   ├── m_contourf.m
+│   │   │       │   ├── m_coord.m
+│   │   │       │   ├── m_demo.m
+│   │   │       │   ├── m_elev.m
+│   │   │       │   ├── m_ellipse.m
+│   │   │       │   ├── m_etopo2.m
+│   │   │       │   ├── m_fdist.m
+│   │   │       │   ├── m_geo2mag.m
+│   │   │       │   ├── m_geodesic.m
+│   │   │       │   ├── m_ginput.m
+│   │   │       │   ├── m_grid.m
+│   │   │       │   ├── m_grid_old.m
+│   │   │       │   ├── m_gshhs.m
+│   │   │       │   ├── m_gshhs_c.m
+│   │   │       │   ├── m_gshhs_f.m
+│   │   │       │   ├── m_gshhs_h.m
+│   │   │       │   ├── m_gshhs_i.m
+│   │   │       │   ├── m_gshhs_l.m
+│   │   │       │   ├── m_hatch.m
+│   │   │       │   ├── m_idist.m
+│   │   │       │   ├── m_image.m
+│   │   │       │   ├── m_legend.m
+│   │   │       │   ├── m_line.m
+│   │   │       │   ├── m_ll2xy.m
+│   │   │       │   ├── m_lldist.m
+│   │   │       │   ├── m_mag2geo.m
+│   │   │       │   ├── m_northarrow.m
+│   │   │       │   ├── m_patch.m
+│   │   │       │   ├── m_pcolor.m
+│   │   │       │   ├── m_plot.m
+│   │   │       │   ├── m_plotbndry.m
+│   │   │       │   ├── m_proj.m
+│   │   │       │   ├── m_quiver.m
+│   │   │       │   ├── m_range_ring.m
+│   │   │       │   ├── m_rectangle.m
+│   │   │       │   ├── m_ruler.m
+│   │   │       │   ├── m_scale.m
+│   │   │       │   ├── m_scatter.m
+│   │   │       │   ├── m_shadedrelief.m
+│   │   │       │   ├── m_shaperead.m
+│   │   │       │   ├── m_streamline.m
+│   │   │       │   ├── m_tba2b.m
+│   │   │       │   ├── m_tbase.m
+│   │   │       │   ├── m_text.m
+│   │   │       │   ├── m_track.m
+│   │   │       │   ├── m_ungrid.m
+│   │   │       │   ├── m_usercoast.m
+│   │   │       │   ├── m_utmgrid.m
+│   │   │       │   ├── m_vec.m
+│   │   │       │   ├── m_windbarb.m
+│   │   │       │   ├── m_windrose.m
+│   │   │       │   ├── m_xy2ll.m
+│   │   │       │   ├── m_xydist.m
+│   │   │       │   ├── mygrid_sand2.m
+│   │   │       │   ├── private/
+│   │   │       │   │   ├── mc_coords.m
+│   │   │       │   │   ├── mc_ellips.m
+│   │   │       │   │   ├── mc_igrf.m
+│   │   │       │   │   ├── mp_azim.m
+│   │   │       │   │   ├── mp_conic.m
+│   │   │       │   │   ├── mp_cyl.m
+│   │   │       │   │   ├── mp_omerc.m
+│   │   │       │   │   ├── mp_utm.m
+│   │   │       │   │   ├── mu_coast.m
+│   │   │       │   │   └── mu_util.m
+│   │   │       │   └── wysiwyg.m
+│   │   │       └── slanCM/
+│   │   │           └── slanCM/
+│   │   │               ├── demo1_SCM.m
+│   │   │               ├── demo2_SCM.m
+│   │   │               ├── demo3_SCM.m
+│   │   │               ├── demo4_SCM.m
+│   │   │               ├── demo5_SCM.m
+│   │   │               ├── demo6_SCM.m
+│   │   │               ├── demo7_SCM.m
+│   │   │               ├── demo8_SCM.m
+│   │   │               ├── demo9_SCM.m
+│   │   │               └── slanCM.m
+│   │   ├── init_params_step1.m
+│   │   ├── loadinputObs.m
+│   │   ├── mapobs2Grid.m
+│   │   ├── rj2DMCMC_old.m
+│   │   ├── rjmcmcLib/
+│   │   │   ├── AcceptOrNot.m
+│   │   │   ├── CreateNewModel.m
+│   │   │   ├── ForwardStep_Fst.m
+│   │   │   ├── MCMC_2D_cycle.m
+│   │   │   ├── PickAction.m
+│   │   │   ├── archive/
+│   │   │   │   └── ForwardStep_v2.m
+│   │   │   └── rj2DMCMC_old.m
+│   │   ├── runBayesTomo.m
+│   │   ├── showmodel.m
+│   │   └── utils/
+│   │       ├── FastMarching_version3b/
+│   │       │   ├── compile_c_files.m
+│   │       │   ├── functions/
+│   │       │   │   ├── common.c
+│   │       │   │   ├── msfm2d.c
+│   │       │   │   ├── msfm2d.m
+│   │       │   │   ├── msfm3d.c
+│   │       │   │   ├── msfm3d.m
+│   │       │   │   └── pointmin.m
+│   │       │   ├── msfm.m
+│   │       │   ├── shortestpath/
+│   │       │   │   ├── e1.m
+│   │       │   │   ├── rk4.c
+│   │       │   │   ├── rk4.m
+│   │       │   │   └── s1.m
+│   │       │   ├── shortestpath.m
+│   │       │   └── skeleton.m
+│   │       ├── m_map/
+│   │       │   ├── Contents.m
+│   │       │   ├── arrow.m
+│   │       │   ├── m_annotation.m
+│   │       │   ├── m_arrow.m
+│   │       │   ├── m_coast.m
+│   │       │   ├── m_colmap.m
+│   │       │   ├── m_contfbar.m
+│   │       │   ├── m_contour.m
+│   │       │   ├── m_contourf.m
+│   │       │   ├── m_coord.m
+│   │       │   ├── m_demo.m
+│   │       │   ├── m_elev.m
+│   │       │   ├── m_ellipse.m
+│   │       │   ├── m_etopo2.m
+│   │       │   ├── m_fdist.m
+│   │       │   ├── m_geo2mag.m
+│   │       │   ├── m_geodesic.m
+│   │       │   ├── m_ginput.m
+│   │       │   ├── m_grid.m
+│   │       │   ├── m_grid_old.m
+│   │       │   ├── m_gshhs.m
+│   │       │   ├── m_gshhs_c.m
+│   │       │   ├── m_gshhs_f.m
+│   │       │   ├── m_gshhs_h.m
+│   │       │   ├── m_gshhs_i.m
+│   │       │   ├── m_gshhs_l.m
+│   │       │   ├── m_hatch.m
+│   │       │   ├── m_idist.m
+│   │       │   ├── m_image.m
+│   │       │   ├── m_legend.m
+│   │       │   ├── m_line.m
+│   │       │   ├── m_ll2xy.m
+│   │       │   ├── m_lldist.m
+│   │       │   ├── m_mag2geo.m
+│   │       │   ├── m_northarrow.m
+│   │       │   ├── m_patch.m
+│   │       │   ├── m_pcolor.m
+│   │       │   ├── m_plot.m
+│   │       │   ├── m_plotbndry.m
+│   │       │   ├── m_proj.m
+│   │       │   ├── m_quiver.m
+│   │       │   ├── m_range_ring.m
+│   │       │   ├── m_rectangle.m
+│   │       │   ├── m_ruler.m
+│   │       │   ├── m_scale.m
+│   │       │   ├── m_scatter.m
+│   │       │   ├── m_shadedrelief.m
+│   │       │   ├── m_shaperead.m
+│   │       │   ├── m_streamline.m
+│   │       │   ├── m_tba2b.m
+│   │       │   ├── m_tbase.m
+│   │       │   ├── m_text.m
+│   │       │   ├── m_track.m
+│   │       │   ├── m_ungrid.m
+│   │       │   ├── m_usercoast.m
+│   │       │   ├── m_utmgrid.m
+│   │       │   ├── m_vec.m
+│   │       │   ├── m_windbarb.m
+│   │       │   ├── m_windrose.m
+│   │       │   ├── m_xy2ll.m
+│   │       │   ├── m_xydist.m
+│   │       │   ├── mygrid_sand2.m
+│   │       │   ├── private/
+│   │       │   │   ├── mc_coords.m
+│   │       │   │   ├── mc_ellips.m
+│   │       │   │   ├── mc_igrf.m
+│   │       │   │   ├── mp_azim.m
+│   │       │   │   ├── mp_conic.m
+│   │       │   │   ├── mp_cyl.m
+│   │       │   │   ├── mp_omerc.m
+│   │       │   │   ├── mp_utm.m
+│   │       │   │   ├── mu_coast.m
+│   │       │   │   └── mu_util.m
+│   │       │   └── wysiwyg.m
+│   │       └── slanCM/
+│   │           └── slanCM/
+│   │               ├── demo1_SCM.m
+│   │               ├── demo2_SCM.m
+│   │               ├── demo3_SCM.m
+│   │               ├── demo4_SCM.m
+│   │               ├── demo5_SCM.m
+│   │               ├── demo6_SCM.m
+│   │               ├── demo7_SCM.m
+│   │               ├── demo8_SCM.m
+│   │               ├── demo9_SCM.m
+│   │               └── slanCM.m
+│   ├── dr_Oh_makeToyModel_SA.m
+│   ├── functions/
+│   │   ├── archive/
+│   │   │   ├── maketoymodel_V0.m
+│   │   │   └── maketoymodel_V1.m
+│   │   ├── bldExpt_Afr.m
+│   │   ├── buildToyExpt.m
+│   │   ├── initializemodel.m
+│   │   ├── loadinputObs.m
+│   │   ├── maketoymodel.m
+│   │   ├── mapobs2Grid.m
+│   │   ├── reloadMcMC.m
+│   │   ├── runBayesTomo.m
+│   │   ├── showmodel.m
+│   │   ├── simulatetoydata.m
+│   │   └── utils/
+│   │       ├── FastMarching_version3b/
+│   │       │   ├── compile_c_files.m
+│   │       │   ├── functions/
+│   │       │   │   ├── common.c
+│   │       │   │   ├── msfm2d.c
+│   │       │   │   ├── msfm2d.m
+│   │       │   │   ├── msfm3d.c
+│   │       │   │   ├── msfm3d.m
+│   │       │   │   └── pointmin.m
+│   │       │   ├── msfm.m
+│   │       │   ├── shortestpath/
+│   │       │   │   ├── e1.m
+│   │       │   │   ├── rk4.c
+│   │       │   │   ├── rk4.m
+│   │       │   │   └── s1.m
+│   │       │   ├── shortestpath.m
+│   │       │   └── skeleton.m
+│   │       ├── m_map/
+│   │       │   ├── Contents.m
+│   │       │   ├── arrow.m
+│   │       │   ├── m_annotation.m
+│   │       │   ├── m_arrow.m
+│   │       │   ├── m_coast.m
+│   │       │   ├── m_colmap.m
+│   │       │   ├── m_contfbar.m
+│   │       │   ├── m_contour.m
+│   │       │   ├── m_contourf.m
+│   │       │   ├── m_coord.m
+│   │       │   ├── m_demo.m
+│   │       │   ├── m_elev.m
+│   │       │   ├── m_ellipse.m
+│   │       │   ├── m_etopo2.m
+│   │       │   ├── m_fdist.m
+│   │       │   ├── m_geo2mag.m
+│   │       │   ├── m_geodesic.m
+│   │       │   ├── m_ginput.m
+│   │       │   ├── m_grid.m
+│   │       │   ├── m_grid_old.m
+│   │       │   ├── m_gshhs.m
+│   │       │   ├── m_gshhs_c.m
+│   │       │   ├── m_gshhs_f.m
+│   │       │   ├── m_gshhs_h.m
+│   │       │   ├── m_gshhs_i.m
+│   │       │   ├── m_gshhs_l.m
+│   │       │   ├── m_hatch.m
+│   │       │   ├── m_idist.m
+│   │       │   ├── m_image.m
+│   │       │   ├── m_legend.m
+│   │       │   ├── m_line.m
+│   │       │   ├── m_ll2xy.m
+│   │       │   ├── m_lldist.m
+│   │       │   ├── m_mag2geo.m
+│   │       │   ├── m_northarrow.m
+│   │       │   ├── m_patch.m
+│   │       │   ├── m_pcolor.m
+│   │       │   ├── m_plot.m
+│   │       │   ├── m_plotbndry.m
+│   │       │   ├── m_proj.m
+│   │       │   ├── m_quiver.m
+│   │       │   ├── m_range_ring.m
+│   │       │   ├── m_rectangle.m
+│   │       │   ├── m_ruler.m
+│   │       │   ├── m_scale.m
+│   │       │   ├── m_scatter.m
+│   │       │   ├── m_shadedrelief.m
+│   │       │   ├── m_shaperead.m
+│   │       │   ├── m_streamline.m
+│   │       │   ├── m_tba2b.m
+│   │       │   ├── m_tbase.m
+│   │       │   ├── m_text.m
+│   │       │   ├── m_track.m
+│   │       │   ├── m_ungrid.m
+│   │       │   ├── m_usercoast.m
+│   │       │   ├── m_utmgrid.m
+│   │       │   ├── m_vec.m
+│   │       │   ├── m_windbarb.m
+│   │       │   ├── m_windrose.m
+│   │       │   ├── m_xy2ll.m
+│   │       │   ├── m_xydist.m
+│   │       │   ├── mygrid_sand2.m
+│   │       │   ├── private/
+│   │       │   │   ├── mc_coords.m
+│   │       │   │   ├── mc_ellips.m
+│   │       │   │   ├── mc_igrf.m
+│   │       │   │   ├── mp_azim.m
+│   │       │   │   ├── mp_conic.m
+│   │       │   │   ├── mp_cyl.m
+│   │       │   │   ├── mp_omerc.m
+│   │       │   │   ├── mp_utm.m
+│   │       │   │   ├── mu_coast.m
+│   │       │   │   └── mu_util.m
+│   │       │   └── wysiwyg.m
+│   │       └── slanCM/
+│   │           └── slanCM/
+│   │               ├── demo1_SCM.m
+│   │               ├── demo2_SCM.m
+│   │               ├── demo3_SCM.m
+│   │               ├── demo4_SCM.m
+│   │               ├── demo5_SCM.m
+│   │               ├── demo6_SCM.m
+│   │               ├── demo7_SCM.m
+│   │               ├── demo8_SCM.m
+│   │               ├── demo9_SCM.m
+│   │               └── slanCM.m
+│   ├── geoGenAI/
+│   │   ├── backup/
+│   │   │   ├── test.py
+│   │   │   └── visual.py
+│   │   ├── geoGenAI/
+│   │   │   ├── __init__.py
+│   │   │   ├── dcgan.py
+│   │   │   ├── diffusion.py
+│   │   │   ├── unet_model.py
+│   │   │   ├── util/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── bridging.py
+│   │   │   │   ├── calc_params.py
+│   │   │   │   ├── ckptloading.py
+│   │   │   │   ├── config.py
+│   │   │   │   ├── dataloading.py
+│   │   │   │   ├── meter.py
+│   │   │   │   └── visualize.py
+│   │   │   └── wgan.py
+│   │   ├── inference.ipynb
+│   │   ├── interpolate.slurm
+│   │   ├── setup.py
+│   │   └── train.slurm
+│   ├── init_params_step1.m
+│   ├── krishs_lab/
+│   │   ├── src/
+│   │   │   ├── generative_model.py
+│   │   │   └── util/
+│   │   │       └── bridging.py
+│   │   └── test.ipynb
+│   ├── mengs_lab/
+│   │   ├── ExperimentDir/
+│   │   │   ├── bldExpt_Afr.m
+│   │   │   ├── bldExpt_Afr_bl.m
+│   │   │   ├── exp19_runner.slurm
+│   │   │   ├── untitled.m
+│   │   │   └── visualize_ensemble.m
+│   │   └── ExperimentDir_Toy/
+│   │       └── test.ipynb
+│   ├── plot_afr_R_P30_gan_map.m
+│   ├── plot_results.m
+│   ├── plot_simulation.m
+│   ├── plot_traveltime.m
+│   ├── prepare_datasets.m
+│   ├── rj2dMCMC.m
+│   ├── rjmcmcLib/
+│   │   ├── AcceptOrNot.m
+│   │   ├── CreateNewModel.m
+│   │   ├── ForwardStep_Fst.m
+│   │   ├── MCMC_2D_cycle.m
+│   │   ├── PickAction.m
+│   │   ├── archive/
+│   │   │   └── ForwardStep_v2.m
+│   │   └── rj2DMCMC_old.m
+│   ├── sanityTest.m
+│   ├── tempDrO.m
+│   ├── temp_sayan/
+│   │   ├── Afr_Stations.m
+│   │   ├── Afr_Topo.m
+│   │   ├── adama_plot_field.m
+│   │   ├── functions/
+│   │   │   ├── loadinputObs.m
+│   │   │   └── m_map/
+│   │   │       ├── Contents.m
+│   │   │       ├── arrow.m
+│   │   │       ├── m_annotation.m
+│   │   │       ├── m_arrow.m
+│   │   │       ├── m_coast.m
+│   │   │       ├── m_colmap.m
+│   │   │       ├── m_contfbar.m
+│   │   │       ├── m_contour.m
+│   │   │       ├── m_contourf.m
+│   │   │       ├── m_coord.m
+│   │   │       ├── m_demo.m
+│   │   │       ├── m_elev.m
+│   │   │       ├── m_ellipse.m
+│   │   │       ├── m_etopo2.m
+│   │   │       ├── m_fdist.m
+│   │   │       ├── m_geo2mag.m
+│   │   │       ├── m_geodesic.m
+│   │   │       ├── m_ginput.m
+│   │   │       ├── m_grid.m
+│   │   │       ├── m_grid_old.m
+│   │   │       ├── m_gshhs.m
+│   │   │       ├── m_gshhs_c.m
+│   │   │       ├── m_gshhs_f.m
+│   │   │       ├── m_gshhs_h.m
+│   │   │       ├── m_gshhs_i.m
+│   │   │       ├── m_gshhs_l.m
+│   │   │       ├── m_hatch.m
+│   │   │       ├── m_idist.m
+│   │   │       ├── m_image.m
+│   │   │       ├── m_legend.m
+│   │   │       ├── m_line.m
+│   │   │       ├── m_ll2xy.m
+│   │   │       ├── m_lldist.m
+│   │   │       ├── m_mag2geo.m
+│   │   │       ├── m_northarrow.m
+│   │   │       ├── m_patch.m
+│   │   │       ├── m_pcolor.m
+│   │   │       ├── m_plot.m
+│   │   │       ├── m_plotbndry.m
+│   │   │       ├── m_proj.m
+│   │   │       ├── m_quiver.m
+│   │   │       ├── m_range_ring.m
+│   │   │       ├── m_rectangle.m
+│   │   │       ├── m_ruler.m
+│   │   │       ├── m_scale.m
+│   │   │       ├── m_scatter.m
+│   │   │       ├── m_shadedrelief.m
+│   │   │       ├── m_shaperead.m
+│   │   │       ├── m_streamline.m
+│   │   │       ├── m_tba2b.m
+│   │   │       ├── m_tbase.m
+│   │   │       ├── m_text.m
+│   │   │       ├── m_track.m
+│   │   │       ├── m_ungrid.m
+│   │   │       ├── m_usercoast.m
+│   │   │       ├── m_utmgrid.m
+│   │   │       ├── m_vec.m
+│   │   │       ├── m_windbarb.m
+│   │   │       ├── m_windrose.m
+│   │   │       ├── m_xy2ll.m
+│   │   │       ├── m_xydist.m
+│   │   │       ├── mygrid_sand2.m
+│   │   │       ├── private/
+│   │   │       │   ├── mc_coords.m
+│   │   │       │   ├── mc_ellips.m
+│   │   │       │   ├── mc_igrf.m
+│   │   │       │   ├── mp_azim.m
+│   │   │       │   ├── mp_conic.m
+│   │   │       │   ├── mp_cyl.m
+│   │   │       │   ├── mp_omerc.m
+│   │   │       │   ├── mp_utm.m
+│   │   │       │   ├── mu_coast.m
+│   │   │       │   └── mu_util.m
+│   │   │       └── wysiwyg.m
+│   │   ├── plot_ray_path_afr_new.m
+│   │   ├── plot_ray_path_afr_org.m
+│   │   ├── tempSayan.m
+│   │   └── temp_test.m
+│   └── test_loop.m
+├── Codes/
+│   ├── AcceptOrNot.m
+│   ├── CreateNewModel.m
+│   ├── FastMarching_version3b/
+│   │   ├── compile_c_files.m
+│   │   ├── functions/
+│   │   │   ├── common.c
+│   │   │   ├── msfm2d.c
+│   │   │   ├── msfm2d.m
+│   │   │   ├── msfm3d.c
+│   │   │   ├── msfm3d.m
+│   │   │   └── pointmin.m
+│   │   ├── msfm.m
+│   │   ├── shortestpath/
+│   │   │   ├── e1.m
+│   │   │   ├── rk4.c
+│   │   │   ├── rk4.m
+│   │   │   └── s1.m
+│   │   ├── shortestpath.m
+│   │   └── skeleton.m
+│   ├── ForwardStep.m
+│   ├── MCMC_2D_cycle.m
+│   ├── PickAction.m
+│   ├── gen_coord_to_grid.m
+│   ├── generate_obs_data.m
+│   ├── initital-station-process.ipynb
+│   ├── makeToyModel.m
+│   ├── plot_results.m
+│   ├── plot_simulation.m
+│   └── rj2DMCMC.m
+├── CreateNewModel.m
+├── m_map/
+│   ├── Contents.m
+│   ├── m_coast.m
+│   ├── m_contour.m
+│   ├── m_contourf.m
+│   ├── m_coord.m
+│   ├── m_demo.m
+│   ├── m_elev.m
+│   ├── m_ellipse.m
+│   ├── m_etopo2.m
+│   ├── m_fdist.m
+│   ├── m_geo2mag.m
+│   ├── m_geodesic.m
+│   ├── m_grid.m
+│   ├── m_gshhs.m
+│   ├── m_gshhs_c.m
+│   ├── m_gshhs_f.m
+│   ├── m_gshhs_h.m
+│   ├── m_gshhs_i.m
+│   ├── m_gshhs_l.m
+│   ├── m_hatch.m
+│   ├── m_idist.m
+│   ├── m_legend.m
+│   ├── m_line.m
+│   ├── m_ll2xy.m
+│   ├── m_lldist.m
+│   ├── m_mag2geo.m
+│   ├── m_patch.m
+│   ├── m_pcolor.m
+│   ├── m_plot.m
+│   ├── m_plotbndry.m
+│   ├── m_proj.m
+│   ├── m_quiver.m
+│   ├── m_range_ring.m
+│   ├── m_ruler.m
+│   ├── m_scale.m
+│   ├── m_shaperead.m
+│   ├── m_tba2b.m
+│   ├── m_tbase.m
+│   ├── m_text.m
+│   ├── m_track.m
+│   ├── m_ungrid.m
+│   ├── m_usercoast.m
+│   ├── m_vec.m
+│   ├── m_xy2ll.m
+│   ├── m_xydist.m
+│   └── private/
+│       ├── mc_coords.m
+│       ├── mc_ellips.m
+│       ├── mp_azim.m
+│       ├── mp_conic.m
+│       ├── mp_cyl.m
+│       ├── mp_omerc.m
+│       ├── mp_utm.m
+│       ├── mu_coast.m
+│       └── mu_util.m
+└── slanCM/
+    └── slanCM/
+        ├── demo1_SCM.m
+        ├── demo2_SCM.m
+        ├── demo3_SCM.m
+        ├── demo4_SCM.m
+        ├── demo5_SCM.m
+        ├── demo6_SCM.m
+        ├── demo7_SCM.m
+        ├── demo8_SCM.m
+        ├── demo9_SCM.m
+        └── slanCM.m
+```
 
 ## 3. Code Reference
 

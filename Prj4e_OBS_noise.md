@@ -23,54 +23,179 @@ The project is structured into several key components:
 
 ## 2. Data Architecture
 
-### Data Patterns and Structure
-
-The project's data is organized into several directories, each serving a specific purpose:
-
-#### Root Directory
-- **OBS_Orientations**: Contains scripts and tools for automated orientation analysis.
-- **JapaneseProject**: Houses scripts and data for comprehensive seismic data analysis.
-- **3_Src**: Includes machine learning and MCMC simulation scripts.
-- **2_Data/SAC**: Stores raw SAC files downloaded from the IRIS database.
-
-#### OBS_Orientations
-- **OBS_Orientations.py**: Main script for automated orientation using Rayleigh waves.
-- **Dockerfile**: Configuration file for Docker to containerize the environment.
-- **HPC_scripts**: Contains SLURM job scripts for running on HPC clusters.
-- **data/processed**: Stores processed data from the orientation analysis.
-
-#### JapaneseProject
-- **DataScripts**: Scripts for downloading and processing seismic data.
-  - **download_US_stations.py**: Downloads data for US-based stations using IRIS.
-  - **preprocess_data.py**: Preprocesses the downloaded data.
-- **Images**: Visualizations and plots generated during analysis.
-- **ManuscriptAndNotes**: Documentation and manuscript files.
-- **ProcData**: Processed seismic data from various sources.
-
-#### 3_Src
-- **rjMcMC2D_tm**: Machine learning and MCMC simulation scripts.
-  - **Results**: Stores results from the simulations.
-  - **synthetic_data.py**: Generates synthetic seismic data.
-  - **travel_time_tomography.py**: Performs travel time tomography.
-
-### Data Flow
-
-1. **Data Collection**:
-   - **download_US_stations.py**: Downloads raw seismic data for US-based stations from the IRIS database and stores it in `2_Data/SAC`.
-
-2. **Data Preprocessing**:
-   - **preprocess_data.py**: Processes the raw SAC files, converting them into a format suitable for analysis and storing the processed data in `JapaneseProject/ProcData`.
-
-3. **Instrument Orientation**:
-   - **OBS_Orientations.py**: Uses Rayleigh waves to determine the orientation of seismic instruments and stores the results in `OBS_Orientations/data/processed`.
-
-4. **Advanced Seismic Analysis**:
-   - **synthetic_data.py**: Generates synthetic seismic data for testing and validation.
-   - **travel_time_tomography.py**: Performs travel time tomography using the processed data from `JapaneseProject/ProcData`.
-   - **Results**: Stores the results of the machine learning and MCMC simulations.
-
-5. **Visualization**:
-   - **Images**: Generates visualizations and plots for the analysis results, stored in `JapaneseProject/Images`.
+```text
+Prj4e_OBS_noise/
+├── 3_Src/
+│   ├── change_name_tmp.m
+│   ├── rjMcMC2D/
+│   │   ├── FastMarching_version3b/
+│   │   │   ├── compile_c_files.m
+│   │   │   ├── functions/
+│   │   │   │   ├── common.c
+│   │   │   │   ├── msfm2d.c
+│   │   │   │   ├── msfm2d.m
+│   │   │   │   ├── msfm3d.c
+│   │   │   │   ├── msfm3d.m
+│   │   │   │   └── pointmin.m
+│   │   │   ├── msfm.m
+│   │   │   ├── shortestpath/
+│   │   │   │   ├── e1.m
+│   │   │   │   ├── rk4.c
+│   │   │   │   ├── rk4.m
+│   │   │   │   └── s1.m
+│   │   │   ├── shortestpath.m
+│   │   │   └── skeleton.m
+│   │   └── rjMCMC2D/
+│   │       ├── AcceptOrNot.m
+│   │       ├── CreateNewModel.m
+│   │       ├── MCMC_2D_cycle.m
+│   │       ├── Pacific_station_loc/
+│   │       │   ├── make_pacific_sta_loc.m
+│   │       │   └── make_pacific_sta_loc_updated.m
+│   │       ├── PickAction.m
+│   │       ├── ToyModels.m
+│   │       ├── generate_syn_data.m
+│   │       ├── plot_results.m
+│   │       ├── plot_results_one_slice.m
+│   │       ├── plot_simulation.m
+│   │       ├── rj2DMCMC.m
+│   │       └── rj2DMCMC_fixed.m
+│   ├── rjMcMC2D_tm/
+│   │   ├── FastMarching_version3b/
+│   │   │   ├── compile_c_files.m
+│   │   │   ├── functions/
+│   │   │   │   ├── common.c
+│   │   │   │   ├── msfm2d.c
+│   │   │   │   ├── msfm2d.m
+│   │   │   │   ├── msfm3d.c
+│   │   │   │   ├── msfm3d.m
+│   │   │   │   └── pointmin.m
+│   │   │   ├── msfm.m
+│   │   │   ├── shortestpath/
+│   │   │   │   ├── e1.m
+│   │   │   │   ├── rk4.c
+│   │   │   │   ├── rk4.m
+│   │   │   │   └── s1.m
+│   │   │   ├── shortestpath.m
+│   │   │   └── skeleton.m
+│   │   ├── dataset_and_helper_functions/
+│   │   │   ├── generative_model.py
+│   │   │   ├── process_data.py
+│   │   │   └── train_gan.py
+│   │   └── rjMCMC2D/
+│   │       ├── AcceptOrNot.m
+│   │       ├── CreateNewModelv2.m
+│   │       ├── ForwardStep.m
+│   │       ├── MCMC_2D_cycle.m
+│   │       ├── MCMC_2D_cycle_save.m
+│   │       ├── MCMConBH.sh
+│   │       ├── Pacific_station_loc/
+│   │       │   ├── make_pacific_sta_loc.m
+│   │       │   └── make_pacific_sta_loc_updated.m
+│   │       ├── PickAction.m
+│   │       ├── ToyModels.m
+│   │       ├── generate_syn_data.m
+│   │       ├── loadmodelstate.m
+│   │       ├── lstMCMCfiles.m
+│   │       ├── plot_results.m
+│   │       ├── plot_results_one_slice.m
+│   │       ├── plot_simulation.m
+│   │       ├── rj2DMCMC.m
+│   │       ├── rj2DMCMC_batch_cbrd.m
+│   │       ├── rj2DMCMC_batch_cbrd.slurm
+│   │       └── rj2DMCMC_fixed.m
+│   └── rjMcMc2D_bl/
+│       └── rjMcMC2D-main/
+│           ├── FastMarching_version3b/
+│           │   ├── compile_c_files.m
+│           │   ├── functions/
+│           │   │   ├── common.c
+│           │   │   ├── msfm2d.c
+│           │   │   ├── msfm2d.m
+│           │   │   ├── msfm3d.c
+│           │   │   ├── msfm3d.m
+│           │   │   └── pointmin.m
+│           │   ├── msfm.m
+│           │   ├── shortestpath/
+│           │   │   ├── e1.m
+│           │   │   ├── rk4.c
+│           │   │   ├── rk4.m
+│           │   │   └── s1.m
+│           │   ├── shortestpath.m
+│           │   └── skeleton.m
+│           └── rjMCMC2D/
+│               ├── AcceptOrNot.m
+│               ├── CreateNewModel.m
+│               ├── ForwardStep.m
+│               ├── MCMC_2D_cycle.m
+│               ├── PickAction.m
+│               ├── generate_syn_data.m
+│               ├── plot_results.m
+│               ├── plot_simulation.m
+│               ├── rj2DMCMC.m
+│               └── rj2DMCMC_fixed.m
+├── JapaneseProject/
+│   └── DataScripts/
+│       ├── Continental_LAB_Depth_Geotherm.ipynb
+│       ├── DataQCwithOBSpy.ipynb
+│       ├── Global_LAB_Geotherm.ipynb
+│       ├── SyntheticRFHarmonic.py
+│       ├── WaveformVisualize/
+│       │   ├── OBSVisualize.m
+│       │   ├── PlotSpec.m
+│       │   ├── PlotWvfrm.m
+│       │   └── muteResonance.m
+│       ├── eeg_example.py
+│       ├── freqDependentRF_ZoomLAB_Japs.ipynb
+│       ├── mappingModules.py
+│       ├── obspyWaveFormCrawler.py
+│       ├── runRFData.ipynb
+│       ├── runRF_StacksOBS.ipynb
+│       ├── runRFmodulesJaps.py
+│       ├── runSynthetics.ipynb
+│       ├── sortEquakeByCriteria.ipynb
+│       ├── sumResults_AgeDep_LAB.ipynb
+│       ├── viewManifest.ipynb
+│       ├── viewRFbyTransectsOBS.ipynb
+│       ├── viewStationMap.ipynb
+│       ├── viewStationStats.ipynb
+│       └── visualizeEquakesByManifest.ipynb
+├── OBS_Orientations/
+│   └── DLOPy_v1.0-master/
+│       ├── 2D.sh
+│       ├── Other_GitHub_files/
+│       │   ├── readlocal.py
+│       │   ├── run_orientations_local.py
+│       │   └── setup-DLOPy.sh
+│       ├── YL.sh
+│       ├── Z6.sh
+│       ├── geographiclib/
+│       │   ├── __init__.py
+│       │   ├── accumulator.py
+│       │   ├── constants.py
+│       │   ├── geodesic.py
+│       │   ├── geodesiccapability.py
+│       │   ├── geodesicline.py
+│       │   ├── geomath.py
+│       │   └── polygonarea.py
+│       ├── locfuns.py
+│       ├── pysave/
+│       │   ├── Orient.py
+│       │   ├── Orient_PF.py
+│       │   ├── compcalcs.py
+│       │   └── locfuns.py
+│       ├── run_ori.sh
+│       ├── run_ori_ZU.sh
+│       ├── run_orientations_2D.py
+│       ├── run_orientations_YL.py
+│       ├── run_orientations_YS.py
+│       ├── run_orientations_Z6.py
+│       ├── run_orientations_ZL.py
+│       └── run_orientations_ZU.py
+├── pilot.py
+├── run_orientations.ipynb
+└── steve_bluehive_startup.m
+```
 
 ## 3. Code Reference
 

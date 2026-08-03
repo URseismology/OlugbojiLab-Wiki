@@ -11,187 +11,599 @@ The ROOT subsystem is a comprehensive suite designed for advanced seismic data p
 
 ### Data Architecture
 
-#### 1. Raw Data
-- **OJ13 and OJ14 Stations**: Raw seismic data from these stations is stored in the `2_Data/OJP_prepro` directory.
-- **File Structure**:
-  - Each station has subdirectories for different channels (e.g., HHZ, HHN, HHE).
-  - Files are named according to a specific pattern: `OJ*.*.*.*.*.*.HH*.sac`.
+```text
+Prj4b_PLUME/
+├── 2_Data/
+│   └── OJP_prepro/
+│       └── prepro_tmp/
+│           ├── prepro_13.py
+│           └── prepro_14.py
+└── 3_Src/
+    ├── Average_vis/
+    │   ├── average.slurm
+    │   ├── geoData/
+    │   │   └── tectonicplates-master/
+    │   │       └── GeoJSON/
+    │   │           ├── PB2002_boundaries.json
+    │   │           ├── PB2002_orogens.json
+    │   │           ├── PB2002_plates.json
+    │   │           └── PB2002_steps.json
+    │   ├── job_setup.sh
+    │   ├── plot.sh
+    │   ├── plot.slurm
+    │   └── src/
+    │       ├── AFRTomoMap_allMPI_Enting.m
+    │       ├── MapFormat.m
+    │       ├── MapSumry.m
+    │       ├── average.m
+    │       ├── chkTomoDat.m
+    │       ├── filesLooking.m
+    │       ├── loadAFR_Enting.m
+    │       ├── loadAF_Enting.m
+    │       ├── loadEkstrom2Voronoi.m
+    │       ├── modelstruct2txt.m
+    │       ├── modeltxt2struct.m
+    │       ├── test.m
+    │       ├── tomoAggregator_allMPI.m
+    │       ├── velmap_avgsdev_Enting.m
+    │       ├── velmap_avgsdev_dro.m
+    │       └── viscode_R8M3.m
+    ├── MATnoise/
+    │   ├── a1_ccf_ambnoise_RTZ.m
+    │   ├── a1_ccf_ambnoise_Z.m
+    │   ├── a2_plot_ccf_record.m
+    │   ├── a3_window_ccf.m
+    │   ├── a4_plot_ccfPSD.m
+    │   ├── a5_plot_real_imag.m
+    │   ├── a6_fitbessel.m
+    │   ├── a6_fitbessel_LRT.m
+    │   ├── a7_fit_1Danisotropy_2theta.m
+    │   ├── a7_fit_1Danisotropy_2theta4theta.m
+    │   ├── functions/
+    │   │   ├── Calc_Ray_dispersion.m
+    │   │   ├── FTN.m
+    │   │   ├── FiltFiltM.m
+    │   │   ├── FilterM.m
+    │   │   ├── FilterX.c
+    │   │   ├── FindArrayZero.m
+    │   │   ├── MakeFinvMtx.m
+    │   │   ├── PropMtxRay.m
+    │   │   ├── SmoothAnalyticEnv.m
+    │   │   ├── besselerr.m
+    │   │   ├── besselerr_J1.m
+    │   │   ├── bp_bu_co.m
+    │   │   ├── build_gaus_filter.m
+    │   │   ├── calc_Rayleigh_disp/
+    │   │   │   ├── genrt.m
+    │   │   │   ├── homogeneous.m
+    │   │   │   ├── mat_disperse.m
+    │   │   │   ├── modal.m
+    │   │   │   ├── modrt.m
+    │   │   │   ├── psv.m
+    │   │   │   └── secular.m
+    │   │   ├── calc_SNR.m
+    │   │   ├── cos_taper.m
+    │   │   ├── find_ilay.m
+    │   │   ├── fit_azi_anisotropy2theta.m
+    │   │   ├── fit_azi_anisotropy2theta4theta_2.m
+    │   │   ├── fit_azi_anisotropy2theta_OLD.m
+    │   │   ├── fit_azi_anisotropy2theta_resid.m
+    │   │   ├── ftan_win.m
+    │   │   ├── gaus_filt_nbands.m
+    │   │   ├── get_filter_TFcoeffs.m
+    │   │   ├── linterp.m
+    │   │   ├── load_sac.m
+    │   │   ├── plot_SNR.m
+    │   │   ├── readMINEOS_qfile2.m
+    │   │   ├── readMINEOS_qfile_allper.m
+    │   │   ├── read_SACPZ.m
+    │   │   ├── read_sac_RESP.m
+    │   │   ├── readsac.m
+    │   │   ├── rm_SACPZ.m
+    │   │   ├── rmean.m
+    │   │   ├── rotate_vector.m
+    │   │   ├── rtrend.m
+    │   │   ├── runwin_norm.m
+    │   │   ├── spectrumwhiten.m
+    │   │   ├── tukey_filt.m
+    │   │   ├── uTest_FiltFiltM.m
+    │   │   ├── uTest_FilterM.m
+    │   │   ├── uimage.m
+    │   │   └── uimagesc.m
+    │   ├── get_noise.py
+    │   ├── get_noise_H.py
+    │   ├── mat-LRTdisp/
+    │   │   ├── a0_plot_data_RTZ.m
+    │   │   ├── a0_prepare_data_RTZ.m
+    │   │   ├── a1_LRT.m
+    │   │   ├── a2_plot_LRT.m
+    │   │   ├── a3_pick_LRT.m
+    │   │   ├── a4_plot_picks.m
+    │   │   ├── functions/
+    │   │   │   ├── CG_methods/
+    │   │   │   │   ├── CGG_weight.m
+    │   │   │   │   ├── CG_IRLS.m
+    │   │   │   │   ├── CGhestenes.m
+    │   │   │   │   ├── CGsimple.m
+    │   │   │   │   └── cgstep.m
+    │   │   │   ├── FreqSlow2PeriodVeloc.m
+    │   │   │   ├── Radon_conjgrad.m
+    │   │   │   ├── Radon_forward.m
+    │   │   │   ├── Radon_inverse.m
+    │   │   │   ├── Radon_inverse_disp.m
+    │   │   │   ├── pick_LRT_disp.m
+    │   │   │   ├── radon_cmap.m
+    │   │   │   ├── readMINEOS_qfile_allper.m
+    │   │   │   └── viridis.m
+    │   │   └── setup_parameters.m
+    │   ├── ray_tomo/
+    │   │   ├── b0_ray_midpoints.m
+    │   │   ├── b1_raytomo_azi24theta_1Dazi.m
+    │   │   ├── b1_raytomo_azi24theta_1Dazi_bin.m
+    │   │   ├── b1_raytomo_azi2theta_2D.m
+    │   │   ├── setup_parameters_tomo.m
+    │   │   └── tomo_functions/
+    │   │       ├── bluewhitered.m
+    │   │       ├── break_constraints.m
+    │   │       ├── customcolormap.m
+    │   │       ├── fit_azi_anisotropy2theta4theta_2.m
+    │   │       ├── flat_kernel_build.m
+    │   │       ├── grdread2.m
+    │   │       ├── mean_ang.m
+    │   │       ├── mean_aniso.m
+    │   │       ├── ray_kernel_build.m
+    │   │       ├── ray_kernel_build_age.m
+    │   │       ├── ray_kernel_build_azi.m
+    │   │       ├── ray_kernel_build_azi_bins.m
+    │   │       ├── readMINEOS_qfile.m
+    │   │       ├── smooth_kernel_build.m
+    │   │       └── tomo_cmap.m
+    │   └── setup_parameters.m
+    ├── MATnoise_MTC/
+    │   └── a1_ccf_T_NE12_taper.m
+    ├── OJP_check/
+    │   └── OJP_PSD_test.ipynb
+    ├── Syn_Tomo/
+    │   ├── average_evan.m
+    │   ├── ckbd_map.m
+    │   ├── job.slurm
+    │   ├── jobs_mktestcases_OJ.sh
+    │   ├── jobs_mktestcases_YS.sh
+    │   ├── scripts_OJP/
+    │   │   ├── converttomo.py
+    │   │   ├── createfixedpaths.py
+    │   │   ├── createsyntheticnamelist.py
+    │   │   ├── createsyntheticobs_AFR.py
+    │   │   ├── createsyntheticobs_OJ.py
+    │   │   ├── createsyntheticpaths_AFR.py
+    │   │   ├── createsyntheticpaths_OJ.py
+    │   │   ├── make_staion_file.sh
+    │   │   ├── mkicelandchecker.sh
+    │   │   ├── mktestcases_AFR.sh
+    │   │   ├── mktestcases_OJ.sh
+    │   │   ├── mktutorialdata.sh
+    │   │   ├── raypath_tobinary.py
+    │   │   ├── renderpaths.py
+    │   │   ├── tomodata.py
+    │   │   └── tomosynthetic.py
+    │   ├── scripts_YS/
+    │   │   ├── converttomo.py
+    │   │   ├── createfixedpaths.py
+    │   │   ├── createsyntheticnamelist.py
+    │   │   ├── createsyntheticobs_AFR.py
+    │   │   ├── createsyntheticobs_YS.py
+    │   │   ├── createsyntheticpaths_AFR.py
+    │   │   ├── createsyntheticpaths_YS.py
+    │   │   ├── make_staion_file.sh
+    │   │   ├── mkicelandchecker.sh
+    │   │   ├── mktestcases_AFR.sh
+    │   │   ├── mktestcases_YS.sh
+    │   │   ├── mktutorialdata.sh
+    │   │   ├── raypath_tobinary.py
+    │   │   ├── renderpaths.py
+    │   │   ├── tomodata.py
+    │   │   └── tomosynthetic.py
+    │   ├── test_case_OJ_2deg_2M/
+    │   │   └── tc8/
+    │   │       ├── job.slurm
+    │   │       ├── run.sh
+    │   │       └── run_mpi.sh
+    │   ├── test_case_YS/
+    │   │   └── tc8/
+    │   │       ├── job.slurm
+    │   │       ├── run.sh
+    │   │       └── run_mpi.sh
+    │   ├── test_case_YS_100/
+    │   │   └── tc8/
+    │   │       ├── job.slurm
+    │   │       ├── run.sh
+    │   │       └── run_mpi.sh
+    │   ├── test_case_YS_1M/
+    │   │   ├── tc8/
+    │   │   │   ├── job.slurm
+    │   │   │   ├── run.sh
+    │   │   │   └── run_mpi.sh
+    │   │   └── tc8_longrun/
+    │   │       ├── job.slurm
+    │   │       ├── run.sh
+    │   │       └── run_mpi.sh
+    │   ├── test_case_YS_2deg/
+    │   │   └── tc8_2M/
+    │   │       ├── job.slurm
+    │   │       ├── run.sh
+    │   │       └── run_mpi.sh
+    │   └── test_case_YS_5deg/
+    │       ├── tc8_100k/
+    │       │   ├── job.slurm
+    │       │   ├── run.sh
+    │       │   └── run_mpi.sh
+    │       └── tc8_2M/
+    │           ├── job.slurm
+    │           ├── run.sh
+    │           └── run_mpi.sh
+    ├── THBI_rjMCMC-oceans/
+    │   ├── matcodes/
+    │   │   ├── AcceptItRef.m
+    │   │   ├── OpNumRef.m
+    │   │   ├── PlotEnsembleRef2D_verD.m
+    │   │   ├── RandomOperRef2D.m
+    │   │   ├── UpdateMod2D.m
+    │   │   ├── plot_vertical_profile.m
+    │   │   ├── saveDataOne.m
+    │   │   └── saveFig.m
+    │   ├── plot_update_burnin.m
+    │   ├── plot_vertical_profile.m
+    │   ├── run_continue_model.m
+    │   ├── run_model.m
+    │   ├── run_model_sw.m
+    │   └── toolbox_fast_marching/
+    │       ├── batch_landmarks_error.m
+    │       ├── batch_propagation_mesh.m
+    │       ├── batch_shape_meshing.m
+    │       ├── callback_active_contour.m
+    │       ├── compile_mex.m
+    │       ├── compute_alpha_map.m
+    │       ├── compute_bending_invariant.m
+    │       ├── compute_eccentricity_transform.m
+    │       ├── compute_geodesic_mesh.m
+    │       ├── compute_heuristic_multiresolution.m
+    │       ├── compute_levelset_shape.m
+    │       ├── compute_saddle_points.m
+    │       ├── compute_shape_boundary.m
+    │       ├── compute_voronoi_triangulation.m
+    │       ├── compute_voronoi_triangulation_mesh.m
+    │       ├── content.m
+    │       ├── convert_distance_color.m
+    │       ├── display_segmentation.m
+    │       ├── divgrad.m
+    │       ├── eucdist2.m
+    │       ├── mex/
+    │       │   ├── anisotropic-fm-feth/
+    │       │   │   ├── fm.h
+    │       │   │   ├── fm2dAniso.cpp
+    │       │   │   ├── fm2dAniso.h
+    │       │   │   └── testFM2dAniso.m
+    │       │   ├── backup/
+    │       │   │   └── perform_front_propagation_anisotropic.cpp
+    │       │   ├── eucdist2.c
+    │       │   ├── fheap/
+    │       │   │   ├── fib.cpp
+    │       │   │   ├── fib.h
+    │       │   │   ├── fibpriv.h
+    │       │   │   ├── fibtest.c
+    │       │   │   ├── fibtest2.c
+    │       │   │   ├── tt.c
+    │       │   │   └── use.c
+    │       │   ├── gw/
+    │       │   │   ├── gw_core/
+    │       │   │   │   └── stdafx.cpp
+    │       │   │   ├── gw_geodesic/
+    │       │   │   │   ├── GW_TriangularInterpolation.cpp
+    │       │   │   │   ├── GW_TriangularInterpolation.h
+    │       │   │   │   └── stdafx.cpp
+    │       │   │   ├── gw_maths/
+    │       │   │   │   ├── test/
+    │       │   │   │   │   └── main.cpp
+    │       │   │   │   └── tnt/
+    │       │   │   │       ├── jama_cholesky.h
+    │       │   │   │       ├── jama_eig.h
+    │       │   │   │       ├── jama_lu.h
+    │       │   │   │       ├── jama_qr.h
+    │       │   │   │       ├── jama_svd.h
+    │       │   │   │       ├── tnt.h
+    │       │   │   │       ├── tnt_array1d.h
+    │       │   │   │       ├── tnt_array1d_utils.h
+    │       │   │   │       ├── tnt_array2d.h
+    │       │   │   │       ├── tnt_array2d_utils.h
+    │       │   │   │       ├── tnt_array3d.h
+    │       │   │   │       ├── tnt_array3d_utils.h
+    │       │   │   │       ├── tnt_cmat.h
+    │       │   │   │       ├── tnt_fortran_array1d.h
+    │       │   │   │       ├── tnt_fortran_array1d_utils.h
+    │       │   │   │       ├── tnt_fortran_array2d.h
+    │       │   │   │       ├── tnt_fortran_array2d_utils.h
+    │       │   │   │       ├── tnt_fortran_array3d.h
+    │       │   │   │       ├── tnt_fortran_array3d_utils.h
+    │       │   │   │       ├── tnt_math_utils.h
+    │       │   │   │       ├── tnt_sparse_matrix_csr.h
+    │       │   │   │       ├── tnt_stopwatch.h
+    │       │   │   │       ├── tnt_subscript.h
+    │       │   │   │       ├── tnt_vec.h
+    │       │   │   │       └── tnt_version.h
+    │       │   │   └── gw_toolkit/
+    │       │   │       ├── ply/
+    │       │   │       │   ├── ply.c
+    │       │   │       │   ├── ply.h
+    │       │   │       │   ├── plyfile.cpp
+    │       │   │       │   └── plytest.c
+    │       │   │       ├── stdafx.cpp
+    │       │   │       ├── trackball.cpp
+    │       │   │       └── trackball.h
+    │       │   ├── perform_front_propagation_2d.cpp
+    │       │   ├── perform_front_propagation_2d.h
+    │       │   ├── perform_front_propagation_3d.h
+    │       │   ├── perform_front_propagation_3d_mex.cpp
+    │       │   ├── perform_front_propagation_anisotropic.cpp
+    │       │   └── skeleton.cpp
+    │       ├── perform_active_contour.m
+    │       ├── perform_farthest_point_sampling.m
+    │       ├── perform_farthest_point_sampling_mesh.m
+    │       ├── perform_fast_marching.m
+    │       ├── perform_fast_marching_mesh.m
+    │       ├── perform_fast_marching_old.m
+    │       ├── perform_lloyd_mesh.m
+    │       ├── perform_redistancing.m
+    │       ├── pick_curves.m
+    │       ├── plot_fast_marching_mesh.m
+    │       ├── publish_html.m
+    │       ├── tests/
+    │       │   ├── test_active_contour.m
+    │       │   ├── test_anisotropic.m
+    │       │   ├── test_anisotropic_feth.m
+    │       │   ├── test_anisotropic_fm.m
+    │       │   ├── test_anisotropic_fm_old.m
+    │       │   ├── test_bending_invariants.m
+    │       │   ├── test_bug.m
+    │       │   ├── test_constrained_map.m
+    │       │   ├── test_distance_approximation.m
+    │       │   ├── test_distance_compression.m
+    │       │   ├── test_eccentricity.m
+    │       │   ├── test_eucldist.m
+    │       │   ├── test_farthest_sampling_2d.m
+    │       │   ├── test_farthest_sampling_3d.m
+    │       │   ├── test_farthest_sampling_mesh.m
+    │       │   ├── test_farthest_sampling_shape.m
+    │       │   ├── test_fmstar_path_planing.m
+    │       │   ├── test_geodesic_interpolation.m
+    │       │   ├── test_geodesic_vs_euclidean.m
+    │       │   ├── test_heuristic_mesh.m
+    │       │   ├── test_influence.m
+    │       │   ├── test_landmark.m
+    │       │   ├── test_landmark_error.m
+    │       │   ├── test_multiple_paths_3d.m
+    │       │   ├── test_path_planing.m
+    │       │   ├── test_propagation_2d.m
+    │       │   ├── test_propagation_mesh.m
+    │       │   ├── test_propagation_shape.m
+    │       │   ├── test_redistancing.m
+    │       │   ├── test_skeleton.m
+    │       │   ├── test_vol3d.m
+    │       │   ├── test_voronoi_segmentation.m
+    │       │   └── test_voronoi_triangulation.m
+    │       ├── toolbox/
+    │       │   ├── check_face_vertex.m
+    │       │   ├── compute_edge_face_ring.m
+    │       │   ├── crop.m
+    │       │   ├── getoptions.m
+    │       │   ├── load_image.m
+    │       │   ├── perform_blurring.m
+    │       │   ├── perform_conjugate_gradient.m
+    │       │   ├── perform_histogram_equalization.m
+    │       │   ├── read_mesh.m
+    │       │   └── rescale.m
+    │       └── vol3d.m
+    ├── THB_rjMCMC-master/
+    │   ├── matcodes/
+    │   │   ├── AcceptItRef.m
+    │   │   ├── OpNumRef.m
+    │   │   ├── PlotEnsembleRef2D_verD.m
+    │   │   ├── RandomOperRef2D.m
+    │   │   ├── UpdateMod2D.m
+    │   │   ├── plot_vertical_profile.m
+    │   │   ├── saveDataOne.m
+    │   │   └── saveFig.m
+    │   ├── plot_update_burnin.m
+    │   ├── plot_vertical_profile.m
+    │   ├── run_continue_model.m
+    │   ├── run_model.m
+    │   └── toolbox_fast_marching/
+    │       ├── batch_landmarks_error.m
+    │       ├── batch_propagation_mesh.m
+    │       ├── batch_shape_meshing.m
+    │       ├── callback_active_contour.m
+    │       ├── compile_mex.m
+    │       ├── compute_alpha_map.m
+    │       ├── compute_bending_invariant.m
+    │       ├── compute_eccentricity_transform.m
+    │       ├── compute_geodesic_mesh.m
+    │       ├── compute_heuristic_multiresolution.m
+    │       ├── compute_levelset_shape.m
+    │       ├── compute_saddle_points.m
+    │       ├── compute_shape_boundary.m
+    │       ├── compute_voronoi_triangulation.m
+    │       ├── compute_voronoi_triangulation_mesh.m
+    │       ├── content.m
+    │       ├── convert_distance_color.m
+    │       ├── display_segmentation.m
+    │       ├── divgrad.m
+    │       ├── eucdist2.m
+    │       ├── mex/
+    │       │   ├── anisotropic-fm-feth/
+    │       │   │   ├── fm.h
+    │       │   │   ├── fm2dAniso.cpp
+    │       │   │   ├── fm2dAniso.h
+    │       │   │   └── testFM2dAniso.m
+    │       │   ├── backup/
+    │       │   │   └── perform_front_propagation_anisotropic.cpp
+    │       │   ├── eucdist2.c
+    │       │   ├── fheap/
+    │       │   │   ├── fib.cpp
+    │       │   │   ├── fib.h
+    │       │   │   ├── fibpriv.h
+    │       │   │   ├── fibtest.c
+    │       │   │   ├── fibtest2.c
+    │       │   │   ├── tt.c
+    │       │   │   └── use.c
+    │       │   ├── gw/
+    │       │   │   ├── gw_core/
+    │       │   │   │   └── stdafx.cpp
+    │       │   │   ├── gw_geodesic/
+    │       │   │   │   ├── GW_TriangularInterpolation.cpp
+    │       │   │   │   ├── GW_TriangularInterpolation.h
+    │       │   │   │   └── stdafx.cpp
+    │       │   │   ├── gw_maths/
+    │       │   │   │   ├── test/
+    │       │   │   │   │   └── main.cpp
+    │       │   │   │   └── tnt/
+    │       │   │   │       ├── jama_cholesky.h
+    │       │   │   │       ├── jama_eig.h
+    │       │   │   │       ├── jama_lu.h
+    │       │   │   │       ├── jama_qr.h
+    │       │   │   │       ├── jama_svd.h
+    │       │   │   │       ├── tnt.h
+    │       │   │   │       ├── tnt_array1d.h
+    │       │   │   │       ├── tnt_array1d_utils.h
+    │       │   │   │       ├── tnt_array2d.h
+    │       │   │   │       ├── tnt_array2d_utils.h
+    │       │   │   │       ├── tnt_array3d.h
+    │       │   │   │       ├── tnt_array3d_utils.h
+    │       │   │   │       ├── tnt_cmat.h
+    │       │   │   │       ├── tnt_fortran_array1d.h
+    │       │   │   │       ├── tnt_fortran_array1d_utils.h
+    │       │   │   │       ├── tnt_fortran_array2d.h
+    │       │   │   │       ├── tnt_fortran_array2d_utils.h
+    │       │   │   │       ├── tnt_fortran_array3d.h
+    │       │   │   │       ├── tnt_fortran_array3d_utils.h
+    │       │   │   │       ├── tnt_math_utils.h
+    │       │   │   │       ├── tnt_sparse_matrix_csr.h
+    │       │   │   │       ├── tnt_stopwatch.h
+    │       │   │   │       ├── tnt_subscript.h
+    │       │   │   │       ├── tnt_vec.h
+    │       │   │   │       └── tnt_version.h
+    │       │   │   └── gw_toolkit/
+    │       │   │       ├── ply/
+    │       │   │       │   ├── ply.c
+    │       │   │       │   ├── ply.h
+    │       │   │       │   ├── plyfile.cpp
+    │       │   │       │   └── plytest.c
+    │       │   │       ├── stdafx.cpp
+    │       │   │       ├── trackball.cpp
+    │       │   │       └── trackball.h
+    │       │   ├── perform_front_propagation_2d.cpp
+    │       │   ├── perform_front_propagation_2d.h
+    │       │   ├── perform_front_propagation_3d.h
+    │       │   ├── perform_front_propagation_3d_mex.cpp
+    │       │   ├── perform_front_propagation_anisotropic.cpp
+    │       │   └── skeleton.cpp
+    │       ├── perform_active_contour.m
+    │       ├── perform_farthest_point_sampling.m
+    │       ├── perform_farthest_point_sampling_mesh.m
+    │       ├── perform_fast_marching.m
+    │       ├── perform_fast_marching_mesh.m
+    │       ├── perform_fast_marching_old.m
+    │       ├── perform_lloyd_mesh.m
+    │       ├── perform_redistancing.m
+    │       ├── pick_curves.m
+    │       ├── plot_fast_marching_mesh.m
+    │       ├── publish_html.m
+    │       ├── tests/
+    │       │   ├── test_active_contour.m
+    │       │   ├── test_anisotropic.m
+    │       │   ├── test_anisotropic_feth.m
+    │       │   ├── test_anisotropic_fm.m
+    │       │   ├── test_anisotropic_fm_old.m
+    │       │   ├── test_bending_invariants.m
+    │       │   ├── test_bug.m
+    │       │   ├── test_constrained_map.m
+    │       │   ├── test_distance_approximation.m
+    │       │   ├── test_distance_compression.m
+    │       │   ├── test_eccentricity.m
+    │       │   ├── test_eucldist.m
+    │       │   ├── test_farthest_sampling_2d.m
+    │       │   ├── test_farthest_sampling_3d.m
+    │       │   ├── test_farthest_sampling_mesh.m
+    │       │   ├── test_farthest_sampling_shape.m
+    │       │   ├── test_fmstar_path_planing.m
+    │       │   ├── test_geodesic_interpolation.m
+    │       │   ├── test_geodesic_vs_euclidean.m
+    │       │   ├── test_heuristic_mesh.m
+    │       │   ├── test_influence.m
+    │       │   ├── test_landmark.m
+    │       │   ├── test_landmark_error.m
+    │       │   ├── test_multiple_paths_3d.m
+    │       │   ├── test_path_planing.m
+    │       │   ├── test_propagation_2d.m
+    │       │   ├── test_propagation_mesh.m
+    │       │   ├── test_propagation_shape.m
+    │       │   ├── test_redistancing.m
+    │       │   ├── test_skeleton.m
+    │       │   ├── test_vol3d.m
+    │       │   ├── test_voronoi_segmentation.m
+    │       │   └── test_voronoi_triangulation.m
+    │       ├── toolbox/
+    │       │   ├── check_face_vertex.m
+    │       │   ├── compute_edge_face_ring.m
+    │       │   ├── crop.m
+    │       │   ├── getoptions.m
+    │       │   ├── load_image.m
+    │       │   ├── perform_blurring.m
+    │       │   ├── perform_conjugate_gradient.m
+    │       │   ├── perform_histogram_equalization.m
+    │       │   ├── read_mesh.m
+    │       │   └── rescale.m
+    │       └── vol3d.m
+    ├── lovee_codes/
+    │   ├── check_nans.m
+    │   ├── convsm_1d.m
+    │   ├── linvers.m
+    │   ├── lovee_invert.m
+    │   ├── lovee_lysmer.m
+    │   ├── lovee_sensitivity.m
+    │   ├── make_initial_model_dix_ex1.m
+    │   ├── make_initial_model_dix_ex2.m
+    │   ├── make_synthetic_ex1.m
+    │   ├── make_synthetic_ex2_love.m
+    │   ├── make_synthetic_ex2_rayleigh.m
+    │   ├── plot_results_ex1.m
+    │   ├── plot_results_ex2.m
+    │   ├── raylee_lysmer.m
+    │   └── stoneley_vel.m
+    ├── pre_pross.py
+    ├── raylee_tst/
+    │   ├── ._make_initial_model_bl.m
+    │   ├── check_nans.m
+    │   ├── linvers.m
+    │   ├── make_initial_model_bl.m
+    │   ├── make_initial_model_dix.m
+    │   ├── make_initial_model_ex1.m
+    │   ├── make_initial_model_ex2.m
+    │   ├── make_synthetic_bl.m
+    │   ├── make_synthetic_ex1.m
+    │   ├── make_synthetic_ex2.m
+    │   ├── make_synthetic_modx.m
+    │   ├── numerical_tests.m
+    │   ├── plot_results_bl.m
+    │   ├── plot_results_ex1.m
+    │   ├── plot_results_ex2.m
+    │   ├── plot_results_modx.m
+    │   ├── raylee_invert.m
+    │   ├── raylee_lysmer.m
+    │   ├── raylee_sensitivity.m
+    │   └── stoneley_vel.m
+    └── sensitivity/
+        └── Fig2_PLUME_sensitivity.m
+```
 
-#### 2. Preprocessed Data
-- **SAC Format**: The raw data is converted into the Standard for Archival and Exchange (SAC) format using preprocessing scripts.
-- **Data Patterns**:
-  - **OJ13 Station**: 
-    - `OJ*.*.*.*.*.*.HHZ.sac` (Vertical component)
-    - `OJ*.*.*.*.*.*.HH*.sac` (Horizontal components)
-  - **OJ14 Station**:
-    - `OJ*.*.*.*.*.*.HHZ.sac` (Vertical component)
-    - `OJ*.*.*.*.*.*.HH*.sac` (Horizontal components)
-    - `OJ*.*.*.*.*.*.HDH.sac` (Additional horizontal component)
-
-#### 3. Intermediate Data
-- **Prepro_tmp**: Temporary directory for intermediate files generated during preprocessing.
-- **YS_SAC_1Hz**: Preprocessed data from the YS station, organized by subdirectories corresponding to different stations (e.g., PL01, PL02).
-
-### Code Reference
-
-#### 1. Preprocessing Scripts
-- **prepro_14.py**:
-  - **Functionality**: Handles large files with specific metadata.
-  - **Inputs**: Raw seismic data from the OJ14 station.
-  - **Outputs**: SAC formatted files stored in `OJP_prepro/OJ14`.
-  - **Key Steps**:
-    - Read and parse raw data.
-    - Apply metadata adjustments.
-    - Convert to SAC format.
-
-- **prepro_13.py**:
-  - **Functionality**: Generalized processing of all files within a specified directory.
-  - **Inputs**: Raw seismic data from the OJ13 station.
-  - **Outputs**: SAC formatted files stored in `OJP_prepro/OJ13`.
-  - **Key Steps**:
-    - Read and parse raw data.
-    - Apply default metadata.
-    - Convert to SAC format.
-
-- **pre_pross.py**:
-  - **Functionality**: Initial preprocessing tasks such as merging traces, removing response units, downsampling, and filtering.
-  - **Inputs**: Preprocessed SAC files from `OJP_prepro`.
-  - **Outputs**: Cleaned and processed seismic data ready for analysis.
-  - **Key Steps**:
-    - Merge overlapping traces.
-    - Remove instrument response.
-    - Downsample to desired frequency.
-    - Apply filters (e.g., bandpass).
-
-#### 2. Analysis Scripts
-- **lovee_codes.py**:
-  - **Functionality**: Simulate Love waves for seismic analysis.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Simulated Love wave data and visualizations.
-  - **Key Steps**:
-    - Load seismic data.
-    - Apply Love wave simulation algorithms.
-    - Generate visualizations.
-
-- **Syn_Tomo**:
-  - **Functionality**: Support tomographic imaging for oceanic studies.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Tomographic images and models.
-  - **Key Steps**:
-    - Load seismic data.
-    - Apply tomographic inversion techniques.
-    - Generate and visualize models.
-
-- **MATnoise_MTC**:
-  - **Functionality**: Analyze ambient noise for seismic studies.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Noise analysis results and visualizations.
-  - **Key Steps**:
-    - Load seismic data.
-    - Apply noise analysis techniques.
-    - Generate visualizations.
-
-#### 3. Visualization and Analysis Scripts
-- **OJP_check.py**:
-  - **Functionality**: Check the quality of processed seismic data.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Quality check reports and visualizations.
-  - **Key Steps**:
-    - Load seismic data.
-    - Perform quality checks (e.g., signal-to-noise ratio).
-    - Generate reports.
-
-- **Average_vis.py**:
-  - **Functionality**: Visualize average properties of seismic data.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Visualizations of average properties.
-  - **Key Steps**:
-    - Load seismic data.
-    - Compute average properties.
-    - Generate visualizations.
-
-- **raylee_tst.py**:
-  - **Functionality**: Test and analyze Rayleigh waves.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Rayleigh wave analysis results and visualizations.
-  - **Key Steps**:
-    - Load seismic data.
-    - Apply Rayleigh wave analysis techniques.
-    - Generate visualizations.
-
-- **sensitivity.py**:
-  - **Functionality**: Evaluate the sensitivity of seismic models.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Sensitivity analysis results and visualizations.
-  - **Key Steps**:
-    - Load seismic data.
-    - Perform sensitivity analysis.
-    - Generate reports.
-
-- **THB_rjMCMC-master and THBI_rjMCMC-oceans**:
-  - **Functionality**: Bayesian inversion for seismic refraction data.
-  - **Inputs**: Processed seismic data from `pre_pross.py`.
-  - **Outputs**: Inverted models and visualizations.
-  - **Key Steps**:
-    - Load seismic data.
-    - Apply Bayesian inversion techniques.
-    - Generate and visualize models.
-
-### Workflows
-
-1. **Data Preprocessing Workflow**
-   - **Step 1**: Raw Data Collection
-     - Collect raw seismic data from the OJ13 and OJ14 stations.
-   - **Step 2**: Initial Preprocessing
-     - Use `prepro_14.py` to handle large files with specific metadata for OJ14.
-     - Use `prepro_13.py` to process all files in the OJ13 station.
-   - **Step 3**: Intermediate Data Storage
-     - Store intermediate processed data in `OJP_prepro/OJ13` and `OJP_prepro/OJ14`.
-   - **Step 4**: Final Preprocessing
-     - Use `pre_pross.py` to perform additional preprocessing tasks such as merging traces, removing response units, downsampling, and filtering.
-   - **Output**: Cleaned and processed seismic data stored in the appropriate directories.
-
-2. **Seismic Analysis Workflow**
-   - **Step 1**: Load Processed Data
-     - Load the cleaned and processed seismic data from `pre_pross.py`.
-   - **Step 2**: Perform Specific Analyses
-     - Use `lovee_codes.py` to simulate Love waves.
-     - Use `Syn_Tomo` for tomographic imaging.
-     - Use `MATnoise_MTC` for ambient noise analysis.
-   - **Step 3**: Generate Results and Visualizations
-     - Generate results and visualizations from the analyses.
-   - **Output**: Analysis reports and visualizations.
-
-3. **Quality Check Workflow**
-   - **Step 1**: Load Processed Data
-     - Load the cleaned and processed seismic data from `pre_pross.py`.
-   - **Step 2**: Perform Quality Checks
-     - Use `OJP_check.py` to check the quality of the data.
-   - **Step 3**: Generate Reports
-     - Generate quality check reports and visualizations.
-   - **Output**: Quality check reports.
-
-4. **Visualization Workflow**
-   - **Step 1**: Load Processed Data
-     - Load the cleaned and processed seismic data from `pre_pross.py`.
-   - **Step 2**: Compute Average Properties
-     - Use `Average_vis.py` to compute average properties.
-   - **Step 3**: Generate Visualizations
-     - Generate visualizations of the average properties.
-   - **Output**: Visualizations of average properties.
-
-5. **Bayesian Inversion Workflow**
-   - **Step 1**: Load Processed Data
-     - Load the cleaned and processed seismic data from `pre_pross.py`.
-   - **Step 2**: Perform Bayesian Inversion
-     - Use `THB_rjMCMC-master` or `THBI_rjMCMC-oceans` to perform Bayesian inversion.
-   - **Step 3**: Generate Models and Visualizations
-     - Generate inverted models and visualizations.
-   - **Output**: Inverted models and visualizations.
-
-### Conclusion
-
-The ROOT subsystem provides a comprehensive and modular approach to seismic data processing, analysis, and visualization. By leveraging well-structured preprocessing scripts, specialized analysis tools, and robust visualization capabilities, the system supports a wide range of geophysical applications, ensuring accurate and insightful results for researchers and practitioners in the field.
 ---
 ## 📦 Download Codebase
 The complete physical codebase for this project is hosted securely on the Lab NAS.

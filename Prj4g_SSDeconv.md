@@ -13,69 +13,72 @@ The Seismic Data Analysis System is a comprehensive suite of MATLAB and Python s
 
 ## 2. Data Architecture
 
-### Directory Structure
-
-The project is organized into several directories, each serving specific purposes:
-
-- **ROOT/**: Contains the main scripts for seismic data processing and visualization.
-  - **TargetStack.m**: Main script for processing target stacks.
-  - **Lat_*_*_Lon_*_*_img.pdf**: Visualization files for latitude and longitude data.
-  - **redblue.m**: Custom colormap definition.
-  - **ricker.m**: Script for generating Ricker wavelets.
-  - **Download_SS_Ocean_Stack.ipynb**: Jupyter notebook for downloading ocean stack data.
-  - **SS_Hilb_Syn.csv**: Synthetic Hilbert transform data.
-  - **SynSeismogram.ipynb**: Jupyter notebook for creating synthetic seismograms.
-  - **Download_SS_Based_On_Location.ipynb**: Jupyter notebook for downloading SS data based on location.
-  - **OceanStack.mat**: MATLAB file containing ocean stack data.
-  - **ss_visualize_final.ipynb**: Jupyter notebook for advanced visualization of seismic data.
-
-- **ExampleData/**: Contains example datasets and notes.
-  - **data_notes.txt**: Notes about the example data.
-  - **archive/**: Archived data files.
-  - **raw/**: Raw seismic data in SAC format.
-
-- **vespa_polar_THBI/**: Scripts for vespagram generation and Bayesian inference.
-  - **THBI_Vespapol_call.m**: Main script for generating vespagrams using the THBI method.
-  - **create_initial_model.m**: Script for creating initial models.
-  - **calc_misfit.m**: Script for calculating misfit between observed and synthetic data.
-
-- **Garnero_test/**: Contains test data for Garnero's research.
-  - **Garnero_U_raw.mat**: Raw data files.
-  - **sac/**: SAC format seismic data.
-
-- **DataVisSelect/**: Scripts for advanced visualization of S and SS wave phases.
-  - **NoMelt_SingleTrace*.pdf**: Visualization files for NoMelt single traces.
-  - **ss_data_vis_final.m**: Main script for data visualization.
-  - **Measure_SNR.ipynb**: Jupyter notebook for measuring SNR.
-
-- **archive/**: Archived data and results.
-  - **SS_THBD_test_syn_data.mat**: Synthetic data for THBD testing.
-  - ***.ndk**: Event information files.
-
-- **Make_Syn_for_THBD/**: Scripts for generating synthetic seismic data with realistic noise.
-  - **SS_Gaussian_Conv_with_Crust.m**: Script for Gaussian convolution with crustal effects.
-  - **make_reference_P.m**: Script for creating reference P waves.
-  - **ricker_P.mat**: Ricker wavelet data.
-
-- **ss_precursors/**: Scripts for satellite bounce point data.
-  - **ss_precursors.py**: Main script for processing bounce points.
-  - **Calculate_SS_Bounce_Points.ipynb**: Jupyter notebook for calculating SS bounce points.
-  - **img/**: Visualization files for binning and other processes.
-
-- **SynMat/**: Synthetic matrix data with various noise levels.
-  - **Originals/**: Original synthetic data without noise.
-  - **Noise_on_R/**: Synthetic data with added noise at different levels (e.g., Noise01, Noise02).
-
-- **Data_Global/**: Global seismic data organized by latitude and longitude regions.
-  - **Lat_10_20_Lon_-10_0/**: Data for the specified region.
-  - **Lat_155_160_Lon_-2_5/**: Data for another specified region.
-
-### Data Patterns
-
-- **SAC Files**: Seismic data in SAC format is stored in various directories, particularly under `ExampleData/` and `Data_Global/`.
-- **MATLAB Files**: MATLAB `.mat` files are used to store processed data and synthetic data.
-- **Jupyter Notebooks**: Interactive scripts for data processing and visualization are provided as Jupyter notebooks (`.ipynb`).
-- **PDFs**: Visualization results and reports are often stored in PDF format.
+```text
+Prj4g_SSDeconv/
+├── DataVisSelect/
+│   ├── baz_calc.m
+│   ├── baz_stats.m
+│   ├── custom_gray.m
+│   ├── ss_data_vis.m
+│   ├── ss_data_vis_2.m
+│   ├── ss_data_vis_3.m
+│   ├── ss_data_vis_final.m
+│   └── tmp.m
+├── Download_SS_Based_On_Location.ipynb
+├── Download_SS_Continent_Stack.ipynb
+├── Download_SS_Ocean_Stack.ipynb
+├── Download_S_Garnero.ipynb
+├── Make_Syn_for_THBD/
+│   ├── SS_Gaussian_Conv_with_Crust.m
+│   ├── SS_Syn_DrO.m
+│   ├── SS_Syn_plot.m
+│   ├── SSaddNoise.m
+│   ├── SSaddNoise_fromParams.m
+│   └── make_reference_P.m
+├── OceanStack.m
+├── SS_Hilbert_Real_Test.ipynb
+├── SS_Hilbert_Syn_Test.ipynb
+├── TargetStack.m
+├── redblue.m
+├── ricker.m
+├── save_chain_result.m
+├── sph_loc.py
+├── ss_precursors/
+│   ├── Bin_Waveforms.ipynb
+│   ├── Calculate_SS_Bounce_Points-original_time_frame.ipynb
+│   ├── Calculate_SS_Bounce_Points.ipynb
+│   ├── Measure_SNR.ipynb
+│   ├── Migrator.ipynb
+│   ├── Obtain_Waveforms-Copy1.ipynb
+│   ├── Obtain_Waveforms.ipynb
+│   ├── Plot_SS_Bounce_Points.ipynb
+│   ├── Record_Section.ipynb
+│   ├── Stack_Waveforms.ipynb
+│   ├── Synthetic_Stacks.ipynb
+│   ├── Workflow.ipynb
+│   ├── __init__.py
+│   ├── sph_loc.py
+│   └── ss_precursors.py
+├── ss_visualize_final.ipynb
+├── tmp.m
+├── vespa_polar_THBI/
+│   ├── Debug/
+│   │   ├── gen_test_U.m
+│   │   ├── seismic.m
+│   │   ├── test_msft_func_with_2Dsearch.m
+│   │   ├── test_rjMcMC_vespapol.m
+│   │   ├── vespa_polar_THBI_test.m
+│   │   └── vespagram_validation.m
+│   ├── THBI_Vespapol.m
+│   ├── THBI_Vespapol_call.m
+│   ├── calc_misfit.m
+│   ├── create_U_from_model.m
+│   ├── create_initial_model.m
+│   ├── create_initial_model_cheat.m
+│   ├── create_new_model.m
+│   └── define_prior.m
+└── vespagram_test.m
+```
 
 ## 3. Code Reference
 

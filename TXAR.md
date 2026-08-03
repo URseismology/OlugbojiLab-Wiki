@@ -19,40 +19,13 @@ The Seismic Waveform Processing System is designed to process, analyze, and visu
 
 ## 2. Data Architecture
 
-### Directory Structure
-The project's data is organized into the following directories:
-
-#### `tx31_32_data/`
-- Contains raw seismic waveform data in SAC format.
-- **Files**:
-  - `cepstralBeam.asv`: Temporary MATLAB script file (0.01 MB).
-  - `cepstralBeam.m`: Main processing script (0.01 MB).
-  - `._cepstralBeam.m`: Hidden metadata file (0.00 MB).
-
-#### `txar_obspy/`
-- Contains additional seismic waveform data in SAC format.
-- **Files**:
-  - `IM.TX*.*.*.*.*.*.BHZ.sac` (3 files, 0.04 MB): Vertical component data.
-  - `IM.TX*.*.*.*.*.*.SHZ.sac` (10 files, 0.23 MB): Short-period vertical component data.
-
-#### `tx31_32_data/Archive/`
-- Contains archived and processed seismic waveform data.
-- **Files**:
-  - `IM.TX*..BHZ.M.*.*.*.SAC` (3 files, 0.04 MB): Vertical component data.
-  - `IM.TX*..BHE.M.*.*.*.SAC` (3 files, 0.04 MB): East-west component data.
-  - `readme` (1 file, 0.00 MB): Documentation for the archive.
-  - `IM.TX*..BHN.M.*.*.*.SAC` (3 files, 0.04 MB): North-south component data.
-  - `cepstralBeam.m` (1 file, 0.00 MB): Copy of the main processing script.
-
-### Data Patterns
-- **File Naming Conventions**:
-  - `IM.TX*.*.*.*.*.*.BHZ.sac`: Vertical component data.
-  - `IM.TX*.*.*.*.*.*.SHZ.sac`: Short-period vertical component data.
-  - `IM.TX*..BHE.M.*.*.*.SAC`: East-west component data.
-  - `IM.TX*..BHN.M.*.*.*.SAC`: North-south component data.
-
-- **Data Content**:
-  - Each SAC file contains seismic waveform data, including metadata such as sampling rate, number of points, and station information.
+```text
+TXAR/
+└── tx31_32_data/
+    ├── Archive/
+    │   └── cepstralBeam.m
+    └── cepstralBeam.m
+```
 
 ## 3. Code Reference
 

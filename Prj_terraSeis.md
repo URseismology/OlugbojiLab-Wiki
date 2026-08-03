@@ -19,26 +19,39 @@ The root subsystem is a comprehensive framework designed to manage and process s
 
 ## 2. Data Architecture
 
-### Data Patterns
-
-The data architecture is designed to handle large volumes of seismic and genomic data efficiently. The following patterns are observed:
-
-#### Seismic Data:
-1. **Raw Data**: Initially stored in various formats (e.g., CSV, text).
-2. **Transformed Data**: Converted to a consistent text format using the `trans_cat_txt.sh` script.
-3. **Preprocessed Data**: Standardized and processed for further analysis using scripts like `post_pross.py`, `buildASDF.py`, and `process_gml_script_LH.py`.
-4. **Consolidated Data**: Merged, channel-selected, response-removed, downsampled, and saved in SAC format.
-5. **Final Storage**: Consolidated into HDF5 files for efficient access and analysis.
-
-#### Genomic Data:
-1. **Raw Data**: Genomic datasets from North American sources.
-2. **Processed Data**: Extracted and standardized using `process_gml_script_LH.py`.
-3. **Consolidated Data**: Merged and stored in HDF5 files.
-
-### Directory Structure
-- **input/**: Contains raw seismic station data in CSV format.
-- **output/Test10/dwlData/GE/GE-BOAB/datarepo/data/GE/**: Processed seismic data for network GE and station BOAB, organized by year and event ID.
-- **output/Test10/dwlData/GE/GE-SFJ/datarepo/data/GE/**: Processed genomic data for North American datasets, organized similarly.
+```text
+Prj_terraSeis/
+├── input/
+│   └── trans_cat_txt.sh
+└── source/
+    ├── Updated_merge_daily_to_monthly_single.py
+    ├── batch_processing_script_LH_prioritized.sh
+    ├── batch_processing_script_LH_prioritized_adaptive.slurm
+    ├── buildASDF.py
+    ├── data_packaging.py
+    ├── generate_stations_list.ipynb
+    ├── generate_stations_list.py
+    ├── generate_stations_list.slurm
+    ├── job_merge_month.sh
+    ├── org_siyu/
+    │   ├── cancel_jobs.sh
+    │   ├── generate_diff.py
+    │   ├── ppToHDF5.py
+    │   ├── pre_pross.py
+    │   ├── pre_pross.sh
+    │   ├── pre_pross.slurm
+    │   └── setup.py
+    ├── post_pross.py
+    ├── post_pross.sh
+    ├── post_pross.slurm
+    ├── process_gml_script_LH.py
+    ├── process_gml_script_LH_single.py
+    ├── rover_download_all.sh
+    ├── rover_download_test10.slurm
+    ├── test_10.sh
+    ├── test_ASDF.slurm
+    └── test_NorthAmerica.sh
+```
 
 ## 3. Code Reference
 

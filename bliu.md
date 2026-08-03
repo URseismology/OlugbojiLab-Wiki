@@ -20,61 +20,925 @@ The framework is modular, allowing researchers to use specific components as nee
 
 ## 2. Data Architecture
 
-### Data Patterns
-
-The data architecture is designed to handle various seismic datasets and metadata efficiently. The key patterns include:
-
-- **Hierarchical Directory Structure**: Data is organized in a hierarchical directory structure to facilitate easy access and management.
-- **Standardized File Formats**: Seismic data is stored in standardized formats such as ASDF, HDF5, and NetCDF, ensuring compatibility with different tools and platforms.
-- **Metadata Integration**: Metadata is integrated with the seismic data to provide context and additional information for analysis.
-
-### Directory Structure
-
-The root directory 'ROOT' contains several subdirectories, each dedicated to a specific subsystem or dataset. The main directories are:
-
-- **URSeismo_ASDF**: Contains scripts and data for ASDF format management.
-- **ADAMA**: Scripts and data for phase velocity extraction and noise correlation functions.
-- **MongHanHuang-THB_rjMCMC-e312de8**: Bayesian seismic refraction inversion with MCMC techniques.
-- **ADAMA_bl**: Extended ADAMA capabilities for NCFs and phase velocities.
-- **TBJI_DT**: Bayesian inversion of seismic wave velocities using RJMCMC algorithms.
-- **for_Siyu**: Dispersion calculations and data management using Fortran and MATLAB.
-- **download_MetaData**: Automated retrieval and processing of seismic metadata from IRIS.
-- **THBD_Evan_bl**: Bayesian deconvolution for seismic receiver functions.
-- **for_Meng**: CUDA-enabled PyTorch operations on H100 GPUs.
-- **pysurf96**: Python interface to SURF96 for surface wave dispersion calculations.
-- **Baowei_Debug**: Analysis of West African seismic events using moment tensor inversion.
-- **Axisem_Runs**: Advanced seismic wave propagation simulations using AxiSEM3D.
-- **SalvusMeshLite**: Specialized mesh generation for AxiSEM applications.
-- **THBD_Evan**: Parent-to-daughter waveform deconvolution using Bayesian methods.
-- **for_Joel**: Jupyter Notebooks for variable assignment and computation.
-- **for_Lucia**: Analysis of seismic data polarization properties.
-- **for_Sayan**: Automated downloading and verification of seismic station metadata.
-- **toolbox_fast_marching**: Advanced tools for geometric analysis using FMM.
-- **THBI_rjMCMC-oceans2**: Marine seismic refraction inversion with transdimensional hierarchical Bayesian methods.
-- **THB_rjMCMC-e312de8_bliu**: Seismic refraction inversion using THB and rjMCMC.
-- **Rover_download**: End-to-end process of downloading and processing seismic data.
-- **ACCESS**: MPI-based computational jobs for tomographic imaging on HPC clusters.
-- **THBI_rjMCMC-oceans**: Submarine surfwave data analysis using rjMCMC.
-
-### Data Flow
-
-1. **Data Collection**:
-   - Seismic data is collected from various sources such as IRIS, and metadata is downloaded using scripts in `download_MetaData`.
-
-2. **Data Preprocessing**:
-   - Data is preprocessed and converted to standardized formats (e.g., ASDF) using scripts in `URSeismo_ASDF` and `ADAMA`.
-
-3. **Data Analysis**:
-   - Seismic data is analyzed using advanced techniques such as Bayesian inversion, noise correlation functions, and phase velocity extraction.
-   - Results are stored in intermediate files for further processing.
-
-4. **Visualization**:
-   - Detailed graphical outputs are generated to visualize the results of seismic analyses.
-   - Visualization scripts are located in various subsystems (e.g., `MongHanHuang-THB_rjMCMC-e312de8`, `Baowei_Debug`).
-
-5. **Post-Processing**:
-   - Final results are post-processed and stored for reporting and further analysis.
-   - Post-processing scripts are located in subsystems such as `TBJI_DT` and `THBD_Evan`.
+```text
+bliu/
+├── ACCESS/
+│   ├── bridges2/
+│   │   └── job.slurm
+│   └── expanse/
+│       └── job.slurm
+├── ADAMA/
+│   ├── Read_ADAMA_gvib.m
+│   ├── Read_ADAMA_ncfs.m
+│   └── Read_ADAMA_pvel.m
+├── ADAMA_bl/
+│   ├── Read_ADAMA_gvib.m
+│   ├── Read_ADAMA_ncfs.m
+│   ├── Read_ADAMA_ncfs_V1.m
+│   ├── Read_ADAMA_pvel.m
+│   ├── create_ncfs.m
+│   ├── gvib_data/
+│   │   └── ppToHDF5.py
+│   ├── phase_interpvels.m
+│   └── seis/
+│       ├── a1_ccf_RTZ_12_Para.m
+│       ├── loadAttributesPair.m
+│       ├── loadAttributesPair_bl.m
+│       ├── loadWvfrmPair.m
+│       ├── loadWvfrmPair_bl.m
+│       ├── writeSeisAtt_channelInfo.m
+│       ├── writeSeisAtt_staInfo.m
+│       ├── writeSeisChannel.m
+│       └── writeSeisRec.m
+├── Axisem_Runs/
+│   ├── Rochester_crew/
+│   │   ├── change_Dpp_vels/
+│   │   │   └── change_D.m
+│   │   └── simulations/
+│   │       ├── PREM_simulation/
+│   │       │   └── input/
+│   │       │       ├── inparam.advanced.yaml
+│   │       │       ├── inparam.model.yaml
+│   │       │       ├── inparam.nr.yaml
+│   │       │       ├── inparam.output.yaml
+│   │       │       └── inparam.source.yaml
+│   │       └── PREM_simulation_D/
+│   │           ├── ascii2sac_prepare_splitting.py
+│   │           └── input/
+│   │               ├── inparam.advanced.yaml
+│   │               ├── inparam.model.yaml
+│   │               ├── inparam.nr.yaml
+│   │               ├── inparam.output.yaml
+│   │               └── inparam.source.yaml
+│   ├── SalvusMeshLite/
+│   │   ├── imput2.yaml
+│   │   └── input.yaml
+│   └── first_run_50s_newmesh/
+│       ├── Bin_insp/
+│       │   ├── 00_eq's Download Data.ipynb
+│       │   ├── 01_Data_Processing.ipynb
+│       │   ├── 01_InventoryScanner.ipynb
+│       │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│       │   ├── 02_Waveform_Test_Processing.ipynb
+│       │   ├── 03_Single_Station_Inversion.ipynb
+│       │   ├── 04_Single_Station_Inversion.ipynb
+│       │   ├── 05_Single_Station_Inversion.ipynb
+│       │   ├── DaylistcreationforDloPy.ipynb
+│       │   ├── OJP_Inv.ipynb
+│       │   ├── Observe_BigEq_TORD.ipynb
+│       │   ├── Prepare_CTBTO_Data_for_Emma.ipynb
+│       │   ├── ReadEqCTBTO.ipynb
+│       │   ├── Sayan_Project_Start.ipynb
+│       │   ├── TORD_EqWafr_Detection_old.ipynb
+│       │   ├── TORD_response.ipynb
+│       │   ├── Untitled.ipynb
+│       │   ├── Update TORD  Inventory.ipynb
+│       │   └── save2SACVDEC.ipynb
+│       ├── SalvusMeshLite/
+│       │   ├── imput2.yaml
+│       │   └── input.yaml
+│       ├── axisemdemo.sh
+│       ├── input/
+│       │   ├── inparam.advanced.yaml
+│       │   ├── inparam.model.yaml
+│       │   ├── inparam.nr.yaml
+│       │   ├── inparam.output.yaml
+│       │   └── inparam.source.yaml
+│       ├── input.yaml
+│       └── post_processing.ipynb
+├── Baowei_Debug/
+│   └── 02_Single_Station_Inversion.ipynb
+├── MongHanHuang-THB_rjMCMC-e312de8/
+│   ├── matcodes/
+│   │   ├── AcceptItRef.m
+│   │   ├── OpNumRef.m
+│   │   ├── PlotEnsembleRef2D_verD.m
+│   │   ├── RandomOperRef2D.m
+│   │   ├── UpdateMod2D.m
+│   │   ├── plot_vertical_profile.m
+│   │   ├── saveDataOne.m
+│   │   └── saveFig.m
+│   ├── plot_update_burnin.m
+│   ├── plot_vertical_profile.m
+│   ├── run_continue_model.m
+│   └── run_model.m
+├── Rover_download/
+│   ├── 2_execute_dot_py_files_bl/
+│   │   ├── archive/
+│   │   │   └── batch_rover_run_old.ipynb
+│   │   ├── batch_rover_run_updated.ipynb
+│   │   └── config.ini
+│   ├── 4_download_mdl_slurm_bl/
+│   │   ├── download_missing_data_slurm_script.py
+│   │   ├── helper_scripts/
+│   │   │   └── download_missing_data_slurm_script.ipynb
+│   │   ├── mdl_batch_download_manager.sh
+│   │   └── mdl_batch_download_worker.sh
+│   ├── GraphNetwork/
+│   │   └── graph_network_v3.ipynb
+│   ├── LithoAFR-SWave/
+│   │   ├── jobs_mktestcases_AFR.sh
+│   │   ├── parDatDwnld/
+│   │   │   ├── batch_rover.py
+│   │   │   ├── config.ini
+│   │   │   ├── email.sh
+│   │   │   ├── integrity_check.py
+│   │   │   ├── sum_res.py
+│   │   │   └── venv_setup.sh
+│   │   └── scripts_AFR/
+│   │       ├── converttomo.py
+│   │       ├── createfixedpaths.py
+│   │       ├── createsyntheticnamelist.py
+│   │       ├── createsyntheticobs_AFR.py
+│   │       ├── createsyntheticpaths_AFR.py
+│   │       ├── mkicelandchecker.sh
+│   │       ├── mktestcases_AFR.sh
+│   │       ├── mktutorialdata.sh
+│   │       ├── raypath_tobinary.py
+│   │       ├── renderpaths.py
+│   │       ├── tomodata.py
+│   │       └── tomosynthetic.py
+│   ├── Lucia/
+│   │   └── GraphNoise_BL/
+│   │       ├── GraphNoise-Copy1.ipynb
+│   │       ├── GraphNoise.ipynb
+│   │       ├── MetaData_GraphNoise-Copy1.ipynb
+│   │       ├── MetaData_GraphNoise.ipynb
+│   │       ├── Untitled.ipynb
+│   │       ├── Updated_merge_daily_to_monthly.py
+│   │       ├── Updated_merge_daily_to_monthly_single.py
+│   │       ├── _merge_daily_to_monthly_single.py
+│   │       ├── generate_adjacency.py
+│   │       ├── generate_adjacency2.py
+│   │       ├── generate_adjacency_single.py
+│   │       ├── generate_gml.py
+│   │       ├── generate_gml_single.py
+│   │       ├── job.sh
+│   │       ├── job_month.sh
+│   │       ├── job_month2.sh
+│   │       ├── merge_daily_to_monthly.py
+│   │       └── merge_daily_to_monthly_single.py
+│   ├── check_gml.py
+│   ├── create_request.py
+│   ├── fromLucia/
+│   │   ├── Rover/
+│   │   │   ├── batch_processing_script.sh
+│   │   │   ├── batch_processing_script_LH_prioritized.sh
+│   │   │   ├── check_download.ipynb
+│   │   │   ├── check_missing.ipynb
+│   │   │   ├── process_gml_script.py
+│   │   │   ├── process_gml_script_LH.py
+│   │   │   ├── process_gml_script_old2.py
+│   │   │   ├── rover_download.sh
+│   │   │   ├── rover_download_BH_backup.sh
+│   │   │   ├── rover_download_BH_backup2.sh
+│   │   │   ├── rover_download_FURI.sh
+│   │   │   ├── rover_download_withTracking.sh
+│   │   │   └── rover_download_withTracking_new.sh
+│   │   ├── Rover_BL/
+│   │   │   ├── batch_processing_script.sh
+│   │   │   ├── batch_processing_script_LH_prioritized.sh
+│   │   │   ├── batch_processing_script_LH_prioritized_test10.slurm
+│   │   │   ├── check_download.ipynb
+│   │   │   ├── check_missing.ipynb
+│   │   │   ├── process_gml_script.py
+│   │   │   ├── process_gml_script_LH.py
+│   │   │   ├── process_gml_script_LH_single.py
+│   │   │   ├── process_gml_script_old2.py
+│   │   │   ├── rover_download.sh
+│   │   │   ├── rover_download_BH_backup.sh
+│   │   │   ├── rover_download_BH_backup2.sh
+│   │   │   ├── rover_download_FURI.sh
+│   │   │   ├── rover_download_test10.slurm
+│   │   │   ├── rover_download_withTracking.sh
+│   │   │   ├── rover_download_withTracking_new.sh
+│   │   │   └── test_10.sh
+│   │   ├── Rover_BL2/
+│   │   │   ├── batch_processing_script.sh
+│   │   │   ├── batch_processing_script_LH_prioritized.sh
+│   │   │   ├── batch_processing_script_LH_prioritized_adaptive.slurm
+│   │   │   ├── batch_processing_script_LH_prioritized_dynamic.slurm
+│   │   │   ├── batch_processing_script_LH_prioritized_test10.slurm
+│   │   │   ├── check_download.ipynb
+│   │   │   ├── check_missing.ipynb
+│   │   │   ├── process_gml_script.py
+│   │   │   ├── process_gml_script_LH.py
+│   │   │   ├── process_gml_script_LH_single.py
+│   │   │   ├── process_gml_script_old2.py
+│   │   │   ├── rover_download.sh
+│   │   │   ├── rover_download_BH_backup.sh
+│   │   │   ├── rover_download_BH_backup2.sh
+│   │   │   ├── rover_download_FURI.sh
+│   │   │   ├── rover_download_test10.slurm
+│   │   │   ├── rover_download_withTracking.sh
+│   │   │   ├── rover_download_withTracking_new.sh
+│   │   │   ├── test_10.sh
+│   │   │   └── test_10_adp120.sh
+│   │   └── Rover_BL3/
+│   │       ├── _batch_processing_script_LH_prioritized_adaptive.slurm
+│   │       ├── process_gml_script.py
+│   │       ├── process_gml_script_LH.py
+│   │       ├── process_gml_script_old2.py
+│   │       ├── rover_download.sh
+│   │       ├── rover_download_BH_backup.sh
+│   │       ├── rover_download_BH_backup2.sh
+│   │       ├── rover_download_FURI.sh
+│   │       ├── rover_download_test10.slurm
+│   │       ├── rover_download_withTracking.sh
+│   │       ├── rover_download_withTracking_new.sh
+│   │       └── test_10_adp120.sh
+│   ├── generate_adjacency_single.py
+│   ├── generate_diff.py
+│   ├── grapha_network_v5.py
+│   ├── obspy_massDwld.py
+│   ├── pre_pross.py
+│   ├── rover_download.sh
+│   └── test_dnldData.py
+├── SalvusMeshLite/
+│   ├── imput2.yaml
+│   └── input.yaml
+├── TBJI_DT/
+│   ├── HaskellWF_Ved2.m
+│   ├── MainJoint_PI_NGP_nosedirm_rot.m
+│   ├── MainJoint_PI_NGP_sedirm_rot.m
+│   ├── MatBodyWave/
+│   │   ├── CIDERDoc/
+│   │   │   └── start_CIDER.m
+│   │   ├── WienerRF.m
+│   │   ├── ZRT_to_PSvSh.m
+│   │   └── matlab/
+│   │       ├── Active_stn.m
+│   │       ├── Filt_Bpass.1.m
+│   │       ├── Filt_Bpass.2.m
+│   │       ├── Filt_Bpass.m
+│   │       ├── Flat_velocity_field.m
+│   │       ├── Image_TableP_03.m
+│   │       ├── Normal_Mute2.m
+│   │       ├── Ricker.m
+│   │       ├── Ricker0.m
+│   │       ├── Ricker2.m
+│   │       ├── a_disperdeg.m
+│   │       ├── a_geo2loc.m
+│   │       ├── a_geo2utm.m
+│   │       ├── a_loc2geo.m
+│   │       ├── a_utm2geo.m
+│   │       ├── add_x_coordinate.m
+│   │       ├── ave_autocorr.m
+│   │       ├── ave_power.m
+│   │       ├── ave_power2.m
+│   │       ├── ave_powern.m
+│   │       ├── average_vz_profiles.m
+│   │       ├── ax_window4.m
+│   │       ├── ax_window5.m
+│   │       ├── ax_window6.m
+│   │       ├── boundary.m
+│   │       ├── calc_rho.m
+│   │       ├── calc_rho2.m
+│   │       ├── calculate_distances.m
+│   │       ├── check_tx.m
+│   │       ├── clip.m
+│   │       ├── compare_tt.m
+│   │       ├── costaper.m
+│   │       ├── data_display.m
+│   │       ├── decon_data.m
+│   │       ├── decon_data2.m
+│   │       ├── decon_data3.m
+│   │       ├── deg2km.m
+│   │       ├── disperdeg.m
+│   │       ├── displays2_f.m
+│   │       ├── displays_f.m
+│   │       ├── eikonal1.m
+│   │       ├── er3.m
+│   │       ├── f_Hilbert.m
+│   │       ├── f_Ricker0.m
+│   │       ├── f_RickerMP.m
+│   │       ├── f_costap.m
+│   │       ├── f_julian.m
+│   │       ├── f_n2x.m
+│   │       ├── f_rho_cm.m
+│   │       ├── f_vs_brocher.m
+│   │       ├── f_vs_brocher2.m
+│   │       ├── f_x2n.m
+│   │       ├── f_xzvalues.m
+│   │       ├── fdmodela.m
+│   │       ├── fdmodela2.m
+│   │       ├── fdmodelve.m
+│   │       ├── fft_index.m
+│   │       ├── fftparms2.m
+│   │       ├── fftparms_no2.m
+│   │       ├── filt_buth.m
+│   │       ├── filt_butter.m
+│   │       ├── filt_svd.m
+│   │       ├── filt_svd_bp.m
+│   │       ├── findif.m
+│   │       ├── fix_offsets.m
+│   │       ├── flatten.m
+│   │       ├── flatten_r2r.m
+│   │       ├── flatten_z2z.f
+│   │       ├── flatten_z2z.m
+│   │       ├── geo2loc.m
+│   │       ├── geo2loc2.m
+│   │       ├── geo2utm.m
+│   │       ├── geo2utm2.m
+│   │       ├── geom_spread_smooth.m
+│   │       ├── hilbert2.m
+│   │       ├── increment.m
+│   │       ├── julian.m
+│   │       ├── kxt_matlab.m
+│   │       ├── len.m
+│   │       ├── loc2geo.m
+│   │       ├── loc2geo2.m
+│   │       ├── makeSHmodel.m
+│   │       ├── makeSHmodel2.m
+│   │       ├── makeSHmodel3.m
+│   │       ├── make_coordinates.m
+│   │       ├── make_prs.m
+│   │       ├── mat2vec.m
+│   │       ├── maxA.m
+│   │       ├── mdist.m
+│   │       ├── mdist_f.m
+│   │       ├── meanA.m
+│   │       ├── minA.m
+│   │       ├── mute.m
+│   │       ├── pad_rayinvr.m
+│   │       ├── plot_data.m
+│   │       ├── plot_datas.m
+│   │       ├── plot_fdmodelve.m
+│   │       ├── plot_model.m
+│   │       ├── plot_v_z.m
+│   │       ├── plot_vefd_model.m
+│   │       ├── plotspectra.m
+│   │       ├── pltdata.m
+│   │       ├── pltseisX.m
+│   │       ├── pltseisXM.m
+│   │       ├── pltseisXN.m
+│   │       ├── pltseisXNnp.m
+│   │       ├── pltseisY.m
+│   │       ├── ray2fd_nolvz2.m
+│   │       ├── rayinvr2fd.m
+│   │       ├── rayinvr2fd_nolvz.m
+│   │       ├── rd_segy.m
+│   │       ├── read_segy.m
+│   │       ├── read_segy2.m
+│   │       ├── read_segy_force.m
+│   │       ├── remove_meanA.m
+│   │       ├── repack_sac2ascii.m
+│   │       ├── reverse_x_tx.m
+│   │       ├── rewrite_ascii.m
+│   │       ├── rho_cm.m
+│   │       ├── rho_cm_xyz.m
+│   │       ├── root_ms.m
+│   │       ├── root_ms0.m
+│   │       ├── segy_read.m
+│   │       ├── segy_write.m
+│   │       ├── segyopenrd.m
+│   │       ├── segyopenrd_force.m
+│   │       ├── segyopenwr.m
+│   │       ├── segyopenwr2.m
+│   │       ├── segysrprd.m
+│   │       ├── sizenfft.m
+│   │       ├── sizenfft2.m
+│   │       ├── spectra_analyze.m
+│   │       ├── srfplt2D.m
+│   │       ├── srfplt2Dnp.m
+│   │       ├── srfplt2Dp.m
+│   │       ├── startup.m
+│   │       ├── stdA.m
+│   │       ├── surfplt.m
+│   │       ├── surfplt2D.m
+│   │       ├── surfplt2Dnp.m
+│   │       ├── surfplt2Dns.m
+│   │       ├── surfplt3D.m
+│   │       ├── svd_analysis.m
+│   │       ├── table_fix_up_old.m
+│   │       ├── tele_statics1D.m
+│   │       ├── temp.m
+│   │       ├── topo_ray2fd.m
+│   │       ├── unflatten.m
+│   │       ├── unflatten2D_xyz.m
+│   │       ├── unflatten_z2z.m
+│   │       ├── unpack.m
+│   │       ├── utm2geo.m
+│   │       ├── utm2geo2.m
+│   │       ├── vKPower1D.m
+│   │       ├── vKPower1D2.m
+│   │       ├── vKPower2D1.m
+│   │       ├── vKPwr1D.m
+│   │       ├── vec2mat.m
+│   │       ├── vec2mat2.m
+│   │       ├── vec2mat_c.m
+│   │       ├── vec2mat_col.m
+│   │       ├── vec2mat_cr.m
+│   │       ├── vec2mat_r.m
+│   │       ├── vec2mat_row.m
+│   │       ├── vec2mat_rows.m
+│   │       ├── vec2vol.m
+│   │       ├── window.m
+│   │       ├── window2.m
+│   │       ├── write_ascii.m
+│   │       ├── write_segy.m
+│   │       ├── wrsegy_traces.m
+│   │       └── wrsegy_traces2.m
+│   ├── MatDisp2.0/
+│   │   ├── att_disp_corr.m
+│   │   ├── att_disp_corr_ray.m
+│   │   ├── create_modified_prems.m
+│   │   ├── disp_stress.m
+│   │   ├── effective.m
+│   │   ├── genrt.m
+│   │   ├── green.m
+│   │   ├── homogeneous.m
+│   │   ├── mat_disperse2.m
+│   │   ├── mat_disperse_ani.m
+│   │   ├── mat_disperse_ani_eta.m
+│   │   ├── mat_disperse_ani_temp.m
+│   │   ├── mat_disperse_ani_temp_flat.m
+│   │   ├── mat_disperse_att.m
+│   │   ├── mat_disperse_sp.m
+│   │   ├── modal.m
+│   │   ├── modalL.m
+│   │   ├── modalL_Test.m
+│   │   ├── modalL_ani.m
+│   │   ├── modalL_ani_flat.m
+│   │   ├── modalR.m
+│   │   ├── modalR_CG.m
+│   │   ├── modalR_Test.m
+│   │   ├── modalR_ani.m
+│   │   ├── modalR_ani_poly.m
+│   │   ├── modalR_att.m
+│   │   ├── modrt.m
+│   │   ├── partial.m
+│   │   ├── psv.m
+│   │   ├── psv_ani.m
+│   │   ├── psv_sp.m
+│   │   ├── secularPSV.m
+│   │   ├── secularPSV_ani.m
+│   │   ├── secularPSV_ani_eva.m
+│   │   ├── secularPSV_sp.m
+│   │   ├── secularSH.m
+│   │   ├── secularSH_ani.m
+│   │   ├── secularSH_sp.m
+│   │   ├── sh.m
+│   │   ├── sh_ani.m
+│   │   ├── sh_sp.m
+│   │   └── updown.m
+│   ├── RJMCMC_PI_RFCov_nosedirm_PI_rot.m
+│   ├── RJMCMC_PI_RFCov_sedirm_vssedinv_PI_rot.m
+│   ├── matlabAll_NoSRTC.sh
+│   ├── matlabAll_SRTC.sh
+│   ├── matlabSingle_NoSRTC.sh
+│   ├── matlabSingle_SRTC.sh
+│   └── ved_test_for_ML.m
+├── THBD_Evan/
+│   ├── THBD_SS_call_parfor.m
+│   ├── THBD_call.m
+│   ├── THBD_call_SS.m
+│   ├── THBD_call_parfor.m
+│   ├── THBDecon.m
+│   ├── THBDecon_DrONov16.m
+│   └── THBDecon_SS.m
+├── THBD_Evan_bl/
+│   ├── THBD_call.m
+│   ├── THBD_call_parfor.m
+│   ├── THBDecon.m
+│   ├── job_BH.slurm
+│   ├── job_bridge.slurm
+│   ├── prepare_n_submit.sh
+│   └── prepare_n_submit_BH.sh
+├── THBI_rjMCMC-oceans/
+│   ├── fast_marching_kroon/
+│   │   ├── compile_c_files.m
+│   │   ├── functions/
+│   │   │   ├── common.c
+│   │   │   ├── msfm2d.c
+│   │   │   ├── msfm2d.m
+│   │   │   ├── msfm3d.c
+│   │   │   ├── msfm3d.m
+│   │   │   └── pointmin.m
+│   │   ├── msfm.m
+│   │   ├── shortestpath/
+│   │   │   ├── e1.m
+│   │   │   ├── rk4.c
+│   │   │   ├── rk4.m
+│   │   │   └── s1.m
+│   │   ├── shortestpath.m
+│   │   └── skeleton.m
+│   ├── matcodes/
+│   │   ├── AcceptItRef.m
+│   │   ├── OpNumRef.m
+│   │   ├── PlotEnsembleRef2D_verD.m
+│   │   ├── RandomOperRef2D.m
+│   │   ├── UpdateMod2D.m
+│   │   ├── crameri.m
+│   │   ├── plot_vertical_profile.m
+│   │   ├── saveDataOne.m
+│   │   └── saveFig.m
+│   ├── plot_update_burnin.m
+│   ├── plot_vertical_profile.m
+│   ├── run_continue_model.m
+│   ├── run_model.m
+│   ├── run_model_sw.m
+│   └── run_model_sw_1.m
+├── THBI_rjMCMC-oceans2/
+│   ├── matcodes/
+│   │   ├── AcceptItRef.m
+│   │   ├── OpNumRef.m
+│   │   ├── PlotEnsembleRef2D_verD.m
+│   │   ├── RandomOperRef2D.m
+│   │   ├── UpdateMod2D.m
+│   │   ├── plot_vertical_profile.m
+│   │   ├── saveDataOne.m
+│   │   └── saveFig.m
+│   ├── plot_update_burnin.m
+│   ├── plot_vertical_profile.m
+│   ├── run_continue_model.m
+│   ├── run_model.m
+│   └── run_model_sw.m
+├── THB_rjMCMC-e312de8_bliu/
+│   ├── matcodes/
+│   │   ├── AcceptItRef.m
+│   │   ├── OpNumRef.m
+│   │   ├── PlotEnsembleRef2D_verD.m
+│   │   ├── RandomOperRef2D.m
+│   │   ├── UpdateMod2D.m
+│   │   ├── plot_vertical_profile.m
+│   │   ├── saveDataOne.m
+│   │   └── saveFig.m
+│   ├── plot_update_burnin.m
+│   ├── plot_vertical_profile.m
+│   ├── run_continue_model.m
+│   └── run_model.m
+├── URSeismo_ASDF/
+│   ├── Preprocess_Pack.ipynb
+│   ├── Preprocess_Pack_gz9.py
+│   ├── job_read.slurm
+│   ├── job_write.slurm
+│   ├── read_hdf5_pyasdf.py
+│   └── write_hdf5_pyasdf.py
+├── cancel_jobs.sh
+├── download_MetaData/
+│   ├── Download_Station_MetaData.ipynb
+│   ├── Download_Station_MetaData.py
+│   ├── _downloadMetaData.py
+│   ├── _download_1Station.py
+│   ├── batch_download.sh
+│   ├── downloadMetaData.py
+│   ├── fromSayan/
+│   │   └── Download_Station_MetaData.ipynb
+│   ├── jobarray/
+│   │   ├── downloadMetaData2.py
+│   │   └── jobarray_download.sh
+│   ├── test2_download_MetaData/
+│   │   ├── downloadMetaData.py
+│   │   └── job.slurm
+│   ├── test_bl.sh
+│   └── test_download_MetaData/
+│       ├── downloadMetaData.py
+│       └── job.slurm
+├── for_Joel/
+│   ├── jupyter_bliu/
+│   │   ├── jupyter_notebook_config.py
+│   │   ├── labconfig/
+│   │   │   └── page_config.json
+│   │   └── nbconfig/
+│   │       ├── edit.json
+│   │       └── notebook.json
+│   └── t6.ipynb
+├── for_Lucia/
+│   ├── polarisation_calculation.py
+│   ├── polarisation_main.py
+│   ├── polarisation_plot.py
+│   └── test/
+│       └── polarisation-package/
+│           ├── polarisation_package/
+│           │   ├── __init__.py
+│           │   ├── polarisation_calculation.py
+│           │   ├── polarisation_main.py
+│           │   └── polarisation_plot.py
+│           └── setup.py
+├── for_Meng/
+│   ├── job_H100.slurm
+│   └── test_torch.py
+├── for_Sayan/
+│   ├── download_MetaData/
+│   │   ├── downloadMetaData.py
+│   │   └── job.slurm
+│   ├── test_noisePY/
+│   │   ├── NoisePy/
+│   │   │   ├── .github/
+│   │   │   │   ├── actions/
+│   │   │   │   │   └── setup/
+│   │   │   │   │       └── action.yaml
+│   │   │   │   └── workflows/
+│   │   │   │       ├── notebooks.yml
+│   │   │   │       ├── precommit.yaml
+│   │   │   │       ├── release.yaml
+│   │   │   │       └── test.yaml
+│   │   │   ├── .pre-commit-config.yaml
+│   │   │   ├── codecov.yml
+│   │   │   ├── configs/
+│   │   │   │   ├── default.yml
+│   │   │   │   └── s3_anon.yaml
+│   │   │   ├── docs_old/
+│   │   │   │   ├── conf.py
+│   │   │   │   ├── examples/
+│   │   │   │   │   ├── create_observed_asdf_file.py
+│   │   │   │   │   ├── parallel_pyflex.py
+│   │   │   │   │   ├── process_observed.py
+│   │   │   │   │   └── source_receiver_geometry.py
+│   │   │   │   └── make.bat
+│   │   │   ├── integration_tests/
+│   │   │   │   └── cc_stack_test.py
+│   │   │   ├── pyproject.toml
+│   │   │   ├── script/
+│   │   │   │   ├── additional_modules/
+│   │   │   │   │   ├── core_functions.py
+│   │   │   │   │   ├── create_resp.py
+│   │   │   │   │   ├── download_inventory.py
+│   │   │   │   │   ├── monitor_modules.py
+│   │   │   │   │   ├── plot_modules_2D.py
+│   │   │   │   │   ├── plot_modules_waveform.py
+│   │   │   │   │   └── write_sac.py
+│   │   │   │   ├── backup/
+│   │   │   │   │   └── get_spectra.py
+│   │   │   │   ├── data_check/
+│   │   │   │   │   ├── check_daily_cc.py
+│   │   │   │   │   ├── check_data_availability.py
+│   │   │   │   │   ├── check_hour_cc.py
+│   │   │   │   │   ├── check_linearity_fft.py
+│   │   │   │   │   ├── check_merge.py
+│   │   │   │   │   ├── check_rotation.py
+│   │   │   │   │   ├── check_segment_waveform.py
+│   │   │   │   │   ├── check_smooth.py
+│   │   │   │   │   ├── combine_miniseed_stream.py
+│   │   │   │   │   └── remove_bad_tags.py
+│   │   │   │   ├── docker_dev.sh
+│   │   │   │   ├── gen_req.py
+│   │   │   │   ├── performace_check/
+│   │   │   │   │   ├── check_correlation_scale.py
+│   │   │   │   │   ├── check_detrend_demean_taper.py
+│   │   │   │   │   ├── check_detrend_performance.py
+│   │   │   │   │   ├── check_fft_rfft.py
+│   │   │   │   │   ├── check_read_speed.py
+│   │   │   │   │   └── test_fftw.py
+│   │   │   │   ├── test_whiten.py
+│   │   │   │   └── write_speed/
+│   │   │   │       ├── job.yaml
+│   │   │   │       ├── job_definition.yaml
+│   │   │   │       ├── params.json
+│   │   │   │       ├── plot.ipynb
+│   │   │   │       └── write.py
+│   │   │   ├── src/
+│   │   │   │   └── noisepy/
+│   │   │   │       ├── functions_2019/
+│   │   │   │       │   ├── S0B_to_ASDF_2019.py
+│   │   │   │       │   └── noise_module.py
+│   │   │   │       ├── imaging/
+│   │   │   │       │   └── dispersion_analysis.py
+│   │   │   │       ├── monitoring/
+│   │   │   │       │   ├── attenuation_utils.py
+│   │   │   │       │   ├── monitoring_methods.py
+│   │   │   │       │   ├── monitoring_utils.py
+│   │   │   │       │   └── plotting_attenuation.py
+│   │   │   │       └── seis/
+│   │   │   │           ├── __init__.py
+│   │   │   │           ├── constants.py
+│   │   │   │           ├── correlate.py
+│   │   │   │           ├── fdsn_download.py
+│   │   │   │           ├── main.py
+│   │   │   │           ├── noise_module.py
+│   │   │   │           ├── scheduler.py
+│   │   │   │           └── stack.py
+│   │   │   ├── tests/
+│   │   │   │   ├── test_cli.sh
+│   │   │   │   ├── test_cross_correlation.py
+│   │   │   │   ├── test_download.py
+│   │   │   │   ├── test_main.py
+│   │   │   │   ├── test_monitoring_utils.py
+│   │   │   │   ├── test_noise_module.py
+│   │   │   │   ├── test_scheduler.py
+│   │   │   │   ├── test_stack.py
+│   │   │   │   ├── test_stations_file.py
+│   │   │   │   ├── test_stretching.py
+│   │   │   │   ├── test_to_comp_stacking.py
+│   │   │   │   ├── test_whiten.py
+│   │   │   │   └── utils.py
+│   │   │   └── tutorials/
+│   │   │       ├── _config.yml
+│   │   │       ├── _toc.yml
+│   │   │       ├── cloud/
+│   │   │       │   ├── compute_environment.yaml
+│   │   │       │   ├── config.yaml
+│   │   │       │   ├── job.yaml
+│   │   │       │   ├── job_cc.yaml
+│   │   │       │   ├── job_definition.yaml
+│   │   │       │   ├── job_queue.yaml
+│   │   │       │   ├── job_stack.yaml
+│   │   │       │   └── noisepy_aws_batch.ipynb
+│   │   │       ├── config.yml
+│   │   │       ├── get_started.ipynb
+│   │   │       ├── monitoring/
+│   │   │       │   ├── attenuation_singlestation.ipynb
+│   │   │       │   ├── monitoring_demo.ipynb
+│   │   │       │   └── monitoring_methods_tutorial.ipynb
+│   │   │       ├── noisepy_compositestore_tutorial.ipynb
+│   │   │       ├── noisepy_datastore.ipynb
+│   │   │       ├── noisepy_ncedc_tutorial.ipynb
+│   │   │       ├── noisepy_pnwstore_tutorial.ipynb
+│   │   │       ├── noisepy_scedc_tutorial.ipynb
+│   │   │       ├── noisepy_scoped_download_s3_store.ipynb
+│   │   │       ├── old/
+│   │   │       │   ├── cross_correlation_from_sac.ipynb
+│   │   │       │   ├── download_toASDF_cross_correlation.ipynb
+│   │   │       │   └── dvv_module.py
+│   │   │       ├── plot_stacks.ipynb
+│   │   │       └── run_mpi_scedc.ipynb
+│   │   ├── simpleTest.py
+│   │   └── test_mpi4py.py
+│   └── verifying_stations/
+│       ├── download_availability.py
+│       ├── job.slurm
+│       ├── plot_availability.ipynb
+│       ├── plot_availability.py
+│       ├── transform_data.py
+│       └── verify_data.py
+├── for_Siyu/
+│   ├── hdf5/
+│   │   ├── Download_XML.ipynb
+│   │   ├── Download_XML.py
+│   │   ├── Preprocess_Pack.ipynb
+│   │   ├── Preprocess_Pack.py
+│   │   ├── Preprocess_Pack_gz9.py
+│   │   ├── Preprocess_Pack_org.py
+│   │   ├── job.slurm
+│   │   ├── job_read.slurm
+│   │   ├── read_hdf5.py
+│   │   └── read_hdf5_asdf.py
+│   ├── job_dependency/
+│   │   ├── chkTomoDat.m
+│   │   ├── job.slurm
+│   │   ├── modelstruct2txt.m
+│   │   ├── modeltxt2struct.m
+│   │   └── prepare_n_submit.sh
+│   ├── surfdisp96_bl.F
+│   └── test.m
+├── pysurf96/
+│   ├── setup.py
+│   ├── src/
+│   │   ├── __init__.py
+│   │   ├── surfdisp96.f
+│   │   ├── surfdisp96_bl.f
+│   │   ├── timestwo.F
+│   │   └── wrapper.py
+│   └── tests/
+│       └── test_surf96.py
+└── toolbox_fast_marching/
+    ├── batch_landmarks_error.m
+    ├── batch_propagation_mesh.m
+    ├── batch_shape_meshing.m
+    ├── callback_active_contour.m
+    ├── compile_mex.m
+    ├── compute_alpha_map.m
+    ├── compute_bending_invariant.m
+    ├── compute_eccentricity_transform.m
+    ├── compute_geodesic_mesh.m
+    ├── compute_heuristic_multiresolution.m
+    ├── compute_levelset_shape.m
+    ├── compute_saddle_points.m
+    ├── compute_shape_boundary.m
+    ├── compute_voronoi_triangulation.m
+    ├── compute_voronoi_triangulation_mesh.m
+    ├── content.m
+    ├── convert_distance_color.m
+    ├── display_segmentation.m
+    ├── divgrad.m
+    ├── eucdist2.m
+    ├── mex/
+    │   ├── anisotropic-fm-feth/
+    │   │   ├── fm.h
+    │   │   ├── fm2dAniso.cpp
+    │   │   ├── fm2dAniso.h
+    │   │   └── testFM2dAniso.m
+    │   ├── backup/
+    │   │   └── perform_front_propagation_anisotropic.cpp
+    │   ├── eucdist2.c
+    │   ├── fheap/
+    │   │   ├── fib.cpp
+    │   │   ├── fib.h
+    │   │   ├── fibpriv.h
+    │   │   ├── fibtest.c
+    │   │   ├── fibtest2.c
+    │   │   ├── tt.c
+    │   │   └── use.c
+    │   ├── gw/
+    │   │   ├── gw_core/
+    │   │   │   └── stdafx.cpp
+    │   │   ├── gw_geodesic/
+    │   │   │   ├── GW_TriangularInterpolation.cpp
+    │   │   │   ├── GW_TriangularInterpolation.h
+    │   │   │   └── stdafx.cpp
+    │   │   ├── gw_maths/
+    │   │   │   ├── test/
+    │   │   │   │   └── main.cpp
+    │   │   │   └── tnt/
+    │   │   │       ├── jama_cholesky.h
+    │   │   │       ├── jama_eig.h
+    │   │   │       ├── jama_lu.h
+    │   │   │       ├── jama_qr.h
+    │   │   │       ├── jama_svd.h
+    │   │   │       ├── tnt.h
+    │   │   │       ├── tnt_array1d.h
+    │   │   │       ├── tnt_array1d_utils.h
+    │   │   │       ├── tnt_array2d.h
+    │   │   │       ├── tnt_array2d_utils.h
+    │   │   │       ├── tnt_array3d.h
+    │   │   │       ├── tnt_array3d_utils.h
+    │   │   │       ├── tnt_cmat.h
+    │   │   │       ├── tnt_fortran_array1d.h
+    │   │   │       ├── tnt_fortran_array1d_utils.h
+    │   │   │       ├── tnt_fortran_array2d.h
+    │   │   │       ├── tnt_fortran_array2d_utils.h
+    │   │   │       ├── tnt_fortran_array3d.h
+    │   │   │       ├── tnt_fortran_array3d_utils.h
+    │   │   │       ├── tnt_math_utils.h
+    │   │   │       ├── tnt_sparse_matrix_csr.h
+    │   │   │       ├── tnt_stopwatch.h
+    │   │   │       ├── tnt_subscript.h
+    │   │   │       ├── tnt_vec.h
+    │   │   │       └── tnt_version.h
+    │   │   └── gw_toolkit/
+    │   │       ├── ply/
+    │   │       │   ├── ply.c
+    │   │       │   ├── ply.h
+    │   │       │   ├── plyfile.cpp
+    │   │       │   └── plytest.c
+    │   │       ├── stdafx.cpp
+    │   │       ├── trackball.cpp
+    │   │       └── trackball.h
+    │   ├── perform_front_propagation_2d.cpp
+    │   ├── perform_front_propagation_2d.h
+    │   ├── perform_front_propagation_3d.h
+    │   ├── perform_front_propagation_3d_mex.cpp
+    │   ├── perform_front_propagation_anisotropic.cpp
+    │   └── skeleton.cpp
+    ├── perform_active_contour.m
+    ├── perform_farthest_point_sampling.m
+    ├── perform_farthest_point_sampling_mesh.m
+    ├── perform_fast_marching.m
+    ├── perform_fast_marching_mesh.m
+    ├── perform_fast_marching_old.m
+    ├── perform_lloyd_mesh.m
+    ├── perform_redistancing.m
+    ├── pick_curves.m
+    ├── plot_fast_marching_mesh.m
+    ├── publish_html.m
+    ├── tests/
+    │   ├── test_active_contour.m
+    │   ├── test_anisotropic.m
+    │   ├── test_anisotropic_feth.m
+    │   ├── test_anisotropic_fm.m
+    │   ├── test_anisotropic_fm_old.m
+    │   ├── test_bending_invariants.m
+    │   ├── test_bug.m
+    │   ├── test_constrained_map.m
+    │   ├── test_distance_approximation.m
+    │   ├── test_distance_compression.m
+    │   ├── test_eccentricity.m
+    │   ├── test_eucldist.m
+    │   ├── test_farthest_sampling_2d.m
+    │   ├── test_farthest_sampling_3d.m
+    │   ├── test_farthest_sampling_mesh.m
+    │   ├── test_farthest_sampling_shape.m
+    │   ├── test_fmstar_path_planing.m
+    │   ├── test_geodesic_interpolation.m
+    │   ├── test_geodesic_vs_euclidean.m
+    │   ├── test_heuristic_mesh.m
+    │   ├── test_influence.m
+    │   ├── test_landmark.m
+    │   ├── test_landmark_error.m
+    │   ├── test_multiple_paths_3d.m
+    │   ├── test_path_planing.m
+    │   ├── test_propagation_2d.m
+    │   ├── test_propagation_mesh.m
+    │   ├── test_propagation_shape.m
+    │   ├── test_redistancing.m
+    │   ├── test_skeleton.m
+    │   ├── test_vol3d.m
+    │   ├── test_voronoi_segmentation.m
+    │   └── test_voronoi_triangulation.m
+    ├── toolbox/
+    │   ├── check_face_vertex.m
+    │   ├── compute_edge_face_ring.m
+    │   ├── crop.m
+    │   ├── getoptions.m
+    │   ├── load_image.m
+    │   ├── perform_blurring.m
+    │   ├── perform_conjugate_gradient.m
+    │   ├── perform_histogram_equalization.m
+    │   ├── read_mesh.m
+    │   └── rescale.m
+    └── vol3d.m
+```
 
 ## 3. Code Reference
 

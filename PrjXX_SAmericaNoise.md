@@ -19,37 +19,129 @@ The `ROOT` subsystem is a comprehensive, modular framework designed for efficien
 
 ## 2. Data Architecture
 
-### 2.1 Data Storage and Organization
-The `ROOT` subsystem organizes data into a hierarchical structure to facilitate efficient management and access. The primary data storage directory is `2_Data`, which contains the following subdirectories:
-
-- **`archive/EC-ANTS`**: Stores archived seismic data from the EC-ANTS repository.
-- **`active/EC-ANTS`**: Contains active datasets that are currently being processed or analyzed.
-- **`processed/CCF`**: Holds cross-correlation function (CCF) results and other processed data.
-
-### 2.2 Data Retrieval and Processing
-Data retrieval and processing are automated through the following steps:
-
-1. **Data Download**:
-   - The `4_Bin/obspy` module uses Obspy's rover tool to download raw seismic data from repositories.
-   - Data integrity checks are performed, and metadata is generated.
-
-2. **Data Validation**:
-   - Scripts in the `3_Src` subsystem validate the downloaded data to ensure it meets the required quality standards.
-   - Reports are generated for any issues detected during validation.
-
-3. **Data Archival**:
-   - Validated data is archived in the `archive/EC-ANTS` directory.
-   - Active datasets are moved to the `active/EC-ANTS` directory for further processing.
-
-4. **Data Processing**:
-   - The `2_Data` module processes the active datasets using SLURM job scheduling for parallel processing.
-   - Advanced analyses such as CCF calculation and dispersion curve analysis are performed on the processed data.
-
-### 2.3 Data Patterns
-The data patterns in the `ROOT` subsystem follow a consistent naming convention to ensure ease of access and management:
-
-- **File Naming**: Files are named using a combination of date, station ID, and data type (e.g., `20231001_STN123_SAC`).
-- **Directory Structure**: Each subdirectory within `2_Data` follows a structured hierarchy to organize data by source, type, and processing status.
+```text
+PrjXX_SAmericaNoise/
+├── 2_Data/
+│   ├── 2_RoverDB/
+│   │   ├── ZZ_Test_Folder/
+│   │   │   ├── executive_job_script.sh
+│   │   │   ├── executive_job_script_test.sh
+│   │   │   ├── launch_manager.sh
+│   │   │   ├── launch_manager_test.sh
+│   │   │   ├── worker_job_script.sh
+│   │   │   └── worker_job_script_test.sh
+│   │   ├── executive_job_script.sh
+│   │   ├── launch_manager.sh
+│   │   └── worker_job_script.sh
+│   └── 2_RoverDB_archive/
+│       └── EC/
+│           └── EC-ANTS/
+│               ├── new_job_expected.sh
+│               ├── test_job_call.sh
+│               └── test_job_updated.sh
+├── 3_Src/
+│   ├── 0_install_packages/
+│   │   └── install_required_packages_in_environment.ipynb
+│   ├── 0_python_setup/
+│   │   └── LoadPythonEnv.sh
+│   ├── 1_cleanup_code/
+│   │   └── station_list_cleanup.ipynb
+│   ├── 2_execute_dot_py_files/
+│   │   ├── archive/
+│   │   │   └── batch_rover_run_old.ipynb
+│   │   ├── batch_rover_run_updated.ipynb
+│   │   └── config.ini
+│   ├── 3_monitoring_and_validation_scripts/
+│   │   ├── Validation_of_Rover_Downloaded_Data.ipynb
+│   │   ├── download_missing_data.ipynb
+│   │   ├── download_missing_data_test.ipynb
+│   │   ├── metadata_analysis.ipynb
+│   │   └── slurm_job_analyis.ipynb
+│   └── 4_download_mdl_slurm/
+│       ├── download_missing_data_slurm_script.py
+│       ├── helper_scripts/
+│       │   └── download_missing_data_slurm_script.ipynb
+│       ├── mdl_batch_download_manager.sh
+│       └── mdl_batch_download_worker.sh
+├── 4_Bin/
+│   └── obspy/
+│       ├── batch_rover.py
+│       ├── config.ini
+│       ├── email.sh
+│       ├── integrity_check.py
+│       ├── sum_res.py
+│       └── venv_setup.sh
+└── 6_Testings/
+    └── matlab/
+        ├── 2_functions/
+        │   ├── FTN.m
+        │   ├── FiltFiltM.m
+        │   ├── a1_ccf_ambnoise_RTZ_NE_Para.m
+        │   ├── cos_taper.m
+        │   ├── get_filter_TFcoeffs.m
+        │   ├── load_sac.m
+        │   ├── read_SACPZ.m
+        │   ├── readsac.m
+        │   ├── rm_SACPZ.m
+        │   ├── rotate_vector.m
+        │   └── runwin_norm.m
+        ├── a1_ccf_ambnoise_RTZ_NE_Para.m
+        ├── bkup_code/
+        │   ├── a1_ccf_ambnoise_RTZ_NE_Para.m
+        │   └── get_BH_CCF.m
+        ├── dependency_check.m
+        ├── functions/
+        │   ├── Calc_Ray_dispersion.m
+        │   ├── FTN.m
+        │   ├── FiltFiltM.m
+        │   ├── FilterM.m
+        │   ├── FilterX.c
+        │   ├── FindArrayZero.m
+        │   ├── MakeFinvMtx.m
+        │   ├── PropMtxRay.m
+        │   ├── SmoothAnalyticEnv.m
+        │   ├── besselerr.m
+        │   ├── besselerr_J1.m
+        │   ├── build_gaus_filter.m
+        │   ├── calc_Rayleigh_disp/
+        │   │   ├── genrt.m
+        │   │   ├── homogeneous.m
+        │   │   ├── mat_disperse.m
+        │   │   ├── modal.m
+        │   │   ├── modrt.m
+        │   │   ├── psv.m
+        │   │   └── secular.m
+        │   ├── calc_SNR.m
+        │   ├── cos_taper.m
+        │   ├── find_ilay.m
+        │   ├── fit_azi_anisotropy2theta.m
+        │   ├── fit_azi_anisotropy2theta4theta_2.m
+        │   ├── fit_azi_anisotropy2theta_OLD.m
+        │   ├── fit_azi_anisotropy2theta_resid.m
+        │   ├── ftan_win.m
+        │   ├── gaus_filt_nbands.m
+        │   ├── get_filter_TFcoeffs.m
+        │   ├── linterp.m
+        │   ├── load_sac.m
+        │   ├── plot_SNR.m
+        │   ├── readMINEOS_qfile2.m
+        │   ├── readMINEOS_qfile_allper.m
+        │   ├── read_SACPZ.m
+        │   ├── read_sac_RESP.m
+        │   ├── readsac.m
+        │   ├── rm_SACPZ.m
+        │   ├── rotate_vector.m
+        │   ├── runwin_norm.m
+        │   ├── save2pdf.m
+        │   ├── spectrumwhiten.m
+        │   ├── tukey_filt.m
+        │   ├── uTest_FiltFiltM.m
+        │   ├── uTest_FilterM.m
+        │   ├── uimage.m
+        │   └── uimagesc.m
+        ├── get_BH_CCF.m
+        └── setup_params.m
+```
 
 ## 3. Code Reference
 

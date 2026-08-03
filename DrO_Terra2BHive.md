@@ -23,30 +23,14 @@ This documentation is designed to onboard new team members who will be working w
 
 ## 2. Data Architecture
 
-### Directory Structure
-The main directory for the ADAMA system is `1_ForSiyu/`, which contains various seismic data files and Jupyter notebooks. The key components are:
-
-- **Seismic Data Files**: Large HDF5 files containing raw seismic data and processed CCFs.
-- **Jupyter Notebooks**: Python scripts that perform data processing, analysis, and visualization.
-
-### File Types
-1. **HDF5 Files**:
-   - **ADAMA_ncfs_*.h***: These files store cross-correlation functions (CCFs) and other seismic data in HDF5 format. The naming convention includes the type of data (e.g., `ZZ`, `TT`, `RR`) and the processing stage (e.g., `fr` for frequency domain, `fi` for filtered, `t` for time domain).
-   - **ADAMA_ncfs_ZZtest_*.h***: Test files used for validating the processing pipeline.
-
-2. **MAT-Files**:
-   - These are MATLAB files containing raw seismic data that are loaded and processed by the Jupyter notebooks.
-
-3. **Jupyter Notebooks**:
-   - **Build_ADAMA_pvelraw.ipynb**: Generates phase velocity data from raw seismic data.
-   - **Build_ADAMA_ncfsback.ipynb**: Performs back-processing of CCFs.
-   - **Build_ADAMA_ncfs-checkpoint.ipynb**: Checkpoint notebook for intermediate processing steps.
-
-### Data Patterns
-- **Raw Seismic Data**: Stored in MAT-files and loaded into Obspy traces.
-- **Processed Data**: Saved as HDF5 files with detailed metadata, including station information, GPS coordinates, and processing parameters.
-- **CCFs**: Cross-correlation functions are stored in HDF5 files, organized by type (e.g., `ZZ`, `TT`, `RR`) and domain (e.g., `fr`, `fi`, `t`).
-- **Phase Velocity Data**: Generated from CCFs and saved in standardized HDF5 files.
+```text
+DrO_Terra2BHive/
+└── 1_ForSiyu/
+    ├── Build_ADAMA_ncfs-checkpoint.ipynb
+    ├── Build_ADAMA_ncfsback.ipynb
+    ├── Build_ADAMA_pvelraw-Copy1.ipynb
+    └── Build_ADAMA_pvelraw.ipynb
+```
 
 ## 3. Code Reference
 

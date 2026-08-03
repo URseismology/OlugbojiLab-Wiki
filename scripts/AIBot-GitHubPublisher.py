@@ -126,7 +126,7 @@ def generate_process_doc():
     scripts_dir = os.path.join(LOCAL_REPO_DIR, "scripts")
     os.makedirs(scripts_dir, exist_ok=True)
     
-    scripts_to_copy = ["roverBckUp.py", "AIBot-WikiCrafter.py", "AIBot-GitHubPublisher.py"]
+    scripts_to_copy = ["roverBckUp.py", "AIBot-WikiCrafter.py", "AIBot-GitHubPublisher.py", "AIBot-WikiFormatter.py"]
     for s in scripts_to_copy:
         src = os.path.join(os.path.expanduser("~"), s)
         if os.path.exists(src):
@@ -151,8 +151,17 @@ def push_to_github():
     print("Pushing to GitHub...")
     run_cmd("git push -u origin main", cwd=LOCAL_REPO_DIR)
 
+def format_wikis():
+    print("Running AIBot-WikiFormatter...")
+    formatter_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "AIBot-WikiFormatter.py")
+    if os.path.exists(formatter_path):
+        run_cmd(f"python3 {formatter_path}")
+    else:
+        print("Formatter not found, skipping...")
+
 def main():
     print("Starting AIBot-GitHubPublisher...")
+    format_wikis()
     setup_repo()
     projects = generate_wikis()
     if projects:

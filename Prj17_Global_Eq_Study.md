@@ -17,34 +17,18 @@ The **Global Earthquake Study** project is a comprehensive initiative aimed at a
 
 ## 2. Data Architecture
 
-The data architecture is designed to organize and manage seismic data from multiple stations over different years. The primary directories are structured as follows:
-
-### Directory Structure
-- **Data/test_data_only/Not_Rotated**:
-  - Contains raw, non-rotated seismic data.
-  - Subdirectories for each station (e.g., YKA/YKW1) and year (e.g., 2008).
-
-- **Data/test_data_only/Rotated**:
-  - Contains rotated seismic data.
-  - Similar subdirectory structure as `Not_Rotated`.
-
-### Data Patterns
-- **File Naming Conventions**:
-  - Files are named using a standardized format: `YKA.YKW*.*.*.*.*.XXX`, where `XXX` represents the channel (e.g., R, T, Z).
-  - Additional channels like BHE, BHN, and BHZ may be present in some directories.
-  - Some files have extensions like `.sac` or `.txt`.
-
-- **Data Types**:
-  - Raw seismic data (SAC format).
-  - Rotated seismic data (R, T, Z channels).
-  - Backup and transfer scripts (Bash and shell scripts).
-
-### Example Directory
-```
-Data/test_data_only/Not_Rotated/YKA/YKW1/2008/
-    YKA.YKW*.*.*.*.*.BHN.sac (16 files, 0.52 MB)
-    YKA.YKW*.*.*.*.*.BHZ.sac (16 files, 0.52 MB)
-    YKA.YKW*.*.*.*.*.BHE.sac (16 files, 0.52 MB)
+```text
+Prj17_Global_Eq_Study/
+└── Data/
+    └── test_data_only/
+        └── Not_Rotated/
+            ├── SAC/
+            │   └── YKA/
+            │       └── YKAW1/
+            │           └── tmp_copy.sh
+            └── YKA/
+                └── YKAW1/
+                    └── tmp_copy.sh
 ```
 
 ## 3. Code Reference

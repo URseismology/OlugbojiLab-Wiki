@@ -27,23 +27,22 @@ The AI Weather Analysis System is a sophisticated tool designed to analyze and v
 
 ## 2. Data Architecture
 
-### Directory Structure
-The project is organized into several key directories, each serving a specific purpose:
-
-- **ROOT/**: Root directory containing general files.
-- **plots/**: Contains generated plots and visualizations.
-- - **Final_plots/**: Finalized plots ready for presentation or publication.
-- - **Test plots/**: Experimental or intermediate plots used during development.
-- **scripts/**: Contains all the Python and MATLAB scripts for data processing, analysis, and visualization.
-- **data/**: Stores raw and processed data files.
-- - **testdata/**: Sample datasets for testing and validation.
-
-### Data Patterns
-The data is organized in a structured manner to facilitate easy access and efficient processing:
-
-- **CSV Files**: Raw and processed data are stored in CSV format, making them easily readable by both Python and MATLAB scripts.
-- **MAT Files**: Intermediate data structures and results from statistical computations are saved in MAT files for quick loading during subsequent analyses.
-- **PNG and FIG Files**: Visualizations are saved as PNG files for web and document integration, and FIG files for further editing in MATLAB.
+```text
+bfilipiak copy/
+└── scripts/
+    ├── ASOS_Daily_Conv.py
+    ├── ASOS_Daily_Eval.py
+    ├── ASOS_Data.py
+    ├── ASOS_hourly.m
+    ├── Daily_GHCN_Data.m
+    ├── Extreme_eval.py
+    ├── GHCN_Eval.py
+    ├── Hourly_Eval.py
+    ├── Hourly_NOAA_Data.m
+    ├── Plot_RI_EP.m
+    ├── Plot_RI_EP_Decade.m
+    └── Separate_Years.py
+```
 
 ## 3. Code Reference
 

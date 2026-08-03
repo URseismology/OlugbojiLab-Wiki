@@ -19,33 +19,18 @@ Together, these sub-modules provide a robust and flexible framework for efficien
 
 ## 2. Data Architecture
 
-### Directory Structure
-The `mdl_data_dwnld` project is organized into the following directories:
-
-- **By_station_jupyter_Example**
-  - `Example_run.ipynb`: Jupyter Notebook for downloading and processing seismic data based on user-defined criteria.
-  
-- **By_events**
-  - `*_eq's Download Data.ipynb`: Jupyter Notebook for automating the download of earthquake data for events between 6.5 and 9.0 magnitudes from 1990 to 2025.
-  - `data/quakeml/`
-    - `quakes.xml`: QuakeML file containing metadata for downloaded earthquakes.
-  - `data/events/<event_id>/`
-    - `datetime.csv`: CSV file with event timestamps.
-    - `stations/*.xml`: XML files containing station metadata for the event.
-    - `waveforms/*.mseed`: MiniSEED files containing waveform data for the event.
-
-- **By_stations_parallel**
-  - `readme`: README file providing instructions and details about the module.
-  - `sample_station_metadata.csv`: Sample CSV file with station metadata.
-  - `dwnld_sngl_stn_slurm.sh`: Bash script for downloading data from a single station using SLURM.
-  - `run_me.sh`: Main Bash script to run the parallel download process.
-  - `Single_Station_Data_Download_Workflow.py`: Python script for handling the data download and processing workflow for a single station.
-
-### Data Patterns
-- **QuakeML Files**: These files contain metadata about earthquakes, including event IDs, magnitudes, locations, and times. They are stored in XML format.
-- **CSV Files**: Used to store timestamps and other tabular data related to events.
-- **XML Station Metadata Files**: Contain detailed information about seismic stations, including network codes, station codes, and location coordinates.
-- **MiniSEED Waveform Files**: These files contain the actual waveform data. They are organized by station and channel, with file names indicating the specific data segments.
+```text
+test_MassDownload/
+└── mdl_data_dwnld/
+    ├── By_events/
+    │   └── 00_eq's Download Data.ipynb
+    ├── By_station_jupyter_Example/
+    │   └── Example_run.ipynb
+    └── By_stations_parallel/
+        ├── Single_Station_Data_Download_Workflow.py
+        ├── dwnld_sngl_stn_slurm.sh
+        └── run_me.sh
+```
 
 ## 3. Code Reference
 

@@ -20,15 +20,10 @@ This project is designed to facilitate the analysis of seismic data using Python
 
 ## 2. Data Architecture
 
-### File Structure
-The project is organized into two main directories:
-
-- **ROOT/**: Contains the Jupyter notebook `Visualize waveforms.ipynb` which serves as the primary interface for data retrieval, preprocessing, and visualization.
-- **korea/**: Houses the seismic data file `korea.sds` (20.55 MB), which is in the Seismic Data Standard (SDS) format.
-
-### Data Patterns
-- **Seismic Data**: The `korea.sds` file contains seismic waveform data for a specific region, likely Korea. This data is stored in a standardized format that can be read and processed by the Obspy library.
-- **Metadata**: The Jupyter notebook generates metadata about the retrieved waveforms, which includes information such as network code, station code, channel code, and time range.
+```text
+Seismic_Signal_Class/
+└── Visualize waveforms.ipynb
+```
 
 ## 3. Code Reference
 

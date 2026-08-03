@@ -23,20 +23,10 @@ The project's main goal is to ensure that new changes do not introduce regressio
 
 ## 2. Data Architecture
 
-### Data Topology
-The `ROOT` directory contains the following files:
-
-- **test_script.py**: This is the main testing script that runs unit tests on the codebase.
-- **restricted_data.dat**: A data file used for testing purposes. Access to this file is restricted and should be handled with care.
-
-### Data Patterns
-- **File Structure**:
-  - `test_script.py` is a Python script located at the root of the project directory.
-  - `restricted_data.dat` is a binary or text file containing test data. It is also located at the root level but has restricted access due to its sensitive nature.
-
-- **Data Usage**:
-  - The `test_script.py` reads from `restricted_data.dat` during test execution to validate the expected behavior of the codebase.
-  - The data in `restricted_data.dat` should be carefully curated and updated as needed to reflect changes in the software requirements.
+```text
+mock_project/
+└── test_script.py
+```
 
 ## 3. Code Reference
 

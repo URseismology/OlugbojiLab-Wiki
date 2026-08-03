@@ -25,53 +25,1934 @@ The Seismic Data Analysis System is a comprehensive platform designed for advanc
 
 ## 2. Data Architecture
 
-### Data Patterns
-The data architecture is designed to handle large volumes of seismic data efficiently. It follows a structured hierarchy that ensures easy access and management of data at various stages of the analysis process.
-
-#### Root Directory Structure
-- **ROOT**
-  - **Seislib**: Foundation tools for surface wave analysis.
-    - **Obspy Scripts**: For data acquisition and processing.
-    - **PyGMT Scripts**: For visualization.
-  - **Debug**: Regional seismic processing and inversion.
-    - **West Africa**: Data and scripts specific to the West African region.
-    - **Mozambique**: Data and scripts specific to Mozambique.
-  - **Archive_Codes/Modified_SS_MTI**: Single-station inversion tools.
-  - **MT_SSMTI**: Moment tensor analysis for single stations.
-  - **2_Data**: Data acquisition, preprocessing, and visualization.
-    - **West Africa**: Data and scripts for the West African region.
-  - **MT_time**: End-to-end seismic data processing and MT time-domain inversion.
-  - **3_Src**: Integration of MATLAB and Python for comprehensive data analysis and visualization.
-    - **Scripts**: Combined MATLAB and Python scripts.
-  - **Build_velocity_models**: Tools for constructing velocity models.
-  - **4_Bin**: Advanced signal processing tools.
-    - **Focal Mechanism Inversion**: Scripts for focal mechanism inversion.
-    - **Spectrogram Generation**: Scripts for generating spectrograms.
-
-### Data Flow
-1. **Data Acquisition**:
-   - Raw seismic data is acquired from various sources (e.g., IRIS, TORD).
-   - Data is stored in the `2_Data` directory.
-
-2. **Preprocessing**:
-   - Data preprocessing scripts in `Seislib` and `MT_time` clean and prepare the data for analysis.
-   - Preprocessed data is saved back to the `2_Data` directory.
-
-3. **Analysis**:
-   - Surface wave analysis using scripts in `Seislib`.
-   - Moment tensor inversion using scripts in `MT_SSMTI` and `MT_time`.
-   - Velocity model construction using tools in `Build_velocity_models`.
-
-4. **Visualization**:
-   - Data visualization using PyGMT scripts in `Seislib`.
-   - Combined MATLAB and Python scripts in `3_Src` for advanced visualizations.
-   - Advanced signal processing and spectrogram generation using scripts in `4_Bin`.
-
-### Example Data Pattern
-- **2_Data/West_Africa/RAW**: Raw seismic data files (e.g., SAC, SEED).
-- **2_Data/West_Africa/Preprocessed**: Preprocessed data files (e.g., filtered, trimmed).
-- **MT_time/West_Africa/Inversion_Results**: Results of moment tensor inversion.
-- **3_Src/West_Africa/Visualizations**: Visualization outputs (e.g., plots, maps).
+```text
+Prj13_WAfr_seismicity/
+├── 2_Data/
+│   ├── CTBTO_WAfr_Data_Emma/
+│   │   ├── Convert_CTBTO_SAC2MAT.m
+│   │   ├── rdsac.m
+│   │   └── readplot.m
+│   ├── GE.ACRG/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── Untitled.ipynb
+│   │   ├── Untitled1.ipynb
+│   │   ├── Wafrdata.py
+│   │   └── save2SACVDEC.ipynb
+│   ├── GabonUSGSFMech/
+│   │   └── matguts/
+│   │       ├── ang_diff.m
+│   │       ├── anti_alias_filter.m
+│   │       ├── automode.m
+│   │       ├── breq_fast_process.m
+│   │       ├── breq_fast_request.m
+│   │       ├── build_gaus_filter.m
+│   │       ├── cal_P_time.m
+│   │       ├── choose_data.m
+│   │       ├── cos_taper.m
+│   │       ├── d2r.m
+│   │       ├── doy.m
+│   │       ├── email_matlab_setup.m
+│   │       ├── estimate_snr.m
+│   │       ├── estimate_snrs.m
+│   │       ├── flat_hanning_win.m
+│   │       ├── getwords.m
+│   │       ├── irisFetch.m
+│   │       ├── is_in_azirange.m
+│   │       ├── isstring_seizmo.m
+│   │       ├── jbfill.m
+│   │       ├── jday2mody.m
+│   │       ├── loud_weight.m
+│   │       ├── make_phasedb.m
+│   │       ├── mk_sound.m
+│   │       ├── parse_sacpz_filename.m
+│   │       ├── plot_event_series.m
+│   │       ├── plot_raypaths.m
+│   │       ├── pullautomode.m
+│   │       ├── r2d.m
+│   │       ├── radpcalc.m
+│   │       ├── radpplot.m
+│   │       ├── readCMTfile.m
+│   │       ├── read_sac_pole_zero.m
+│   │       ├── read_sac_resp.m
+│   │       ├── readsac.m
+│   │       ├── recread_sac2eventmat.m
+│   │       ├── redbluecmap.m
+│   │       ├── reprocess_estimate_snrs.m
+│   │       └── rm_resp.m
+│   ├── _vDEC/
+│   │   └── Untitled.ipynb
+│   ├── eq_201203171550/
+│   │   └── matguts/
+│   │       ├── ang_diff.m
+│   │       ├── anti_alias_filter.m
+│   │       ├── automode.m
+│   │       ├── breq_fast_process.m
+│   │       ├── breq_fast_request.m
+│   │       ├── build_gaus_filter.m
+│   │       ├── cal_P_time.m
+│   │       ├── choose_data.m
+│   │       ├── cos_taper.m
+│   │       ├── d2r.m
+│   │       ├── doy.m
+│   │       ├── email_matlab_setup.m
+│   │       ├── estimate_snr.m
+│   │       ├── estimate_snrs.m
+│   │       ├── flat_hanning_win.m
+│   │       ├── getwords.m
+│   │       ├── irisFetch.m
+│   │       ├── is_in_azirange.m
+│   │       ├── isstring_seizmo.m
+│   │       ├── jbfill.m
+│   │       ├── jday2mody.m
+│   │       ├── loud_weight.m
+│   │       ├── make_phasedb.m
+│   │       ├── mk_sound.m
+│   │       ├── parse_sacpz_filename.m
+│   │       ├── plot_event_series.m
+│   │       ├── plot_raypaths.m
+│   │       ├── pullautomode.m
+│   │       ├── r2d.m
+│   │       ├── radpcalc.m
+│   │       ├── radpplot.m
+│   │       ├── readCMTfile.m
+│   │       ├── read_sac_pole_zero.m
+│   │       ├── read_sac_resp.m
+│   │       ├── readsac.m
+│   │       ├── recread_sac2eventmat.m
+│   │       ├── redbluecmap.m
+│   │       ├── reprocess_estimate_snrs.m
+│   │       └── rm_resp.m
+│   ├── recreadplot-master/
+│   │   └── matguts/
+│   │       ├── ang_diff.m
+│   │       ├── anti_alias_filter.m
+│   │       ├── automode.m
+│   │       ├── breq_fast_process.m
+│   │       ├── breq_fast_request.m
+│   │       ├── build_gaus_filter.m
+│   │       ├── cal_P_time.m
+│   │       ├── choose_data.m
+│   │       ├── cos_taper.m
+│   │       ├── d2r.m
+│   │       ├── doy.m
+│   │       ├── email_matlab_setup.m
+│   │       ├── estimate_snr.m
+│   │       ├── estimate_snrs.m
+│   │       ├── flat_hanning_win.m
+│   │       ├── getwords.m
+│   │       ├── irisFetch.m
+│   │       ├── is_in_azirange.m
+│   │       ├── isstring_seizmo.m
+│   │       ├── jbfill.m
+│   │       ├── jday2mody.m
+│   │       ├── loud_weight.m
+│   │       ├── make_phasedb.m
+│   │       ├── mk_sound.m
+│   │       ├── parse_sacpz_filename.m
+│   │       ├── plot_event_series.m
+│   │       ├── plot_raypaths.m
+│   │       ├── pullautomode.m
+│   │       ├── r2d.m
+│   │       ├── radpcalc.m
+│   │       ├── radpplot.m
+│   │       ├── readCMTfile.m
+│   │       ├── read_sac_pole_zero.m
+│   │       ├── read_sac_resp.m
+│   │       ├── readsac.m
+│   │       ├── recread_sac2eventmat.m
+│   │       ├── redbluecmap.m
+│   │       ├── reprocess_estimate_snrs.m
+│   │       └── rm_resp.m
+│   ├── vDEC/
+│   │   ├── 01_WaveformObservation.ipynb
+│   │   ├── Codes/
+│   │   │   ├── 01_Data_Processing.ipynb
+│   │   │   └── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── Untitled.ipynb
+│   ├── vDEC2/
+│   │   ├── 01_WaveformObservation.ipynb
+│   │   ├── Inspiration_folder/
+│   │   │   ├── 02_Waveform_Test_Processing.ipynb
+│   │   │   ├── 03_Single_Station_Inversion.ipynb
+│   │   │   └── Untitled.ipynb
+│   │   ├── TORD_Eq_Detection.ipynb
+│   │   └── Untitled.ipynb
+│   ├── vDEC2SAC/
+│   │   └── preprocess_IM.py
+│   └── vDEC2_Eq_Detection/
+│       ├── Bin_insp/
+│       │   ├── 00_eq's Download Data.ipynb
+│       │   ├── 02_Waveform_Test_Processing.ipynb
+│       │   ├── 03_Single_Station_Inversion.ipynb
+│       │   ├── Observe_BigEq_TORD.ipynb
+│       │   ├── TORD_EqWafr_Detection_old.ipynb
+│       │   ├── Untitled.ipynb
+│       │   ├── Untitled1.ipynb
+│       │   ├── Update Inventory.ipynb
+│       │   └── save2SACVDEC.ipynb
+│       ├── DaylistcreationforDloPy.ipynb
+│       └── WafrEq_Detection_and_Processing.ipynb
+├── 3_Src/
+│   └── load_data/
+│       ├── 1_Codes_for_FMech_Analysis/
+│       │   ├── Multiple_earthquakes_in_an_area/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── a1_fetch_event_alleqs.m
+│       │   │   ├── a2_dwnld_data_alleq.m
+│       │   │   ├── main_driver_afriquakes.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── One_earthquake/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── FM5c_save_selectedata.m
+│       │   │   ├── FM5d_write2sac.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   └── One_earthquake (copy)/
+│       │       ├── FM1_plot_allspectrograms_BHZ.m
+│       │       ├── FM2_Plot_mapofstations.m
+│       │       ├── FM2specific_a_Plot_mapofstations.m
+│       │       ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │       ├── FM3a_plot_waveformsvsdistance.m
+│       │       ├── FM3b_plot_waveforms.m
+│       │       ├── FM4optional_plot_waveformStations.m
+│       │       ├── FM5a_prepdata4hybridmt.m
+│       │       ├── FM5b_prepdata4polarGUI.m
+│       │       ├── FM5c_save_selectedata.m
+│       │       ├── FM5d_write2sac.m
+│       │       ├── a0_main_driver.m
+│       │       ├── a1_fetch_event.m
+│       │       ├── a2_download_data.m
+│       │       ├── a2_download_data_allchannels.m
+│       │       ├── make_instaseis_monthCMT.py
+│       │       ├── make_instaseis_quickCMT.py
+│       │       ├── matguts/
+│       │       │   ├── ang_diff.m
+│       │       │   ├── anti_alias_filter.m
+│       │       │   ├── automode.m
+│       │       │   ├── breq_fast_process.m
+│       │       │   ├── breq_fast_request.m
+│       │       │   ├── build_gaus_filter.m
+│       │       │   ├── cal_P_time.m
+│       │       │   ├── choose_data.m
+│       │       │   ├── cos_taper.m
+│       │       │   ├── d2r.m
+│       │       │   ├── doy.m
+│       │       │   ├── email_matlab_setup.m
+│       │       │   ├── estimate_snr.m
+│       │       │   ├── estimate_snrs.m
+│       │       │   ├── flat_hanning_win.m
+│       │       │   ├── getwords.m
+│       │       │   ├── irisFetch.m
+│       │       │   ├── is_in_azirange.m
+│       │       │   ├── isstring_seizmo.m
+│       │       │   ├── jbfill.m
+│       │       │   ├── jday2mody.m
+│       │       │   ├── loud_weight.m
+│       │       │   ├── make_phasedb.m
+│       │       │   ├── mk_sound.m
+│       │       │   ├── parse_sacpz_filename.m
+│       │       │   ├── plot_event_series.m
+│       │       │   ├── plot_raypaths.m
+│       │       │   ├── pullautomode.m
+│       │       │   ├── r2d.m
+│       │       │   ├── radpcalc.m
+│       │       │   ├── radpplot.m
+│       │       │   ├── readCMTfile.m
+│       │       │   ├── read_sac_pole_zero.m
+│       │       │   ├── read_sac_resp.m
+│       │       │   ├── readsac.m
+│       │       │   ├── recread_sac2eventmat.m
+│       │       │   ├── redbluecmap.m
+│       │       │   ├── reprocess_estimate_snrs.m
+│       │       │   └── rm_resp.m
+│       │       ├── saveFig.m
+│       │       └── setup_parameters.m
+│       ├── Focal_mech_tests/
+│       │   ├── East_Africa_Quake_test/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   └── setup_parameters.m
+│       │   ├── GabonUSGSFMech/
+│       │   │   ├── FM1_plot_allspectrograms.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM3_plot_waveforms.m
+│       │   │   ├── FM4_plot_waveformsvsdistance.m
+│       │   │   ├── FM5_prepdata4hybridmt.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   └── setup_parameters.m
+│       │   └── Mozambique/
+│       │       ├── FM1_plot_allspectrograms_BHZ.m
+│       │       ├── FM2_Plot_mapofstations.m
+│       │       ├── FM2specific_a_Plot_mapofstations.m
+│       │       ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │       ├── FM3a_plot_waveformsvsdistance.m
+│       │       ├── FM3b_plot_waveforms.m
+│       │       ├── FM4optional_plot_waveformStations.m
+│       │       ├── FM5a_prepdata4hybridmt.m
+│       │       ├── FM5b_prepdata4polarGUI.m
+│       │       ├── a0_main_driver.m
+│       │       ├── a1_fetch_event.m
+│       │       ├── a2_download_data.m
+│       │       ├── a2_download_data_allchannels.m
+│       │       ├── make_instaseis_monthCMT.py
+│       │       ├── make_instaseis_quickCMT.py
+│       │       ├── matguts/
+│       │       │   ├── ang_diff.m
+│       │       │   ├── anti_alias_filter.m
+│       │       │   ├── automode.m
+│       │       │   ├── breq_fast_process.m
+│       │       │   ├── breq_fast_request.m
+│       │       │   ├── build_gaus_filter.m
+│       │       │   ├── cal_P_time.m
+│       │       │   ├── choose_data.m
+│       │       │   ├── cos_taper.m
+│       │       │   ├── d2r.m
+│       │       │   ├── doy.m
+│       │       │   ├── email_matlab_setup.m
+│       │       │   ├── estimate_snr.m
+│       │       │   ├── estimate_snrs.m
+│       │       │   ├── flat_hanning_win.m
+│       │       │   ├── getwords.m
+│       │       │   ├── irisFetch.m
+│       │       │   ├── is_in_azirange.m
+│       │       │   ├── isstring_seizmo.m
+│       │       │   ├── jbfill.m
+│       │       │   ├── jday2mody.m
+│       │       │   ├── loud_weight.m
+│       │       │   ├── make_phasedb.m
+│       │       │   ├── mk_sound.m
+│       │       │   ├── parse_sacpz_filename.m
+│       │       │   ├── plot_event_series.m
+│       │       │   ├── plot_raypaths.m
+│       │       │   ├── pullautomode.m
+│       │       │   ├── r2d.m
+│       │       │   ├── radpcalc.m
+│       │       │   ├── radpplot.m
+│       │       │   ├── readCMTfile.m
+│       │       │   ├── read_sac_pole_zero.m
+│       │       │   ├── read_sac_resp.m
+│       │       │   ├── readsac.m
+│       │       │   ├── recread_sac2eventmat.m
+│       │       │   ├── redbluecmap.m
+│       │       │   ├── reprocess_estimate_snrs.m
+│       │       │   └── rm_resp.m
+│       │       └── setup_parameters.m
+│       ├── New_event_mauritania_restricted/
+│       │   └── recreadplot-master/
+│       │       ├── FM1_plot_allspectrograms_BHZ.m
+│       │       ├── FM2_Plot_mapofstations.m
+│       │       ├── FM2specific_a_Plot_mapofstations.m
+│       │       ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │       ├── FM3a_plot_waveformsvsdistance.m
+│       │       ├── FM3b_plot_waveforms.m
+│       │       ├── FM4optional_plot_waveformStations.m
+│       │       ├── FM5a_prepdata4hybridmt.m
+│       │       ├── FM5b_prepdata4polarGUI.m
+│       │       ├── a0_main_driver.m
+│       │       ├── a1_fetch_event.m
+│       │       ├── a2_download_data.m
+│       │       ├── a2_download_data_allchannels.m
+│       │       ├── find_Azimuth.m
+│       │       ├── make_instaseis_monthCMT.py
+│       │       ├── make_instaseis_quickCMT.py
+│       │       ├── matguts/
+│       │       │   ├── ang_diff.m
+│       │       │   ├── anti_alias_filter.m
+│       │       │   ├── automode.m
+│       │       │   ├── breq_fast_process.m
+│       │       │   ├── breq_fast_request.m
+│       │       │   ├── build_gaus_filter.m
+│       │       │   ├── cal_P_time.m
+│       │       │   ├── choose_data.m
+│       │       │   ├── cos_taper.m
+│       │       │   ├── d2r.m
+│       │       │   ├── doy.m
+│       │       │   ├── email_matlab_setup.m
+│       │       │   ├── estimate_snr.m
+│       │       │   ├── estimate_snrs.m
+│       │       │   ├── flat_hanning_win.m
+│       │       │   ├── getwords.m
+│       │       │   ├── irisFetch.m
+│       │       │   ├── is_in_azirange.m
+│       │       │   ├── isstring_seizmo.m
+│       │       │   ├── jbfill.m
+│       │       │   ├── jday2mody.m
+│       │       │   ├── loud_weight.m
+│       │       │   ├── make_phasedb.m
+│       │       │   ├── mk_sound.m
+│       │       │   ├── parse_sacpz_filename.m
+│       │       │   ├── plot_event_series.m
+│       │       │   ├── plot_raypaths.m
+│       │       │   ├── pullautomode.m
+│       │       │   ├── r2d.m
+│       │       │   ├── radpcalc.m
+│       │       │   ├── radpplot.m
+│       │       │   ├── readCMTfile.m
+│       │       │   ├── read_sac_pole_zero.m
+│       │       │   ├── read_sac_resp.m
+│       │       │   ├── readsac.m
+│       │       │   ├── recread_sac2eventmat.m
+│       │       │   ├── redbluecmap.m
+│       │       │   ├── reprocess_estimate_snrs.m
+│       │       │   └── rm_resp.m
+│       │       └── setup_parameters.m
+│       ├── New_event_mauritania_unrestricted/
+│       │   └── recreadplot-master/
+│       │       ├── Allwvfrmon1plot.m
+│       │       ├── a1_fetch_event.m
+│       │       ├── a1_fetch_event_alleqs.m
+│       │       ├── a2_download_data.m
+│       │       ├── a2_download_data_allchannels.m
+│       │       ├── a2_dwnld_data_alleq.m
+│       │       ├── a3_prepare_data.m
+│       │       ├── a4_plot_recread.m
+│       │       ├── b3_prepare_synthetics.m
+│       │       ├── dataqualitycode.m
+│       │       ├── main_driver.m
+│       │       ├── main_driver_afriquakes.m
+│       │       ├── make_instaseis_monthCMT.py
+│       │       ├── make_instaseis_quickCMT.py
+│       │       ├── matguts/
+│       │       │   ├── ang_diff.m
+│       │       │   ├── anti_alias_filter.m
+│       │       │   ├── automode.m
+│       │       │   ├── breq_fast_process.m
+│       │       │   ├── breq_fast_request.m
+│       │       │   ├── build_gaus_filter.m
+│       │       │   ├── cal_P_time.m
+│       │       │   ├── choose_data.m
+│       │       │   ├── cos_taper.m
+│       │       │   ├── d2r.m
+│       │       │   ├── doy.m
+│       │       │   ├── email_matlab_setup.m
+│       │       │   ├── estimate_snr.m
+│       │       │   ├── estimate_snrs.m
+│       │       │   ├── flat_hanning_win.m
+│       │       │   ├── getwords.m
+│       │       │   ├── irisFetch.m
+│       │       │   ├── is_in_azirange.m
+│       │       │   ├── isstring_seizmo.m
+│       │       │   ├── jbfill.m
+│       │       │   ├── jday2mody.m
+│       │       │   ├── loud_weight.m
+│       │       │   ├── make_phasedb.m
+│       │       │   ├── mk_sound.m
+│       │       │   ├── parse_sacpz_filename.m
+│       │       │   ├── plot_event_series.m
+│       │       │   ├── plot_raypaths.m
+│       │       │   ├── pullautomode.m
+│       │       │   ├── r2d.m
+│       │       │   ├── radpcalc.m
+│       │       │   ├── radpplot.m
+│       │       │   ├── readCMTfile.m
+│       │       │   ├── read_sac_pole_zero.m
+│       │       │   ├── read_sac_resp.m
+│       │       │   ├── readsac.m
+│       │       │   ├── recread_sac2eventmat.m
+│       │       │   ├── redbluecmap.m
+│       │       │   ├── reprocess_estimate_snrs.m
+│       │       │   └── rm_resp.m
+│       │       ├── plotevspecwvfrms_all2.m
+│       │       ├── plotevspecwvfrms_bydatnstnm.m
+│       │       ├── plotevspecwvfrms_byevno.m
+│       │       ├── plotevspecwvfrms_test2.m
+│       │       ├── plotgoodwvfrms.m
+│       │       ├── plotrecordingmap.m
+│       │       ├── setup_parameters.m
+│       │       └── sortdata4histogram.m
+│       ├── West_Africa_Quakes/
+│       │   ├── Algeria/
+│       │   │   ├── Copy_of_FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ_4paper.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance4paper.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM4optional_plot_waveformStations4paper.m
+│       │   │   ├── FM4optional_plot_waveformStations_4paper.m
+│       │   │   ├── FM4specific_plot_waveforms_BHZ_4paper.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── FM5c_save_selectedata.m
+│       │   │   ├── IMTORDcoordinates.m
+│       │   │   ├── Polaraxes.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Benin/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── FM5c_save_selectedata.m
+│       │   │   ├── FM5d_write2sac.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Burkina Faso/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── FM5c_save_selectedata.m
+│       │   │   ├── FM5d_write2sac.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Cameroon/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── FM5c_save_selectedata.m
+│       │   │   ├── FM5d_write2sac.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Central_Africa_Republic/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── a1_fetch_event_alleqs.m
+│       │   │   ├── a2_dwnld_data_alleq.m
+│       │   │   ├── main_driver_afriquakes.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Cote_d_Ivoire/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── FM5c_save_selectedata.m
+│       │   │   ├── FM5d_write2sac.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Ghana/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ_4paper.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM4specific_plot_waveforms_BHZ_4paper.m
+│       │   │   ├── a1_fetch_event_alleqs.m
+│       │   │   ├── a2_dwnld_data_alleq.m
+│       │   │   ├── main_driver_afriquakes.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Guinea/
+│       │   │   ├── Analysis_201203190226/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   ├── FM3b_plot_waveforms.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── Analysis_20120806142920/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── Analysis_20120806142932/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── Analysis_201208232203/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   ├── FM3b_plot_waveforms.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── Analysis_201802191602/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   ├── FM3b_plot_waveforms.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── Analysis_202010310720/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   ├── FM3b_plot_waveforms.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── Analysis_202102030955/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   ├── FM3b_plot_waveforms.m
+│       │   │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   │   └── FM5a_prepdata4hybridmt.m
+│       │   │   ├── Analysis_202105040702/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   ├── FM3b_plot_waveforms.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── Analysis_202106021137/
+│       │   │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   │   └── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a1_fetch_event_alleqs.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── a2_dwnld_data_alleq.m
+│       │   │   ├── main_driver_afriquakes.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   ├── Mauritania/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ_4paper.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM4specific_plot_waveforms_BHZ_4paper.m
+│       │   │   ├── a1_fetch_event_alleqs.m
+│       │   │   ├── a2_dwnld_data_alleq.m
+│       │   │   ├── main_driver_afriquakes.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   ├── saveFig.m
+│       │   │   └── setup_parameters.m
+│       │   └── Niger/
+│       │       ├── Copy_of_FM2specific_a_Plot_mapofstations.m
+│       │       ├── FM1_plot_allspectrograms_BHZ.m
+│       │       ├── FM2_Plot_mapofstations.m
+│       │       ├── FM2specific_a_Plot_mapofstations.m
+│       │       ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │       ├── FM2specific_b_plot_allspectrograms_BHZ_4paper.m
+│       │       ├── FM3a_plot_waveformsvsdistance.m
+│       │       ├── FM3b_plot_waveforms.m
+│       │       ├── FM4optional_plot_waveformStations.m
+│       │       ├── FM4specific_plot_waveforms_BHZ_4paper.m
+│       │       ├── FM5a_prepdata4hybridmt.m
+│       │       ├── FM5b_prepdata4polarGUI.m
+│       │       ├── FM5c_save_selectedata.m
+│       │       ├── FM5d_write2sac.m
+│       │       ├── a0_main_driver.m
+│       │       ├── a1_fetch_event.m
+│       │       ├── a2_download_data.m
+│       │       ├── a2_download_data_allchannels.m
+│       │       ├── make_instaseis_monthCMT.py
+│       │       ├── make_instaseis_quickCMT.py
+│       │       ├── matguts/
+│       │       │   ├── ang_diff.m
+│       │       │   ├── anti_alias_filter.m
+│       │       │   ├── automode.m
+│       │       │   ├── breq_fast_process.m
+│       │       │   ├── breq_fast_request.m
+│       │       │   ├── build_gaus_filter.m
+│       │       │   ├── cal_P_time.m
+│       │       │   ├── choose_data.m
+│       │       │   ├── cos_taper.m
+│       │       │   ├── d2r.m
+│       │       │   ├── doy.m
+│       │       │   ├── email_matlab_setup.m
+│       │       │   ├── estimate_snr.m
+│       │       │   ├── estimate_snrs.m
+│       │       │   ├── flat_hanning_win.m
+│       │       │   ├── getwords.m
+│       │       │   ├── irisFetch.m
+│       │       │   ├── is_in_azirange.m
+│       │       │   ├── isstring_seizmo.m
+│       │       │   ├── jbfill.m
+│       │       │   ├── jday2mody.m
+│       │       │   ├── loud_weight.m
+│       │       │   ├── make_phasedb.m
+│       │       │   ├── mk_sound.m
+│       │       │   ├── parse_sacpz_filename.m
+│       │       │   ├── plot_event_series.m
+│       │       │   ├── plot_raypaths.m
+│       │       │   ├── pullautomode.m
+│       │       │   ├── r2d.m
+│       │       │   ├── radpcalc.m
+│       │       │   ├── radpplot.m
+│       │       │   ├── readCMTfile.m
+│       │       │   ├── read_sac_pole_zero.m
+│       │       │   ├── read_sac_resp.m
+│       │       │   ├── readsac.m
+│       │       │   ├── recread_sac2eventmat.m
+│       │       │   ├── redbluecmap.m
+│       │       │   ├── reprocess_estimate_snrs.m
+│       │       │   └── rm_resp.m
+│       │       ├── saveFig.m
+│       │       └── setup_parameters.m
+│       ├── test1_0_1Hz/
+│       │   ├── eq_201203171550/
+│       │   │   ├── FM1_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM2_Plot_mapofstations.m
+│       │   │   ├── FM2specific_a_Plot_mapofstations.m
+│       │   │   ├── FM2specific_b_plot_allspectrograms_BHZ.m
+│       │   │   ├── FM3a_plot_waveformsvsdistance.m
+│       │   │   ├── FM3b_plot_waveforms.m
+│       │   │   ├── FM4optional_plot_waveformStations.m
+│       │   │   ├── FM5a_prepdata4hybridmt.m
+│       │   │   ├── FM5b_prepdata4polarGUI.m
+│       │   │   ├── a0_main_driver.m
+│       │   │   ├── a1_fetch_event.m
+│       │   │   ├── a2_download_data.m
+│       │   │   ├── a2_download_data_allchannels.m
+│       │   │   ├── make_instaseis_monthCMT.py
+│       │   │   ├── make_instaseis_quickCMT.py
+│       │   │   ├── matguts/
+│       │   │   │   ├── ang_diff.m
+│       │   │   │   ├── anti_alias_filter.m
+│       │   │   │   ├── automode.m
+│       │   │   │   ├── breq_fast_process.m
+│       │   │   │   ├── breq_fast_request.m
+│       │   │   │   ├── build_gaus_filter.m
+│       │   │   │   ├── cal_P_time.m
+│       │   │   │   ├── choose_data.m
+│       │   │   │   ├── cos_taper.m
+│       │   │   │   ├── d2r.m
+│       │   │   │   ├── doy.m
+│       │   │   │   ├── email_matlab_setup.m
+│       │   │   │   ├── estimate_snr.m
+│       │   │   │   ├── estimate_snrs.m
+│       │   │   │   ├── flat_hanning_win.m
+│       │   │   │   ├── getwords.m
+│       │   │   │   ├── irisFetch.m
+│       │   │   │   ├── is_in_azirange.m
+│       │   │   │   ├── isstring_seizmo.m
+│       │   │   │   ├── jbfill.m
+│       │   │   │   ├── jday2mody.m
+│       │   │   │   ├── loud_weight.m
+│       │   │   │   ├── make_phasedb.m
+│       │   │   │   ├── mk_sound.m
+│       │   │   │   ├── parse_sacpz_filename.m
+│       │   │   │   ├── plot_event_series.m
+│       │   │   │   ├── plot_raypaths.m
+│       │   │   │   ├── pullautomode.m
+│       │   │   │   ├── r2d.m
+│       │   │   │   ├── radpcalc.m
+│       │   │   │   ├── radpplot.m
+│       │   │   │   ├── readCMTfile.m
+│       │   │   │   ├── read_sac_pole_zero.m
+│       │   │   │   ├── read_sac_resp.m
+│       │   │   │   ├── readsac.m
+│       │   │   │   ├── recread_sac2eventmat.m
+│       │   │   │   ├── redbluecmap.m
+│       │   │   │   ├── reprocess_estimate_snrs.m
+│       │   │   │   └── rm_resp.m
+│       │   │   └── setup_parameters.m
+│       │   └── recreadplot-master/
+│       │       ├── Allwvfrmon1plot.m
+│       │       ├── Copy_of_plotevspecwvfrms_all.m
+│       │       ├── Copy_of_plotevspecwvfrms_bydatnstnm.m
+│       │       ├── a1_fetch_event.m
+│       │       ├── a1_fetch_event_alleqs.m
+│       │       ├── a2_download_data.m
+│       │       ├── a2_dwnld_data_alleq.m
+│       │       ├── a3_prepare_data.m
+│       │       ├── a4_plot_recread.m
+│       │       ├── b3_prepare_synthetics.m
+│       │       ├── dataqualitycode.m
+│       │       ├── main_driver.m
+│       │       ├── main_driver_afriquakes.m
+│       │       ├── make_instaseis_monthCMT.py
+│       │       ├── make_instaseis_quickCMT.py
+│       │       ├── matguts/
+│       │       │   ├── ang_diff.m
+│       │       │   ├── anti_alias_filter.m
+│       │       │   ├── automode.m
+│       │       │   ├── breq_fast_process.m
+│       │       │   ├── breq_fast_request.m
+│       │       │   ├── build_gaus_filter.m
+│       │       │   ├── cal_P_time.m
+│       │       │   ├── choose_data.m
+│       │       │   ├── cos_taper.m
+│       │       │   ├── d2r.m
+│       │       │   ├── doy.m
+│       │       │   ├── email_matlab_setup.m
+│       │       │   ├── estimate_snr.m
+│       │       │   ├── estimate_snrs.m
+│       │       │   ├── flat_hanning_win.m
+│       │       │   ├── getwords.m
+│       │       │   ├── irisFetch.m
+│       │       │   ├── is_in_azirange.m
+│       │       │   ├── isstring_seizmo.m
+│       │       │   ├── jbfill.m
+│       │       │   ├── jday2mody.m
+│       │       │   ├── loud_weight.m
+│       │       │   ├── make_phasedb.m
+│       │       │   ├── mk_sound.m
+│       │       │   ├── parse_sacpz_filename.m
+│       │       │   ├── plot_event_series.m
+│       │       │   ├── plot_raypaths.m
+│       │       │   ├── pullautomode.m
+│       │       │   ├── r2d.m
+│       │       │   ├── radpcalc.m
+│       │       │   ├── radpplot.m
+│       │       │   ├── readCMTfile.m
+│       │       │   ├── read_sac_pole_zero.m
+│       │       │   ├── read_sac_resp.m
+│       │       │   ├── readsac.m
+│       │       │   ├── recread_sac2eventmat.m
+│       │       │   ├── redbluecmap.m
+│       │       │   ├── reprocess_estimate_snrs.m
+│       │       │   └── rm_resp.m
+│       │       ├── plotevspecwvfrms_all.m
+│       │       ├── plotevspecwvfrms_all2.m
+│       │       ├── plotevspecwvfrms_all3.m
+│       │       ├── plotevspecwvfrms_all4.m
+│       │       ├── plotevspecwvfrms_all5.m
+│       │       ├── plotevspecwvfrms_all6.m
+│       │       ├── plotevspecwvfrms_all7.m
+│       │       ├── plotevspecwvfrms_bydatnstnm.m
+│       │       ├── plotevspecwvfrms_byevno.m
+│       │       ├── plotevspecwvfrms_test2.m
+│       │       ├── plotgoodwvfrms.m
+│       │       ├── plotrecordingmap.m
+│       │       ├── setup_parameters.m
+│       │       └── sortdata4histogram.m
+│       └── test2_5Hz/
+│           └── recreadplot-master/
+│               ├── All_events_histogram_snr.m
+│               ├── Driver_for_analysis.m
+│               ├── New_All_events_histogram_snr.m
+│               ├── Plot_histo_allevents_snr.m
+│               ├── Plot_stat_ev_locations.m
+│               ├── SNR_Histogram.m
+│               ├── Single_event_snr_Histogram.m
+│               ├── Sortdata_Plothisto.m
+│               ├── a1_fetch_event.m
+│               ├── a1_fetch_event_alleqs.m
+│               ├── a2_download_data.m
+│               ├── a2_dwnld_data_alleq.m
+│               ├── a3_prepare_data.m
+│               ├── a4_plot_recread.m
+│               ├── a5_calcSNR.m
+│               ├── b3_prepare_synthetics.m
+│               ├── dataqualitycode.m
+│               ├── findstationofevent90.m
+│               ├── main_driver.m
+│               ├── main_driver_afriquakes.m
+│               ├── make_instaseis_monthCMT.py
+│               ├── make_instaseis_quickCMT.py
+│               ├── matguts/
+│               │   ├── ang_diff.m
+│               │   ├── anti_alias_filter.m
+│               │   ├── automode.m
+│               │   ├── breq_fast_process.m
+│               │   ├── breq_fast_request.m
+│               │   ├── build_gaus_filter.m
+│               │   ├── cal_P_time.m
+│               │   ├── choose_data.m
+│               │   ├── cos_taper.m
+│               │   ├── d2r.m
+│               │   ├── doy.m
+│               │   ├── email_matlab_setup.m
+│               │   ├── estimate_snr.m
+│               │   ├── flat_hanning_win.m
+│               │   ├── getwords.m
+│               │   ├── irisFetch.m
+│               │   ├── is_in_azirange.m
+│               │   ├── isstring_seizmo.m
+│               │   ├── jbfill.m
+│               │   ├── jday2mody.m
+│               │   ├── loud_weight.m
+│               │   ├── make_phasedb.m
+│               │   ├── mk_sound.m
+│               │   ├── parse_sacpz_filename.m
+│               │   ├── plot_event_series.m
+│               │   ├── plot_raypaths.m
+│               │   ├── pullautomode.m
+│               │   ├── r2d.m
+│               │   ├── radpcalc.m
+│               │   ├── radpplot.m
+│               │   ├── readCMTfile.m
+│               │   ├── read_sac_pole_zero.m
+│               │   ├── read_sac_resp.m
+│               │   ├── readsac.m
+│               │   ├── recread_sac2eventmat.m
+│               │   ├── redbluecmap.m
+│               │   └── rm_resp.m
+│               ├── plotcoordonmap.m
+│               ├── plotgoodwvfrms.m
+│               └── setup_parameters.m
+├── 4_Bin/
+│   ├── 0_spectrogram/
+│   │   ├── plotcombi_spec.m
+│   │   ├── plotcombi_spec2.m
+│   │   ├── plotevspec.m
+│   │   ├── plotspecafr.m
+│   │   ├── plotspecafrmodif.m
+│   │   └── retrieveStrt.m
+│   ├── 1_Hybridmt_folder/
+│   │   ├── Dryan_scripts/
+│   │   │   ├── S3_run_focal_inversion.m
+│   │   │   └── velocity.m
+│   │   ├── hybridmt-v1.2.2/
+│   │   │   ├── Contents.m
+│   │   │   ├── drawstereonet.m
+│   │   │   ├── examples/
+│   │   │   │   └── TryVelMod.m
+│   │   │   ├── focimt.m
+│   │   │   ├── genmt_raw.m
+│   │   │   ├── genmt_vel1d.m
+│   │   │   ├── getsolution.m
+│   │   │   ├── hybridmt.m
+│   │   │   ├── hybridmt_install.m
+│   │   │   ├── hybridmt_show.m
+│   │   │   ├── project_stereonet.m
+│   │   │   ├── readraw.m
+│   │   │   ├── readsolution.m
+│   │   │   ├── readvel1d.m
+│   │   │   ├── src/
+│   │   │   │   └── focimt-3.3.1/
+│   │   │   │       ├── faultsolution.h
+│   │   │   │       ├── focimtaux.cpp
+│   │   │   │       ├── focimtaux.h
+│   │   │   │       ├── getopts.cpp
+│   │   │   │       ├── getopts.h
+│   │   │   │       ├── inputdata.cpp
+│   │   │   │       ├── inputdata.h
+│   │   │   │       ├── moment_tensor.cpp
+│   │   │   │       ├── moment_tensor.h
+│   │   │   │       ├── timedist.cpp
+│   │   │   │       ├── timedist.h
+│   │   │   │       ├── traveltime.cpp
+│   │   │   │       ├── traveltime.h
+│   │   │   │       ├── trinity_library.cpp
+│   │   │   │       ├── trinity_library.h
+│   │   │   │       ├── usmtcore.cpp
+│   │   │   │       └── usmtcore.h
+│   │   │   └── writeinput.m
+│   │   └── ll2utm_Dryan.m
+│   ├── 3_PolarGUI/
+│   │   └── PolarGUI/
+│   │       ├── Cursors/
+│   │       │   ├── CreateCursor-DESKTOP-LQB3DM7.m
+│   │       │   ├── CreateCursor.m
+│   │       │   ├── CursorDemo.m
+│   │       │   └── CursorWindowButtonMotionFcn.m
+│   │       ├── Fig2Dlg.m
+│   │       ├── RdWrSgy/
+│   │       │   ├── altreadsegy.m
+│   │       │   ├── altwritesegy.m
+│   │       │   ├── ascii2ebcdic.m
+│   │       │   └── ebcdic2ascii.m
+│   │       ├── TestDlg.m
+│   │       ├── buttern_filter.m
+│   │       ├── buttern_low.m
+│   │       ├── csigm.m
+│   │       ├── dmean.m
+│   │       ├── order.m
+│   │       ├── pca_ica/
+│   │       │   ├── PCA.m
+│   │       │   ├── PlayAudio.m
+│   │       │   ├── centerRows.m
+│   │       │   ├── fastICA.m
+│   │       │   ├── kICA.m
+│   │       │   ├── loadAudio.m
+│   │       │   ├── mvg.m
+│   │       │   ├── normalizeAudio.m
+│   │       │   ├── randomMixingMatrix.m
+│   │       │   ├── visualizeAudio.m
+│   │       │   └── whitenRows.m
+│   │       ├── plot_dir3.m
+│   │       ├── plot_dir3N.m
+│   │       ├── polar_analyticSig.m
+│   │       ├── polarization_PCA.m
+│   │       ├── polarize_estimation.m
+│   │       ├── polarize_estimation2.m
+│   │       ├── rdmseed.m
+│   │       └── seg2read.m
+│   ├── PhaseTime.m
+│   ├── SS_MTI-master/
+│   │   ├── .github/
+│   │   │   └── workflows/
+│   │   │       └── python-app.yml
+│   │   ├── EventInterface.py
+│   │   ├── SS_MTI/
+│   │   │   ├── DataGetter.py
+│   │   │   ├── Forward.py
+│   │   │   ├── Gradient.py
+│   │   │   ├── GreensFunctions.py
+│   │   │   ├── Inversion.py
+│   │   │   ├── MTDecompose.py
+│   │   │   ├── Misfit.py
+│   │   │   ├── PhaseTracer.py
+│   │   │   ├── PostProcessing.py
+│   │   │   ├── PreProcess.py
+│   │   │   ├── PullData.py
+│   │   │   ├── RadiationPattern.py
+│   │   │   ├── Read_H5.py
+│   │   │   ├── SourceTimeFunction.py
+│   │   │   └── __init__.py
+│   │   ├── Scripts/
+│   │   │   ├── Earth_spectra_plot.py
+│   │   │   ├── Interactive_SI_script copy.py
+│   │   │   ├── Observed_waveforms.py
+│   │   │   ├── PhaseTracker_script.py
+│   │   │   ├── Plot_observed.py
+│   │   │   ├── Produce_Paper_Figure.py
+│   │   │   ├── SI_Cluster_script.py
+│   │   │   ├── Script_synthetic_spectra.py
+│   │   │   ├── SourceInversion_script.py
+│   │   │   └── Synthetic_SI_script.py
+│   │   ├── Scripts_MT_Structure/
+│   │   │   ├── Benchmark_instaseis_refl.py
+│   │   │   ├── Benchmark_instaseis_reflectivity.ipynb
+│   │   │   ├── Create_Vmod.py
+│   │   │   ├── Exact_gradients.ipynb
+│   │   │   ├── Gradient_descent.ipynb
+│   │   │   ├── Manual_gradient_approx.ipynb
+│   │   │   ├── Output_Refl_FM.py
+│   │   │   ├── Output_reflectivity_BK.py
+│   │   │   ├── Reflectivity_test_BK.py
+│   │   │   ├── Result_analysis.ipynb
+│   │   │   ├── Script_Synthetic.py
+│   │   │   ├── Source_Receiver.ipynb
+│   │   │   ├── StructureInversion.py
+│   │   │   └── plot_traces.py
+│   │   ├── crfl.f
+│   │   ├── setup.py
+│   │   └── test_mount.py
+│   └── saveFig.m
+├── Archive_Codes/
+│   └── Modified_SS_MTI/
+│       ├── DataGetterWafr.py
+│       ├── ForwardWafr.py
+│       ├── InversionWafr.py
+│       ├── PostProcessingWafr.py
+│       └── PreProcessWafr.py
+├── Build_velocity_models/
+│   └── Modify_velocity_model.ipynb
+├── Debug/
+│   ├── Baowei_Debug/
+│   │   ├── 05_Single_Station_Inversion.ipynb
+│   │   ├── 05_Single_Station_Inversion_bl.ipynb
+│   │   └── Old/
+│   │       ├── 02_Single_Station_Inversion.ipynb
+│   │       └── 04_Plot_Data_Distribution.ipynb
+│   ├── Dr_O_Debug/
+│   │   ├── Test1_Mozambique_DrTolu/
+│   │   │   ├── 02_Single_Station_Inversion.ipynb
+│   │   │   ├── Python_Env_SS_MTI.sh
+│   │   │   ├── data/
+│   │   │   │   └── events/
+│   │   │   │       └── 20060222T221909/
+│   │   │   │           ├── 20060222T221909.toml
+│   │   │   │           └── Marsquake_tomlfile/
+│   │   │   │               └── S0235b.toml
+│   │   │   ├── demo.sh
+│   │   │   └── test.ipynb
+│   │   └── Test1_Mozambique_MTtime/
+│   │       ├── 00_eq's Download Data.ipynb
+│   │       ├── 01_Download_Synthetic_Seismograms.ipynb
+│   │       ├── 02_Single_Station_Inversion.ipynb
+│   │       ├── Examples_folder/
+│   │       │   ├── 00_eq's Download Data (copy).ipynb
+│   │       │   ├── 01_Data_Processing.ipynb
+│   │       │   └── Download_SynthSeismogram.py
+│   │       └── Untitled.ipynb
+│   └── mtdebug/
+│       └── 03_Run_Inversion_bl.py
+├── MT_SSMTI/
+│   ├── Final_Test_AK135/
+│   │   ├── 01_InventoryScanner.ipynb
+│   │   ├── 03_Polarization_Analysis_PhaseCorrection_&_Final_Input.ipynb
+│   │   └── 05_Single_Station_Inversion.ipynb
+│   ├── Final_Test_IASP91/
+│   │   └── 05_Single_Station_Inversion.ipynb
+│   ├── Final_Test_PREM/
+│   │   └── 05_Single_Station_Inversion.ipynb
+│   ├── Final_Work_Flow/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── 01_InventoryScanner.ipynb
+│   │   ├── 02_Summary-Data Quality.ipynb
+│   │   ├── 03_Polarization_Analysis_PhaseCorrection_&_Final_Input.ipynb
+│   │   ├── 04_Plot_Data_Distribution.ipynb
+│   │   ├── 05_Single_Station_Inversion.ipynb
+│   │   ├── 06_Plot_Lithospheric_Stress.ipynb
+│   │   ├── 07_Reguibat_Cluster.ipynb
+│   │   ├── Bin_insp/
+│   │   │   ├── 00_eq's Download Data.ipynb
+│   │   │   ├── 01_Data_Processing.ipynb
+│   │   │   ├── 01_InventoryScanner.ipynb
+│   │   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   │   ├── 02_Waveform_Test_Processing.ipynb
+│   │   │   ├── 03_Single_Station_Inversion.ipynb
+│   │   │   ├── 04_Single_Station_Inversion.ipynb
+│   │   │   ├── 05_Single_Station_Inversion.ipynb
+│   │   │   ├── DaylistcreationforDloPy.ipynb
+│   │   │   ├── OJP_Inv.ipynb
+│   │   │   ├── Observe_BigEq_TORD.ipynb
+│   │   │   ├── Prepare_CTBTO_Data_for_Emma.ipynb
+│   │   │   ├── ReadEqCTBTO.ipynb
+│   │   │   ├── Sayan_Project_Start.ipynb
+│   │   │   ├── TORD_EqWafr_Detection_old.ipynb
+│   │   │   ├── TORD_response.ipynb
+│   │   │   ├── Untitled.ipynb
+│   │   │   ├── Update TORD  Inventory.ipynb
+│   │   │   └── save2SACVDEC.ipynb
+│   │   ├── Untitled.ipynb
+│   │   └── _Plot_Lithospheric_Stress_Africa.ipynb
+│   ├── Test1_Mozambique/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── 02_Waveform_Test_Processing.ipynb
+│   │   ├── 03_Single_Station_Inversion.ipynb
+│   │   ├── Inspirations_folder/
+│   │   │   ├── 00_eq's Download Data (copy).ipynb
+│   │   │   ├── 01_Data_Processing.ipynb
+│   │   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   │   ├── 02_Single_Station_Inversion.ipynb
+│   │   │   ├── Download_SynthSeismogram.py
+│   │   │   ├── Info_to_Debug_SSMTI_PythLibraries/
+│   │   │   │   ├── SS_MTI/
+│   │   │   │   │   ├── DataGetter.py
+│   │   │   │   │   ├── DataGetterWafr.py
+│   │   │   │   │   ├── Forward.py
+│   │   │   │   │   ├── Gradient.py
+│   │   │   │   │   ├── GreensFunctions.py
+│   │   │   │   │   ├── Inversion.py
+│   │   │   │   │   ├── MTDecompose.py
+│   │   │   │   │   ├── Misfit.py
+│   │   │   │   │   ├── PhaseTracer.py
+│   │   │   │   │   ├── PostProcessing.py
+│   │   │   │   │   ├── PreProcess.py
+│   │   │   │   │   ├── PullData.py
+│   │   │   │   │   ├── RadiationPattern.py
+│   │   │   │   │   ├── Read_H5.py
+│   │   │   │   │   ├── SourceTimeFunction.py
+│   │   │   │   │   └── __init__.py
+│   │   │   │   └── mqs_reports/
+│   │   │   │       ├── __init__.py
+│   │   │   │       ├── annotations.py
+│   │   │   │       ├── catalog.py
+│   │   │   │       ├── create_table.py
+│   │   │   │       ├── event.py
+│   │   │   │       ├── io.py
+│   │   │   │       ├── magnitudes.py
+│   │   │   │       ├── noise.py
+│   │   │   │       ├── plot_time_diffs.py
+│   │   │   │       ├── read_BED_Mars.py
+│   │   │   │       ├── report.py
+│   │   │   │       ├── scatter_annot.py
+│   │   │   │       ├── scripts.py
+│   │   │   │       ├── snr.py
+│   │   │   │       └── utils.py
+│   │   │   └── Marsquake_tomlfile/
+│   │   │       └── S0235b.toml
+│   │   ├── Instaseis_training/
+│   │   │   └── 01_Download_Synthetic_Seismograms.ipynb
+│   │   └── data/
+│   │       └── events/
+│   │           └── 20060222T221909/
+│   │               └── 20060222T221909.toml
+│   ├── Test1_Mozambique_DrTolu/
+│   │   ├── 02_Single_Station_Inversion.ipynb
+│   │   ├── Python_Env_SS_MTI.sh
+│   │   ├── data/
+│   │   │   └── events/
+│   │   │       └── 20060222T221909/
+│   │   │           ├── 20060222T221909.toml
+│   │   │           └── Marsquake_tomlfile/
+│   │   │               └── S0235b.toml
+│   │   ├── demo.sh
+│   │   └── test.ipynb
+│   ├── Test2_Gabon/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── 02_Waveform_Test_Processing.ipynb
+│   │   ├── 03_Single_Station_Inversion.ipynb
+│   │   ├── Untitled.ipynb
+│   │   ├── data/
+│   │   │   └── events/
+│   │   │       └── 20210309T230755/
+│   │   │           └── 20210309T230755.toml
+│   │   └── data_ref/
+│   │       └── events/
+│   │           └── 20060222T221909b/
+│   │               └── 20060222T221909.toml
+│   └── WAfrCatalog_Scan_PZ_ST_Mg4_5/
+│       ├── 00_eq's Download Data.ipynb
+│       ├── 02_Waveform_Test_Processing.ipynb
+│       ├── 03_Single_Station_Inversion.ipynb
+│       └── Waveform_Test_Old.ipynb
+├── MT_time/
+│   ├── Algeria/
+│   │   ├── 00_Introduction_and_Data_Retrieval.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── Gabon/
+│   │   ├── 00_Gabon eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── Gabon_test1_2/
+│   │   ├── 00_Gabon eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── Gabon_test1_3/
+│   │   ├── 00_Gabon eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── Gabon_test2/
+│   │   ├── 00_Gabon eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── MT_time_Polarity_Check/
+│   │   ├── Gabon_test/
+│   │   │   ├── 00_Gabon eq's Download Data.ipynb
+│   │   │   └── 01_Data_Processing.ipynb
+│   │   └── Guinea202102030955/
+│   │       ├── 00_eq's Download Data.ipynb
+│   │       └── 01_Data_Processing.ipynb
+│   ├── Mozambique/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── Mozambique_gil7_higher_freq/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── Mozambique_tak135/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   ├── 03_Run_Inversion_bl.py
+│   │   ├── Result_Inversion_final/
+│   │   │   └── Kagan_angles/
+│   │   │       ├── KaganAngleCalculate.m
+│   │   │       ├── kagan.m
+│   │   │       └── saveFig.m
+│   │   └── Untitled.ipynb
+│   ├── Mozambique_tak135 (copy)/
+│   │   ├── 00_eq's Download Data.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   └── 03_Run_Inversion_bl.py
+│   ├── mttime-master/
+│   │   ├── .readthedocs.yaml
+│   │   ├── docs/
+│   │   │   ├── environment.yaml
+│   │   │   ├── make.bat
+│   │   │   └── source/
+│   │   │       └── conf.py
+│   │   ├── examples/
+│   │   │   ├── RGF/
+│   │   │   │   └── run.py
+│   │   │   ├── notebooks/
+│   │   │   │   ├── 00_Introduction_and_Data_Retrieval.ipynb
+│   │   │   │   ├── 00_Introduction_and_Data_Retrieval.py
+│   │   │   │   ├── 01_Data_Processing.ipynb
+│   │   │   │   ├── 01_Data_Processing.py
+│   │   │   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   │   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.py
+│   │   │   │   ├── 03_Run_Inversion.ipynb
+│   │   │   │   └── 03_Run_Inversion.py
+│   │   │   └── synthetic/
+│   │   │       ├── make_example.sh
+│   │   │       ├── test.ipynb
+│   │   │       └── test.py
+│   │   ├── setup.py
+│   │   └── src/
+│   │       └── mttime/
+│   │           ├── __init__.py
+│   │           ├── core/
+│   │           │   ├── __init__.py
+│   │           │   ├── configure.py
+│   │           │   ├── inversion.py
+│   │           │   ├── tensor.py
+│   │           │   └── utils.py
+│   │           ├── imaging/
+│   │           │   ├── __init__.py
+│   │           │   ├── beachball.py
+│   │           │   ├── scripts/
+│   │           │   │   ├── __init__.py
+│   │           │   │   └── mopad.py
+│   │           │   └── source.py
+│   │           └── scripts/
+│   │               ├── __init__.py
+│   │               └── run.py
+│   ├── notebooks_example_modified/
+│   │   ├── 00_Introduction_and_Data_Retrieval.ipynb
+│   │   ├── 01_Data_Processing.ipynb
+│   │   ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│   │   ├── 03_Run_Inversion.ipynb
+│   │   ├── 03_Run_Inversion.py
+│   │   └── 03_Run_Inversion_bl.py
+│   └── notebooks_example_modified (copy)/
+│       ├── 00_Introduction_and_Data_Retrieval.ipynb
+│       ├── 01_Data_Processing.ipynb
+│       ├── 02_Prepare_Data_and_Synthetics_For_Inversion.ipynb
+│       ├── 03_Run_Inversion.ipynb
+│       ├── 03_Run_Inversion.py
+│       └── 03_Run_Inversion_bl.py
+└── Seislib/
+    ├── D_Tolu/
+    │   ├── PythonEnv.sh
+    │   └── Surface Waves Velocities.ipynb
+    ├── Data_Selection.ipynb
+    ├── Process_Surface_Waves.ipynb
+    ├── Surface Waves Velocities.ipynb
+    ├── Untitled.ipynb
+    └── Untitled1.ipynb
+```
 
 ## 3. Code Reference
 

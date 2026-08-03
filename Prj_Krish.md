@@ -23,49 +23,18 @@ The ADAMA (Advanced Data Analysis for Multi-Angle) project is a sophisticated su
 
 ## 2. Data Architecture
 
-### Directory Structure
-The ADAMA project is organized into the following directories:
-
-- **ROOT/**: Contains large raw data files and initial setup scripts.
-- **ADAMAdata/**: Stores processed and intermediate data files.
-- **bhive/**: Houses the main processing script and related data.
-- **ADAMA_code/**: Includes all MATLAB and Python scripts for data processing.
-
-### Data Files
-#### ROOT/
-- `ADAMA_ncfs_ZZ_fi.h*` (7539.92 MB): Raw noise correlation function data.
-- `trainingdata_part_first_*.h*` (3845.22 MB): Initial training data partition.
-
-#### ADAMAdata/
-- `ADAMA_ncfs_ZZ_fr.h*` (7539.92 MB): Processed noise correlation function data.
-- `ADAMAraw_cf_ral.h*` (7118.00 MB): Raw coherence factor data.
-- `ADAMAraw_rs_ral.h*` (7118.00 MB): Raw Rayleigh wave data.
-- `ADAMA_ncfs_TT_fr.h*` (7540.24 MB): Processed noise correlation function data for another dataset.
-- `ADAMAraw_rs_love.h*` (7118.06 MB): Raw Love wave data.
-- `ADAMAraw_co_ral.h*` (6933.43 MB): Raw coherence factor data.
-- `ADAMAraw_env_ral.h*` (7118.00 MB): Raw envelope data.
-- `ADAMAraw_bes_ral.h*` (7118.00 MB): Raw bessel function data.
-- `ADAMAraw_bes_love.h*` (7118.06 MB): Raw bessel function data for Love waves.
-- `ADAMA_staconns.csv` (10.92 MB): Station connection metadata.
-
-#### bhive/
-- `trainingdata_part_*k_to_*k.h*` (55205.00 MB): Training data partitions.
-- `krish_run_script.m`: Main processing script.
-- `krish_run_script.asv`: Auto-save version of the main script.
-- `.DS_Store` (0.01 MB): macOS directory metadata.
-
-#### ADAMA_code/
-- `read_ADAMA_raw.m`: Script for reading raw seismic data.
-- `read_ADAMA_ncfs.m`: Script for reading noise correlation function data.
-- `read_ADAMA_ncfs.asv`: Auto-save version of the noise correlation function reader.
-- `ADAMA_bldDLTraining.asv`: Auto-save version of the deep learning training dataset builder.
-- `read_ADAMA_ncfs_old.m`: Legacy script for reading noise correlation function data.
-- `ADAMA_predclean.m`: Script for filtering predicted phase velocity data.
-- `ADAMA_bldDLTraining.m`: Script for constructing deep learning training datasets.
-- `buildADAMAraw.py`: Python script for converting AkiEstimate results into HDF5 format.
-
-### Data Patterns
-The data is organized in a hierarchical structure to facilitate efficient processing and storage. Raw data files are stored in the `ROOT` and `ADAMAdata` directories, while processed data and training datasets are generated and stored in the `bhive` directory. The `ADAMA_code` directory contains all the scripts necessary for data ingestion, processing, and deep learning applications.
+```text
+Prj_Krish/
+├── ADAMA_code/
+│   ├── ADAMA_bldDLTraining.m
+│   ├── ADAMA_predclean.m
+│   ├── buildADAMAraw.py
+│   ├── read_ADAMA_ncfs.m
+│   ├── read_ADAMA_ncfs_old.m
+│   └── read_ADAMA_raw.m
+└── bhive/
+    └── krish_run_script.m
+```
 
 ## 3. Code Reference
 

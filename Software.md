@@ -24,52 +24,12 @@ This documentation is intended for new team members, system administrators, and 
 
 ## 2. Data Architecture
 
-### Directory Structure
-The project's root directory (`ROOT/`) contains the following files:
-
-- **`cluster_installer.m`:** Application-specific script for Windows systems.
-- **`._cluster_installer.m`:** Core automation script.
-- **`cluster_installer2.m`:** Application-specific script for Unix-based systems.
-
-### Data Patterns
-The data architecture is straightforward, with all necessary scripts located in the root directory. Each script is designed to handle specific tasks and environments:
-
-- **`._cluster_installer.m`:** Manages the overall setup process, including software installations, configurations, and dependencies.
-- **`cluster_installer.m`:** Configures MATLAB cluster profiles for Windows systems.
-- **`cluster_installer2.m`:** Configures MATLAB cluster profiles for Unix-based systems.
-
-### File Descriptions
-- **`._cluster_installer.m`:**
-  - **Purpose:** Automates the setup process by handling software installations, configurations, and dependencies across multiple nodes.
-  - **Inputs:**
-    - Administrator credentials
-    - Network details
-    - Software versions
-    - Installation paths
-  - **Outputs:**
-    - Log files for real-time feedback on setup progress and errors
-
-- **`cluster_installer.m`:**
-  - **Purpose:** Configures MATLAB cluster profiles for Windows systems.
-  - **Inputs:**
-    - Root directory
-    - Job storage path
-    - Unique subfolders
-    - Submission arguments
-    - Worker node counts
-  - **Outputs:**
-    - Configured cluster profile
-
-- **`cluster_installer2.m`:**
-  - **Purpose:** Configures MATLAB cluster profiles for Unix-based systems.
-  - **Inputs:**
-    - Root directory
-    - Job storage path
-    - Unique subfolders
-    - Submission arguments
-    - Worker node counts
-  - **Outputs:**
-    - Configured cluster profile
+```text
+Software/
+├── ._cluster_installer.m
+├── cluster_installer.m
+└── cluster_installer2.m
+```
 
 ## 3. Code Reference
 

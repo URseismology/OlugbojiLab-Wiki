@@ -13,31 +13,15 @@ The Seismic Data Processing Subsystem is designed to handle large datasets effic
 
 ## 2. Data Architecture
 
-### Directory Structure
-
-The project's directory structure is organized to facilitate efficient data handling and processing:
-
-- **ROOT/**: Contains the main scripts and configuration files.
-    - `new_submit.sh`: Script for submitting new jobs.
-    - `pd (1.66 MB)`: Placeholder file or binary (purpose needs clarification).
-    - `Download_SS_Based_On_Location.ipynb`: Jupyter Notebook for initial data exploration.
-    - `run_python_job.sh`: Script to run Python jobs within a Conda environment.
-    - `download_SS_location_old.py`: Legacy script for downloading SS bouncepoint data.
-    - `Load_Python_Environment`: Script to load the Python environment.
-    - `download_SS_location.py`: Updated script for downloading SS bouncepoint data.
-    - `submit_job.sh`: Script for submitting jobs.
-    - `new_download.py`: Script for chunking and processing SS bouncepoint data.
-    - `old.sh`: Legacy job submission script.
-    
-- **data/**: Contains 53 SAC files (3.64 MB) used for testing or small-scale processing.
-- **data_test/**: Contains 16,771 SAC files (1159.51 MB) for comprehensive testing and validation.
-- **data_old/**: Contains 260,966 SAC files (18031.81 MB) from older datasets.
-
-### Data Patterns
-
-- **SAC Files**: The primary data format used in this project is the Standard for the Exchange of Earthquake Data (SAC). These files store seismic waveform data and metadata.
-- **Metadata**: Each SAC file includes metadata such as event depth, range criteria, and other relevant information necessary for processing and analysis.
-- **Data Segmentation**: Large datasets are segmented into smaller chunks to facilitate parallel processing and efficient resource utilization.
+```text
+Prj4_Mai/
+├── Download_SS_Based_On_Location.ipynb
+├── new_download.py
+├── new_submit.sh
+├── old.sh
+├── run_python_job.sh
+└── submit_job.sh
+```
 
 ## 3. Code Reference
 

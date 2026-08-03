@@ -24,76 +24,113 @@ The `ROOT` subsystem is a sophisticated framework dedicated to advanced seismic 
 
 ## 2. Data Architecture
 
-### Directory Structure
-The project is organized into the following directories:
-
-#### `shared/`
-- **job.slurm**: SLURM job submission script.
-- **job_dependency/**:
-  - **chkTomoDat.m**: MATLAB script to check tomography data.
-  - **README**: Documentation for job dependency management.
-  - **prepare_n_submit.sh**: Shell script to prepare and submit jobs.
-  - **modeltxt*struct.m**: MATLAB function to convert model text to structure.
-  - **modelstruct*txt.m**: MATLAB function to convert model structure to text.
-
-- **test/**:
-  - **job_report.txt**: Report of job execution.
-  - **README**: Documentation for the test directory.
-  - **paths.dat**: Data file containing paths (8.79 GB).
-  - **prepare_n_submit.sh**: Shell script to prepare and submit jobs.
-  - **receivers.dat**: Data file for receiver locations (0.03 MB).
-  - **sources.dat**: Data file for source locations (0.03 MB).
-  - **input.nml**: Input configuration file.
-  - **observations.dat**: Data file for observations (16.89 MB).
-
-- **rjMCMC2D_Afr_bl/**:
-  - **CreateNewModel.m**: MATLAB function to create a new model.
-  - **prepare_chains.asv**: MATLAB script for preparing chains.
-  - **MCMC_*D_cycle_Afr.m**: MATLAB function for MCMC cycle in African context.
-  - **submit_chain_bh.slurm**: SLURM script for submitting black hole chains.
-  - **AcceptOrNot.m**: MATLAB function to accept or reject new models.
-  - **PickAction.m**: MATLAB function to pick actions for the simulation.
-  - **CreateNewModel_Afr.m**: MATLAB function to create a new model specific to Africa.
-  - **plot_results.m**: MATLAB script for plotting results.
-  - **rj*DMCMC_Afr.asv**: MATLAB script for rjMCMC in African context.
-  - **run_MCMC*D.slurm**: SLURM script for running MCMC simulations.
-  - **ForwardStep.m**: MATLAB function for forward steps in the simulation.
-  - **generate_syn_data.m**: MATLAB function to generate synthetic data.
-  - **prepare_chains.sh**: Shell script for preparing chains.
-  - **run_MCMC*D.sh**: Shell script for running MCMC simulations.
-  - **rj*DMCMC_para.m**: MATLAB function for rjMCMC parameters.
-  - **submit_chain_br.slurm**: SLURM script for submitting broad region chains.
-  - **rj*DMCMC_Afr.m**: MATLAB function for rjMCMC in African context.
-  - **run_rj*DMCMC.slurm**: SLURM script for running rjMCMC simulations.
-  - **plot_simulation.m**: MATLAB script for plotting simulation results.
-  - **submit_chain_ex.slurm**: SLURM script for submitting extended chains.
-  - **MCMC_*D_cycle.m**: MATLAB function for MCMC cycle.
-
-- **rjMCMC2D_test/**:
-  - Similar to `rjMCMC2D_Afr_bl` but with a focus on testing and development.
-
-- **rjMCMC2D_Afr_bl/syn_data/**:
-  - **Afr_checker.mat**: Data file for African checkerboard (0.31 MB).
-  - **AfricaCoast.mat**: Data file for African coastlines.
-  - **data_FFM.mat**: Data file for full waveform modeling (0.05 MB).
-
-- **rjMCMC2D_test/syn_data/**:
-  - Similar to `rjMCMC2D_Afr_bl/syn_data`.
-
-- **rjMCMC2D_Afr_bl/Temp_MCMC/TestAfr_2D/**:
-  - **test_*.mat**: Test data files (0.06 MB).
-
-- **rjMCMC2D_Afr_bl/Temp_MCMC/TestPara/**:
-  - **test_*.mat**: Test parameter files (0.06 MB).
-
-#### `jlegre_test/rjMCMC2D_Afr/`
-- Similar to `shared/rjMCMC2D_Afr` but with additional test-specific scripts and data.
-
-### Data Patterns
-- **Synthetic Data**: Used for model validation and testing.
-- **Observation Data**: Real-world seismic data used in simulations.
-- **Model Files**: Contain the initial and updated models during MCMC simulations.
-- **Result Files**: Store the outcomes of MCMC cycles, including acceptance ratios and final models.
+```text
+Prj_DL_Tomo_NSF/
+├── jlegre_test/
+│   └── rjMCMC2D_Afr/
+│       ├── AcceptOrNot.m
+│       ├── CreateNewModel.m
+│       ├── CreateNewModel_Afr.m
+│       ├── ForwardStep.m
+│       ├── MCMC_2D_cycle.m
+│       ├── MCMC_2D_cycle_Afr.m
+│       ├── PickAction.m
+│       ├── generate_syn_data.m
+│       ├── plot_results.m
+│       ├── plot_simulation.m
+│       ├── rj2DMCMC_Afr.m
+│       ├── rj2DMCMC_para.m
+│       ├── run_MCMC2D.sh
+│       ├── submit_chain_bh.slurm
+│       ├── submit_chain_br.slurm
+│       └── submit_chain_ex.slurm
+└── shared/
+    ├── job.slurm
+    ├── job_dependency/
+    │   ├── chkTomoDat.m
+    │   ├── job.slurm
+    │   ├── modelstruct2txt.m
+    │   ├── modeltxt2struct.m
+    │   └── prepare_n_submit.sh
+    ├── rjMCMC2D_Afr/
+    │   ├── AcceptOrNot.m
+    │   ├── CreateNewModel.m
+    │   ├── CreateNewModel_Afr.m
+    │   ├── ForwardStep.m
+    │   ├── MCMC_2D_cycle.m
+    │   ├── MCMC_2D_cycle_Afr.m
+    │   ├── PickAction.m
+    │   ├── generate_syn_data.m
+    │   ├── plot_results.m
+    │   ├── plot_simulation.m
+    │   ├── prepare_chains.sh
+    │   ├── rj2DMCMC_Afr.m
+    │   ├── rj2DMCMC_para.m
+    │   ├── run_MCMC2D.sh
+    │   ├── run_MCMC2D.slurm
+    │   ├── run_rj2DMCMC.slurm
+    │   ├── submit_chain_bh.slurm
+    │   ├── submit_chain_br.slurm
+    │   └── submit_chain_ex.slurm
+    ├── rjMCMC2D_Afr_bl/
+    │   ├── AcceptOrNot.m
+    │   ├── CreateNewModel.m
+    │   ├── CreateNewModel_Afr.m
+    │   ├── ForwardStep.m
+    │   ├── MCMC_2D_cycle.m
+    │   ├── MCMC_2D_cycle_Afr.m
+    │   ├── PickAction.m
+    │   ├── generate_syn_data.m
+    │   ├── plot_results.m
+    │   ├── plot_simulation.m
+    │   ├── prepare_chains.sh
+    │   ├── rj2DMCMC_Afr.m
+    │   ├── rj2DMCMC_para.m
+    │   ├── run_MCMC2D.sh
+    │   ├── run_MCMC2D.slurm
+    │   ├── run_rj2DMCMC.slurm
+    │   ├── submit_chain_bh.slurm
+    │   ├── submit_chain_br.slurm
+    │   └── submit_chain_ex.slurm
+    ├── rjMCMC2D_test/
+    │   ├── AcceptOrNot.m
+    │   ├── CreateNewModel.m
+    │   ├── ForwardStep.m
+    │   ├── MCMC_2D_cycle.m
+    │   ├── PickAction.m
+    │   ├── chk/
+    │   │   ├── MCMC_2D_cycle.m
+    │   │   └── rj2DMCMC_para.m
+    │   ├── generate_syn_data.m
+    │   ├── plot_results.m
+    │   ├── plot_simulation.m
+    │   ├── rj2DMCMC_para.m
+    │   ├── run_MCMC2D.sh
+    │   ├── submit_chain_bh.slurm
+    │   ├── submit_chain_br.slurm
+    │   └── submit_chain_ex.slurm
+    ├── sxue3/
+    │   └── rjMCMC2D_Afr/
+    │       ├── AcceptOrNot.m
+    │       ├── CreateNewModel.m
+    │       ├── CreateNewModel_Afr.m
+    │       ├── ForwardStep.m
+    │       ├── MCMC_2D_cycle.m
+    │       ├── MCMC_2D_cycle_Afr.m
+    │       ├── PickAction.m
+    │       ├── generate_syn_data.m
+    │       ├── plot_results.m
+    │       ├── plot_simulation.m
+    │       ├── rj2DMCMC_Afr.m
+    │       ├── rj2DMCMC_para.m
+    │       ├── run_MCMC2D.sh
+    │       ├── submit_chain_bh.slurm
+    │       ├── submit_chain_br.slurm
+    │       └── submit_chain_ex.slurm
+    └── test/
+        ├── job.slurm
+        └── prepare_n_submit.sh
+```
 
 ## 3. Code Reference
 

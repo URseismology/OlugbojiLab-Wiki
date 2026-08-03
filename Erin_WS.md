@@ -28,36 +28,17 @@ The project is organized within a single directory (`ROOT/`) containing Python s
 
 ## 2. Data Architecture
 
-### Data Patterns
-The data in this project primarily consists of:
-- **Station Metadata**: CSV files containing information about weather stations, including location, operational years, and network affiliations.
-- **Graph Data**: GML files representing the network connections between stations.
-
-#### Station Metadata
-- **CSV Format**: Each row represents a station with columns for ID, latitude, longitude, operating years, and network name.
-- **Example**:
-  ```csv
-  id,latitude,longitude,operating_years,network
-  1,40.7128,-74.0060,"[2000, 2001, 2002]",NWS
-  ```
-
-#### Graph Data
-- **GML Format**: NetworkX graphs stored in GML format, representing connections between stations.
-- **Example**:
-  ```gml
-  graph [
-    node [ id 0 label "Station1" ]
-    node [ id 1 label "Station2" ]
-    edge [ source 0 target 1 ]
-  ]
-  ```
-
-### Data Flow
-1. **Data Ingestion**: Raw CSV files are read into pandas DataFrames.
-2. **Preprocessing**: Data is cleaned and transformed, ensuring consistency and accuracy.
-3. **Graph Construction**: Network graphs are constructed from the preprocessed data using `networkx`.
-4. **Analysis**: Statistical analysis and pathfinding are performed on the graph data.
-5. **Visualization**: Results are visualized using matplotlib and seaborn.
+```text
+Erin_WS/
+├── Final.ipynb
+├── LoadPythonEnv_forErin.sh
+├── Raypath_test.ipynb
+├── check.ipynb
+├── lab.ipynb
+├── labtest.ipynb
+├── test.ipynb
+└── untitled.py
+```
 
 ## 3. Code Reference
 
