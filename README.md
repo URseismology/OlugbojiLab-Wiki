@@ -8,6 +8,7 @@ Below is the current layout of the top-level directories and their contents.
 The root directory is strictly reserved for manually created documentation that requires human curation, architectural post-mortems, and core repository structure. This ensures that important information is not overwritten by the automated pipeline.
 
 **Files:**
+- [`data-archiving.md`](data-archiving.md): Documentation of the lab's fault-tolerant, automated massive data archival infrastructure.
 - [`DrOJupterLabs.md`](DrOJupterLabs.md): Documentation for the JupyterLab setups.
 - [`Future_Extensions_TwoAgent_AI.md`](Future_Extensions_TwoAgent_AI.md): Planning document for extending the AI pipeline architecture.
 - [`JupyterHub_Network_PostMortem.md`](JupyterHub_Network_PostMortem.md): Architectural details and incident review of the JupyterHub setup.
