@@ -1,0 +1,14 @@
+[Unit]
+Description=AutoSSH tunnel to urseismogate for CodeSearch
+After=network-online.target
+
+[Service]
+Environment="AUTOSSH_GATETIME=0"
+# -N Do not execute a remote command
+# -R 55010:localhost:8501 (Bind gateway 55010 to local 8501)
+ExecStart=/usr/bin/autossh -M 0 -N -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -R 55010:localhost:8501 urseismoadmin@urseismogate.earth.rochester.edu
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=LabAI CodeSearch Streamlit App
+After=network.target
+
+[Service]
+WorkingDirectory=/home/urseismoadmin/AIBot-CodeSearch-App
+Environment="PATH=/home/urseismoadmin/codesearch_env/bin"
+ExecStart=/home/urseismoadmin/codesearch_env/bin/streamlit run app.py --server.port 8501 --server.headless true --server.address 127.0.0.1
+Restart=always
+
+[Install]
+WantedBy=default.target
