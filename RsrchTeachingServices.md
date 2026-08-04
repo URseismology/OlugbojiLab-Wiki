@@ -88,6 +88,26 @@ Because `urseismogate` is highly sensitive, we do not require passwordless `sudo
 
 ---
 
+### Tunnel Connectivity & Fail2ban Troubleshooting
+When setting up new `autossh` tunnels from internal lab nodes to `urseismogate`, you must avoid interactive password prompts, as multiple failed login attempts will cause the gateway's `fail2ban` service to temporarily ban the internal node's IP address (resulting in `Connection refused` on Port 22).
+
+**Best Practices for `autossh` User Services:**
+Always include the following arguments in your `ExecStart` definition to force SSH to fail gracefully without prompting for a password:
+```ini
+ExecStart=/usr/bin/autossh -M 0 -N -o "StrictHostKeyChecking no" -o "BatchMode yes" ...
+```
+
+**How to Unban an IP Address:**
+If an internal node (e.g., `inferencelocal`) is inadvertently blocked and cannot connect to the gateway:
+1. Log into the gateway (`urseismogate`) from a non-blocked machine (like the local Mac workstation).
+2. Execute the following command to lift the ban immediately:
+   ```bash
+   sudo fail2ban-client unban <IP_ADDRESS>
+   ```
+   *(e.g., `sudo fail2ban-client unban 128.151.53.34`)*
+
+---
+
 ## 4. JupyterHub Swarm Integration & Stabilization
 
 We utilize Docker Swarm to schedule `jupyterhub-singleuser` containers across multiple physical nodes (CPU vs GPU). Two critical stabilization fixes have been permanently applied to ensure this architecture functions seamlessly:
