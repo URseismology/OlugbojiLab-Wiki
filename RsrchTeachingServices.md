@@ -71,6 +71,11 @@ We have successfully mapped the internal JupyterHub environment (`terra4-classno
 *   **The Gateway:** `urseismogate` runs a secondary Nginx `location /lab-beta/` block that routes external traffic to the `55009` tunnel.
 *   **JupyterHub Config:** The staging JupyterHub is configured with `c.JupyterHub.base_url = '/lab-beta/'` to map cleanly to the experimental environment.
 
+### Architecture C (CodeSearch Dashboard Exposure):
+*   **The Tunnel:** A dedicated `systemd` user service (`codesearch-tunnel.service`) running on `inferencelocal` uses `autossh` to forward the local Streamlit port `8501` to remote port `55010` on the gateway.
+*   **The Gateway:** `urseismogate` runs an Nginx `location /code-search/` block that proxies traffic to `http://127.0.0.1:55010`.
+*   **Streamlit Config:** The Streamlit app is explicitly configured with `--server.baseUrlPath /code-search/` so that its internal paths align with the reverse proxy.
+
 ### Nginx Installation & Rollback Procedure
 Because `urseismogate` is highly sensitive, we do not require passwordless `sudo` access to deploy changes. Instead, we use an automated script:
 1.  **Installation Script:** `~/apply_nginx.sh` is uploaded to `urseismoadmin-m2@urseismogate`.
