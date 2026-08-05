@@ -234,6 +234,15 @@ def process_tarball(conn, filename):
             wf.write(wiki_content)
             
         log_print(f"Wiki published successfully to {wiki_file_path}")
+        
+        # --- TRIGGER KNOWLEDGE INDEXER ---
+        log_print("Triggering AIBot-KnowledgeIndexer to vectorize new codebase summaries into ChromaDB...")
+        import subprocess
+        try:
+            subprocess.run(["python3", "/home/urseismoadmin/AIBot-KnowledgeIndexer.py"], check=True)
+            log_print("KnowledgeIndexer finished successfully. CodeSearch Dashboard is now updated.")
+        except Exception as e:
+            log_print(f"[ERROR] Failed to run KnowledgeIndexer: {e}")
 
     except Exception as e:
         log_print(f"Error processing {filename}: {e}")
