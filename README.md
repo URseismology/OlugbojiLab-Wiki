@@ -8,6 +8,7 @@ Below is the current layout of the top-level directories and their contents.
 The root directory is strictly reserved for manually created documentation that requires human curation, architectural post-mortems, and core repository structure. This ensures that important information is not overwritten by the automated pipeline.
 
 **Files:**
+- [`AWS_EarthScope_Access_Guide.md`](AWS_EarthScope_Access_Guide.md): Detailed guide for provisioning and configuring AWS and EarthScope access on new lab machines.
 - [`CodeSearch_Architecture.md`](CodeSearch_Architecture.md): Documentation of the LabAI CodeSearch Ecosystem architecture (semantic RAG backend, web dashboard, and persistent service tunnels).
 - [`data-archiving.md`](data-archiving.md): Documentation of the lab's fault-tolerant, automated massive data archival infrastructure.
 - [`DrOJupterLabs.md`](DrOJupterLabs.md): Documentation for the JupyterLab setups.
