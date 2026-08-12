@@ -112,6 +112,24 @@ EarthScope manages access to its seismic database using its own identity systems
 
 ---
 
+## FAQ / Troubleshooting
+
+### EarthScope `es login` Permission Denied Error
+When running the EarthScope `docker run ... es login` command, if you encounter a `PermissionError` (e.g., `PermissionError: [Errno 13] Permission denied: '/home/jovyan/.earthscope/default'`), this is due to a Linux/Docker permission mismatch:
+1. **Docker Daemon Access:** Make sure your user is in the `docker` group. If you get a "daemon socket permission denied" error, run:
+   ```bash
+   sudo usermod -aG docker $USER
+   newgrp docker
+   ```
+2. **Container UID Mismatch:** By default, Docker maps the container user (usually UID 1000) to the host folder. If your user ID is not 1000, or if Docker automatically created the directory as `root`, the container cannot write the credentials. Fix this by pre-creating the directory with universal write access:
+   ```bash
+   mkdir -p ~/.earthscope
+   chmod 777 ~/.earthscope
+   ```
+After running these fixes, re-run the `es login` Docker command.
+
+---
+
 ## References
 *   [1] [AWS Docker Pipeline Guide](file:///Users/olugboji/SynologyDrive/1.UofR_Seismology/1_Admin/Admin8_LabAI/KNOWLEDGE_BASE/AWS_Docker_Pipeline_Guide.md)
 *   [2] [OlugbojiLabConnects Manifesto](file:///Users/olugboji/SynologyDrive/1.UofR_Seismology/1_Admin/Admin8_LabAI/KNOWLEDGE_BASE/OlugbojiLabConnects_Manifesto.md)
