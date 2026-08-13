@@ -11,6 +11,7 @@ The root directory is strictly reserved for manually created documentation that 
 - [`AWS_EarthScope_Access_Guide.md`](AWS_EarthScope_Access_Guide.md): Detailed guide for provisioning and configuring AWS and EarthScope access on new lab machines.
 - [`CodeSearch_Architecture.md`](CodeSearch_Architecture.md): Documentation of the LabAI CodeSearch Ecosystem architecture (semantic RAG backend, web dashboard, and persistent service tunnels).
 - [`data-archiving.md`](data-archiving.md): Documentation of the lab's fault-tolerant, automated massive data archival infrastructure.
+- [`DeployRsrch2PrivateDockerRegistry.md`](DeployRsrch2PrivateDockerRegistry.md): Guide covering the Private Docker Registry zero-trust architecture, security configurations, and GitHub direct-deploy packaging.
 - [`DrOJupterLabs.md`](DrOJupterLabs.md): Documentation for the JupyterLab setups.
 - [`Future_Extensions_TwoAgent_AI.md`](Future_Extensions_TwoAgent_AI.md): Planning document for extending the AI pipeline architecture.
 - [`JupyterHub_Network_PostMortem.md`](JupyterHub_Network_PostMortem.md): Architectural details and incident review of the JupyterHub setup.
