@@ -21,8 +21,12 @@ This process captures:
 * **Publication Year**
 * **Citation Count (OpenAlex)**
 
-*(Note: The database also explicitly provisions a `semantic_scholar_citations` column for future backfilling via the Semantic Scholar API.)*
-
+### Semantic Scholar API Integration
+Because OpenAlex heavily filters citations based on strictly formal peer-reviewed graphs, the pipeline simultaneously queries the **Semantic Scholar API** (which crawls the broader academic internet, capturing preprints, books, and university syllabi) to provide a comparative web-crawled citation count. 
+* **API Key:** `s2k-5b8Eu3Jn1qCoxgfUXDy87FPkJHWhMP4QkcEuyyX8`
+* **Authentication:** The key is passed in the request header as `x-api-key`.
+* **Rate Limits (CRITICAL):** Semantic Scholar enforces a strict **1 request per second** limit. The script explicitly enforces a `time.sleep(1.2)` delay before every API ping to ensure the daemon is not banned during massive batch processing.
+* **Usage:** Both the OpenAlex and Semantic Scholar citation metrics are recorded in the `papers` database.
 ### AI Synthesis (`Qwen2.5-72B`)
 To maximize analytical fidelity, the pipeline dynamically attempts to feed the **entire** OCR-extracted Markdown file (often 200,000+ characters) to `Qwen2.5-72B` running on local Ollama. If the file exceeds the model's physical context window (triggering an HTTP 400 rejection), the script recursively truncates the text in half and retries until it fits. The API-extracted metadata (Title, Authors, Citations) is injected directly into the LLM prompt block, forcing the AI to synthesize a strict 3-sentence summary covering the paper's core hypothesis, methodology, and conclusion while being aware of the paper's real-world influence.
 
