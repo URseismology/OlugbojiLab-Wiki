@@ -24,10 +24,17 @@ By utilizing this architecture, the lab saves thousands of dollars annually whil
 
 ## 2. Packaging Docker Images Directly from GitHub
 
+### Why Docker instead of `pip` or Git Clone?
+While `pip install` and `git clone` are great for pulling Python code, they depend entirely on your host machine's operating system, C-compilers, and system libraries. Seismology and geophysics workflows often rely on complex, low-level Fortran/C libraries (e.g., SAC, GMT, GDAL) that are notoriously difficult to install natively and break easily. 
+**Docker solves this** by packaging the *entire* operating system environment, libraries, and dependencies into an immutable container. If an image runs successfully on a student's laptop, it is guaranteed to run identically on the High-Performance Compute nodes without any "dependency hell."
+
+### Building Directly via URL
 You **do not** need to clone a repository locally to build its Docker image. Docker natively supports building directly from a `.git` URL, and the registry's proxy handles the routing transparently.
 
-### Example: Building a Geophysics Repo
-Assuming the repository has a `Dockerfile` in its root directory, run the following commands:
+### Example: Building a Public Geophysics Repo
+*Note: This is an example. The direct URL build method below works seamlessly for **public** repositories. If you are building a private repository, it is generally easier to `git clone` it locally (which uses your SSH keys) and run `docker build .` from inside the cloned directory.*
+
+Assuming the public repository has a `Dockerfile` in its root directory, run the following commands:
 
 ```bash
 # 1. Build the image directly from the GitHub URL (append .git!)
@@ -39,7 +46,7 @@ docker push urseismogate.earth.rochester.edu/gsm_forward_rheology:latest
 
 > [!TIP]
 > **No Dockerfile? Use repo2docker!**
-> If a repository doesn't have a `Dockerfile`, use `jupyter-repo2docker https://github.com/user/repo`. It automatically scans the repo (e.g., `requirements.txt`), detects the language, and builds a fully functioning Jupyter Docker image without you having to write a single line of Docker code!
+> [jupyter-repo2docker](https://repo2docker.readthedocs.io/en/latest/) is a powerful command-line utility. If a repository doesn't have a `Dockerfile`, you can run `jupyter-repo2docker https://github.com/user/repo`. It automatically scans the repo (e.g., for `requirements.txt` or `environment.yml`), detects the language, and builds a fully functioning Jupyter Docker image without you having to write a single line of Docker code!
 
 ---
 
