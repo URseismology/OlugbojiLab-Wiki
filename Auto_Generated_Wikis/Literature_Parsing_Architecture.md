@@ -27,6 +27,11 @@ Because OpenAlex heavily filters citations based on strictly formal peer-reviewe
 * **Authentication:** The key is passed in the request header as `x-api-key`.
 * **Rate Limits (CRITICAL):** Semantic Scholar enforces a strict **1 request per second** limit. The script explicitly enforces a `time.sleep(1.2)` delay before every API ping to ensure the daemon is not banned during massive batch processing.
 * **Usage:** Both the OpenAlex and Semantic Scholar citation metrics are recorded in the `papers` database.
+* **Official Resources:**
+  * [API Tutorials & Code Examples](https://www.semanticscholar.org/product/api/tutorial)
+  * [REST Endpoint Documentation](https://api.semanticscholar.org/api-docs/)
+  * [Demos & Gallery](https://www.semanticscholar.org/product/api/gallery)
+  * [Python Examples](https://github.com/allenai/s2-folks)
 ### AI Synthesis (`Qwen2.5-72B`)
 To maximize analytical fidelity, the pipeline dynamically attempts to feed the **entire** OCR-extracted Markdown file (often 200,000+ characters) to `Qwen2.5-72B` running on local Ollama. If the file exceeds the model's physical context window (triggering an HTTP 400 rejection), the script recursively truncates the text in half and retries until it fits. The API-extracted metadata (Title, Authors, Citations) is injected directly into the LLM prompt block, forcing the AI to synthesize a strict 3-sentence summary covering the paper's core hypothesis, methodology, and conclusion while being aware of the paper's real-world influence.
 
