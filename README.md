@@ -23,6 +23,7 @@ This is a dedicated directory managed entirely by the `AIBot-GitHubPublisher.py`
 **Contents:**
 - [`README.md`](Auto_Generated_Wikis/README.md): The automated index linking to all generated project wikis.
 - [`0_AI_Generation_Process.md`](Auto_Generated_Wikis/0_AI_Generation_Process.md): The canonical explanation of the 3-script `roverBckUp` / `WikiCrafter` / `GitHubPublisher` pipeline.
+- [`Literature_Parsing_Architecture.md`](Auto_Generated_Wikis/Literature_Parsing_Architecture.md): Documentation of the GPU-accelerated Deep Learning OCR and Metadata pipeline for parsing the lab's PDF library.
 - `*.md`: Over 60+ individually generated codebase wikis corresponding to lab projects (e.g., [`Prj18_Mid_mantle.md`](Auto_Generated_Wikis/Prj18_Mid_mantle.md), [`Prj_Wavenet.md`](Auto_Generated_Wikis/Prj_Wavenet.md), [`Sayan_Swar_WS.md`](Auto_Generated_Wikis/Sayan_Swar_WS.md)). Each file includes a strict ASCII file tree and an `![AI Generated]` badge at the top.
 
 ## `/scripts`
