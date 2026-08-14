@@ -4,7 +4,7 @@ To manage and analyze the lab's massive PDF library without losing structural fi
 
 ## 1. The Architecture
 
-The entire pipeline is codified in `AIBot_PaperCrafter.py`. It runs iteratively to safely ingest and analyze PDFs directly from the Synology NAS. 
+The entire pipeline is codified in [scripts/AIBot_PaperCrafter.py](../scripts/AIBot_PaperCrafter.py). It runs iteratively to safely ingest and analyze PDFs directly from the Synology NAS. 
 
 ### Secure Ingestion & Deduplication
 The pipeline securely mounts `repovibranium` via SFTP to search for new `.pdf` files in the `Paperpile` and `All Papers` directories. Before processing, it generates a SHA-256 hash of the remote file path and checks the local SQLite Database. If the paper has already been processed, it is instantly skipped, allowing the daemon to run continuously and recover from crashes seamlessly.
