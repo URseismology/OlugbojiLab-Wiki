@@ -13,10 +13,12 @@ The root directory is strictly reserved for manually created documentation that 
 - [`data-archiving.md`](data-archiving.md): Documentation of the lab's fault-tolerant, automated massive data archival infrastructure.
 - [`DeployRsrch2PrivateDockerRegistry.md`](DeployRsrch2PrivateDockerRegistry.md): Guide covering the Private Docker Registry zero-trust architecture, security configurations, and GitHub direct-deploy packaging.
 - [`DrOJupterLabs.md`](DrOJupterLabs.md): Documentation for the JupyterLab setups.
+- [`Fleet_Monitoring_Architecture.md`](Fleet_Monitoring_Architecture.md): Documentation of the 11-node computational fleet and Uptime Kuma monitoring strategy.
 - [`Future_Extensions_TwoAgent_AI.md`](Future_Extensions_TwoAgent_AI.md): Planning document for extending the AI pipeline architecture.
 - [`JupyterHub_Network_PostMortem.md`](JupyterHub_Network_PostMortem.md): Architectural details and incident review of the JupyterHub setup.
 - [`LiteratureDiscovery_Architecture.md`](LiteratureDiscovery_Architecture.md): Requirements and specifications for the local AI Literature Discovery and Citation-Crawling System.
 - [`LiteratureDiscovery_ImplementationPlan.md`](LiteratureDiscovery_ImplementationPlan.md): Detailed phased implementation and deployment strategy for the Literature Discovery System.
+- [`Nginx_Routing_and_Analytics.md`](Nginx_Routing_and_Analytics.md): Comprehensive documentation of the Nginx DMZ reverse-proxy perimeters, Mintlify domain redirect, and GoAccess analytics configuration.
 - [`RsrchTeachingServices.md`](RsrchTeachingServices.md): Primary documentation for Research and Teaching Services architecture.
 
 ## `/Auto_Generated_Wikis`
