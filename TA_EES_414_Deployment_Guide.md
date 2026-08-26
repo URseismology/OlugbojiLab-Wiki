@@ -1,0 +1,102 @@
+# TA Deployment Guide: EES 2-414 Environmental Data Analysis
+
+This guide provides the Teaching Assistant (TA) with comprehensive, step-by-step instructions for deploying weekly labs and global data for the EES 2-414 course to students' JupyterHub environments.
+
+## 1. Overview of the Automated Cron System
+
+The deployment of the 13 labs for this course has been **fully automated** via a cron job running on the primary student node (`terra4-classnode`). 
+
+- **Cron Job Location**: The cron job is configured in the `urseismoadmin` user's crontab on `terra4-classnode`. You can view it by running:
+  ```bash
+  ssh terra4-classnode 'crontab -l'
+  ```
+- **Schedule**: The schedule is pre-coded to push the specific lab every Friday at 8:00 AM, skipping holidays (like Fall Break and Thanksgiving).
+- **Deployment Script**: The actual deployment logic is handled by `/mnt/production_uploads/course_master_2026/deploy_lab.sh`.
+- **Logs**: Deployment logs are automatically appended to `/mnt/production_uploads/course_master_2026/deploy.log`. Check here if students report missing files.
+
+### Overriding or Revising the Schedule
+If you need to change a lab date, skip a lab, or push it immediately, you can edit the crontab:
+1. Connect to the node: `ssh terra4-classnode`
+2. Edit the schedule: `crontab -e`
+3. Modify the date/time or comment out the line (`#`) to prevent a lab from deploying.
+
+---
+
+## 2. Deploying the Global Data (Start of Semester)
+
+We use a "Global Data" approach where all datasets for the entire semester (~20MB) are pushed to the students' workspaces *before* the first lab.
+
+**To manually push the global data:**
+1. Connect to the node:
+   ```bash
+   ssh terra4-classnode
+   ```
+2. Run the deployment script targeting the `data` folder:
+   ```bash
+   /mnt/production_uploads/course_master_2026/deploy_lab.sh data
+   ```
+   *This copies the `data` folder into every student's `/mnt/production_uploads/class_work/{username}/` directory and automatically configures permissions without requiring `sudo`.*
+
+---
+
+## 3. Testing Deployments Safely
+
+Before modifying the cron schedule or pushing a custom notebook, you can test the deployment on a specific test account (`sswar`) to verify permissions and functionality.
+
+**To test a deployment:**
+Append the student's username as the second argument to the script:
+```bash
+# Example: Pushing Lab 3 only to the test student 'sswar'
+/mnt/production_uploads/course_master_2026/deploy_lab.sh Lab_03 sswar
+```
+After deploying, log into JupyterHub as `sswar` and verify the files are present and writable.
+
+---
+
+## 4. Manual Deployment
+
+If the cron job fails, or if a student joins the class late and needs the labs pushed retroactively, you can run the deployment script manually.
+
+**To push a lab to ALL students immediately:**
+```bash
+# Replace Lab_04 with the specific lab folder
+/mnt/production_uploads/course_master_2026/deploy_lab.sh Lab_04
+```
+
+---
+
+## 5. Frequently Asked Questions (FAQs) & Error Cases
+
+**Q: A student says they can't see the new lab folder. What do I do?**
+1. Check the deployment log on `terra4-classnode`:
+   ```bash
+   tail -n 50 /mnt/production_uploads/course_master_2026/deploy.log
+   ```
+2. If the log shows success, verify the student is looking in the correct location (the root of their JupyterHub workspace).
+3. If the student registered *after* the cron job fired, manually push the lab to them:
+   ```bash
+   /mnt/production_uploads/course_master_2026/deploy_lab.sh Lab_01 new_student_username
+   ```
+
+**Q: The script fails with a "Permission denied" error when copying files.**
+- **Cause**: The target student directory in `/mnt/production_uploads/class_work/` might have lost its `setgid` bit, or is owned by root instead of `urseismoadmin:users`. 
+- **Resolution**:
+  You do *not* need `sudo` for standard deployments, but if directory permissions are broken, request a system administrator to run:
+  ```bash
+  sudo chown -R urseismoadmin:users /mnt/production_uploads/class_work/{username}
+  sudo chmod -R g+s /mnt/production_uploads/class_work/{username}
+  ```
+
+**Q: Why don't we use `sudo` in the deployment script anymore?**
+- **Explanation**: The deployment script runs as `urseismoadmin`. Since the `class_work` directories are configured with a special set-group-ID (`setgid` to `users`), any files `urseismoadmin` copies will automatically inherit the `users` group (GID 100). Inside the JupyterHub Docker container, the student's user is `jovyan` (UID 1000, GID 100). Since UID 1000 matches `urseismoadmin` and GID 100 matches `users`, the student has native read/write access without needing a root `chown` override.
+
+**Q: A student accidentally deleted their notebook. How can I restore it?**
+- Run the manual deployment command targeting *only* that student. The script uses `cp -u`, so it will replace the missing files.
+  ```bash
+  /mnt/production_uploads/course_master_2026/deploy_lab.sh Lab_05 student_username
+  ```
+
+**Q: Are all 13 labs required?**
+- **No.** The first 10 labs correspond to the standard weekly schedule. `Lab_11`, `Lab_12`, and `Lab_13` are supplementary and pushed at the end of the semester as optional content.
+
+For broader architectural or server authorization questions, refer to the [Dr O Jupyter Labs Operational Guide](./DrOJupterLabs.md).

@@ -13,14 +13,14 @@ Instead of installing local Python and managing dependencies, students are provi
 
 ## 2. Pushing Assignments & Data to Students
 
-To manage the logistics of distributing labs and datasets to an entire class simultaneously, we have automated the process with a deployment script.
+To manage the logistics of distributing labs and datasets to an entire class simultaneously, we have automated the process with a deployment script and cron scheduling system.
 
-*   **The Staging Area:** Teachers and TAs place the assignment files (notebooks, datasets) into the staging directory on the NAS:
-    *   `/mnt/production_uploads/pushlabs/`
-    *   *(Note: Anything placed here will be sent to all students. Do not upload answer keys!)*
-*   **The Deployment Script:** Run the deployment script on the `terra4-classnode` server:
-    *   `~/jupyterhub_server/push_lab.sh`
-*   **How it Works:** The script iterates through every student directory, securely copies the assignment files, and automatically assigns the correct permissions (`chown 1000:100`) so students have immediate read/write access. This allows agents and TAs to instantly distribute code without manual transfers.
+*   **The Master Directory:** All course resources are securely staged on the `terra4-classnode` server in:
+    *   `/mnt/production_uploads/course_master_2026/`
+*   **The Deployment Script:** The deployment logic is handled by a script that pushes specific folders (like `Lab_01` or `data`) to all students:
+    *   `/mnt/production_uploads/course_master_2026/deploy_lab.sh`
+*   **Automated Schedule:** The script is hooked into a cron job that automatically releases labs every Friday according to the course syllabus.
+*   **TA Instructions:** For detailed instructions on how to manually override the cron schedule, test deployments, or troubleshoot issues, please refer to the comprehensive [TA Deployment Guide](./TA_EES_414_Deployment_Guide.md).
 
 ## 3. Socratic AI & GPU Access
 
