@@ -11,7 +11,7 @@ The deployment of the 13 labs for this course has been **fully automated** via a
   ssh terra4-classnode 'crontab -l'
   ```
 - **Schedule**: The schedule is pre-coded to push the specific lab every Friday at 8:00 AM, skipping holidays (like Fall Break and Thanksgiving).
-- **Deployment Script**: The actual deployment logic is handled by `/mnt/production_uploads/course_master_2026/deploy_lab.sh`.
+- **Deployment Script**: The actual deployment logic is handled by `/mnt/production_uploads/course_master_2026/deploy_lab.sh`. You can view the source code of this script in the [scripts/deploy_lab.sh](./scripts/deploy_lab.sh) file in this repository.
 - **Logs**: Deployment logs are automatically appended to `/mnt/production_uploads/course_master_2026/deploy.log`. Check here if students report missing files.
 
 ### Overriding or Revising the Schedule
@@ -98,5 +98,12 @@ If the cron job fails, or if a student joins the class late and needs the labs p
 
 **Q: Are all 13 labs required?**
 - **No.** The first 10 labs correspond to the standard weekly schedule. `Lab_11`, `Lab_12`, and `Lab_13` are supplementary and pushed at the end of the semester as optional content.
+
+---
+
+## 6. Access and Authorization Links
+
+- **Main Lab Domain**: Students should access their environments at [https://urseismogate.earth.rochester.edu/lab/](https://urseismogate.earth.rochester.edu/lab/)
+- **Authorizing Students**: When a new student clicks "Sign Up", an admin/TA must approve their account. You can manage and authorize accounts at the Hub Admin Panel: [https://urseismogate.earth.rochester.edu/hub/authorize](https://urseismogate.earth.rochester.edu/hub/authorize)
 
 For broader architectural or server authorization questions, refer to the [Dr O Jupyter Labs Operational Guide](./DrOJupterLabs.md).
