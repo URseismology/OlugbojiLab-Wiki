@@ -59,3 +59,21 @@ TAs can run the `ta_reporting_script.py` script directly on `terra4-classnode` o
 **Download/View the Script:** 
 You can find the latest version of the TA Reporting script in the main lab scripts repository here:
 [https://github.com/URseismology/OlugbojiLab-Wiki/blob/main/scripts/ta_reporting_script.py](https://github.com/URseismology/OlugbojiLab-Wiki/blob/main/scripts/ta_reporting_script.py)
+
+---
+
+## 5. Environment Patching & Docker Image Rebuilds
+
+If a global environment issue occurs (e.g., library version mismatches like `numpy.core.multiarray failed to import`), the fix must be applied at the Docker image level on `terra4-classnode`. 
+
+*   **Why Rebuild?** Docker containers are immutable. Applying configuration commands (like `pip install`) at container startup causes massive delays for every student logging in. Rebuilding "bakes" the fix into the base image permanently for instant startup.
+*   **The Process:** 
+    1. SSH into `terra4-classnode`.
+    2. Navigate to `~/jupyterhub_server/`.
+    3. Modify `Dockerfile.student` and `Dockerfile.student-gpu` with the necessary `RUN pip install ...` commands.
+    4. Rebuild the images locally: 
+       ```bash
+       docker build -t urseismo/student-lab:latest -f Dockerfile.student .
+       docker build -t urseismo/student-lab-gpu:latest -f Dockerfile.student-gpu .
+       ```
+*   **Zero Downtime Deployment:** Rebuilding the images does not disrupt currently active students. To receive the patched environment, a student simply needs to go to **File > Hub Control Panel**, click **Stop My Server**, and then click **Start My Server**.

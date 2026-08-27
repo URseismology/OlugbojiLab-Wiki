@@ -100,6 +100,10 @@ If the cron job fails, or if a student joins the class late and needs the labs p
   /mnt/production_uploads/course_master_2026/deploy_lab.sh Lab_05 student_username
   ```
 
+**Q: A student gets an `ImportError: numpy.core.multiarray failed to import` or similar library mismatch error.**
+- **Explanation**: This occurs when packages within the student's Python environment are updated out of sync. Since the environment is Dockerized, the system administrator will patch and rebuild the underlying Docker image.
+- **Resolution**: Once the administrator has rebuilt the Docker image, the student must manually pull the new environment. Ask the student to go to **File > Hub Control Panel**, click **Stop My Server**, and then click **Start My Server**. Their files will be perfectly preserved, and the environment will be fixed.
+
 **Q: Are all 13 labs required?**
 - **No.** The first 10 labs correspond to the standard weekly schedule. `Lab_11`, `Lab_12`, and `Lab_13` are supplementary and pushed at the end of the semester as optional content.
 
