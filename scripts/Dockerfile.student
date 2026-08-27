@@ -1,0 +1,14 @@
+FROM jupyter/scipy-notebook:latest
+
+# Install "jupyter-ai<3.0.0" for the Socratic coding assistant
+RUN pip install --no-cache-dir jupyter-ai==2.31.7 langchain-ollama
+
+# Bake the Jupyter-AI configuration so students automatically connect to Ollama
+RUN mkdir -p /home/jovyan/.local/share/jupyter/jupyter_ai
+COPY --chown=${NB_UID}:${NB_GID} jupyter_ai_config.json /home/jovyan/.local/share/jupyter/jupyter_ai/config.json
+
+# Override Jupyter AI default system prompt to enforce Lab Persona
+RUN python3 -c "import jupyter_ai_magics.base_provider as bp; file_path=bp.__file__.replace('.pyc', '.py'); content=open(file_path).read(); content=content.replace('You are Jupyternaut, a conversational assistant living in JupyterLab to help users.', 'You are a Socratic Coding Assistant designed specifically for Dr. Olugboji\'s Planetary Imaging and Earth Hazards Lab. My purpose is to help you build intuition and understanding of your code and mathematical logic. Please remember that I am an AI, not an infallible compiler. I may occasionally hallucinate dimensions or misinterpret complex matrix algebra. Always verify my math and treat me as a brainstorming peer, not a professor!'); open(file_path, 'w').write(content)"
+
+# Fix C-extension version mismatch between numpy and matplotlib
+RUN pip install --upgrade --no-cache-dir numpy matplotlib
